@@ -1,13 +1,17 @@
-//
-//  GVCFoundation.h
-//  GVCFoundation
-//
-//  Created by David Aspinall on 11-11-24.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
+/**
+ * Header for GVCFoundation
+ * $Date: $
+ * $Author: $
+ */
 
-#import <Foundation/Foundation.h>
+#ifndef GVCFoundation_h
+#define GVCFoundation_h
 
-@interface GVCFoundation : NSObject
+#import "GVCFunctions.h"
+#import "GVCMacros.h"
+#import "NSArray+GVCFoundation.h"
+#import "NSBundle+GVCFoundation.h"
+#import "NSData+GVCFoundation.h"
+#import "NSString+GVCFoundation.h"
 
-@end
+#endif // GVCFoundation_h
