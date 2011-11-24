@@ -1,0 +1,402 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		056F5934147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
+		056F593A147EE84D0076010D /* GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5939147EE84D0076010D /* GVCFoundation.m */; };
+		056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5941147EE84D0076010D /* SenTestingKit.framework */; };
+		056F5944147EE84D0076010D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5943147EE84D0076010D /* UIKit.framework */; };
+		056F5945147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
+		056F5948147EE84D0076010D /* libGVCFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5930147EE84D0076010D /* libGVCFoundation.a */; };
+		056F594E147EE84D0076010D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 056F594C147EE84D0076010D /* InfoPlist.strings */; };
+		056F5951147EE84D0076010D /* GVCFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5950147EE84D0076010D /* GVCFoundationTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		056F5946147EE84D0076010D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 056F5927147EE84C0076010D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 056F592F147EE84D0076010D;
+			remoteInfo = GVCFoundation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		056F5930147EE84D0076010D /* libGVCFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGVCFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		056F5933147EE84D0076010D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */ = {isa = PBXFileReference; path = "GVCFoundation-Prefix.pch"; sourceTree = "<group>"; };
+		056F5938147EE84D0076010D /* GVCFoundation.h */ = {isa = PBXFileReference; path = GVCFoundation.h; sourceTree = "<group>"; };
+		056F5939147EE84D0076010D /* GVCFoundation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVCFoundation.m; sourceTree = "<group>"; };
+		056F5940147EE84D0076010D /* GVCFoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVCFoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		056F5941147EE84D0076010D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		056F5943147EE84D0076010D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		056F594B147EE84D0076010D /* GVCFoundationTests-Info.plist */ = {isa = PBXFileReference; path = "GVCFoundationTests-Info.plist"; sourceTree = "<group>"; };
+		056F594D147EE84D0076010D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		056F594F147EE84D0076010D /* GVCFoundationTests.h */ = {isa = PBXFileReference; path = GVCFoundationTests.h; sourceTree = "<group>"; };
+		056F5950147EE84D0076010D /* GVCFoundationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVCFoundationTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		056F592D147EE84D0076010D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F5934147EE84D0076010D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F593C147EE84D0076010D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */,
+				056F5944147EE84D0076010D /* UIKit.framework in Frameworks */,
+				056F5945147EE84D0076010D /* Foundation.framework in Frameworks */,
+				056F5948147EE84D0076010D /* libGVCFoundation.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		056F5925147EE84C0076010D = {
+			isa = PBXGroup;
+			children = (
+				056F5935147EE84D0076010D /* GVCFoundation */,
+				056F5949147EE84D0076010D /* GVCFoundationTests */,
+				056F5932147EE84D0076010D /* Frameworks */,
+				056F5931147EE84D0076010D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		056F5931147EE84D0076010D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				056F5930147EE84D0076010D /* libGVCFoundation.a */,
+				056F5940147EE84D0076010D /* GVCFoundationTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		056F5932147EE84D0076010D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				056F5933147EE84D0076010D /* Foundation.framework */,
+				056F5941147EE84D0076010D /* SenTestingKit.framework */,
+				056F5943147EE84D0076010D /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		056F5935147EE84D0076010D /* GVCFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				056F5938147EE84D0076010D /* GVCFoundation.h */,
+				056F5939147EE84D0076010D /* GVCFoundation.m */,
+				056F5936147EE84D0076010D /* Supporting Files */,
+			);
+			path = GVCFoundation;
+			sourceTree = "<group>";
+		};
+		056F5936147EE84D0076010D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		056F5949147EE84D0076010D /* GVCFoundationTests */ = {
+			isa = PBXGroup;
+			children = (
+				056F594F147EE84D0076010D /* GVCFoundationTests.h */,
+				056F5950147EE84D0076010D /* GVCFoundationTests.m */,
+				056F594A147EE84D0076010D /* Supporting Files */,
+			);
+			path = GVCFoundationTests;
+			sourceTree = "<group>";
+		};
+		056F594A147EE84D0076010D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				056F594B147EE84D0076010D /* GVCFoundationTests-Info.plist */,
+				056F594C147EE84D0076010D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		056F592E147EE84D0076010D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		056F592F147EE84D0076010D /* GVCFoundation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 056F5954147EE84D0076010D /* Build configuration list for PBXNativeTarget "GVCFoundation" */;
+			buildPhases = (
+				056F592C147EE84D0076010D /* Sources */,
+				056F592D147EE84D0076010D /* Frameworks */,
+				056F592E147EE84D0076010D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GVCFoundation;
+			productName = GVCFoundation;
+			productReference = 056F5930147EE84D0076010D /* libGVCFoundation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		056F593F147EE84D0076010D /* GVCFoundationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 056F5957147EE84D0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationTests" */;
+			buildPhases = (
+				056F593B147EE84D0076010D /* Sources */,
+				056F593C147EE84D0076010D /* Frameworks */,
+				056F593D147EE84D0076010D /* Resources */,
+				056F593E147EE84D0076010D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				056F5947147EE84D0076010D /* PBXTargetDependency */,
+			);
+			name = GVCFoundationTests;
+			productName = GVCFoundationTests;
+			productReference = 056F5940147EE84D0076010D /* GVCFoundationTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		056F5927147EE84C0076010D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 056F592A147EE84C0076010D /* Build configuration list for PBXProject "GVCFoundation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 056F5925147EE84C0076010D;
+			productRefGroup = 056F5931147EE84D0076010D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				056F592F147EE84D0076010D /* GVCFoundation */,
+				056F593F147EE84D0076010D /* GVCFoundationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		056F593D147EE84D0076010D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F594E147EE84D0076010D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		056F593E147EE84D0076010D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		056F592C147EE84D0076010D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F593A147EE84D0076010D /* GVCFoundation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F593B147EE84D0076010D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F5951147EE84D0076010D /* GVCFoundationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		056F5947147EE84D0076010D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 056F592F147EE84D0076010D /* GVCFoundation */;
+			targetProxy = 056F5946147EE84D0076010D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		056F594C147EE84D0076010D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				056F594D147EE84D0076010D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		056F5952147EE84D0076010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		056F5953147EE84D0076010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		056F5955147EE84D0076010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/GVCFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		056F5956147EE84D0076010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/GVCFoundation.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		056F5958147EE84D0076010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
+				INFOPLIST_FILE = "GVCFoundationTests/GVCFoundationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		056F5959147EE84D0076010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
+				INFOPLIST_FILE = "GVCFoundationTests/GVCFoundationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		056F592A147EE84C0076010D /* Build configuration list for PBXProject "GVCFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				056F5952147EE84D0076010D /* Debug */,
+				056F5953147EE84D0076010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		056F5954147EE84D0076010D /* Build configuration list for PBXNativeTarget "GVCFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				056F5955147EE84D0076010D /* Debug */,
+				056F5956147EE84D0076010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		056F5957147EE84D0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				056F5958147EE84D0076010D /* Debug */,
+				056F5959147EE84D0076010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 056F5927147EE84C0076010D /* Project object */;
+}

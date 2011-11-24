@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'GVCFoundation' target in the 'GVCFoundation' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
