@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		056F5934147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
-		056F593A147EE84D0076010D /* GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5939147EE84D0076010D /* GVCFoundation.m */; };
 		056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5941147EE84D0076010D /* SenTestingKit.framework */; };
 		056F5944147EE84D0076010D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5943147EE84D0076010D /* UIKit.framework */; };
 		056F5945147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
@@ -30,15 +29,13 @@
 /* Begin PBXFileReference section */
 		056F5930147EE84D0076010D /* libGVCFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGVCFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		056F5933147EE84D0076010D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */ = {isa = PBXFileReference; path = "GVCFoundation-Prefix.pch"; sourceTree = "<group>"; };
-		056F5938147EE84D0076010D /* GVCFoundation.h */ = {isa = PBXFileReference; path = GVCFoundation.h; sourceTree = "<group>"; };
-		056F5939147EE84D0076010D /* GVCFoundation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVCFoundation.m; sourceTree = "<group>"; };
+		056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVCFoundation-Prefix.pch"; sourceTree = "<group>"; };
+		056F5938147EE84D0076010D /* GVCFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVCFoundation.h; sourceTree = "<group>"; };
 		056F5940147EE84D0076010D /* GVCFoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVCFoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		056F5941147EE84D0076010D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		056F5943147EE84D0076010D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		056F594B147EE84D0076010D /* GVCFoundationTests-Info.plist */ = {isa = PBXFileReference; path = "GVCFoundationTests-Info.plist"; sourceTree = "<group>"; };
+		056F594B147EE84D0076010D /* GVCFoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GVCFoundationTests-Info.plist"; sourceTree = "<group>"; };
 		056F594D147EE84D0076010D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		056F594F147EE84D0076010D /* GVCFoundationTests.h */ = {isa = PBXFileReference; path = GVCFoundationTests.h; sourceTree = "<group>"; };
 		056F5950147EE84D0076010D /* GVCFoundationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVCFoundationTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				056F5938147EE84D0076010D /* GVCFoundation.h */,
-				056F5939147EE84D0076010D /* GVCFoundation.m */,
 				056F5936147EE84D0076010D /* Supporting Files */,
 			);
 			path = GVCFoundation;
@@ -115,7 +111,6 @@
 		056F5949147EE84D0076010D /* GVCFoundationTests */ = {
 			isa = PBXGroup;
 			children = (
-				056F594F147EE84D0076010D /* GVCFoundationTests.h */,
 				056F5950147EE84D0076010D /* GVCFoundationTests.m */,
 				056F594A147EE84D0076010D /* Supporting Files */,
 			);
@@ -238,7 +233,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				056F593A147EE84D0076010D /* GVCFoundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
