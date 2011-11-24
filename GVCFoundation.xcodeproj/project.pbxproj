@@ -17,18 +17,38 @@
 		056F5986147EEDB20076010D /* NSArrayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5983147EEDB20076010D /* NSArrayAdditionsTest.m */; };
 		056F5987147EEDB20076010D /* NSDataAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5984147EEDB20076010D /* NSDataAdditionsTest.m */; };
 		056F5988147EEDB20076010D /* NSStringAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5985147EEDB20076010D /* NSStringAdditionsTest.m */; };
-		056F5992147EEDC40076010D /* NSArray+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598A147EEDC40076010D /* NSArray+GVCFoundation.h */; };
+		056F5992147EEDC40076010D /* NSArray+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598A147EEDC40076010D /* NSArray+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F5993147EEDC40076010D /* NSArray+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598B147EEDC40076010D /* NSArray+GVCFoundation.m */; };
-		056F5994147EEDC40076010D /* NSBundle+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598C147EEDC40076010D /* NSBundle+GVCFoundation.h */; };
+		056F5994147EEDC40076010D /* NSBundle+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598C147EEDC40076010D /* NSBundle+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F5995147EEDC40076010D /* NSBundle+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598D147EEDC40076010D /* NSBundle+GVCFoundation.m */; };
-		056F5996147EEDC40076010D /* NSData+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598E147EEDC40076010D /* NSData+GVCFoundation.h */; };
+		056F5996147EEDC40076010D /* NSData+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598E147EEDC40076010D /* NSData+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F5997147EEDC40076010D /* NSData+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598F147EEDC40076010D /* NSData+GVCFoundation.m */; };
-		056F5998147EEDC40076010D /* NSString+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5990147EEDC40076010D /* NSString+GVCFoundation.h */; };
+		056F5998147EEDC40076010D /* NSString+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5990147EEDC40076010D /* NSString+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F5999147EEDC40076010D /* NSString+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5991147EEDC40076010D /* NSString+GVCFoundation.m */; };
-		056F599D147EEDD10076010D /* GVCFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599A147EEDD10076010D /* GVCFunctions.h */; };
+		056F599D147EEDD10076010D /* GVCFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599A147EEDD10076010D /* GVCFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F599E147EEDD10076010D /* GVCFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F599B147EEDD10076010D /* GVCFunctions.m */; };
-		056F599F147EEDD10076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; };
+		056F599F147EEDD10076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F59A8147EF4630076010D /* GVCFunctionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F59A7147EF4630076010D /* GVCFunctionsTest.m */; };
+		056F59B0147EFB0A0076010D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F59AF147EFB0A0076010D /* Cocoa.framework */; };
+		056F59BA147EFB0A0076010D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 056F59B8147EFB0A0076010D /* InfoPlist.strings */; };
+		056F59C5147EFB0B0076010D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5941147EE84D0076010D /* SenTestingKit.framework */; };
+		056F59C6147EFB0B0076010D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F59AF147EFB0A0076010D /* Cocoa.framework */; };
+		056F59C9147EFB0B0076010D /* GVCFoundationOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F59AE147EFB0A0076010D /* GVCFoundationOSX.framework */; };
+		056F59CF147EFB0B0076010D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 056F59CD147EFB0B0076010D /* InfoPlist.strings */; };
+		056F59D2147EFB0B0076010D /* GVCFoundationOSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F59D1147EFB0B0076010D /* GVCFoundationOSXTests.m */; };
+		056F59DA147EFB570076010D /* NSArray+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598B147EEDC40076010D /* NSArray+GVCFoundation.m */; };
+		056F59DC147EFB570076010D /* NSBundle+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598D147EEDC40076010D /* NSBundle+GVCFoundation.m */; };
+		056F59DE147EFB570076010D /* NSData+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F598F147EEDC40076010D /* NSData+GVCFoundation.m */; };
+		056F59E0147EFB570076010D /* NSString+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F5991147EEDC40076010D /* NSString+GVCFoundation.m */; };
+		056F59E3147EFB570076010D /* GVCFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F599B147EEDD10076010D /* GVCFunctions.m */; };
+		056F59E5147EFC540076010D /* GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5938147EE84D0076010D /* GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59E6147EFCDE0076010D /* NSArray+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598A147EEDC40076010D /* NSArray+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59E7147EFCED0076010D /* NSBundle+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598C147EEDC40076010D /* NSBundle+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59E8147EFCED0076010D /* NSData+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F598E147EEDC40076010D /* NSData+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59E9147EFCED0076010D /* NSString+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5990147EEDC40076010D /* NSString+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59EA147EFCED0076010D /* GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5938147EE84D0076010D /* GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59EB147EFCED0076010D /* GVCFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599A147EEDD10076010D /* GVCFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056F59EC147EFCED0076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +58,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 056F592F147EE84D0076010D;
 			remoteInfo = GVCFoundation;
+		};
+		056F59C7147EFB0B0076010D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 056F5927147EE84C0076010D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 056F59AD147EFB0A0076010D;
+			remoteInfo = GVCFoundationOSX;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -95,6 +122,19 @@
 		056F599B147EEDD10076010D /* GVCFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctions.m; sourceTree = "<group>"; };
 		056F599C147EEDD10076010D /* GVCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCMacros.h; sourceTree = "<group>"; };
 		056F59A7147EF4630076010D /* GVCFunctionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctionsTest.m; sourceTree = "<group>"; };
+		056F59AE147EFB0A0076010D /* GVCFoundationOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GVCFoundationOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		056F59AF147EFB0A0076010D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		056F59B2147EFB0A0076010D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		056F59B3147EFB0A0076010D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		056F59B4147EFB0A0076010D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		056F59B7147EFB0A0076010D /* GVCFoundationOSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GVCFoundationOSX-Info.plist"; sourceTree = "<group>"; };
+		056F59B9147EFB0A0076010D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		056F59BB147EFB0A0076010D /* GVCFoundationOSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVCFoundationOSX-Prefix.pch"; sourceTree = "<group>"; };
+		056F59C4147EFB0A0076010D /* GVCFoundationOSXTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVCFoundationOSXTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		056F59CC147EFB0B0076010D /* GVCFoundationOSXTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GVCFoundationOSXTests-Info.plist"; sourceTree = "<group>"; };
+		056F59CE147EFB0B0076010D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		056F59D0147EFB0B0076010D /* GVCFoundationOSXTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVCFoundationOSXTests.h; sourceTree = "<group>"; };
+		056F59D1147EFB0B0076010D /* GVCFoundationOSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVCFoundationOSXTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +157,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		056F59AA147EFB0A0076010D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59B0147EFB0A0076010D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F59C0147EFB0A0076010D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59C5147EFB0B0076010D /* SenTestingKit.framework in Frameworks */,
+				056F59C6147EFB0B0076010D /* Cocoa.framework in Frameworks */,
+				056F59C9147EFB0B0076010D /* GVCFoundationOSX.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -126,6 +184,8 @@
 				056F5935147EE84D0076010D /* GVCFoundation */,
 				056F5949147EE84D0076010D /* GVCFoundationTests */,
 				056F595A147EED900076010D /* Resources */,
+				056F59B5147EFB0A0076010D /* GVCFoundationOSX */,
+				056F59CA147EFB0B0076010D /* GVCFoundationOSXTests */,
 				056F5932147EE84D0076010D /* Frameworks */,
 				056F5931147EE84D0076010D /* Products */,
 			);
@@ -136,6 +196,8 @@
 			children = (
 				056F5930147EE84D0076010D /* libGVCFoundation.a */,
 				056F5940147EE84D0076010D /* GVCFoundationTests.octest */,
+				056F59AE147EFB0A0076010D /* GVCFoundationOSX.framework */,
+				056F59C4147EFB0A0076010D /* GVCFoundationOSXTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +208,8 @@
 				056F5933147EE84D0076010D /* Foundation.framework */,
 				056F5941147EE84D0076010D /* SenTestingKit.framework */,
 				056F5943147EE84D0076010D /* UIKit.framework */,
+				056F59AF147EFB0A0076010D /* Cocoa.framework */,
+				056F59B1147EFB0A0076010D /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -339,6 +403,53 @@
 			path = Additions;
 			sourceTree = "<group>";
 		};
+		056F59B1147EFB0A0076010D /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				056F59B2147EFB0A0076010D /* AppKit.framework */,
+				056F59B3147EFB0A0076010D /* CoreData.framework */,
+				056F59B4147EFB0A0076010D /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		056F59B5147EFB0A0076010D /* GVCFoundationOSX */ = {
+			isa = PBXGroup;
+			children = (
+				056F59B6147EFB0A0076010D /* Supporting Files */,
+			);
+			path = GVCFoundationOSX;
+			sourceTree = "<group>";
+		};
+		056F59B6147EFB0A0076010D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				056F59B7147EFB0A0076010D /* GVCFoundationOSX-Info.plist */,
+				056F59B8147EFB0A0076010D /* InfoPlist.strings */,
+				056F59BB147EFB0A0076010D /* GVCFoundationOSX-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		056F59CA147EFB0B0076010D /* GVCFoundationOSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				056F59D0147EFB0B0076010D /* GVCFoundationOSXTests.h */,
+				056F59D1147EFB0B0076010D /* GVCFoundationOSXTests.m */,
+				056F59CB147EFB0B0076010D /* Supporting Files */,
+			);
+			path = GVCFoundationOSXTests;
+			sourceTree = "<group>";
+		};
+		056F59CB147EFB0B0076010D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				056F59CC147EFB0B0076010D /* GVCFoundationOSXTests-Info.plist */,
+				056F59CD147EFB0B0076010D /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -352,6 +463,21 @@
 				056F5998147EEDC40076010D /* NSString+GVCFoundation.h in Headers */,
 				056F599D147EEDD10076010D /* GVCFunctions.h in Headers */,
 				056F599F147EEDD10076010D /* GVCMacros.h in Headers */,
+				056F59E5147EFC540076010D /* GVCFoundation.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F59AB147EFB0A0076010D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59E6147EFCDE0076010D /* NSArray+GVCFoundation.h in Headers */,
+				056F59E7147EFCED0076010D /* NSBundle+GVCFoundation.h in Headers */,
+				056F59E8147EFCED0076010D /* NSData+GVCFoundation.h in Headers */,
+				056F59E9147EFCED0076010D /* NSString+GVCFoundation.h in Headers */,
+				056F59EA147EFCED0076010D /* GVCFoundation.h in Headers */,
+				056F59EB147EFCED0076010D /* GVCFunctions.h in Headers */,
+				056F59EC147EFCED0076010D /* GVCMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +521,43 @@
 			productReference = 056F5940147EE84D0076010D /* GVCFoundationTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		056F59AD147EFB0A0076010D /* GVCFoundationOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 056F59D3147EFB0B0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationOSX" */;
+			buildPhases = (
+				056F59A9147EFB0A0076010D /* Sources */,
+				056F59AA147EFB0A0076010D /* Frameworks */,
+				056F59AB147EFB0A0076010D /* Headers */,
+				056F59AC147EFB0A0076010D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GVCFoundationOSX;
+			productName = GVCFoundationOSX;
+			productReference = 056F59AE147EFB0A0076010D /* GVCFoundationOSX.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		056F59C3147EFB0A0076010D /* GVCFoundationOSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 056F59D6147EFB0B0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationOSXTests" */;
+			buildPhases = (
+				056F59BF147EFB0A0076010D /* Sources */,
+				056F59C0147EFB0A0076010D /* Frameworks */,
+				056F59C1147EFB0A0076010D /* Resources */,
+				056F59C2147EFB0A0076010D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				056F59C8147EFB0B0076010D /* PBXTargetDependency */,
+			);
+			name = GVCFoundationOSXTests;
+			productName = GVCFoundationOSXTests;
+			productReference = 056F59C4147EFB0A0076010D /* GVCFoundationOSXTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -402,6 +565,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Global Village Consulting";
 			};
 			buildConfigurationList = 056F592A147EE84C0076010D /* Build configuration list for PBXProject "GVCFoundation" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -417,6 +581,8 @@
 			targets = (
 				056F592F147EE84D0076010D /* GVCFoundation */,
 				056F593F147EE84D0076010D /* GVCFoundationTests */,
+				056F59AD147EFB0A0076010D /* GVCFoundationOSX */,
+				056F59C3147EFB0A0076010D /* GVCFoundationOSXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -427,6 +593,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				056F594E147EE84D0076010D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F59AC147EFB0A0076010D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59BA147EFB0A0076010D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F59C1147EFB0A0076010D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59CF147EFB0B0076010D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +641,19 @@
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/Resources/BuildKitHeader.sh";
 		};
+		056F59C2147EFB0A0076010D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -486,6 +681,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		056F59A9147EFB0A0076010D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59DA147EFB570076010D /* NSArray+GVCFoundation.m in Sources */,
+				056F59DC147EFB570076010D /* NSBundle+GVCFoundation.m in Sources */,
+				056F59DE147EFB570076010D /* NSData+GVCFoundation.m in Sources */,
+				056F59E0147EFB570076010D /* NSString+GVCFoundation.m in Sources */,
+				056F59E3147EFB570076010D /* GVCFunctions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		056F59BF147EFB0A0076010D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				056F59D2147EFB0B0076010D /* GVCFoundationOSXTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -494,6 +709,11 @@
 			target = 056F592F147EE84D0076010D /* GVCFoundation */;
 			targetProxy = 056F5946147EE84D0076010D /* PBXContainerItemProxy */;
 		};
+		056F59C8147EFB0B0076010D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 056F59AD147EFB0A0076010D /* GVCFoundationOSX */;
+			targetProxy = 056F59C7147EFB0B0076010D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -501,6 +721,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				056F594D147EE84D0076010D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		056F59B8147EFB0A0076010D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				056F59B9147EFB0A0076010D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		056F59CD147EFB0B0076010D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				056F59CE147EFB0B0076010D /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -610,6 +846,90 @@
 			};
 			name = Release;
 		};
+		056F59D4147EFB0B0076010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundationOSX/GVCFoundationOSX-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "GVCFoundationOSX/GVCFoundationOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		056F59D5147EFB0B0076010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundationOSX/GVCFoundationOSX-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "GVCFoundationOSX/GVCFoundationOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		056F59D7147EFB0B0076010D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundationOSX/GVCFoundationOSX-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "GVCFoundationOSXTests/GVCFoundationOSXTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		056F59D8147EFB0B0076010D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVCFoundationOSX/GVCFoundationOSX-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "GVCFoundationOSXTests/GVCFoundationOSXTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -635,6 +955,22 @@
 			buildConfigurations = (
 				056F5958147EE84D0076010D /* Debug */,
 				056F5959147EE84D0076010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		056F59D3147EFB0B0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				056F59D4147EFB0B0076010D /* Debug */,
+				056F59D5147EFB0B0076010D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		056F59D6147EFB0B0076010D /* Build configuration list for PBXNativeTarget "GVCFoundationOSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				056F59D7147EFB0B0076010D /* Debug */,
+				056F59D8147EFB0B0076010D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
