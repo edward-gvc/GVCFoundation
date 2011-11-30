@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0511D3E714857A0200CC6EA5 /* GVCFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0511D3E514857A0200CC6EA5 /* GVCFileWriter.h */; };
+		0511D3E814857A0200CC6EA5 /* GVCFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511D3E614857A0200CC6EA5 /* GVCFileWriter.m */; };
 		056F5934147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
 		056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5941147EE84D0076010D /* SenTestingKit.framework */; };
 		056F5945147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
@@ -29,6 +31,12 @@
 		056F599F147EEDD10076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F59A8147EF4630076010D /* GVCFunctionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F59A7147EF4630076010D /* GVCFunctionsTest.m */; };
 		056F59E5147EFC540076010D /* GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5938147EE84D0076010D /* GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EA14852992004E04C0 /* GVCLogTest.m */; };
+		05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */; };
+		05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */; };
+		05DC669B14804C4A0033DBBA /* GVCLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 05DC669914804C4A0033DBBA /* GVCLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05DC669C14804C4A0033DBBA /* GVCLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DC669A14804C4A0033DBBA /* GVCLogger.m */; };
+		05E168A21483E2A70042823C /* GVCReaderWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E168A11483E2A70042823C /* GVCReaderWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0511D3E514857A0200CC6EA5 /* GVCFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileWriter.h; sourceTree = "<group>"; };
+		0511D3E614857A0200CC6EA5 /* GVCFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileWriter.m; sourceTree = "<group>"; };
 		056F5930147EE84D0076010D /* libGVCFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGVCFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		056F5933147EE84D0076010D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVCFoundation-Prefix.pch"; sourceTree = "<group>"; };
@@ -94,6 +104,12 @@
 		056F599B147EEDD10076010D /* GVCFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctions.m; sourceTree = "<group>"; };
 		056F599C147EEDD10076010D /* GVCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCMacros.h; sourceTree = "<group>"; };
 		056F59A7147EF4630076010D /* GVCFunctionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctionsTest.m; sourceTree = "<group>"; };
+		05C2C7EA14852992004E04C0 /* GVCLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCLogTest.m; sourceTree = "<group>"; };
+		05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileHandleWriter.h; sourceTree = "<group>"; };
+		05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileHandleWriter.m; sourceTree = "<group>"; };
+		05DC669914804C4A0033DBBA /* GVCLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCLogger.h; sourceTree = "<group>"; };
+		05DC669A14804C4A0033DBBA /* GVCLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCLogger.m; sourceTree = "<group>"; };
+		05E168A11483E2A70042823C /* GVCReaderWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCReaderWriter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +171,14 @@
 				056F599A147EEDD10076010D /* GVCFunctions.h */,
 				056F599B147EEDD10076010D /* GVCFunctions.m */,
 				056F599C147EEDD10076010D /* GVCMacros.h */,
+				05DC669914804C4A0033DBBA /* GVCLogger.h */,
+				05DC669A14804C4A0033DBBA /* GVCLogger.m */,
 				056F5936147EE84D0076010D /* Supporting Files */,
+				05E168A11483E2A70042823C /* GVCReaderWriter.h */,
+				05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */,
+				05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */,
+				0511D3E514857A0200CC6EA5 /* GVCFileWriter.h */,
+				0511D3E614857A0200CC6EA5 /* GVCFileWriter.m */,
 			);
 			path = GVCFoundation;
 			sourceTree = "<group>";
@@ -174,6 +197,7 @@
 				056F5982147EEDB20076010D /* Additions */,
 				056F5950147EE84D0076010D /* GVCFoundationTests.m */,
 				056F59A7147EF4630076010D /* GVCFunctionsTest.m */,
+				05C2C7EA14852992004E04C0 /* GVCLogTest.m */,
 				056F594A147EE84D0076010D /* Supporting Files */,
 			);
 			path = GVCFoundationTests;
@@ -350,6 +374,10 @@
 				056F599D147EEDD10076010D /* GVCFunctions.h in Headers */,
 				056F599F147EEDD10076010D /* GVCMacros.h in Headers */,
 				056F59E5147EFC540076010D /* GVCFoundation.h in Headers */,
+				05DC669B14804C4A0033DBBA /* GVCLogger.h in Headers */,
+				05E168A21483E2A70042823C /* GVCReaderWriter.h in Headers */,
+				05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */,
+				0511D3E714857A0200CC6EA5 /* GVCFileWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +498,9 @@
 				056F5997147EEDC40076010D /* NSData+GVCFoundation.m in Sources */,
 				056F5999147EEDC40076010D /* NSString+GVCFoundation.m in Sources */,
 				056F599E147EEDD10076010D /* GVCFunctions.m in Sources */,
+				05DC669C14804C4A0033DBBA /* GVCLogger.m in Sources */,
+				05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */,
+				0511D3E814857A0200CC6EA5 /* GVCFileWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +513,7 @@
 				056F5987147EEDB20076010D /* NSDataAdditionsTest.m in Sources */,
 				056F5988147EEDB20076010D /* NSStringAdditionsTest.m in Sources */,
 				056F59A8147EF4630076010D /* GVCFunctionsTest.m in Sources */,
+				05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

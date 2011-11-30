@@ -29,9 +29,9 @@ BOOL gcv_IsEqualCollection(id collectionA, id collectionB);
 static inline BOOL gvc_IsEmpty(id thing) 
 {
     return thing == nil	
+        || ([thing isEqual:[NSNull null]]) 
 		|| ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
 		|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0);
 }
-
 
 #endif // _GVCFunctions_
