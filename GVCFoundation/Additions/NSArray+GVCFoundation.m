@@ -29,4 +29,11 @@
     return ret;
 }
 
+
+- (NSArray *)gvc_sortedArray
+{
+    return [self sortedArrayUsingSelector:@selector(compare:)];
+}
+
+
 @end

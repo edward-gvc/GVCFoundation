@@ -9,11 +9,11 @@
 
 printHeader()
 {
-	echo "/**"
-	echo " * Header for $1"
-	echo " * \$Date: \$"
-	echo " * \$Author: \$"
-	echo " */" 
+    echo "/**"
+    echo " * Header for $1"
+    echo " * Date: " `date`
+    echo " * Author:" $USER
+    echo " */" 
 	echo
 	echo "#ifndef $1_h"
 	echo "#define $1_h"
@@ -30,8 +30,15 @@ printFooter()
 
 (
 	printHeader $PRODUCT_NAME
-	find $PRODUCT_NAME -name \*.h ! -name $PRODUCT_NAME.h | awk 'BEGIN {FS="/"} {printf "#import \"%s\"\n", $NF}' |sort
-	printFooter $PRODUCT_NAME
+
+    SEDS="s/^$PRODUCT_NAME\///"
+    find $PRODUCT_NAME -name \*.h ! -name $PRODUCT_NAME.h | \
+        sed "$SEDS" | sort | \
+        awk 'BEGIN {FS="/"} \
+            { F=$NF; $NF=""; if ( BASE"" != $0 ) { printf "\n/* \n * %s\n */\n", $0; BASE=$0 } } \
+            { printf "#import \"%s\"\n", F}' 
+
+    printFooter $PRODUCT_NAME
 ) > $PRODUCT_NAME/$PRODUCT_NAME.h
 
 

@@ -9,7 +9,26 @@
 #ifndef GVCFoundation_GVCMacros_h
 #define GVCFoundation_GVCMacros_h
 
-#import "GVCFunctions.h"
+#pragma mark - External Defines
+#ifndef GVC_EXTERN
+    #define GVC_EXTERN  extern
+#endif
+
+
+#ifndef GVC_PRIVATE_EXTERN
+    #define GVC_PRIVATE_EXTERN	__private_extern__
+#endif
+
+#pragma mark - char constants
+#define GVC_DOMAIN_SEPARATOR ((char)'/')
+
+#pragma mark - key generation
+// create an domain key @"dom/key" example @"OtherClass/My Format %d"
+#define GVC_DOMAIN_KEY(dom, key)        GVC_SPRINTF(@"%@%c%@", ((dom)), GVC_DOMAIN_SEPARATOR, ((key)))
+
+// create an domain key for the indicated object example @"MyCoreDataEO/MyAttribute"
+#define GVC_OBJ_DOMAIN_KEY(obj, key)	GVC_SPRINTF(@"%@%c%@", GVC_CLASSNAME(obj), GVC_DOMAIN_SEPARATOR, ((key)))
+#define GVC_CLS_DOMAIN_KEY(key)         GVC_SPRINTF(@"%@%c%@", GVC_CLASSNAME(self), GVC_DOMAIN_SEPARATOR, ((key)))
 
 #pragma mark - Singletons
 

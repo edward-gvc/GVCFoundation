@@ -7,6 +7,7 @@
 //
 
 #import "NSString+GVCFoundation.h"
+#import "NSData+GVCFoundation.h"
 
 @implementation NSString (GVCFoundation)
 
@@ -17,7 +18,7 @@
 	return @"";
 }
 
-+ (NSString *)gvc_stringWithUUID
++ (NSString *)gvc_StringWithUUID
 {
 	//create a new UUID
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
@@ -28,5 +29,15 @@
 
 #pragma mark - General Instance methods
 
+- (NSString *)gvc_md5
+{
+    NSString *hash = nil;
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    if (data != nil)
+    {	
+        hash = [[data gvc_md5Digest] gvc_hexString];
+    }
+    return hash;
+}
 
 @end

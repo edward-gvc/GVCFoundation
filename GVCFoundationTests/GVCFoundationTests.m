@@ -30,7 +30,7 @@ GVC_SINGLETON_CLASS(GVCFoundation)
     self = [super init];
     if (self) {
 		NSAssert1(uuid == nil, @"uuid should be nil not %@", uuid);
-		[self setUuid:[NSString gvc_stringWithUUID]];
+		[self setUuid:[NSString gvc_StringWithUUID]];
     }
     
     return self;

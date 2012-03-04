@@ -30,6 +30,11 @@
 	return [[NSBundle mainBundle] gvc_bundleVersion];
 }
 
++ (NSString *)gvc_MainBundleIdentifier
+{
+	return [[NSBundle mainBundle] gvc_bundleIdentifier];
+}
+
 - (NSString *)gvc_bundleName
 {
 	return [self objectForInfoDictionaryKey:@"CFBundleName"];
@@ -68,6 +73,16 @@
 	}
 	
 	return appVersion;
+}
+
+- (NSString *)gvc_bundleIdentifier
+{
+	NSString *ident = [self bundleIdentifier];
+	if (ident == nil)
+	{
+		ident = GVC_SPRINTF(@"net.global-village.%@", [[NSProcessInfo processInfo] processName]);
+	}
+	return ident;
 }
 
 @end

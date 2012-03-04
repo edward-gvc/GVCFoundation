@@ -34,6 +34,15 @@ static dispatch_semaphore_t semaphore;
 - (void)enqueue:(GVCLogMessage *)message;
 @end
 
+@interface NSLogWriter : NSObject <GVCLogWriter>
+@end
+
+@implementation NSLogWriter
+- (void)log:(GVCLogMessage *)msg
+{
+    NSLog( @"%@", msg );
+}
+@end
 
 @implementation GVCLogger
 
@@ -73,7 +82,8 @@ GVC_SINGLETON_CLASS(GVCLogger)
 	self = [super init];
 	if ( self != nil )
 	{
-        loggerLevel = GVCLoggerLevel_DEBUG;
+        [self setLoggerLevel:GVCLoggerLevel_DEBUG];
+        [self setWriter:[[NSLogWriter alloc] init]];
 	}
 	
     return self;
@@ -106,7 +116,9 @@ GVC_SINGLETON_CLASS(GVCLogger)
 - (BOOL)isLevelActive:(GVCLoggerLevel)level
 {
 	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
-	return (loggerLevel >= level );
+    
+    // error level logs ALWAYS are active
+	return (level == GVCLoggerLevel_ERROR) || (loggerLevel >= level );
 }
 
 - (GVCLoggerLevel)loggerLevel
@@ -119,7 +131,6 @@ GVC_SINGLETON_CLASS(GVCLogger)
 	GVC_ASSERT(level >= GVCLoggerLevel_OFF, @"Log level must be greater than GVCLoggerLevel_OFF");
 	GVC_ASSERT(level <= GVCLoggerLevel_INFO, @"Log level must be less than GVCLoggerLevel_INFO");
 	
-	GVCLogInfo(@"Setting leg level to [%d]", level);
 	if ((level >= GVCLoggerLevel_OFF) && (level <= GVCLoggerLevel_INFO))
 		loggerLevel = level;
 }
@@ -134,7 +145,11 @@ GVC_SINGLETON_CLASS(GVCLogger)
 
 - (void)writeMessage:(GVCLogMessage *)message
 {
-    NSLog( @"%@", message );
+    if ( writer == nil )
+    {
+        [self setWriter:[[NSLogWriter alloc] init]];
+    }
+    [writer log:message];
     
     // GCD counting semaphore is incremented each time a message is written
     dispatch_semaphore_signal( semaphore );

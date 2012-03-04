@@ -14,4 +14,6 @@
 	// sort an array using KVC
 + (id)gvc_ArrayByOrderingSet:(NSSet *)set byKey:(NSString *)key ascending:(BOOL)ascending;
 
+- (NSArray *)gvc_sortedArray;
+
 @end

@@ -29,8 +29,8 @@
 
 - (void)testUUID
 {
-	NSString *uuid1 = [NSString gvc_stringWithUUID];
-	NSString *uuid2 = [NSString gvc_stringWithUUID];
+	NSString *uuid1 = [NSString gvc_StringWithUUID];
+	NSString *uuid2 = [NSString gvc_StringWithUUID];
 
 	STAssertFalse(gvc_IsEmpty(uuid1), @"String should be detected as not empty '%@'", uuid1);
 	STAssertFalse(gvc_IsEmpty(uuid2), @"String should be detected as not empty '%@'", uuid2);

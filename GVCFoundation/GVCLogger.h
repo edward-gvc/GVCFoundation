@@ -41,6 +41,7 @@ GVC_SINGLETON_HEADER(GVCLogger)
 
 - (BOOL)isLevelActive:(GVCLoggerLevel)level;
 - (NSString *)stringForLevel:(GVCLoggerLevel)level;
+- (void)flushQueue;
 
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber message:(NSString*)fmt,...;
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber forError:(NSError*)err;

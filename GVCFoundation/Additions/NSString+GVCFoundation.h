@@ -15,6 +15,7 @@
 + (NSString *)gvc_EmptyString;
 
 /*  Returns an NSString with a hex encoded UUID */
-+ (NSString *)gvc_stringWithUUID;
++ (NSString *)gvc_StringWithUUID;
 
+- (NSString *)gvc_md5;
 @end

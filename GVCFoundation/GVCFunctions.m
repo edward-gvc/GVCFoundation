@@ -6,10 +6,13 @@
 //  Copyright (c) 2011 Global Village Consulting Inc. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import "GVCFunctions.h"
-#import <objc/runtime.h>
+#import "NSBundle+GVCFoundation.h"
+#import "NSData+GVCFoundation.h"
 
+void gvc_UpdateMissingLocalizations(NSString *key, NSString *value);
 
 /* 
  * taken from an example at http://www.cocoadev.com/index.pl?MethodSwizzling
@@ -72,3 +75,64 @@ BOOL gcv_IsEqualCollection(id collectionA, id collectionB)
 	}
 	return isEqual;
 }
+
+#pragma mark - Localization strings file
+void gvc_UpdateMissingLocalizations(NSString *key, NSString *value)
+{
+	NSString *basePath = GVC_SPRINTF(@"/tmp/%@.missing", [NSBundle gvc_MainBundleName] );
+	NSMutableDictionary *missingLocale = [NSMutableDictionary dictionaryWithContentsOfFile:[basePath stringByAppendingPathExtension:@"plist"]];
+	if ( missingLocale == nil )
+		missingLocale = [NSMutableDictionary dictionaryWithCapacity:1];
+    
+	if ( [missingLocale objectForKey:key] == nil )
+	{
+		[missingLocale setObject:value forKey:key];
+		[missingLocale writeToFile:[basePath stringByAppendingPathExtension:@"plist"] atomically:NO];
+		
+		NSArray *allKeys = [missingLocale allKeys];
+		NSMutableData *data = [NSMutableData data];
+		[data gvc_appendUTF8String:@"/*\n * Missing Localization\n *\n */\n"];
+		for (NSString *v in allKeys )
+		{
+			[data gvc_appendUTF8Format:@"\"%@\" = \"%@\";\n", v, [missingLocale valueForKey:v]];
+		}
+		[data writeToFile:[basePath stringByAppendingPathExtension:@"strings"] atomically:NO];
+	}
+}
+
+#pragma mark - Localization Functions
+NSString *gvc_LocalizedString(NSString *key)
+{
+    return gvc_LocalizedStringWithDefaultValue(key, key);
+}
+
+NSString *gvc_LocalizedStringWithDefaultValue(NSString *key, NSString *defValue)
+{
+	NSString *localValue = [[NSBundle mainBundle] localizedStringForKey:key value:key table:nil];
+	if ((localValue == nil) || ([localValue isEqualToString:key] == YES))
+	{
+		gvc_UpdateMissingLocalizations( key, defValue );
+		localValue = defValue;
+	}
+	return localValue;
+}
+
+GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...)
+{
+	NSString *localFmt = [[NSBundle mainBundle] localizedStringForKey:fmt value:fmt table:nil];
+	if ((localFmt == nil) || ([localFmt isEqualToString:fmt] == YES))
+	{
+		gvc_UpdateMissingLocalizations( fmt, fmt );
+		localFmt = fmt;
+	}
+    
+	va_list argList;
+	
+    // Process arguments, resulting in a format string
+	va_start(argList, fmt);
+	localFmt = [[NSString alloc] initWithFormat:localFmt arguments:argList];
+	va_end(argList);
+    
+	return localFmt;
+}
+
