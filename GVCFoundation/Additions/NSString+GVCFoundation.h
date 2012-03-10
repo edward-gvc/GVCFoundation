@@ -17,5 +17,16 @@
 /*  Returns an NSString with a hex encoded UUID */
 + (NSString *)gvc_StringWithUUID;
 
-- (NSString *)gvc_md5;
+- (NSString *)gvc_md5Hash;
+
+- (NSString *)gvc_StringWithCapitalizedFirstCharacter;
+- (NSString *)gvc_TrimWhitespace;
+
+/*  XML supporting methods */
+- (NSString *)gvc_XMLAttributeEscapedString;
+- (NSString *)gvc_XMLEntityEscapedString:(BOOL)escapeQuotes;
+
+- (NSString *)gvc_XMLPrefixFromQualifiedName;
+- (NSString *)gvc_XMLLocalNameFromQualifiedName;
+
 @end

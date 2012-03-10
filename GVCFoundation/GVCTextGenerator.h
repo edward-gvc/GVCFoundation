@@ -7,8 +7,20 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
+
+@protocol GVCWriter;
 
 @interface GVCTextGenerator : NSObject
+
+@property (readonly, strong, nonatomic) id <GVCWriter> writer;
+
+- initWithWriter:(id <GVCWriter>)wrter;
+
+// open is also implied by the first call to write..
+- (void)open;
+- (void)close;
+
+- (void)writeString:(NSString *)string;
+- (void)writeFormat:(NSString *)fmt, ...;
 
 @end

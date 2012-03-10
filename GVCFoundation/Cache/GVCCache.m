@@ -102,7 +102,7 @@ GVC_SINGLETON_CLASS(GVCCache)
 - (void)writeNode:(id <GVCCacheNode>)node
 {
     // write the index to file
-    [cachesByKey setObject:node forKey:[[node cacheKey] gvc_md5]];
+    [cachesByKey setObject:node forKey:[[node cacheKey] gvc_md5Hash]];
 
     //[cachesByKey writeToFile:[[GVCDirectory CacheDirectory] fullpathForFile:@"GVCCache.plist"] atomically:YES];
     NSMutableData *data = [[NSMutableData alloc] init];
@@ -145,7 +145,7 @@ GVC_SINGLETON_CLASS(GVCCache)
 
 - (id <GVCCacheNode>)cachedNodeFor:(NSString *)key
 {
-    return (id <GVCCacheNode>)[cachesByKey objectForKey:[key gvc_md5]];
+    return (id <GVCCacheNode>)[cachesByKey objectForKey:[key gvc_md5Hash]];
 }
 
 - (NSString *)cachedValueFor:(NSString *)key
@@ -177,7 +177,7 @@ GVC_SINGLETON_CLASS(GVCCache)
 
 - (NSString *)fullpathForData:(id <GVCCacheDataNode>)node
 {
-    return [[[self cacheDataRootDirectory] createSubdirectory:@"data"] fullpathForFile:[[node cacheKey] gvc_md5]];
+    return [[[self cacheDataRootDirectory] createSubdirectory:@"data"] fullpathForFile:[[node cacheKey] gvc_md5Hash]];
 }
 
 @end

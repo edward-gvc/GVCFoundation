@@ -112,7 +112,7 @@ static classname *shared##classname = nil; \
 
 	// convenient assert test for strings
 #define GVC_ASSERT_VALID_STRING(strcond) \
-	do { if ((gvc_IsEmpty(strcond) == YES))	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#strcond, @#strcond); }} while(0)
+	do { if ((strcond == nil || [(NSData *)strcond length] == 0))	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#strcond, @#strcond); }} while(0)
 
 	// this will Assert that subclass must implement this required method.  Despite this I disable in production code.
 #define GVC_SUBCLASS_RESPONSIBLE	GVC_ASSERT_LOG( @"Subclasses %@ must implement %@", GVC_CLASSNAME(self), NSStringFromSelector(_cmd));

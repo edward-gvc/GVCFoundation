@@ -60,7 +60,7 @@ GVC_SINGLETON_HEADER(GVCLogger)
 
 @property (nonatomic, assign) GVCLoggerLevel level;
 @property (nonatomic, copy) NSString *message;
-@property (nonatomic, retain) NSDate *timestamp;
+@property (nonatomic, strong) NSDate *timestamp;
 @property (nonatomic, assign) const char *file;
 @property (nonatomic, assign) const char *function;
 @property (nonatomic, assign) int lineNumber;
