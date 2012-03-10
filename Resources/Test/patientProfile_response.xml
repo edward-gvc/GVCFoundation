@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<POIZ_IN070020CA xmlns="urn:hl7-org:v3" ITSVersion="XML_1.0">
+    <id root="4bc52947-1388-4b9c-a4c6-6697795725de"/>
+    <creationTime value="20110119141445.0656-0800"/>
+    <securityText>Sample security text for immunization.</securityText>
+    <responseModeCode code="I"/>
+    <versionCode code="V3PR1"/>
+    <interactionId root="2.16.840.1.113883.1.6" extension="POIZ_IN070020CA" displayable="true"/>
+    <processingCode code="T"/>
+    <processingModeCode code="T"/>
+    <acceptAckCode code="NE"/>
+    <receiver>
+        <telecom value="http://receiver.com"/>
+        <device determinerCode="INSTANCE" classCode="DEV">
+            <id use="BUS" root="1.2.3.4" extension="recv-id-101"/>
+        </device>
+    </receiver>
+    <sender>
+        <telecom value="http://sender.com"/>
+        <device classCode="DEV">
+            <id use="BUS" root="1.2.3.4" extension="snd-1-1-1"/>
+        </device>
+    </sender>
+    <acknowledgement>
+        <typeCode code="AA"/>
+        <targetMessage>
+            <id root="A84EA136-B1F8-3FC7-B80B-EC31373BDBAA"/>
+        </targetMessage>
+    </acknowledgement>
+    <controlActEvent moodCode="EVN" classCode="CACT">
+        <id root="2.16.840.1.112882.2.122.1.1.2" extension="gj4sjbts-a971c59d717"/>
+        <code codeSystem="2.16.840.1.113883.1.3" code="POIZ_TE070020UV"/>
+        <statusCode code="completed"/>
+        <recordTarget typeCode="RCT" contextControlCode="AP">
+            <patient1 classCode="PAT">
+                <id root="2.16.840.1.112882.2.122.1.1.5" extension="883"/>
+                <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                    <name>
+                        <family>Hampton</family>
+                        <given>Renee</given>
+                    </name>
+                    <administrativeGenderCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CS" code="F"/>
+                    <birthTime value="20020505"/>
+                </patientPerson>
+            </patient1>
+        </recordTarget>
+        <subject typeCode="SUBJ" contextConductionInd="false">
+            <immunizationProfile moodCode="EVN" classCode="ACT">
+                <subject1 typeCode="SBJ" contextControlCode="OP">
+                    <patient classCode="PAT">
+                        <id root="2.16.840.1.112882.2.122.1.1.5" extension="883"/>
+                        <telecom nullFlavor="NI"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                            <name>
+                                <family>Hampton</family>
+                                <given>Renee</given>
+                            </name>
+                            <administrativeGenderCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CS" code="F"/>
+                            <birthTime value="20020505"/>
+                        </patientPerson>
+                    </patient>
+                </subject1>
+                <pertinentInformation typeCode="PERT">
+                    <attachment moodCode="EVN" classCode="OBS">
+                        <text representation="B64" mediaType="application/pdf">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YWdlQyAvSW1hZ2VJXT4+L0NvbnRlbnRzIDMgMCBSL1R5cGUvUGFnZS9QYXJlbnQgNCAwIFI+PgplbmRvYmoKNiAwIG9iaiA8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvTGVuZ3RoIDUzPj5zdHJlYW0KeJwr5HIK4TIyVTA3N1IISeEyUNA1tAAx9N2MFAyBQmlcGgqaIVlACQOQsGsIVyAXABskCpQKZW5kc3RyZWFtCmVuZG9iago3IDAgb2JqPDwvTWVkaWFCb3hbMCAwIDU5NSA4NDJdL1Jlc291cmNlczw8L0ZvbnQ8PC9GMiAyIDAgUj4+L1Byb2NTZXQgWy9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldPj4vQ29udGVudHMgNiAwIFIvVHlwZS9QYWdlL1BhcmVudCA0IDAgUj4+CmVuZG9iagoxIDAgb2JqPDwvRW5jb2RpbmcvV2luQW5zaUVuY29kaW5nL1N1YnR5cGUvVHlwZTEvVHlwZS9Gb250L0Jhc2VGb250L0hlbHZldGljYS1Cb2xkPj4KZW5kb2JqCjIgMCBvYmo8PC9FbmNvZGluZy9XaW5BbnNpRW5jb2RpbmcvU3VidHlwZS9UeXBlMS9UeXBlL0ZvbnQvQmFzZUZvbnQvSGVsdmV0aWNhPj4KZW5kb2JqCjQgMCBvYmo8PC9LaWRzWzUgMCBSIDcgMCBSXS9Db3VudCAyL1R5cGUvUGFnZXM+PgplbmRvYmoKOCAwIG9iajw8L1BhZ2VzIDQgMCBSL1R5cGUvQ2F0YWxvZz4+CmVuZG9iago5IDAgb2JqPDwvQ3JlYXRpb25EYXRlKEQ6MjAxMTAxMTkxNDE0NDUtMDgnMDAnKS9Nb2REYXRlKEQ6MjAxMTAxMTkxNDE0NDUtMDgnMDAnKS9Qcm9kdWNlcihpVGV4dCAyLjAuOCBcKGJ5IGxvd2FnaWUuY29tXCkpPj4KZW5kb2JqCnhyZWYKMCAxMAowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDIxMzggMDAwMDAgbiAKMDAwMDAwMjIzMCAwMDAwMCBuIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDIzMTcgMDAwMDAgbiAKMDAwMDAwMTY5OCAwMDAwMCBuIAowMDAwMDAxODYzIDAwMDAwIG4gCjAwMDAwMDE5ODIgMDAwMDAgbiAKMDAwMDAwMjM3MyAwMDAwMCBuIAowMDAwMDAyNDE3IDAwMDAwIG4gCnRyYWlsZXIKPDwvSW5mbyA5IDAgUi9TaXplIDEwL0lEIFs8YTE5NDRhNzc2NDQwNjgzOGE5M2QyMTIyZjgwY2FjNjQ+PDA3MGVjMzlhYWM1MDQxM2IwNWM0ODZlYjMwMzI3YjM3Pl0vUm9vdCA4IDAgUj4+CnN0YXJ0eHJlZgoyNTQ4CiUlRU9GCg==</text>
+                    </attachment>
+                </pertinentInformation>
+            </immunizationProfile>
+        </subject>
+        <queryAck>
+            <queryId root="DA2F06E7-C6D9-4818-9149-A80669CC8CF6"/>
+            <queryResponseCode code="OK"/>
+            <resultTotalQuantity value="1"/>
+            <resultCurrentQuantity value="1"/>
+            <resultRemainingQuantity value="0"/>
+        </queryAck>
+        <queryByParameter>
+            <queryId/>
+            <parameterList>
+                <patientBirthDate>
+                    <value value="20020505"/>
+                </patientBirthDate>
+                <patientGender>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CS" code="F"/>
+                </patientGender>
+                <patientID>
+                    <value root="2.16.840.1.112882.2.122.1.1.5" extension="2000037200"/>
+                </patientID>
+                <patientName>
+                    <value>
+                        <family>Hampton</family>
+                        <given>Renee</given>
+                    </value>
+                </patientName>
+            </parameterList>
+        </queryByParameter>
+    </controlActEvent>
+</POIZ_IN070020CA>

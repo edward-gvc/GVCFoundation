@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<digester>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/id">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7InstanceIdentifier" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="root">hl7_root</map>
+			<map attributeName="name">hl7_nodeName</map>
+			<map attributeName="extension">hl7_extension</map>
+			<map attributeName="specializationType">specializationType</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/interactionId">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7InstanceIdentifier" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="root">hl7_root</map>
+			<map attributeName="name">hl7_nodeName</map>
+			<map attributeName="extension">hl7_extension</map>
+			<map attributeName="specializationType">specializationType</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7Acknowledgement" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+	</ruleset>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement/typeCode">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7CodedSimple" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_type" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="code">hl7_code</map>
+			<map attributeName="nullFlavour">hl7_nullFlavor</map>
+		</rule>
+	</ruleset>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement/targetMessage/id">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7InstanceIdentifier" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_targetMessage" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="root">hl7_root</map>
+			<map attributeName="name">hl7_nodeName</map>
+			<map attributeName="extension">hl7_extension</map>
+			<map attributeName="specializationType">specializationType</map>
+		</rule>
+	</ruleset>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement/acknowledgementDetail">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7ErrorMessage" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="detail" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="typeCode">hl7_type</map>
+		</rule>
+	</ruleset>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement/acknowledgementDetail/code">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7CodedSimple" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_code" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="code">hl7_code</map>
+			<map attributeName="nullFlavour">hl7_nullFlavor</map>
+		</rule>
+	</ruleset>
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/acknowledgement/acknowledgementDetail/text">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_message" />
+	</ruleset>
+
+	<ruleset pattern="^Envelope/Body/[A-Za-z0-9_]+/controlActEvent/statusCode">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7CodedSimple" />
+		<rule class_type="GVCXMLDigesterElementNamePropertyRule" propertyName="hl7_nodeName" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="code">hl7_code</map>
+			<map attributeName="nullFlavour">hl7_nullFlavor</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_subject" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/id">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_id" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_id" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="root">hl7_root</map>
+			<map attributeName="name">hl7_nodeName</map>
+			<map attributeName="extension">hl7_extension</map>
+			<map attributeName="specializationType">specializationType</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/statusCode">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_statusCode" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_statusCode" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="code">hl7_code</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_identifiedPerson" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_identifiedPerson" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/name">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_name" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_name" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/name/given">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_given" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/name/family">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_family" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/administrativeGenderCode">
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="code">hl7_administrativeGenderCode</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/birthTime">
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="value">hl7_birthTime_value</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/addr">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7_addr" />
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="hl7_addr" />
+	</ruleset>
+
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/addr/streetAddressLine">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_streetNameBase" />
+	</ruleset>
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/addr/city">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_city" />
+	</ruleset>
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/addr/state">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_state" />
+	</ruleset>
+	<ruleset pattern="^.*/controlActProcess/subject/registrationEvent/subject1/patient/patientPerson/addr/postalCode">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="hl7_postalCode" />
+	</ruleset>
+
+</digester>

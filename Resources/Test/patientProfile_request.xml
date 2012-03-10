@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<POIZ_IN070010CA 
+	xmlns="urn:hl7-org:v3" 
+	ITSVersion="XML_1.0" 
+	xmlns:mif="urn:hl7-org:v3/mif" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="urn:hl7-org:v3 urn:hl7-org:v3 file:/esb/Schema/Immunization/schemas/POIZ_IN070010CA.xsd"
+>
+    <id root="A84EA136-B1F8-3FC7-B80B-EC31373BDBAA"/>
+    <creationTime value="20080117171343.843-0800"/>
+    <securityText>This is where the security token goes.</securityText>
+    <responseModeCode code="I"/>
+    <versionCode code="V3PR1"/>
+    <interactionId root="2.16.840.1.113883.1.6" extension="POIZ_IN070010CA" displayable="true"/>
+    <profileId root="2.11.777.4.555555.6.777"/>
+    <processingCode code="T"/>
+    <processingModeCode code="T"/>
+    <acceptAckCode code="AL"/>
+    <receiver typeCode="RCV">
+        <telecom value="http://10.0.0.2:1001"/>
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id root="2.2.3.4.5" extension="B12345" use="BUS" />
+            <name>Panorama</name>
+        </device>
+    </receiver>
+    <sender typeCode="SND">
+        <telecom value="http://10.0.0.1:1001"/>
+        <device classCode="DEV" determinerCode="INSTANCE">
+            <id root="1.3.5.7" extension="A12345" use="BUS"/>
+            <name>EMR</name>
+        </device>
+    </sender>
+    <controlActEvent classCode="CACT" moodCode="EVN">
+        <id root="ECC4A75B-AD69-4E23-80E4-9F0A22D97017" use="BUS"/>
+        <code code="POIZ_TE070010UV" codeSystem="2.16.840.1.113883.1.3">
+            <originalText>Patient Immunization Profile Requested</originalText>
+        </code>
+        <statusCode code="completed"/>
+        <effectiveTime xsi:type="IVL_TS">
+            <low xsi:type="TS" specializationType="TS.FULLDATE" value="20080112"/>
+            <high xsi:type="TS" specializationType="TS.FULLDATE" value="20080112"/>
+        </effectiveTime>
+        <recordTarget contextControlCode="AP" typeCode="RCT">
+            <patient1 classCode="PAT">
+                <id displayable="true" extension="929683100" root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                <patientPerson classCode="PSN" determinerCode="INSTANCE">
+                    <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                        <given>Renee</given>
+                        <family>Hampton</family>
+                    </name>
+                    <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1">
+                        <originalText>Female</originalText>
+                    </administrativeGenderCode>
+                    <birthTime xsi:type="TS" specializationType="TS.DATE" value="20020505"/>
+                </patientPerson>
+            </patient1>
+        </recordTarget>
+        <responsibleParty contextControlCode="AP" typeCode="RESP">
+            <assignedEntity classCode="ASSIGNED">
+                <id displayable="true" extension="1234567" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                    <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                        <given>Adam</given>
+                        <given qualifier="IN">A.</given>
+                        <family>Everyman</family>
+                    </name>
+                    <asHealthCareProvider classCode="PROV">
+                        <id displayable="true" extension="55599987" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                    </asHealthCareProvider>
+                </assignedPerson>
+                <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                    <id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777"/>
+                    <name>Provider Organization Name</name>
+                </representedOrganization>
+            </assignedEntity>
+        </responsibleParty>
+        <author contextControlCode="AP" typeCode="AUT">
+            <time xsi:type="TS" specializationType="TS.FULLDATETIME" value="20080112013220-0800"/>
+            <modeCode code="ELECTRONIC" codeSystem="2.16.840.1.113883.5.1064">
+                <originalText>electronic data</originalText>
+            </modeCode>
+            <authorRole1 classCode="ROL"/>
+        </author>
+        <dataEnterer contextControlCode="AP" typeCode="ENT">
+            <assignedEntity1 classCode="ASSIGNED">
+                <id displayable="true" extension="1234567" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                    <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                        <given>Adam</given>
+                        <given qualifier="IN">A.</given>
+                        <family>Everyman</family>
+                    </name>
+                    <asHealthCareProvider classCode="PROV">
+                        <id displayable="true" extension="55599987" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                    </asHealthCareProvider>
+                </assignedPerson>
+                <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                    <id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                    <name>Provider Organization Name</name>
+                </representedOrganization>
+            </assignedEntity1>
+        </dataEnterer>
+        <dataEntryLocation contextControlCode="AP" typeCode="ELOC">
+            <serviceDeliveryLocation classCode="SDLOC">
+                <id displayable="true" extension="123987" root="2.55.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                <location classCode="PLC" determinerCode="INSTANCE">
+                    <name>Service Delivery Location Name</name>
+                </location>
+            </serviceDeliveryLocation>
+        </dataEntryLocation>
+        <location contextControlCode="AP" typeCode="LOC">
+            <serviceDeliveryLocation classCode="SDLOC">
+                <id displayable="true" extension="123987" root="2.55.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                <location classCode="PLC" determinerCode="INSTANCE">
+                    <name>Service Delivery Location Name</name>
+                </location>
+            </serviceDeliveryLocation>
+        </location>
+        <subjectOf2 contextConductionInd="false" contextControlCode="AP" typeCode="SUBJ">
+            <consentEvent classCode="CONS" moodCode="EVN">
+                <id extension="88996677" root="36E8BE05-D239-48F3-A431-DFC64104E900" use="BUS"/>
+                <code code="INF" codeSystem="2.16.840.1.113883.5.4"/>
+                <effectiveTime xsi:type="IVL_TS">
+                    <low xsi:type="TS" specializationType="TS.FULLDATE" value="20080117"/>
+                    <high xsi:type="TS" specializationType="TS.FULLDATE" value="20080117"/>
+                </effectiveTime>
+                <reasonCode code="PROFJ" codeSystem="2.16.840.1.113883.5.8">
+                    <originalText>professional judgement</originalText>
+                </reasonCode>
+                <subject1 contextControlCode="OP" typeCode="SBJ">
+                    <patient1 classCode="PAT">
+                        <id displayable="true" extension="929683100" root="1.22.333.4.555555.6.777"/>
+                        <patientPerson classCode="PSN" determinerCode="INSTANCE">
+                            <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                                <given>Renee</given>
+                                <family>Hampton</family>
+                            </name>
+                            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1">
+                                <originalText>Female</originalText>
+                            </administrativeGenderCode>
+                            <birthTime xsi:type="TS" specializationType="TS.FULLDATE" value="20070105"/>
+                        </patientPerson>
+                    </patient1>
+                </subject1>
+                <author1 contextControlCode="OP" typeCode="AUT">
+                    <assignedEntity classCode="ASSIGNED">
+                        <id displayable="true" extension="1234567" root="2.11.333.4.555555.6.777"/>
+                        <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                            <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                                <given>Adam</given>
+                                <given qualifier="IN">A.</given>
+                                <family>Everyman</family>
+                            </name>
+                            <asHealthCareProvider classCode="PROV">
+                                <id displayable="true" extension="55599987" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                            </asHealthCareProvider>
+                        </assignedPerson>
+                        <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                            <id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                            <name>Provider Organization Name</name>
+                        </representedOrganization>
+                    </assignedEntity>
+                </author1>
+                <author2 contextControlCode="OP" typeCode="AUT">
+                    <modeCode code="PHYSICAL" codeSystem="2.16.840.1.113883.5.1064">
+                        <originalText>physical presence</originalText>
+                    </modeCode>
+                    <signatureText mediaType="text/plain" representation="TXT">Digital Signature Goes Here</signatureText>
+                    <personalRelationship classCode="PRS">
+                        <id displayable="true" extension="998855" root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                        <code code="FAMMEMB" codeSystem="2.16.840.1.113883.5.111">
+                            <originalText>Family Member</originalText>
+                        </code>
+                        <relationshipHolder classCode="PSN" determinerCode="INSTANCE">
+                            <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                                <given>Ronald</given>
+                                <family>Duck</family>
+                            </name>
+                            <telecom use="WP MC" value="tel:+1(555)630-7960" specializationType="TEL.PHONE"/>
+                            <addr use="WP PST" xsi:type="AD" specializationType="AD.BASIC">
+                                <streetAddressLine>1050 W Wishard Blvd</streetAddressLine>
+                                <streetAddressLine>RG 5th floor</streetAddressLine>
+                                <city>Indianapolis</city>
+                                <state>IN</state>
+                                <postalCode>46240</postalCode>
+                            </addr>
+                        </relationshipHolder>
+                    </personalRelationship>
+                </author2>
+                <subject2 contextConductionInd="true" contextControlCode="AN" typeCode="SUBJ">
+                    <informDefinition classCode="INFRM" moodCode="DEF">
+                        <receiver contextControlCode="OP" typeCode="RCV">
+                            <assignedEntity classCode="ASSIGNED">
+                                <id displayable="true" extension="1234567" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                                <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                    <name use="L" xsi:type="PN" specializationType="PN.BASIC">
+                                        <given>Adam</given>
+                                        <given qualifier="IN">A.</given>
+                                        <family>Everyman</family>
+                                    </name>
+                                    <asHealthCareProvider classCode="PROV">
+                                        <id displayable="true" extension="55599987" root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                                    </asHealthCareProvider>
+                                </assignedPerson>
+                                <representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                                    <id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                                    <name>Provider Organization Name</name>
+                                </representedOrganization>
+                            </assignedEntity>
+                        </receiver>
+                        <subject contextConductionInd="false" contextControlCode="AN" typeCode="SUBJ">
+                            <actDefinition classCode="ACT" moodCode="DEF">
+                                <code code="ACIMMUN" codeSystem="2.16.840.1.113883.5.4">
+                                    <originalText>immunization access</originalText>
+                                </code>
+                            </actDefinition>
+                        </subject>
+                    </informDefinition>
+                </subject2>
+            </consentEvent>
+        </subjectOf2>
+        <queryByParameter>
+            <queryId root="8936C4FD-AC7E-4C99-8D00-E5704004F4F7" specializationType="II.TOKEN"/>
+            <responseModalityCode code="R"/>
+            <parameterList>
+                <realmCode code="CA"/>
+                <!-- pateint  DOB -->
+                <patientBirthDate>
+                    <value xsi:type="TS" specializationType="TS.FULLDATE" value="20020505"/>
+                </patientBirthDate>
+                <!-- pateint  gender -->
+                <patientGender>
+                    <value code="F" codeSystem="2.16.840.1.113883.5.1">
+                        <originalText>Female</originalText>
+                    </value>
+                </patientGender>
+                <patientID>
+                    <value displayable="true" extension="2000037200" root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+                </patientID>
+                <!-- pateint name -->
+                <patientName>
+                    <value xsi:type="PN" specializationType="PN.BASIC" use="L C C">
+                        <given>Renee</given>
+                        <family>Hampton</family>
+                    </value>
+                </patientName>
+            </parameterList>
+        </queryByParameter>
+    </controlActEvent>
+</POIZ_IN070010CA>
+
+
+

@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agents oidRoot="2.16.840.1.113883.3.18.122.1000.886">
+    <agent id="0">
+        <agentName>Adenovirus Live Oral Type-4</agentName>
+        <agentCode>SCT_AG0001</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0001</agentOid>
+    </agent>
+    <agent id="1">
+        <agentName>Anthrax</agentName>
+        <agentCode>333521006</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333521006</agentOid>
+    </agent>
+    <agent id="2">
+        <agentName>Batx</agentName>
+        <agentCode>333532006</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333532006</agentOid>
+    </agent>
+    <agent id="3">
+        <agentName>BCG</agentName>
+        <agentCode>420538001</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.420538001</agentOid>
+    </agent>
+    <agent id="4">
+        <agentName>Cholera-Ecol-O</agentName>
+        <agentCode>413830002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.413830002</agentOid>
+    </agent>
+    <agent id="5">
+        <agentName>Cholera-O</agentName>
+        <agentCode>SCT_AG0002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0002</agentOid>
+    </agent>
+    <agent id="6">
+        <agentName>Cholera-Unspecified</agentName>
+        <agentCode>35736007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.35736007</agentOid>
+    </agent>
+    <agent id="7">
+        <agentName>DAtx</agentName>
+        <agentCode>77048008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.77048008</agentOid>
+    </agent>
+    <agent id="8">
+        <agentName>Diphtheria-d</agentName>
+        <agentCode>SCT_AG0005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0005</agentOid>
+    </agent>
+    <agent id="9">
+        <agentName>Diphtheria-D</agentName>
+        <agentCode>353614007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.353614007</agentOid>
+    </agent>
+    <agent id="10">
+        <agentName>DT</agentName>
+        <agentCode>68208009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.68208009</agentOid>
+    </agent>
+    <agent id="11">
+        <agentName>DTaP</agentName>
+        <agentCode>125581003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.125581003</agentOid>
+    </agent>
+    <agent id="12">
+        <agentName>DTaP-Hib Agent</agentName>
+        <agentCode>412373007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.412373007</agentOid>
+    </agent>
+    <agent id="13">
+        <agentName>DTaP-IPV</agentName>
+        <agentCode>414003004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.414003004</agentOid>
+    </agent>
+    <agent id="14">
+        <agentName>DTaP-IPV-Hib</agentName>
+        <agentCode>414004005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.414004005</agentOid>
+    </agent>
+    <agent id="15">
+        <agentName>DTaP-IPV-Hib-HB</agentName>
+        <agentCode>426842004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.426842004</agentOid>
+    </agent>
+    <agent id="16">
+        <agentName>DT-IPV</agentName>
+        <agentCode>414002009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.414002009</agentOid>
+    </agent>
+    <agent id="17">
+        <agentName>DTP</agentName>
+        <agentCode>421245007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.421245007</agentOid>
+    </agent>
+    <agent id="18">
+        <agentName>H1N1</agentName>
+        <agentCode>46233009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.46233009</agentOid>
+    </agent>
+    <agent id="19">
+        <agentName>HA</agentName>
+        <agentCode>14745005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.14745005</agentOid>
+    </agent>
+    <agent id="20">
+        <agentName>HA Havrix</agentName>
+        <agentCode>SCT_AG0041</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0041</agentOid>
+    </agent>
+    <agent id="21">
+        <agentName>HA Vaqta</agentName>
+        <agentCode>SCT_AG0042</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0042</agentOid>
+    </agent>
+    <agent id="22">
+        <agentName>HAHB</agentName>
+        <agentCode>333702001</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333702001</agentOid>
+    </agent>
+    <agent id="23">
+        <agentName>HAHB Twinrix 1.0 ml</agentName>
+        <agentCode>SCT_AG0027</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0027</agentOid>
+    </agent>
+    <agent id="24">
+        <agentName>HAHB Twinrix Junior 0.5 ml</agentName>
+        <agentCode>SCT_AG0028</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0028</agentOid>
+    </agent>
+    <agent id="25">
+        <agentName>HAIg</agentName>
+        <agentCode>SCT_AG0003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0003</agentOid>
+    </agent>
+    <agent id="26">
+        <agentName>HA-Typh-I</agentName>
+        <agentCode>333707007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333707007</agentOid>
+    </agent>
+    <agent id="27">
+        <agentName>HB</agentName>
+        <agentCode>SCT_AG0004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0004</agentOid>
+    </agent>
+    <agent id="28">
+        <agentName>HB Engerix 0.5 ml</agentName>
+        <agentCode>SCT_AG0020</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0020</agentOid>
+    </agent>
+    <agent id="29">
+        <agentName>HB Engerix 1.0 ml</agentName>
+        <agentCode>SCT_AG0021</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0021</agentOid>
+    </agent>
+    <agent id="30">
+        <agentName>HB Engerix 40 mcg</agentName>
+        <agentCode>SCT_AG0040</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0040</agentOid>
+    </agent>
+    <agent id="31">
+        <agentName>HB Recombivax 0.25 ml</agentName>
+        <agentCode>SCT_AG0023</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0023</agentOid>
+    </agent>
+    <agent id="32">
+        <agentName>HB Recombivax 0.5 ml</agentName>
+        <agentCode>SCT_AG0024</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0024</agentOid>
+    </agent>
+    <agent id="33">
+        <agentName>HB Recombivax 1.0 ml</agentName>
+        <agentCode>SCT_AG0022</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0022</agentOid>
+    </agent>
+    <agent id="34">
+        <agentName>HB Recombivax 40 mcg</agentName>
+        <agentCode>SCT_AG0025</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0025</agentOid>
+    </agent>
+    <agent id="35">
+        <agentName>HBIg</agentName>
+        <agentCode>9542007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.9542007</agentOid>
+    </agent>
+    <agent id="36">
+        <agentName>HB-Tmf</agentName>
+        <agentCode>SCT_AG0006</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0006</agentOid>
+    </agent>
+    <agent id="37">
+        <agentName>HCIg</agentName>
+        <agentCode>SCT_AG0007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0007</agentOid>
+    </agent>
+    <agent id="38">
+        <agentName>Hib</agentName>
+        <agentCode>333680004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333680004</agentOid>
+    </agent>
+    <agent id="39">
+        <agentName>Hib-PRP-OMP</agentName>
+        <agentCode>SCT_AG0008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0008</agentOid>
+    </agent>
+    <agent id="40">
+        <agentName>Hib-PRP-T</agentName>
+        <agentCode>SCT_AG0009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0009</agentOid>
+    </agent>
+    <agent id="41">
+        <agentName>HPV</agentName>
+        <agentCode>424519000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.424519000</agentOid>
+    </agent>
+    <agent id="42">
+        <agentName>Human Plasma</agentName>
+        <agentCode>84879009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.84879009</agentOid>
+    </agent>
+    <agent id="43">
+        <agentName>Human Platelet</agentName>
+        <agentCode>23343005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.23343005</agentOid>
+    </agent>
+    <agent id="44">
+        <agentName>Ig</agentName>
+        <agentCode>SCT_AG0011</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0011</agentOid>
+    </agent>
+    <agent id="45">
+        <agentName>Ig 0.02-0.06 mL/kg</agentName>
+        <agentCode>SCHED_AG001</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG001</agentOid>
+    </agent>
+    <agent id="46">
+        <agentName>Ig 0.25 mL/kg</agentName>
+        <agentCode>SCHED_AG002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG002</agentOid>
+    </agent>
+    <agent id="47">
+        <agentName>Ig 0.50 mL/kg</agentName>
+        <agentCode>SCHED_AG003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG003</agentOid>
+    </agent>
+    <agent id="48">
+        <agentName>Ig Intravenous 1280-2000 mg/kg</agentName>
+        <agentCode>SCHED_AG004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG004</agentOid>
+    </agent>
+    <agent id="49">
+        <agentName>Ig Intravenous 160 mg/kg</agentName>
+        <agentCode>SCHED_AG005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG005</agentOid>
+    </agent>
+    <agent id="50">
+        <agentName>Ig Intravenous 320 mg/kg</agentName>
+        <agentCode>SCHED_AG006</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG006</agentOid>
+    </agent>
+    <agent id="51">
+        <agentName>Ig Intravenous 640 mg/kg</agentName>
+        <agentCode>SCHED_AG007</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG007</agentOid>
+    </agent>
+    <agent id="52">
+        <agentName>Ig Intravenous 640-1280 mg/kg</agentName>
+        <agentCode>SCHED_AG008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCHED_AG008</agentOid>
+    </agent>
+    <agent id="53">
+        <agentName>Influenza - Adult</agentName>
+        <agentCode>346525009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.346525009</agentOid>
+    </agent>
+    <agent id="54">
+        <agentName>Influenza - Pediatric</agentName>
+        <agentCode>346524008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.346524008</agentOid>
+    </agent>
+    <agent id="55">
+        <agentName>Influenza TMF</agentName>
+        <agentCode>SCT_AG0030</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0030</agentOid>
+    </agent>
+    <agent id="56">
+        <agentName>JE</agentName>
+        <agentCode>333697005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333697005</agentOid>
+    </agent>
+    <agent id="57">
+        <agentName>Lymes</agentName>
+        <agentCode>116083002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.116083002</agentOid>
+    </agent>
+    <agent id="58">
+        <agentName>Measles</agentName>
+        <agentCode>386012008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.386012008</agentOid>
+    </agent>
+    <agent id="59">
+        <agentName>Measles Ig</agentName>
+        <agentCode>SCT_AG0012</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0012</agentOid>
+    </agent>
+    <agent id="60">
+        <agentName>Men-C-Conj Meningitec</agentName>
+        <agentCode>SCT_AG0043</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0043</agentOid>
+    </agent>
+    <agent id="61">
+        <agentName>Men-C-Conj Menjugate</agentName>
+        <agentCode>SCT_AG0039</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0039</agentOid>
+    </agent>
+    <agent id="62">
+        <agentName>Men-C-Conj Neisvac</agentName>
+        <agentCode>SCT_AG0038</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0038</agentOid>
+    </agent>
+    <agent id="63">
+        <agentName>Meningococcal - Conjugate</agentName>
+        <agentCode>SCT_AG0013</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0013</agentOid>
+    </agent>
+    <agent id="64">
+        <agentName>Meningococcal-Unspecified</agentName>
+        <agentCode>423531006</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.423531006</agentOid>
+    </agent>
+    <agent id="65">
+        <agentName>Men-P-AC</agentName>
+        <agentCode>400323009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.400323009</agentOid>
+    </agent>
+    <agent id="66">
+        <agentName>Men-P-ACWY</agentName>
+        <agentCode>420261000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.420261000</agentOid>
+    </agent>
+    <agent id="67">
+        <agentName>MMR</agentName>
+        <agentCode>61153008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.61153008</agentOid>
+    </agent>
+    <agent id="68">
+        <agentName>MMRV</agentName>
+        <agentCode>419550004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.419550004</agentOid>
+    </agent>
+    <agent id="69">
+        <agentName>Mumps</agentName>
+        <agentCode>90043005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.90043005</agentOid>
+    </agent>
+    <agent id="70">
+        <agentName>Pertussis-aP</agentName>
+        <agentCode>61602008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.61602008</agentOid>
+    </agent>
+    <agent id="71">
+        <agentName>Pneu-C-7</agentName>
+        <agentCode>125714002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.125714002</agentOid>
+    </agent>
+    <agent id="72">
+        <agentName>Pneumococcal</agentName>
+        <agentCode>333598008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333598008</agentOid>
+    </agent>
+    <agent id="73">
+        <agentName>Pneu-P-23</agentName>
+        <agentCode>135643009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.135643009</agentOid>
+    </agent>
+    <agent id="74">
+        <agentName>Polio-IPV</agentName>
+        <agentCode>125688000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.125688000</agentOid>
+    </agent>
+    <agent id="75">
+        <agentName>Polio-OPV</agentName>
+        <agentCode>125690004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.125690004</agentOid>
+    </agent>
+    <agent id="76">
+        <agentName>Polio-Unspecified</agentName>
+        <agentCode>111164008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.111164008</agentOid>
+    </agent>
+    <agent id="77">
+        <agentName>PPD</agentName>
+        <agentCode>423321003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.423321003</agentOid>
+    </agent>
+    <agent id="78">
+        <agentName>Rabies</agentName>
+        <agentCode>333606008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.333606008</agentOid>
+    </agent>
+    <agent id="79">
+        <agentName>RabIg</agentName>
+        <agentCode>80834004</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.80834004</agentOid>
+    </agent>
+    <agent id="80">
+        <agentName>Reconstituted RBCs</agentName>
+        <agentCode>SCT_AG0015</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0015</agentOid>
+    </agent>
+    <agent id="81">
+        <agentName>RhIg</agentName>
+        <agentCode>49802003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.49802003</agentOid>
+    </agent>
+    <agent id="82">
+        <agentName>Rotavirus</agentName>
+        <agentCode>116077000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.116077000</agentOid>
+    </agent>
+    <agent id="83">
+        <agentName>RSVAb</agentName>
+        <agentCode>SCT_AG0044</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0044</agentOid>
+    </agent>
+    <agent id="84">
+        <agentName>RSVIg</agentName>
+        <agentCode>108723008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.108723008</agentOid>
+    </agent>
+    <agent id="85">
+        <agentName>Rubella vaccine</agentName>
+        <agentCode>386013003</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.386013003</agentOid>
+    </agent>
+    <agent id="86">
+        <agentName>Smallpox</agentName>
+        <agentCode>33234009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.33234009</agentOid>
+    </agent>
+    <agent id="87">
+        <agentName>Td</agentName>
+        <agentCode>59999009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.59999009</agentOid>
+    </agent>
+    <agent id="88">
+        <agentName>Tdap</agentName>
+        <agentCode>SCT_AG0016</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0016</agentOid>
+    </agent>
+    <agent id="89">
+        <agentName>Td-IPV</agentName>
+        <agentCode>SCT_AG0017</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0017</agentOid>
+    </agent>
+    <agent id="90">
+        <agentName>Tetanus</agentName>
+        <agentCode>58098008</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.58098008</agentOid>
+    </agent>
+    <agent id="91">
+        <agentName>Tickborne Encephalitis</agentName>
+        <agentCode>SCT_AG0036</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0036</agentOid>
+    </agent>
+    <agent id="92">
+        <agentName>TIg</agentName>
+        <agentCode>86337009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.86337009</agentOid>
+    </agent>
+    <agent id="93">
+        <agentName>Typh-I</agentName>
+        <agentCode>346639000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.346639000</agentOid>
+    </agent>
+    <agent id="94">
+        <agentName>Typh-O</agentName>
+        <agentCode>346696005</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.346696005</agentOid>
+    </agent>
+    <agent id="95">
+        <agentName>Typhoid Unspecified</agentName>
+        <agentCode>89428009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.89428009</agentOid>
+    </agent>
+    <agent id="96">
+        <agentName>Varicella</agentName>
+        <agentCode>412530002</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.412530002</agentOid>
+    </agent>
+    <agent id="97">
+        <agentName>VarIg</agentName>
+        <agentCode>62294009</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.62294009</agentOid>
+    </agent>
+    <agent id="98">
+        <agentName>Washed RBCs</agentName>
+        <agentCode>SCT_AG0034</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.SCT_AG0034</agentOid>
+    </agent>
+    <agent id="99">
+        <agentName>YF</agentName>
+        <agentCode>56844000</agentCode>
+        <agentOid>2.16.840.1.113883.3.18.122.1000.886.56844000</agentOid>
+    </agent>
+</agents>

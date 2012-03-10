@@ -1,0 +1,1069 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<POIZ_IN010020CA xmlns="urn:hl7-org:v3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:hl7-org:v3 file:/esb/Schema/Immunization/schemas/POIZ_IN010020CA.xsd"
+	ITSVersion="XML_1.0">
+	<!--
+		This message expects to get to the test server that will return a correct response 
+		for this test case.
+	-->
+    	<id root="9fa480e1-67aa-3c51-9a94-7b56dab4213f" />
+	<creationTime value="20070115001530-0800" />
+	<responseModeCode code="I" />
+	<versionCode code="V3PR1" />
+	<interactionId root="2.16.840.1.113883.1.6"
+		extension="POIZ_IN010020CA" displayable="true" />
+	<processingCode code="T" />
+	<processingModeCode code="T" />
+	<acceptAckCode code="NE" />
+	<receiver typeCode="RCV">
+		<telecom value="http://receiver.com" />
+		<device determinerCode="INSTANCE" classCode="DEV">
+			<id root="1.2.3.4" extension="dummy-recv-id-101" use="BUS" />
+		</device>
+	</receiver>
+	<sender typeCode="SND">
+		<telecom value="http://receiver.com" />
+		<device determinerCode="INSTANCE">
+			<id root="1.3.5.7" extension="jpr-sender-id-101" use="BUS" />
+		</device>
+	</sender>
+	<controlActEvent classCode="CACT" moodCode="EVN">
+		<id root="1.222.33.4.55" extension="1122233344"
+			specializationType="II.BUS" use="BUS" />
+		<code code="POIZ_TE010080UV"
+			codeSystem="2.16.840.1.113883.1.3">
+			<originalText>Request to record immunization</originalText>
+		</code>
+		<statusCode code="completed" />
+		<effectiveTime xsi:type="IVL_TS">
+			<low xsi:type="TS" specializationType="TS.FULLDATE"
+				value="20080123" />
+			<high xsi:type="TS" specializationType="TS.FULLDATE"
+				value="20080123" />
+		</effectiveTime>
+		<reasonCode code="HOSPADM" codeSystem="2.16.840.1.113883.5.8">
+			<originalText>admission to hospital</originalText>
+		</reasonCode>
+		<recordTarget contextControlCode="AP" typeCode="RCT">
+			<patient1 classCode="PAT">
+				<id displayable="true" extension="192873"
+					root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<patientPerson classCode="PSN"
+					determinerCode="INSTANCE">
+					<name use="L" xsi:type="PN"
+						specializationType="PN.BASIC">
+					    <!-- pateint name -->
+					    <given>Sona</given>
+					    <family>Ghosh</family>
+					</name>
+				    <!-- pateint  gender -->
+					<administrativeGenderCode code="F"
+						codeSystem="2.16.840.1.113883.5.1">
+						<originalText>Female</originalText>
+					</administrativeGenderCode>
+				    <!-- pateint  DOB -->
+					<birthTime xsi:type="TS"
+						specializationType="TS.FULLDATE" value="20010505" />
+				</patientPerson>
+			</patient1>
+		</recordTarget>
+		<responsibleParty contextControlCode="AP" typeCode="RESP">
+			<assignedEntity classCode="ASSIGNED">
+				<id displayable="true" extension="1000000033"
+					root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<assignedPerson classCode="PSN"
+					determinerCode="INSTANCE">
+					<name use="L" xsi:type="PN"
+						specializationType="PN.BASIC">
+						<prefix>Dr</prefix>
+						<given>Charlotte</given>
+						<given>Carol</given>
+						<family>Phillis</family>
+					</name>
+					<asHealthCareProvider classCode="PROV">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					</asHealthCareProvider>
+				</assignedPerson>
+				<representedOrganization classCode="ORG"
+					determinerCode="INSTANCE">
+					<id displayable="true" extension="666777888"
+						root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					<name>Provider Organization Name</name>
+				</representedOrganization>
+			</assignedEntity>
+		</responsibleParty>
+		<author contextControlCode="AP" typeCode="AUT">
+			<time xsi:type="TS" specializationType="TS.FULLDATETIME"
+				value="20080123044402-0800" />
+			<modeCode code="ELECTRONIC"
+				codeSystem="2.16.840.1.113883.5.1064">
+				<originalText>electronic data</originalText>
+			</modeCode>
+			<signatureText mediaType="text/plain"
+				representation="TXT">
+				This is where the digital signature goes
+			</signatureText>
+			<assignedEntity1>
+				<id displayable="true" extension="1000000033"
+					root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<assignedPerson classCode="PSN"
+					determinerCode="INSTANCE">
+					<name use="L" xsi:type="PN"
+						specializationType="PN.BASIC">
+						<prefix>Dr</prefix>
+						<given>Charlotte</given>
+						<given>Carol</given>
+						<family>Phillis</family>
+					</name>
+					<asHealthCareProvider classCode="PROV">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					</asHealthCareProvider>
+				</assignedPerson>
+				<representedOrganization classCode="ORG"
+					determinerCode="INSTANCE">
+					<id displayable="true" extension="666777888"
+						root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					<name>Provider Organization Name</name>
+				</representedOrganization>
+			</assignedEntity1>
+		</author>
+		<dataEnterer contextControlCode="AP" typeCode="ENT">
+			<assignedEntity1 classCode="ASSIGNED">
+				<id displayable="true" extension="1000000033"
+					root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<assignedPerson classCode="PSN"
+					determinerCode="INSTANCE">
+					<name use="L" xsi:type="PN"
+						specializationType="PN.BASIC">
+						<prefix>Dr</prefix>
+						<given>Charlotte</given>
+						<given>Carol</given>
+						<family>Phillis</family>
+					</name>
+					<asHealthCareProvider classCode="PROV">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					</asHealthCareProvider>
+				</assignedPerson>
+				<representedOrganization classCode="ORG"
+					determinerCode="INSTANCE">
+					<id displayable="true" extension="666777888"
+						root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC" />
+					<name>Provider Organization Name</name>
+				</representedOrganization>
+			</assignedEntity1>
+		</dataEnterer>
+		<dataEntryLocation contextControlCode="AP" typeCode="ELOC">
+			<serviceDeliveryLocation classCode="SDLOC">
+				<id displayable="true" extension="123987"
+					root="2.55.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<location classCode="PLC" determinerCode="INSTANCE">
+					<name>Doctor's Office</name>
+				</location>
+			</serviceDeliveryLocation>
+		</dataEntryLocation>
+		<location contextControlCode="AP" typeCode="LOC">
+			<serviceDeliveryLocation classCode="SDLOC">
+				<id displayable="true" extension="123987"
+					root="2.55.333.4.555555.6.777" specializationType="II.PUBLIC" />
+				<location classCode="PLC" determinerCode="INSTANCE">
+					<name>Doctor's Office</name>
+				</location>
+			</serviceDeliveryLocation>
+		</location>
+		<subject contextConductionInd="true" contextControlCode="AN"
+			typeCode="SUBJ">
+			<immunization classCode="SBADM" moodCode="EVN"
+				negationInd="false">
+				<id displayable="true" extension="900001"
+					root="1.14.444.1.113883.5.1" specializationType="II.PUBLIC" />
+				<code code="IMMUNIZ"
+					codeSystem="2.16.840.1.113883.5.4">
+					<originalText>Immunization</originalText>
+				</code>
+				<statusCode code="normal" />
+				<effectiveTime xsi:type="TS"
+					specializationType="TS.DATE" value="20040621" />
+				<confidentialityCode code="N"
+					codeSystem="2.16.840.1.113883.5.25">
+					<originalText>normal</originalText>
+				</confidentialityCode>
+				<uncertaintyCode code="N"
+					codeSystem="2.16.840.1.113883.5.1053">
+					<originalText>
+						stated with no assertion of uncertainty
+					</originalText>
+				</uncertaintyCode>
+				<routeCode code="SQ"
+					codeSystem="2.16.840.1.113883.5.112">
+					<originalText>Injection, subcutaneous</originalText>
+				</routeCode>
+				<approachSiteCode code="LVL"
+					codeSystem="2.16.840.1.113883.5.1052">
+					<originalText>left vastus lateralis</originalText>
+				</approachSiteCode>
+				<doseQuantity unit="ml" value="000000000.50" />
+				<subject contextControlCode="OP" typeCode="SBJ">
+					<patient classCode="PAT">
+						<id displayable="true" extension="192873"
+							root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<telecom xsi:type="TEL"
+							specializationType="TEL.PHONE" nullFlavor="MSK" />
+						<patientPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+							    <given>Renee</given>
+							    <family>Hampton</family>
+							</name>
+							<administrativeGenderCode code="F"
+								codeSystem="2.16.840.1.113883.5.1">
+								<originalText>Female</originalText>
+							</administrativeGenderCode>
+							<birthTime xsi:type="TS"
+								specializationType="TS.FULLDATE" value="20020505" />
+						</patientPerson>
+					</patient>
+				</subject>
+				<consumable contextControlCode="OP" typeCode="CSM">
+					<administerableMedicine classCode="ADMM">
+						<administerableVaccine classCode="MMAT" determinerCode="KIND">
+							<code code="56844000" codeSystem="2.16.840.1.113883.6.96">
+								<originalText>Yellow fever vaccine</originalText>
+							</code>
+							<name>Priorix MMR</name>
+							<formCode code="APPFUL"
+								codeSystem="2.16.840.1.113883.19.5.3">
+								<originalText>
+									Applicatorful
+								</originalText>
+							</formCode>
+							<lotNumberText>456BCD</lotNumberText>
+							<expirationTime xsi:type="IVL_TS">
+								<high xsi:type="TS"
+									specializationType="TS.FULLDATE" value="20070312" />
+							</expirationTime>
+							<asManufacturedProduct classCode="MANU">
+								<manufacturer classCode="ORG"
+									determinerCode="INSTANCE">
+									<id displayable="true"
+										extension="5555555" root="2.55.555.1.113883.8.1064"
+										specializationType="II.PUBLIC" />
+									<name>GlaxoSmithKline Inc</name>
+								</manufacturer>
+							</asManufacturedProduct>
+							<ingredients classCode="INGR">
+								<ingredient classCode="MMAT"
+									determinerCode="INSTANCE">
+									<code code="121030007"
+										codeSystem="2.16.840.1.113883.6.96">
+										<originalText>
+											Antigen 1
+										</originalText>
+									</code>
+									<asHealthChart
+										classCode="HLTHCHRT">
+										<subjectOf1 typeCode="SBJ">
+											<antigenValidity
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenValidity"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<reasonCode
+													code="PRODRECALL" codeSystem="2.56.777.1.113883.5.4">
+													<originalText>
+														Product Recall
+													</originalText>
+												</reasonCode>
+												<value value="true" />
+											</antigenValidity>
+										</subjectOf1>
+										<subjectOf2 typeCode="SBJ">
+											<antigenCount
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenCount"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<value value="1"
+													xsi:type="INT" specializationType="INT.NONNEG" />
+											</antigenCount>
+										</subjectOf2>
+									</asHealthChart>
+								</ingredient>
+							</ingredients>
+							<ingredients classCode="INGR">
+								<ingredient classCode="MMAT"
+									determinerCode="INSTANCE">
+									<code code="121087003"
+										codeSystem="2.16.840.1.113883.6.96">
+										<originalText>
+											Antigen 2
+										</originalText>
+									</code>
+									<asHealthChart
+										classCode="HLTHCHRT">
+										<subjectOf1 typeCode="SBJ">
+											<antigenValidity
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenValidity"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<reasonCode
+													code="PRODRECALL" codeSystem="2.56.777.1.113883.5.4">
+													<originalText>
+														Product Recall
+													</originalText>
+												</reasonCode>
+												<value value="true" />
+											</antigenValidity>
+										</subjectOf1>
+										<subjectOf2 typeCode="SBJ">
+											<antigenCount
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenCount"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<value value="1"
+													xsi:type="INT" specializationType="INT.NONNEG" />
+											</antigenCount>
+										</subjectOf2>
+									</asHealthChart>
+								</ingredient>
+							</ingredients>
+							<ingredients classCode="INGR">
+								<ingredient classCode="MMAT"
+									determinerCode="INSTANCE">
+									<code code="120998006"
+										codeSystem="2.16.840.1.113883.6.96">
+										<originalText>
+											Antigen 3
+										</originalText>
+									</code>
+									<asHealthChart
+										classCode="HLTHCHRT">
+										<subjectOf1 typeCode="SBJ">
+											<antigenValidity
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenValidity"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<reasonCode
+													code="PRODRECALL" codeSystem="2.56.777.1.113883.5.4">
+													<originalText>
+														Product Recall
+													</originalText>
+												</reasonCode>
+												<value value="true" />
+											</antigenValidity>
+										</subjectOf1>
+										<subjectOf2 typeCode="SBJ">
+											<antigenCount
+												classCode="OBS" moodCode="EVN">
+												<code
+													code="ObservationAntigenCount"
+													codeSystem="2.16.840.1.113883.5.4" />
+												<value value="1"
+													xsi:type="INT" specializationType="INT.NONNEG" />
+											</antigenCount>
+										</subjectOf2>
+									</asHealthChart>
+								</ingredient>
+							</ingredients>
+						</administerableVaccine>
+					</administerableMedicine>
+				</consumable>
+				<responsibleParty contextControlCode="OP"
+					typeCode="RESP">
+					<assignedEntity classCode="ASSIGNED">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<code code="MD"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>Medical Docto</originalText>
+						</code>
+						<assignedPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<prefix>Dr</prefix>
+								<given>Charlotte</given>
+								<given>Carol</given>
+								<family>Phillis</family>
+							</name>
+							<asHealthCareProvider classCode="PROV">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+							</asHealthCareProvider>
+						</assignedPerson>
+						<representedOrganization classCode="ORG"
+							determinerCode="INSTANCE">
+							<id displayable="true" extension="666777888"
+								root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC" />
+							<name>Provider Organization Name</name>
+							<assignedOrganization
+								classCode="ASSIGNED">
+								<code code="CHR"
+									codeSystem="2.16.840.1.113883.5.111">
+									<originalText>
+										Chronic Care Facility
+									</originalText>
+								</code>
+								<telecom use="WP MC"
+									value="tel:+1(555)630-7960" specializationType="TEL.PHONE" />
+							</assignedOrganization>
+						</representedOrganization>
+					</assignedEntity>
+				</responsibleParty>
+				<performer contextControlCode="OP" typeCode="PRF">
+					<assignedEntity classCode="ASSIGNED">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<code code="MD"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>Medical Docto</originalText>
+						</code>
+						<telecom use="WP MC" value="tel:+1(555)630-7960"
+							specializationType="TEL.PHONE" />
+						<assignedPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<prefix>Dr</prefix>
+								<given>Billy</given>
+								<given>Bob</given>
+								<family>Roberts</family>
+							</name>
+							<asHealthCareProvider classCode="PROV">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+							</asHealthCareProvider>
+						</assignedPerson>
+					</assignedEntity>
+				</performer>
+				<author contextControlCode="OP" typeCode="AUT">
+					<assignedEntity classCode="ASSIGNED">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<code code="MD"
+							codeSystem="2.16.840.1.113883.5.111" />
+						<telecom use="WP MC" value="tel:+1(555)630-7960"
+							specializationType="TEL.PHONE" />
+						<assignedPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<prefix>Dr</prefix>
+								<given>William</given>
+								<given>Peter</given>
+								<family>John</family>
+							</name>
+							<asHealthCareProvider classCode="PROV">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+							</asHealthCareProvider>
+						</assignedPerson>
+					</assignedEntity>
+				</author>
+				<informant contextControlCode="OP" typeCode="INF">
+					<time xsi:type="IVL_TS">
+						<low xsi:type="TS" specializationType="TS.DATE"
+							value="20071231" />
+						<high xsi:type="TS" specializationType="TS.DATE"
+							value="20071231" />
+					</time>
+					<modeCode code="PHYSICAL"
+						codeSystem="2.16.840.1.113883.5.1064">
+						<originalText>physical presence</originalText>
+					</modeCode>
+					<licensedEntityRole classCode="LIC">
+						<code code="MD"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>Medical Doctor</originalText>
+						</code>
+					</licensedEntityRole>
+				</informant>
+				<authenticator contextControlCode="OP"
+					typeCode="AUTHEN">
+					<assignedEntity classCode="ASSIGNED">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<code code="MD"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>Medical Doctor</originalText>
+						</code>
+						<telecom use="WP MC" value="tel:+1(555)630-7960"
+							specializationType="TEL.PHONE" />
+						<telecom use="H"
+							value="mailto:charlotte.phillis@familymed.org"
+							specializationType="TEL.EMAIL" />
+						<assignedPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<prefix>Dr</prefix>
+								<given>Charlotte</given>
+								<given>Carol</given>
+								<family>Phillis</family>
+							</name>
+							<asHealthCareProvider classCode="PROV">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+							</asHealthCareProvider>
+						</assignedPerson>
+					</assignedEntity>
+				</authenticator>
+				<location contextControlCode="ON" typeCode="LOC">
+					<serviceDeliveryLocation classCode="SDLOC">
+						<code code="FMC"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>
+								Family medicine clinic
+							</originalText>
+						</code>
+						<addr use="WP PST" xsi:type="AD"
+							specializationType="AD.BASIC">
+							<streetAddressLine>
+								11-200 Fort St.
+							</streetAddressLine>
+							<city>Victoria</city>
+							<state>BC</state>
+							<postalCode>V8W 1C7</postalCode>
+						</addr>
+						<telecom use="WP MC" value="tel:+1(555)630-7960"
+							specializationType="TEL.PHONE" />
+						<location classCode="PLC"
+							determinerCode="INSTANCE">
+							<name>Doctor's Office</name>
+						</location>
+					</serviceDeliveryLocation>
+				</location>
+				<inFulfillmentOf contextConductionInd="true"
+					contextControlCode="AN" typeCode="FLFS">
+					<sequenceNumber value="1" />
+					<immunizationPlan classCode="SBADM"
+						moodCode="INT">
+						<code code="IMMUNIZ"
+							codeSystem="2.16.840.1.113883.5.4">
+							<originalText>Immunization</originalText>
+						</code>
+						<statusCode code="active" />
+					</immunizationPlan>
+				</inFulfillmentOf>
+				<reason contextConductionInd="false"
+					contextControlCode="AN" typeCode="RSON">
+					<immunizationReason classCode="OBS"
+						moodCode="EVN">
+						<text>Routine</text>
+						<reasonCode code="224779005"
+							codeSystem="2.16.840.1.113883.6.96">
+							<originalText>Routine</originalText>
+						</reasonCode>
+					</immunizationReason>
+				</reason>
+				<authorization contextControlCode="ON"
+					typeCode="AUTH">
+					<consent classCode="CONS" moodCode="EVN"
+						negationInd="false">
+						<id root="7D1BB7AC-7D72-4FC3-B7B4-D6539861FD77"
+							specializationType="II.TOKEN" />
+						<code code="IMMUNIZ"
+							codeSystem="2.16.840.1.113883.5.4">
+							<originalText>Immunization</originalText>
+						</code>
+						<effectiveTime xsi:type="IVL_TS">
+							<low xsi:type="TS"
+								specializationType="TS.FULLDATE" value="20040621" />
+							<high xsi:type="TS"
+								specializationType="TS.FULLDATE" value="20080118" />
+						</effectiveTime>
+						<receiver contextControlCode="ON"
+							typeCode="RCV">
+							<assignedEntity classCode="ASSIGNED">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code code="MD"
+									codeSystem="2.16.840.1.113883.5.111">
+									<originalText>
+										Medical Doctor
+									</originalText>
+								</code>
+								<telecom use="WP MC"
+									value="tel:+1(555)630-7960" specializationType="TEL.PHONE" />
+								<assignedPerson classCode="PSN"
+									determinerCode="INSTANCE">
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+									<asHealthCareProvider
+										classCode="PROV">
+										<id displayable="true"
+											extension="1000000033" root="2.11.333.4.555555.6.777"
+											specializationType="II.PUBLIC" />
+									</asHealthCareProvider>
+								</assignedPerson>
+								<representedOrganization classCode="ORG"
+									determinerCode="INSTANCE">
+									<id displayable="true"
+										extension="666777888" root="2.33.333.4.555555.6.777"
+										specializationType="II.PUBLIC" />
+									<name>
+										Provider Organization Name
+									</name>
+									<assignedOrganization
+										classCode="ASSIGNED">
+										<code code="CHR"
+											codeSystem="2.16.840.1.113883.5.111">
+											<originalText>
+												Chronic Care Facility
+											</originalText>
+										</code>
+										<telecom use="WP MC"
+											value="tel:+1(555)630-7960" specializationType="TEL.PHONE" />
+									</assignedOrganization>
+								</representedOrganization>
+							</assignedEntity>
+						</receiver>
+						<responsibleParty contextControlCode="ON"
+							typeCode="RESP">
+							<modeCode code="VERBAL"
+								codeSystem="2.16.840.1.113883.5.1064">
+								<originalText>verbal</originalText>
+							</modeCode>
+							<personalRelationship classCode="PRS">
+								<id displayable="true"
+									extension="998855" root="1.22.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code code="FAMMEMB"
+									codeSystem="2.16.840.1.113883.5.111">
+									<originalText>
+										Family Member
+									</originalText>
+								</code>
+								<relationshipHolder classCode="PSN"
+									determinerCode="INSTANCE">
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<given>Anita</given>
+										<family>Gerald</family>
+									</name>
+									<telecom use="WP MC"
+										value="tel:+1(250)111-1111" specializationType="TEL.PHONE" />
+									<addr use="WP PST" xsi:type="AD"
+										specializationType="AD.BASIC">
+										<streetAddressLine>
+											121 Lee St.
+										</streetAddressLine>
+										<city>Victoria</city>
+										<state>BC</state>
+										<postalCode>V8N 3PK</postalCode>
+									</addr>
+								</relationshipHolder>
+							</personalRelationship>
+						</responsibleParty>
+					</consent>
+				</authorization>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh from a1
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<assignedEntity1 classCode="ASSIGNED">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<assignedPerson classCode="PSN"
+									determinerCode="INSTANCE">
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+									<asHealthCareProvider
+										classCode="PROV">
+										<id displayable="true"
+											extension="1000000033" root="2.11.333.4.555555.6.777"
+											specializationType="II.PUBLIC" />
+									</asHealthCareProvider>
+								</assignedPerson>
+								<representedOrganization classCode="ORG"
+									determinerCode="INSTANCE">
+									<id displayable="true"
+										extension="666777888" root="2.33.333.4.555555.6.777"
+										specializationType="II.PUBLIC" />
+									<name>
+										Provider Organization Name
+									</name>
+								</representedOrganization>
+							</assignedEntity1>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh from a3
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<assignedEntity3 classCode="ASSIGNED">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code
+									codeSystem="2.16.840.1.113883.5.111" code="MD" />
+								<assignedPerson classCode="PSN"
+									determinerCode="INSTANCE">
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+									<asHealthCareProvider
+										classCode="PROV">
+										<id displayable="true"
+											extension="1000000033" root="2.11.333.4.555555.6.777"
+											specializationType="II.PUBLIC" />
+									</asHealthCareProvider>
+								</assignedPerson>
+								<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+									<id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777"/>
+									<name>Provider Organization Name</name>
+									<assignedOrganization classCode="ASSIGNED">
+										<code code="CHR" codeSystem="2.16.840.1.113883.5.111">
+											<originalText>Chronic Care Facility</originalText>
+										</code>
+										<telecom use="WP MC" value="tel:+1(555)630-7960" specializationType="TEL.PHONE"/>
+									</assignedOrganization>
+								</representedOrganization>
+							</assignedEntity3>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<assignedEntity2 classCode="ASSIGNED">
+								<representedOrganization classCode="ORG"
+									determinerCode="INSTANCE">
+									<id displayable="true"
+										extension="666777888" root="2.33.333.4.555555.6.777"
+										specializationType="II.PUBLIC" />
+									<name>
+										Rep Organization Name Type 2
+									</name>
+								</representedOrganization>
+							</assignedEntity2>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<assignedEntity4 classCode="ASSIGNED">
+								<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+									<id displayable="true" extension="666777888" root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC"/>
+									<name>Provider Organization Name</name>
+									<assignedOrganization classCode="ASSIGNED">
+										<code code="CHR" codeSystem="2.16.840.1.113883.5.111">
+											<originalText>Chronic Care Facility</originalText>
+										</code>
+										<telecom use="WP MC" value="tel:+1(555)630-7960" specializationType="TEL.PHONE"/>
+									</assignedOrganization>
+								</representedOrganization>
+							</assignedEntity4>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh from p1
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<personalRelationship1
+								classCode="PRS">
+								<id displayable="true"
+									extension="666777888" root="2.33.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code code="IMED"
+									codeSystem="2.16.840.1.113883.5.111" />
+								<relationshipHolder>
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+								</relationshipHolder>
+							</personalRelationship1>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh from p2
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<personalRelationship2
+								classCode="PRS">
+								<id displayable="true"
+									extension="666777888" root="2.33.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code code="IMED"
+									codeSystem="2.16.840.1.113883.5.111" />
+								<relationshipHolder>
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+								</relationshipHolder>
+							</personalRelationship2>
+						</author>
+					</annotation>
+				</subjectOf>
+				<subjectOf contextConductionInd="false"
+					contextControlCode="AN" typeCode="SUBJ">
+					<annotation classCode="ACT" moodCode="EVN">
+						<realmCode code="CA" />
+						<text>
+							Strawberry birth mark on right thigh from P4
+						</text>
+						<statusCode code="completed" />
+						<author typeCode="AUT">
+							<time xsi:type="TS"
+								specializationType="TS.FULLDATETIME" value="200406211503-0800" />
+							<personalRelationship4
+								classCode="PRS">
+								<id displayable="true"
+									extension="666777888" root="2.33.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<code code="IMED"
+									codeSystem="2.16.840.1.113883.5.111" />
+								<relationshipHolder>
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+								</relationshipHolder>
+							</personalRelationship4>
+						</author>
+					</annotation>
+				</subjectOf>
+			</immunization>
+		</subject>
+		<subjectOf2 contextConductionInd="false" contextControlCode="AP"
+			typeCode="SUBJ">
+			<consentEvent classCode="CONS" moodCode="EVN">
+				<id extension="88996677"
+					root="36E8BE05-D239-48F3-A431-DFC64104E900" use="BUS"
+					specializationType="II.BUS" />
+				<code code="INF" codeSystem="2.16.840.1.113883.5.4" />
+				<effectiveTime xsi:type="IVL_TS">
+					<low xsi:type="TS" specializationType="TS.FULLDATE"
+						value="20080117" />
+					<high xsi:type="TS" specializationType="TS.FULLDATE"
+						value="20080117" />
+				</effectiveTime>
+				<reasonCode code="PROFJ"
+					codeSystem="2.16.840.1.113883.5.8">
+					<originalText>professional judgement</originalText>
+				</reasonCode>
+				<subject1 contextControlCode="OP" typeCode="SBJ">
+					<patient1 classCode="PAT">
+						<id displayable="true" extension="192873"
+							root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<patientPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+							    <given>Renee</given>
+							    <family>Hampton</family>
+							</name>
+							<administrativeGenderCode code="F"
+								codeSystem="2.16.840.1.113883.5.1">
+								<originalText>Female</originalText>
+							</administrativeGenderCode>
+							<birthTime xsi:type="TS"
+								specializationType="TS.FULLDATE" value="20020505" />
+						</patientPerson>
+					</patient1>
+				</subject1>
+				<author1 contextControlCode="OP" typeCode="AUT">
+					<assignedEntity classCode="ASSIGNED">
+						<id displayable="true" extension="1000000033"
+							root="2.11.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<assignedPerson classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<prefix>Dr</prefix>
+								<given>Charlotte</given>
+								<given>Carol</given>
+								<family>Phillis</family>
+							</name>
+							<asHealthCareProvider classCode="PROV">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+							</asHealthCareProvider>
+						</assignedPerson>
+						<representedOrganization classCode="ORG"
+							determinerCode="INSTANCE">
+							<id displayable="true" extension="666777888"
+								root="2.33.333.4.555555.6.777" specializationType="II.PUBLIC" />
+							<name>Provider Organization Name</name>
+						</representedOrganization>
+					</assignedEntity>
+				</author1>
+				<author2 contextControlCode="OP" typeCode="AUT">
+					<modeCode code="PHYSICAL"
+						codeSystem="2.16.840.1.113883.5.1064">
+						<originalText>physical presence</originalText>
+					</modeCode>
+					<signatureText mediaType="text/plain"
+						representation="TXT">
+						Digital Signature Goes Here
+					</signatureText>
+					<personalRelationship classCode="PRS">
+						<id displayable="true" extension="998855"
+							root="1.22.333.4.555555.6.777" specializationType="II.PUBLIC" />
+						<code code="FAMMEMB"
+							codeSystem="2.16.840.1.113883.5.111">
+							<originalText>Family Member</originalText>
+						</code>
+						<relationshipHolder classCode="PSN"
+							determinerCode="INSTANCE">
+							<name use="L" xsi:type="PN"
+								specializationType="PN.BASIC">
+								<given>Anita</given>
+								<family>Gerald</family>
+							</name>
+							<telecom use="WP MC"
+								value="tel:+1(250)111-1111" specializationType="TEL.PHONE" />
+							<addr use="WP PST" xsi:type="AD"
+								specializationType="AD.BASIC">
+								<streetAddressLine>
+									121 Lee St.
+								</streetAddressLine>
+								<city>Victoria</city>
+								<state>BC</state>
+								<postalCode>V8N 3PK</postalCode>
+							</addr>
+						</relationshipHolder>
+					</personalRelationship>
+				</author2>
+				<subject2 contextConductionInd="true"
+					contextControlCode="AN" typeCode="SUBJ">
+					<informDefinition classCode="INFRM"
+						moodCode="DEF">
+						<receiver contextControlCode="OP"
+							typeCode="RCV">
+							<assignedEntity classCode="ASSIGNED">
+								<id displayable="true"
+									extension="1000000033" root="2.11.333.4.555555.6.777"
+									specializationType="II.PUBLIC" />
+								<assignedPerson classCode="PSN"
+									determinerCode="INSTANCE">
+									<name use="L" xsi:type="PN"
+										specializationType="PN.BASIC">
+										<prefix>Dr</prefix>
+										<given>Charlotte</given>
+										<given>Carol</given>
+										<family>Phillis</family>
+									</name>
+									<asHealthCareProvider
+										classCode="PROV">
+										<id displayable="true"
+											extension="1000000033" root="2.11.333.4.555555.6.777"
+											specializationType="II.PUBLIC" />
+									</asHealthCareProvider>
+								</assignedPerson>
+								<representedOrganization classCode="ORG"
+									determinerCode="INSTANCE">
+									<id displayable="true"
+										extension="666777888" root="2.33.333.4.555555.6.777"
+										specializationType="II.PUBLIC" />
+									<name>
+										Provider Organization Name
+									</name>
+								</representedOrganization>
+							</assignedEntity>
+						</receiver>
+						<subject contextConductionInd="false"
+							contextControlCode="AN" typeCode="SUBJ">
+							<actDefinition classCode="ACT"
+								moodCode="DEF">
+								<code code="ACIMMUN"
+									codeSystem="2.16.840.1.113883.5.4">
+									<originalText>
+										immunization access
+									</originalText>
+								</code>
+							</actDefinition>
+						</subject>
+					</informDefinition>
+				</subject2>
+			</consentEvent>
+		</subjectOf2>
+	</controlActEvent>
+</POIZ_IN010020CA>
