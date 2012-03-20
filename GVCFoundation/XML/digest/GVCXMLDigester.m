@@ -18,6 +18,7 @@
 #import "GVCXMLDigesterAttributeMapRule.h"
 #import "GVCXMLDigesterPairAttributeTextRule.h"
 
+#import "NSDictionary+GVCFoundation.h"
 
 @implementation GVCXMLDigester
 
@@ -143,7 +144,18 @@
 {
 	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
 	
-	NSArray *rules = [digestRules match:[self elementPath]];
+	// check for rules for the current elementName
+	NSArray *rules = [digestRules rulesForNodeName:elementName];
+	if (gvc_IsEmpty(rules) == NO) 
+	{
+		for (GVCXMLDigesterRule *rule in rules) 
+		{
+			[rule didStartElement:elementName attributes:attributeDict];
+		}
+	}
+	
+	// check for patterns
+	rules = [digestRules rulesForMatch:[self elementPath]];
 	if (gvc_IsEmpty(rules) == NO) 
 	{
 		for (GVCXMLDigesterRule *rule in rules) 
@@ -155,15 +167,32 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	NSArray *rules = [digestRules match:[self elementPath]];
+	NSArray *rules = [digestRules rulesForMatch:[self elementPath]];
 	if (gvc_IsEmpty(rules) == NO) 
 	{
 		for (GVCXMLDigesterRule *rule in [rules reverseObjectEnumerator])
 		{
-			[rule didFindCharacters:[self currentTextString]];
+			if (gvc_IsEmpty([self currentTextString]) == NO)
+				[rule didFindCharacters:[self currentTextString]];
+			if (gvc_IsEmpty([self currentCDATA]) == NO)
+				[rule didFindCDATA:[self currentCDATA]];
 			[rule didEndElement:elementName];
 		}
 	}
+	
+	rules = [digestRules rulesForNodeName:elementName];
+	if (gvc_IsEmpty(rules) == NO) 
+	{
+		for (GVCXMLDigesterRule *rule in [rules reverseObjectEnumerator])
+		{
+			if (gvc_IsEmpty([self currentTextString]) == NO)
+				[rule didFindCharacters:[self currentTextString]];
+			if (gvc_IsEmpty([self currentCDATA]) == NO)
+				[rule didFindCDATA:[self currentCDATA]];
+			[rule didEndElement:elementName];
+		}
+	}
+
 	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
 }
@@ -183,12 +212,12 @@
 	[outputGenerator openDocumentWithDeclaration:YES andEncoding:YES];
 	[outputGenerator openElement:@"digester"];
 	
-	NSDictionary *rulesets = [digestRules ruleset];
+	NSArray *rulesets = [[digestRules ruleset] gvc_sortedKeys];
 	for (NSString *pattern in rulesets)
 	{
 		[outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"pattern", pattern, nil];
 		
-		NSArray *rules = [rulesets objectForKey:pattern];
+		NSArray *rules = [[digestRules ruleset] objectForKey:pattern];
 		for (GVCXMLDigesterRule *aRule in rules)
 		{
 			[aRule writeConfiguration:outputGenerator];

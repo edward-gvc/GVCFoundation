@@ -55,6 +55,11 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_MED;
+}
+
 - (void) didStartElement:(NSString *)element attributes:(NSDictionary *)attributeDict
 {
 	[self setPairKey:[attributeDict objectForKey:attributeName]];
@@ -65,8 +70,8 @@
 	GVC_ASSERT_VALID_STRING( pairKey );
 	
     id object = [[self digester] peekNodeObject];
-	GVCPair *pair = [[GVCPair alloc] initWith:pairKey and:(nodeText == nil ? [NSString gvc_EmptyString] : nodeText)];
-	NSString *key = (gvc_IsEmpty(propertyName) ? elementName : propertyName);
+	GVCPair *pair = [[GVCPair alloc] initWith:pairKey and:([self nodeText] == nil ? [NSString gvc_EmptyString] : [self nodeText])];
+	NSString *key = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
 	
     
 	NSString *selectorName = GVC_SPRINTF( @"set%@:", [key gvc_StringWithCapitalizedFirstCharacter] );
@@ -100,7 +105,7 @@
 {
 	NSMutableDictionary *copyDict = [NSMutableDictionary dictionaryWithCapacity:2];
 	[copyDict setObject:GVC_CLASSNAME(self) forKey:@"class_type"];
-	[copyDict setObject:(gvc_IsEmpty(propertyName) == YES ? [NSString gvc_EmptyString] : propertyName) forKey:GVC_PROPERTY(propertyName)];
+	[copyDict setObject:(gvc_IsEmpty([self propertyName]) == YES ? [NSString gvc_EmptyString] : [self propertyName]) forKey:[self propertyName]];
 	[copyDict setObject:(gvc_IsEmpty(attributeName) == YES ? [NSString gvc_EmptyString] : attributeName) forKey:GVC_PROPERTY(attributeName)];
 	
 	[outputGenerator writeElement:@"rule" inNamespace:nil withAttributes:copyDict];

@@ -74,6 +74,16 @@ typedef enum {
 - (NSArray *)declaredNamespaces;
 @end
 
+@protocol GVCXMLAttributeContainer <GVCXMLContent>
+- (NSArray *)attributes;
+- (void)addAttribute:(id <GVCXMLAttributeContent>)attrb;
+- (void)addAttribute:(NSString *)attrb withValue:(NSString *)attval inNamespace:(id <GVCXMLNamespaceDeclaration>)ns;
+- (void)addAttributesFromArray:(NSArray *)attArray;
+- (id <GVCXMLAttributeContent>)attributeForName:(NSString *)key;
+@end
+
+
+
 @protocol GVCXMLDocumentTypeDeclaration <GVCXMLContent>
 - (void)setElementName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID forInternalSubset:(NSString *)internalSubset;
 
@@ -102,9 +112,8 @@ typedef enum {
 @end
 
 @protocol GVCXMLContainerNode <GVCXMLContent>
-@property (readonly, strong, nonatomic) NSArray *children;
+- (NSArray *)children;
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child;
-- (id <GVCXMLContent>)addContentNodeFor:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSArray *)attributeList;
 @end
 
 

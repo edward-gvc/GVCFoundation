@@ -8,6 +8,8 @@
 
 #import "NSString+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+
+#import "GVCMacros.h"
 #import "GVCFunctions.h"
 
 @implementation NSString (GVCFoundation)

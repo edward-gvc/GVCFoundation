@@ -39,6 +39,10 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_MED;
+}
 
 - (void) didEndElement:(NSString *)elementName
 {

@@ -32,6 +32,11 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_LOW;
+}
+
 - (void) didStartElement: (NSString*) elementName attributes: (NSDictionary*) attributeDict
 {
 }
@@ -42,6 +47,11 @@
 
 - (void) didFindCharacters:(NSString*) body
 {
+}
+
+- (void) didFindCDATA:(NSData *)body
+{
+	
 }
 
 - (void) finishDigest
@@ -72,6 +82,11 @@
 + (GVCXMLDigesterRule *)ruleForSetPropertyText:(NSString *)propertyName
 {
 	return [[GVCXMLDigesterSetPropertyRule alloc] initWithPropertyName:propertyName];
+}
+
++ (GVCXMLDigesterRule *)ruleForSetPropertyCDATA:(NSString *)propertyName
+{
+	return [[GVCXMLDigesterSetCDATARule alloc] initWithPropertyName:propertyName];
 }
 
 + (GVCXMLDigesterRule *)ruleForSetPropertyTextFromAttributeValue:(NSString *)attributeName

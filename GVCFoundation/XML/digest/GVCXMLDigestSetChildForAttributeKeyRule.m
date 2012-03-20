@@ -42,6 +42,11 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_MED;
+}
+
 - (void) didStartElement:(NSString *)element attributes:(NSDictionary *)attributeDict
 {
 	[self setPropertyName:[attributeDict objectForKey:attributeName]];

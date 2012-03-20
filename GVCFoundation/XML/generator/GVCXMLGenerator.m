@@ -11,8 +11,10 @@
 #import "GVCReaderWriter.h"
 #import "GVCLogger.h"
 #import "GVCFunctions.h"
-#import "NSString+GVCFoundation.h"
 #import "GVCXMLOutputNode.h"
+#import "GVCXMLNamespace.h"
+
+#import "NSString+GVCFoundation.h"
 
 
 @interface GVCXMLGenerator ()
@@ -312,7 +314,7 @@
 - (void)writeCDATA:(NSString *)text
 {
 	[self startCDATA];
-	[self writeText:text];
+	[self writeString:text];
 	[self endCDATA];
 }
 

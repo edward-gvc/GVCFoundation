@@ -10,6 +10,7 @@
 
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "GVCPair.h"
 #import "GVCXMLGenerator.h"
 #import "NSString+GVCFoundation.h"
@@ -66,6 +67,10 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_MED;
+}
 
 - (void)mapAttributesFromDictionary:(NSDictionary *)dict
 {
@@ -92,7 +97,11 @@
 		
 		if (propertyName != nil) 
 		{
+			NS_DURING
 			[object setValue:[attributeDict objectForKey: attributeName] forKey:propertyName];
+			NS_HANDLER
+			GVCLogError( @"Object %@ does not accept property name %@", object, propertyName);
+			NS_ENDHANDLER
 		}
 		else if ( tryToAssignAll == YES )
 		{

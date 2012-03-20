@@ -43,6 +43,11 @@
 	return [self initForClassname:nil orFromAttribute:nil];
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_HIGH;
+}
+
 - (void) didStartElement: (NSString*) elementName attributes: (NSDictionary*) attributeDict
 {
 	NSString *realClassName = [self classname];

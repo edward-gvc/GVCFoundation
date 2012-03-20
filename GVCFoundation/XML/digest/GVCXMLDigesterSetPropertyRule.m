@@ -10,7 +10,9 @@
 
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "GVCXMLGenerator.h"
+#import "GVCXMLDigester.h"
 
 #import "NSString+GVCFoundation.h"
 
@@ -39,6 +41,12 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_LOW;
+}
+
+
 - (void) didFindCharacters:(NSString *)text
 {
     [self setNodeText:text];
@@ -47,7 +55,13 @@
 - (void) didEndElement:(NSString *)elementName
 {
     id object = [[self digester] peekNodeObject];
-    [object setValue:nodeText forKey:(gvc_IsEmpty(propertyName) ? elementName : propertyName)];
+	NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
+
+	NS_DURING
+    [object setValue:nodeText forKey:propertyKey];
+	NS_HANDLER
+	GVCLogError( @"Object %@ does not accept property name %@", object, propertyKey);
+	NS_ENDHANDLER
 }
 
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
@@ -57,6 +71,38 @@
 	[copyDict setObject:(gvc_IsEmpty(propertyName) == YES ? [NSString gvc_EmptyString] : propertyName) forKey:GVC_PROPERTY(propertyName)];
 	
 	[outputGenerator writeElement:@"rule" inNamespace:nil withAttributes:copyDict];
+}
+
+@end
+
+
+@implementation GVCXMLDigesterSetCDATARule
+
+@synthesize nodeCDATA;
+
+- (id) initWithPropertyName:(NSString *)pname
+{
+	self = [super initWithPropertyName:pname];
+	if (self != nil) 
+	{
+	}
+	return self;
+}
+
+- (void) didFindCDATA:(NSData *)text
+{
+    [self setNodeCDATA:text];
+}
+
+- (void) didEndElement:(NSString *)elementName
+{
+    id object = [[self digester] peekNodeObject];
+	NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
+	NS_DURING
+    [object setValue:nodeCDATA forKey:propertyKey];
+	NS_HANDLER
+	GVCLogError( @"Object %@ does not accept property name %@", object, propertyKey);
+	NS_ENDHANDLER
 }
 
 @end

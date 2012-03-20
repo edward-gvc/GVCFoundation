@@ -34,6 +34,11 @@
 	return self;
 }
 
+- (GVC_XML_DigesterRule_Order)rulePriority
+{
+	return GVC_XML_DigesterRule_Order_MED;
+}
+
 - (void) didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict
 {
     id object = [[self digester] peekNodeObject];

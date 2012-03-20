@@ -8,7 +8,8 @@
 #import "GVCXMLParserDelegate.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
-#import "NSString+GVCFoundation.h"
+#import "GVCStack.h"
+#import "GVCLogger.h"
 
 #import "GVCXMLDocument.h"
 #import "GVCXMLDocType.h"
@@ -17,6 +18,8 @@
 #import "GVCXMLComment.h"
 #import "GVCXMLProcessingInstructions.h"
 #import "GVCXMLAttribute.h"
+
+#import "NSString+GVCFoundation.h"
 
 @implementation GVCXMLParserDelegate
 
@@ -50,6 +53,7 @@
 	namespaceStack = nil;
 	declaredNamespaces = nil;
 	currentTextBuffer = nil;
+	currentCDATA = nil;
 	xmlError = nil;
 	
 	status = GVC_XML_ParserDelegateStatus_INITIAL;
@@ -96,6 +100,11 @@
 	return status;
 }
 
+- (NSData *)currentCDATA
+{
+	return currentCDATA;
+}
+
 - (NSString *)currentTextString
 {
 	return [NSString stringWithString:currentTextBuffer];
@@ -111,6 +120,7 @@
 	namespaceStack = [[NSMutableDictionary alloc] init];
 	declaredNamespaces = [[NSMutableArray alloc] init];
 	currentTextBuffer = [[NSMutableString alloc] init];
+	currentCDATA = nil;
 }
 
 
@@ -161,6 +171,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
+	currentCDATA = nil;
 	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 	[elementNameStack pushObject:elementName];
 }
@@ -200,6 +211,11 @@
 	[currentTextBuffer appendString:string];
 }
 
+- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
+{
+	currentCDATA = CDATABlock;
+}
+
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
 {
 		//GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
@@ -213,11 +229,6 @@
 - (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
 {
 		//GVCLogInfo( @"foundComment:%@", comment);
-}
-
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
-{
-		//GVCLogInfo( @"foundCDATA:%@", [CDATABlock descriptionFromOffset:0 limitingToByteCount:64]);
 }
 
 - (NSData *)parser:(NSXMLParser *)parser resolveExternalEntityName:(NSString *)name systemID:(NSString *)systemID

@@ -11,16 +11,18 @@
 #import "GVCXMLDigesterRule.h"
 
 @interface GVCXMLDigesterSetPropertyRule : GVCXMLDigesterRule
-{
-	NSString *propertyName;
-	NSString *nodeText;
-}
 
-@property (retain, nonatomic) NSString *propertyName;
-@property (retain, nonatomic) NSString *nodeText;
+@property (strong, nonatomic) NSString *propertyName;
+@property (strong, nonatomic) NSString *nodeText;
 
 - (id)initWithPropertyName:(NSString *)pname;
 
+@end
 
+@interface GVCXMLDigesterSetCDATARule : GVCXMLDigesterSetPropertyRule
+
+@property (strong, nonatomic) NSData *nodeCDATA;
+
+- (id)initWithPropertyName:(NSString *)pname;
 
 @end

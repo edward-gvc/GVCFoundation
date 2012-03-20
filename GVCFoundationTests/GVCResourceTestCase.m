@@ -11,6 +11,8 @@
 GVC_DEFINE_STRVALUE(CSV_Cars, Cars)
 GVC_DEFINE_STRVALUE(CSV_VocabularySummary, Vocabulary Summary)
 
+GVC_DEFINE_STRVALUE(XML_Agent_Digest, AgentDigest)
+
 GVC_DEFINE_STRVALUE(XML_Agent_OIDs, Agent_OIDs)
 GVC_DEFINE_STRVALUE(XML_addImmunization_request, addImmunization_request)
 GVC_DEFINE_STRVALUE(XML_addImmunization_response, addImmunization_response)

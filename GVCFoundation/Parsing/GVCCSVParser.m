@@ -7,7 +7,7 @@
 
 #import "GVCCSVParser.h"
 #import "GVCMacros.h"
-
+#import "GVCFunctions.h"
 #import "NSString+GVCFoundation.h"
 
 @interface GVCCSVParser ()

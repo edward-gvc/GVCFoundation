@@ -25,6 +25,7 @@
 }
 
 - (id)init;
+- (void)resetParser;
 
 @property (retain, nonatomic) NSString *filename;
 @property (retain, nonatomic) NSURL *sourceURL;

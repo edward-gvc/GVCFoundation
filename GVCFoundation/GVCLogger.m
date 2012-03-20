@@ -8,6 +8,7 @@
 
 #import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
+#import "GVCFunctions.h"
 
 GVC_DEFINE_STRVALUE(GVC_DEBUG,	DEBUG);
 GVC_DEFINE_STRVALUE(GVC_INFO,	INFO);

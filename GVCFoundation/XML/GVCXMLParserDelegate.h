@@ -28,6 +28,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 	NSMutableArray *declaredNamespaces;
 	
 	NSMutableString *currentTextBuffer;
+	NSData *currentCDATA;
 	
 	NSString *filename;
 	NSURL *sourceURL;
@@ -46,6 +47,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 
 @property (retain, nonatomic) NSError *xmlError;
 
+- (NSData *)currentCDATA;
 - (NSString *)currentTextString;
 
 - (GVC_XML_ParserDelegateStatus)status;

@@ -15,6 +15,8 @@
 GVC_DEFINE_EXTERN_STR(CSV_Cars)
 GVC_DEFINE_EXTERN_STR(CSV_VocabularySummary)
 
+GVC_DEFINE_EXTERN_STR(XML_Agent_Digest)
+
 GVC_DEFINE_EXTERN_STR(XML_Agent_OIDs)
 GVC_DEFINE_EXTERN_STR(XML_addImmunization_request)
 GVC_DEFINE_EXTERN_STR(XML_addImmunization_response)

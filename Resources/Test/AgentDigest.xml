@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<digester>
+	<ruleset pattern="^agents">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="TestAgentsCollection" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="oidRoot">oid</map>
+		</rule>
+	</ruleset>
+
+	<ruleset pattern="^agents/agent">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="TestAgent" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="id">identifier</map>
+		</rule>
+		<rule class_type="GVCXMLDigesterSetChildRule" propertyName="agent" />
+	</ruleset>
+	
+	<ruleset pattern="^agents/agent/agentName">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="name" />
+	</ruleset>
+
+	<ruleset pattern="^service/connection/name">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="name" />
+	</ruleset>
+	<ruleset pattern="^service/connection/note">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="note" />
+	</ruleset>
+	<ruleset pattern="^service/connection/baseurl">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="baseurl" />
+	</ruleset>
+	<ruleset pattern="^service/connection/username">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="username" />
+	</ruleset>
+	<ruleset pattern="^service/connection/password">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="password" />
+	</ruleset>
+	<ruleset pattern="^service/connection/headers/header">
+		<rule class_type="GVCXMLDigesterPairAttributeTextRule" attributeName="name" propertyName="header" />
+	</ruleset>
+
+	<ruleset pattern="^service/messages/message/uri">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="uri" />
+	</ruleset>
+	<ruleset pattern="^service/messages/message/parserDigest">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="parserDigest" />
+	</ruleset>
+	<ruleset pattern="^service/messages/message/digestRoot">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="digestRoot" />
+	</ruleset>
+	<ruleset pattern="^service/messages/message/schemaLocation">
+		<rule class_type="GVCXMLDigesterSetPropertyRule" propertyName="schema" />
+	</ruleset>
+	
+	<ruleset pattern="^service/messages/message/digestKeys/key">
+		<rule class_type="GVCXMLDigesterPairAttributeTextRule" attributeName="name" propertyName="digestKey" />
+	</ruleset>
+	
+
+
+	<ruleset pattern="^service/messages/message">
+		<rule class_type="GVCXMLDigesterCreateObjectRule" classname="HL7ServiceMessage" />
+		<rule class_type="GVCXMLDigesterAttributeMapRule">
+			<map attributeName="name">name</map>
+			<map attributeName="interaction">interaction</map>
+			<map attributeName="connection">connectionName</map>
+		</rule>
+		<rule class_type="GVCXMLDigestSetChildForAttributeKeyRule" attributeName="name" />
+	</ruleset>
+
+</digester>

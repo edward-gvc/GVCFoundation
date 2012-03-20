@@ -1,6 +1,5 @@
 /**
  * Header for GVCFoundation
- * Date:  Fri Mar 9 16:25:17 EST 2012
  * Author: daspinall
  */
 
@@ -15,6 +14,8 @@
 #import "NSBundle+GVCFoundation.h"
 #import "NSCharacterSet+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+#import "NSDictionary+GVCFoundation.h"
+#import "NSError+GVCFoundation.h"
 #import "NSFileManager+GVCFoundation.h"
 #import "NSString+GVCFoundation.h"
 
@@ -38,6 +39,13 @@
 #import "GVCStack.h"
 #import "GVCStringWriter.h"
 #import "GVCTextGenerator.h"
+
+/* 
+ * Operations 
+ */
+#import "GVCFileOperation.h"
+#import "GVCOperation.h"
+#import "GVCRunLoopOperation.h"
 
 /* 
  * Parsing 
@@ -79,12 +87,24 @@
  */
 #import "GVCXMLAttribute.h"
 #import "GVCXMLComment.h"
+#import "GVCXMLContainerNode.h"
 #import "GVCXMLDocType.h"
 #import "GVCXMLDocument.h"
 #import "GVCXMLNamespace.h"
+#import "GVCXMLNode.h"
 #import "GVCXMLParseNodeDelegate.h"
 #import "GVCXMLProcessingInstructions.h"
 #import "GVCXMLText.h"
+
+/* 
+ * XML rss 
+ */
+#import "GVCRSSDigester.h"
+#import "GVCRSSEntry.h"
+#import "GVCRSSFeed.h"
+#import "GVCRSSLink.h"
+#import "GVCRSSNode.h"
+#import "GVCRSSText.h"
 
 /* 
  * formatter 

@@ -38,6 +38,33 @@
 	return self;
 }
 
+/*
+ reset the parser so it can be reused.
+ GVCStack *nodeStack;
+ NSMutableDictionary *namespaceStack;
+ NSMutableArray *declaredNamespaces;
+ 
+ NSString *filename;
+ NSURL *sourceURL;
+ NSData *xmlData;	
+ 
+ id <GVCXMLDocumentNode> documentNode;
+ GVC_XML_ParserDelegateStatus status;
+
+ */
+- (void)resetParser
+{
+	nodeStack = nil;
+	namespaceStack = nil;
+	declaredNamespaces = nil;
+	filename = nil;
+	sourceURL = nil;
+	xmlData = nil;
+	documentNode = nil;
+	
+	status = GVC_XML_ParserDelegateStatus_INITIAL;
+}
+
 
 - (GVC_XML_ParserDelegateStatus)status
 {
@@ -125,7 +152,7 @@
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
-	GVCLogInfo( @"Parser did start document" );
+//	GVCLogInfo( @"Parser did start document" );
 	GVC_ASSERT(nodeStack == nil, @"Node stack already initialized" );
 	GVC_ASSERT(namespaceStack == nil, @"Namespace stack already initialized" );
 	GVC_ASSERT(documentNode == nil, @"Document already initialized" );
@@ -139,7 +166,7 @@
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
-	GVCLogInfo( @"Parser did end document" );
+//	GVCLogInfo( @"Parser did end document" );
 	GVC_ASSERT( nodeStack != nil, @"No node stack for document" );
 	GVC_ASSERT( [nodeStack count] == 0, @"Node stack is not empty %@", nodeStack );
 	GVC_ASSERT( namespaceStack != nil, @"No namespace stack for document" );
@@ -150,36 +177,36 @@
 
 - (void)parser:(NSXMLParser *)parser foundNotationDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID
 {
-	GVCLogInfo( @"foundNotationDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
+//	GVCLogInfo( @"foundNotationDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
 }
 
 - (void)parser:(NSXMLParser *)parser foundUnparsedEntityDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID notationName:(NSString *)notationName
 {
-	GVCLogInfo( @"foundUnparsedEntityDeclarationWithName:%@ publicID:%@ systemID:%@ notationName:%@", name, publicID, systemID, notationName);
+//	GVCLogInfo( @"foundUnparsedEntityDeclarationWithName:%@ publicID:%@ systemID:%@ notationName:%@", name, publicID, systemID, notationName);
 }
 
 
 - (void)parser:(NSXMLParser *)parser foundAttributeDeclarationWithName:(NSString *)attributeName forElement:(NSString *)elementName type:(NSString *)type defaultValue:(NSString *)defaultValue
 {
-	GVCLogInfo( @"foundAttributeDeclarationWithName:%@ forElement:%@ type:%@ defaultValue:%@", attributeName, elementName, type, defaultValue);
+//	GVCLogInfo( @"foundAttributeDeclarationWithName:%@ forElement:%@ type:%@ defaultValue:%@", attributeName, elementName, type, defaultValue);
 }
 
 
 - (void)parser:(NSXMLParser *)parser foundElementDeclarationWithName:(NSString *)elementName model:(NSString *)model
 {
-	GVCLogInfo( @"foundElementDeclarationWithName:%@ model:%@", elementName, model);
+//	GVCLogInfo( @"foundElementDeclarationWithName:%@ model:%@", elementName, model);
 }
 
 
 - (void)parser:(NSXMLParser *)parser foundInternalEntityDeclarationWithName:(NSString *)name value:(NSString *)value
 {
-	GVCLogInfo( @"foundInternalEntityDeclarationWithName:%@ value:%@", name, value);
+//	GVCLogInfo( @"foundInternalEntityDeclarationWithName:%@ value:%@", name, value);
 }
 
 
 - (void)parser:(NSXMLParser *)parser foundExternalEntityDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID
 {
-	GVCLogInfo( @"foundExternalEntityDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
+//	GVCLogInfo( @"foundExternalEntityDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
 	id <GVCXMLDocumentTypeDeclaration> docType = [[[self documentTypeClass] alloc] init];
 	[docType setElementName:name publicID:publicID systemID:systemID forInternalSubset:nil];
 	
@@ -189,7 +216,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-	GVCLogInfo( @"didStartElement:%@ namespaceURI:%@ qualifiedName:%@ attributes:%@", elementName, namespaceURI, qName, attributeDict );
+//	GVCLogInfo( @"didStartElement:%@ namespaceURI:%@ qualifiedName:%@ attributes:%@", elementName, namespaceURI, qName, attributeDict );
 	NSMutableArray *attArray = nil;
 	if ( gvc_IsEmpty(attributeDict) == NO )
 	{
@@ -229,7 +256,11 @@
 	if ( content == nil )
 		content = documentNode;
 
-	id <GVCXMLContent> newChild = [(id <GVCXMLContainerNode>)content addContentNodeFor:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attArray];
+	GVCXMLGenericNode *newChild = [[GVCXMLGenericNode alloc] init];
+	[newChild setLocalname:elementName];
+	//[newChild setDefaultNamespace:<#(id<GVCXMLNamespaceDeclaration>)#>
+	[newChild addAttributesFromArray:attArray];
+//	id <GVCXMLContent> newChild = [(id <GVCXMLContainerNode>)content addContentNodeFor:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attArray];
 	
 	if ([newChild conformsToProtocol:@protocol(GVCXMLNamedNode)] == YES)
 	{
@@ -246,7 +277,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	GVCLogInfo( @"didEndElement:%@ namespaceURI:%@ qualifiedName:%@", elementName, namespaceURI, qName);
+//	GVCLogInfo( @"didEndElement:%@ namespaceURI:%@ qualifiedName:%@", elementName, namespaceURI, qName);
 	id <GVCXMLContent> content = [nodeStack peekObject];
 	if ((content != nil) && ([content conformsToProtocol:@protocol(GVCXMLNamedNode)] == NO))
 	{
@@ -264,7 +295,7 @@
 
 - (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
 {
-	GVCLogInfo( @"didStartMappingPrefix:%@ toURI:%@", prefix, namespaceURI);
+//	GVCLogInfo( @"didStartMappingPrefix:%@ toURI:%@", prefix, namespaceURI);
 	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
 	
 	GVC_ASSERT( namespace == nil, @"Namespace prefix already in use [%@] as %@", prefix, namespace );
@@ -281,7 +312,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndMappingPrefix:(NSString *)prefix
 {
-	GVCLogInfo( @"didEndMappingPrefix:%@", prefix);
+//	GVCLogInfo( @"didEndMappingPrefix:%@", prefix);
 	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
 	
 	GVC_ASSERT( namespace != nil, @"Namespace prefix NOT in use [%@] as %@", prefix, namespace );
@@ -294,7 +325,7 @@
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-	GVCLogInfo( @"foundCharacters:%@", string);
+//	GVCLogInfo( @"foundCharacters:%@", string);
 	string = [string gvc_TrimWhitespace];
 	
 	if ( gvc_IsEmpty(string) == NO )
@@ -322,12 +353,12 @@
 
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
 {
-	GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
+//	GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
 }
 
 - (void)parser:(NSXMLParser *)parser foundProcessingInstructionWithTarget:(NSString *)target data:(NSString *)data
 {
-	GVCLogInfo( @"foundProcessingInstructionWithTarget:%@ data:%@", target, data);
+//	GVCLogInfo( @"foundProcessingInstructionWithTarget:%@ data:%@", target, data);
 	id <GVCXMLProcessingInstructionsNode> node = [[[self processingInstructionClass] alloc] init];
 	[node setTarget:target];
 	[node setData:data];
@@ -368,23 +399,23 @@
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
-	GVCLogInfo( @"foundCDATA:%@", [CDATABlock gvc_descriptionFromOffset:0 limitingToByteCount:64]);
+//	GVCLogInfo( @"foundCDATA:%@", [CDATABlock gvc_descriptionFromOffset:0 limitingToByteCount:64]);
 }
 
 - (NSData *)parser:(NSXMLParser *)parser resolveExternalEntityName:(NSString *)name systemID:(NSString *)systemID
 {
-	GVCLogInfo( @"resolveExternalEntityName:%@ systemID:%@", name, systemID);
+//	GVCLogInfo( @"resolveExternalEntityName:%@ systemID:%@", name, systemID);
 	return nil;
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
-	GVCLogInfo( @"parseErrorOccurred:%@", parseError);
+//	GVCLogInfo( @"parseErrorOccurred:%@", parseError);
 }
 
 - (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError
 {
-	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
+//	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
 }
 
 
