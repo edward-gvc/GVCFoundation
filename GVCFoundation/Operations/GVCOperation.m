@@ -45,6 +45,11 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 	[self performSelectorOnMainThread:@selector(operationDidStartOnMainThread:) withObject:self waitUntilDone:[NSThread isMainThread]];
 }
 
+- (void)operationDidFinish
+{
+	[self performSelectorOnMainThread:@selector(operationDidFinishOnMainThread:) withObject:self waitUntilDone:[NSThread isMainThread]];
+}
+
 // execute the will finish block on the operation thread
 - (void)operationWillFinish 
 {
@@ -52,14 +57,6 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 	{
 		self.willFinishBlock(self);
 	}
-}
-
-
-// Subclasses might override this method to process the result in the same thread
-// If you do this, don't forget to call [super operationFinished] to let the queue / delegate know we're done
-- (void)operationDidFinish
-{
-	[self performSelectorOnMainThread:@selector(operationDidFinishOnMainThread:) withObject:self waitUntilDone:[NSThread isMainThread]];
 }
 
 - (void)operationDidStartOnMainThread:(GVCOperation *)op
@@ -88,5 +85,23 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 		self.didFailWithErrorBlock(self, [self operationError]);
 	}
 }
+
+// break a possible retain cycle
+- (void)setCompletionBlock:(void (^)(void))block
+{
+    if (block == nil) 
+	{
+        [super setCompletionBlock:nil];
+    }
+	else
+	{
+        __block id _blockSelf = self;
+        [super setCompletionBlock:^ {
+            block();
+            [_blockSelf setCompletionBlock:nil];
+        }];
+    }
+}
+
 
 @end

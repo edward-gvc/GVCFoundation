@@ -62,4 +62,11 @@
 	GVCLogError(@"Digest %@", feed);
 }
 
+// All code under test must be linked into the Unit Test bundle
+- (void)testiTunesRSS
+{
+	GVCRSSFeed *feed = [self feedFromFile:@"itunesTop300" forNode:@"rss"];
+	GVCLogError(@"Digest %@", feed);
+}
+
 @end

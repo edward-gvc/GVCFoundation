@@ -37,8 +37,16 @@
 #import "GVCPair.h"
 #import "GVCReaderWriter.h"
 #import "GVCStack.h"
+#import "GVCStopwatch.h"
 #import "GVCStringWriter.h"
 #import "GVCTextGenerator.h"
+
+/* 
+ * Networking 
+ */
+#import "GVCHTTPOperation.h"
+#import "GVCNetOperation.h"
+#import "GVCNetResponseData.h"
 
 /* 
  * Operations 
@@ -46,6 +54,7 @@
 #import "GVCFileOperation.h"
 #import "GVCOperation.h"
 #import "GVCRunLoopOperation.h"
+#import "GVCXMLParserOperation.h"
 
 /* 
  * Parsing 

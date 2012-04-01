@@ -26,7 +26,8 @@ GVC_DEFINE_EXTERN_STR(XML_sample_soap)
 
 
 @interface GVCResourceTestCase : SenTestCase
-
 - (NSString *)pathForResource:(NSString *)name extension:(NSString *)ext;
-
 @end
+
+
+

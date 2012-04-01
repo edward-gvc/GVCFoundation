@@ -40,6 +40,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 
 - (id)init;
 - (void)resetParser;
+- (BOOL)isReady;
 
 @property (retain, nonatomic) NSString *filename;
 @property (retain, nonatomic) NSURL *sourceURL;

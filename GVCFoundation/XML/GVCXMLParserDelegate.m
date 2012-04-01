@@ -39,6 +39,20 @@
 	return self;
 }
 
+- (BOOL)isReady
+{
+    BOOL ready = NO;
+	if ( status == GVC_XML_ParserDelegateStatus_INITIAL )
+    {
+        if (([self filename] != nil) || (sourceURL != nil) || (xmlData != nil))
+        {
+            ready = YES;
+        }
+
+    }
+    return ready;
+}
+
 - (GVC_XML_ParserDelegateStatus)status
 {
 	return status;
