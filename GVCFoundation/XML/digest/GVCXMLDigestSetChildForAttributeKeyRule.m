@@ -52,6 +52,11 @@
 	[self setPropertyName:[attributeDict objectForKey:attributeName]];
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ | %@", [super description], [self attributeName]);
+}
+
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
 {
 	NSMutableDictionary *copyDict = [NSMutableDictionary dictionaryWithCapacity:2];

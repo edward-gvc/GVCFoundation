@@ -18,7 +18,6 @@
 - (id)initForDigester:(GVCXMLDigester *)dgst;
 
 @property (weak, readonly, nonatomic) GVCXMLDigester *digester;
-@property (strong, nonatomic) NSMutableDictionary *ruleset;
 
 - (void)addRule:(GVCXMLDigesterRule *)rule forNodeName:(NSString *)node_name;
 - (void)addRuleList:(NSArray *)ruleList forNodeName:(NSString *)node_name;
@@ -31,6 +30,8 @@
 
 - (NSArray *)rulesForMatch:(NSString *)node_path;
 - (NSArray *)rulesForMatch:(NSString *)node_path inNamespace:(NSString *)namesp;
+
+- (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator;
 
 @end
 

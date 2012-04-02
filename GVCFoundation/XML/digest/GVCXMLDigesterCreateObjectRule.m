@@ -71,6 +71,12 @@
 	[dgst popNodeObject];
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ %@|%@", [super description], [self classname], [self classnameFromAttribute]);
+}
+
+
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
 {
 	NSMutableDictionary *copyDict = [NSMutableDictionary dictionaryWithCapacity:2];

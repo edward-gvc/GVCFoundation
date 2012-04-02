@@ -43,22 +43,22 @@
 	GVCXMLDigester *irony = [[GVCXMLDigester alloc] init];
 	[irony setFilename:path];
 	
-	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigester"] forPattern:@"^digester"];
-
-	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigesterRuleset"] forPattern:@"^digester/ruleset"];
-	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"ruleset"]  forPattern:@"^digester/ruleset"];
+	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigester"] forNodeName:@"digester"];
+	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigesterRuleset"] forNodeName:@"ruleset"];
+	[irony addRule:[GVCXMLDigesterRule ruleForCreateObjectFromAttribute:@"class_type"] forNodeName:@"rule"];
+    
+	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"ruleset"]  forNodeName:@"ruleset"];
+	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"rule"]  forNodeName:@"rule"];
 	
 	GVCXMLDigesterAttributeMapRule *rulesetPatternRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"pattern", @"pattern", nil];
-	[irony addRule:rulesetPatternRule forPattern:@"^digester/ruleset"];
+	[irony addRule:rulesetPatternRule forNodeName:@"ruleset"];
 	
-	[irony addRule:[GVCXMLDigesterRule ruleForCreateObjectFromAttribute:@"class_type"] forPattern:@"^digester/ruleset/rule"];
-	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"rule"]  forPattern:@"^digester/ruleset/rule"];
 	GVCXMLDigesterAttributeMapRule *attrRule = [[GVCXMLDigesterAttributeMapRule alloc] init];
 	[attrRule setTryToAssignAll:YES];
-	[irony addRule:attrRule forPattern:@"^digester/ruleset/rule"];
+	[irony addRule:attrRule forNodeName:@"rule"];
 	
 	GVCXMLDigesterPairAttributeTextRule *pairRule = [[GVCXMLDigesterPairAttributeTextRule alloc] initWithPropertyName:@"map" andAttributeName:@"attributeName"];
-	[irony addRule:pairRule forPattern:@"^digester/ruleset/rule/map"];
+	[irony addRule:pairRule forNodeName:@"map"];
 	
 	[irony parse];
 	if ([irony status] == GVC_XML_ParserDelegateStatus_SUCCESS )
@@ -145,19 +145,30 @@
 	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
 	
 	// check for rules for the current elementName
-	NSArray *rules = [digestRules rulesForNodeName:elementName];
-	if (gvc_IsEmpty(rules) == NO) 
-	{
-		for (GVCXMLDigesterRule *rule in rules) 
-		{
-			[rule didStartElement:elementName attributes:attributeDict];
-		}
-	}
-	
+	NSArray *node_rules = [digestRules rulesForNodeName:elementName];
 	// check for patterns
-	rules = [digestRules rulesForMatch:[self elementPath]];
-	if (gvc_IsEmpty(rules) == NO) 
-	{
+	NSArray *pattern_rules = [digestRules rulesForMatch:[self elementPath]];
+    NSArray *rules = nil;
+    
+    if ( gvc_IsEmpty(node_rules) == NO )
+    {
+        if ( gvc_IsEmpty(pattern_rules) == NO )
+        {
+            rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+        }
+        else
+        {
+            rules = node_rules;
+        }
+    }
+    else if ( gvc_IsEmpty(pattern_rules) == NO )
+    {
+        rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+    }
+
+    if ( gvc_IsEmpty(rules) == NO )
+    {
+        rules = [rules gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:YES];
 		for (GVCXMLDigesterRule *rule in rules) 
 		{
 			[rule didStartElement:elementName attributes:attributeDict];
@@ -167,23 +178,32 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	NSArray *rules = [digestRules rulesForMatch:[self elementPath]];
-	if (gvc_IsEmpty(rules) == NO) 
-	{
-		for (GVCXMLDigesterRule *rule in [rules reverseObjectEnumerator])
-		{
-			if (gvc_IsEmpty([self currentTextString]) == NO)
-				[rule didFindCharacters:[self currentTextString]];
-			if (gvc_IsEmpty([self currentCDATA]) == NO)
-				[rule didFindCDATA:[self currentCDATA]];
-			[rule didEndElement:elementName];
-		}
-	}
-	
-	rules = [digestRules rulesForNodeName:elementName];
-	if (gvc_IsEmpty(rules) == NO) 
-	{
-		for (GVCXMLDigesterRule *rule in [rules reverseObjectEnumerator])
+	// check for rules for the current elementName
+	NSArray *node_rules = [digestRules rulesForNodeName:elementName];
+	// check for patterns
+	NSArray *pattern_rules = [digestRules rulesForMatch:[self elementPath]];
+    NSArray *rules = nil;
+    
+    if ( gvc_IsEmpty(node_rules) == NO )
+    {
+        if ( gvc_IsEmpty(pattern_rules) == NO )
+        {
+            rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+        }
+        else
+        {
+            rules = node_rules;
+        }
+    }
+    else if ( gvc_IsEmpty(pattern_rules) == NO )
+    {
+        rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+    }
+    
+    if ( gvc_IsEmpty(rules) == NO )
+    {
+        rules = [rules gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:NO];
+		for (GVCXMLDigesterRule *rule in rules)
 		{
 			if (gvc_IsEmpty([self currentTextString]) == NO)
 				[rule didFindCharacters:[self currentTextString]];
@@ -193,8 +213,12 @@
 		}
 	}
 
-	
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
+}
+
+- (void)addRule:(GVCXMLDigesterRule *)rule forNodeName:(NSString *)node_name
+{
+	[digestRules addRule:rule forNodeName:node_name];
 }
 
 - (void) addRule:(GVCXMLDigesterRule *)rule forPattern:(NSString *)pattern
@@ -211,20 +235,7 @@
 {
 	[outputGenerator openDocumentWithDeclaration:YES andEncoding:YES];
 	[outputGenerator openElement:@"digester"];
-	
-	NSArray *rulesets = [[digestRules ruleset] gvc_sortedKeys];
-	for (NSString *pattern in rulesets)
-	{
-		[outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"pattern", pattern, nil];
-		
-		NSArray *rules = [[digestRules ruleset] objectForKey:pattern];
-		for (GVCXMLDigesterRule *aRule in rules)
-		{
-			[aRule writeConfiguration:outputGenerator];
-		}
-		
-		[outputGenerator closeElement];
-	}
+    [digestRules writeConfiguration:outputGenerator];
 	[outputGenerator closeElement];
 	
 }

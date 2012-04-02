@@ -39,6 +39,24 @@
     return ret;
 }
 
++ (NSArray *)gvc_ArrayByCombining:(NSArray *)array, ...
+{
+    NSArray *result = [NSArray array];
+    NSArray *arrayValue = array;
+    
+    va_list argumentList;
+    va_start(argumentList, array);
+    
+    while (arrayValue != nil)
+    {
+        result = [result arrayByAddingObjectsFromArray:arrayValue];
+        arrayValue = va_arg(argumentList, NSArray *);
+    }
+    
+    va_end(argumentList);
+
+    return result;
+}
 
 - (NSArray *)gvc_sortedArray
 {

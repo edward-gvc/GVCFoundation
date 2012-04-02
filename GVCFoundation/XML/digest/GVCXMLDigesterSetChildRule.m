@@ -85,6 +85,11 @@
 	}
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ %@", [super description], [self propertyName]);
+}
+
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
 {
 	NSMutableDictionary *copyDict = [NSMutableDictionary dictionaryWithCapacity:2];

@@ -11,6 +11,7 @@
 #import "GVCFunctions.h"
 #import "GVCISO8601DateFormatter.h"
 #import "GVCXMLGenerator.h"
+#import "GVCStringWriter.h"
 
 @implementation GVCRSSNode
 
@@ -81,6 +82,14 @@
 - (void)writeRss:(GVCXMLGenerator *)outputGenerator
 {
 	[outputGenerator writeElement:GVC_CLASSNAME(self) withText:[self description]];
+}
+
+- (NSString *)description
+{
+    GVCStringWriter *stringWriter = [[GVCStringWriter alloc] init];
+    GVCXMLGenerator *generator = [[GVCXMLGenerator alloc] initWithWriter:stringWriter andFormat:GVC_XML_GeneratorFormat_PRETTY];
+    [self writeRss:generator];
+    return [stringWriter string];
 }
 
 

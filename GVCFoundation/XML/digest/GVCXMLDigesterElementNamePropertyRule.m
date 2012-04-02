@@ -54,4 +54,9 @@
 	[outputGenerator writeElement:@"rule" inNamespace:nil withAttributes:copyDict];
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ %@", [super description], [self propertyName]);
+}
+
 @end

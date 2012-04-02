@@ -58,6 +58,10 @@
 {
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ %d - ", [super description], [self rulePriority]);
+}
 
 + (GVCXMLDigesterRule *)ruleForCreateObject:(NSString *)clazz
 {

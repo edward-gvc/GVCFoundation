@@ -136,6 +136,10 @@
 	[self mapAttribute:[pair left] toProperty:[pair right]];
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ %@", [super description], [self attributeMap]);
+}
 
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
 {

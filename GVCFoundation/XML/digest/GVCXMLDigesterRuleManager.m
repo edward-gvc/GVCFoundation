@@ -17,20 +17,28 @@
 
 @interface GVCXMLDigesterRuleManager ()
 @property (weak, readwrite, nonatomic) GVCXMLDigester *digester;
+@property (strong, nonatomic) NSMutableDictionary *ruleset_patterns;
+@property (strong, nonatomic) NSMutableDictionary *ruleset_nodes;
+
+@property (strong, nonatomic) NSMutableDictionary *patternCache;
 @end
 
 
 @implementation GVCXMLDigesterRuleManager
 
 @synthesize digester;
-@synthesize ruleset;
+@synthesize ruleset_patterns;
+@synthesize ruleset_nodes;
+@synthesize patternCache;
 
 - (id)initForDigester:(GVCXMLDigester *)dgst
 {
 	self = [super init];
 	if (self != nil) 
 	{
-		[self setRuleset:[NSMutableDictionary dictionaryWithCapacity:0]];
+		[self setRuleset_nodes:[NSMutableDictionary dictionaryWithCapacity:0]];
+		[self setRuleset_patterns:[NSMutableDictionary dictionaryWithCapacity:0]];
+		[self setPatternCache:[NSMutableDictionary dictionaryWithCapacity:0]];
 		digester = dgst;
 	}
 	return self;
@@ -41,11 +49,11 @@
 	GVC_ASSERT( gvc_IsEmpty(node_name) == NO, @"Cannot add rule for empty node_name" );
 	GVC_ASSERT( rule != nil, @"Cannot add nil rule" );
 	
-	NSMutableArray *array = [ruleset objectForKey:node_name];
+	NSMutableArray *array = [ruleset_nodes objectForKey:node_name];
 	if ( array == nil )
 	{
 		array = [NSMutableArray arrayWithCapacity:1];
-		[ruleset setObject:array forKey:node_name];
+		[ruleset_nodes setObject:array forKey:node_name];
 	}
 	
 	[rule setDigester:[self digester]];
@@ -80,11 +88,11 @@
 	GVC_ASSERT( gvc_IsEmpty(pattern) == NO, @"Cannot add rule for empty pattern" );
 	GVC_ASSERT( rule != nil, @"Cannot add nil rule" );
 	
-	NSMutableArray *array = [ruleset objectForKey:pattern];
+	NSMutableArray *array = [ruleset_patterns objectForKey:pattern];
 	if ( array == nil )
 	{
 		array = [NSMutableArray arrayWithCapacity:1];
-		[ruleset setObject:array forKey:pattern];
+		[ruleset_patterns setObject:array forKey:pattern];
 	}
 	
 	[rule setDigester:[self digester]];
@@ -100,7 +108,7 @@
 {
 	GVC_ASSERT( gvc_IsEmpty(node_name) == NO, @"Cannot evaluate an empty node path" );
 	
-	NSMutableArray *matches = [ruleset objectForKey:node_name];
+	NSMutableArray *matches = [ruleset_nodes objectForKey:node_name];
 	if (gvc_IsEmpty(namesp) == NO)
 	{
 		NSPredicate *nspTest = [NSPredicate predicateWithFormat:@"namespaceURI = %@", namesp];
@@ -119,26 +127,84 @@
 {
 	GVC_ASSERT( gvc_IsEmpty(node_path) == NO, @"Cannot evaluate an empty node path" );
 
-	NSMutableArray *matches = [NSMutableArray arrayWithCapacity:0];
-	NSArray *allPatterns = [ruleset allKeys];
-	for (NSString *pattern in allPatterns )
-	{
-		NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern]; 
-		
-		if ([test evaluateWithObject:node_path] == YES)
-		{
-			NSArray *ruleList = [ruleset objectForKey:pattern];
-			[matches addObjectsFromArray:ruleList];
-		} 
-	}
+    NSArray *cached = [patternCache objectForKey:node_path];
+    if ( cached == nil )
+    {
+        NSMutableArray *matches = [NSMutableArray arrayWithCapacity:0];
+        NSArray *allPatterns = [ruleset_patterns allKeys];
+        for (NSString *pattern in allPatterns )
+        {
+            NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern]; 
+            
+            if ([test evaluateWithObject:node_path] == YES)
+            {
+                NSArray *ruleList = [ruleset_patterns objectForKey:pattern];
+                [matches addObjectsFromArray:ruleList];
+            } 
+        }
+
+        if ( gvc_IsEmpty(matches) == NO )
+        {
+            cached = [matches copy];
+            [patternCache setObject:cached forKey:node_path];
+        }
+        else
+        {
+            [patternCache setObject:[NSArray array] forKey:node_path];
+        }
+    }
 	
 	if (gvc_IsEmpty(namesp) == NO)
 	{
 		NSPredicate *nspTest = [NSPredicate predicateWithFormat:@"namespaceURI = %@", namesp];
-		[matches filterUsingPredicate:nspTest];
+        cached = [cached filteredArrayUsingPredicate:nspTest];
 	}
 	
-	return [matches gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:YES];
+	return cached;
+}
+
+- (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
+{
+    if ( gvc_IsEmpty(ruleset_nodes) == NO )
+    {
+        [outputGenerator openElement:@"nodes"];
+        
+        NSArray *rulesets = [ruleset_nodes gvc_sortedKeys];
+        for (NSString *pattern in rulesets)
+        {
+            [outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"nodeName", pattern, nil];
+            
+            NSArray *rules = [ruleset_nodes objectForKey:pattern];
+            for (GVCXMLDigesterRule *aRule in rules)
+            {
+                [aRule writeConfiguration:outputGenerator];
+            }
+            
+            [outputGenerator closeElement];
+        }
+        [outputGenerator closeElement];
+    }
+
+    if ( gvc_IsEmpty(ruleset_nodes) == NO )
+    {
+        [outputGenerator openElement:@"patterns"];
+        
+        NSArray *rulesets = [ruleset_patterns gvc_sortedKeys];
+        for (NSString *pattern in rulesets)
+        {
+            [outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"pattern", pattern, nil];
+            
+            NSArray *rules = [ruleset_patterns objectForKey:pattern];
+            for (GVCXMLDigesterRule *aRule in rules)
+            {
+                [aRule writeConfiguration:outputGenerator];
+            }
+            
+            [outputGenerator closeElement];
+        }
+        [outputGenerator closeElement];
+    }
+
 }
 
 @end

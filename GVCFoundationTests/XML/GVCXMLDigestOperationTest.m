@@ -175,6 +175,11 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         STAssertNotNil(digest, @"Parse digest %@", digest);
         
         GVCRSSFeed *feed = (GVCRSSFeed *)[digest objectForKey:@"rss"];
+        
+        GVCFileWriter *writer = [GVCFileWriter writerForFilename:@"/tmp/apple300.rss"];
+        GVCXMLGenerator *outgen = [[GVCXMLGenerator alloc] initWithWriter:writer andFormat:GVC_XML_GeneratorFormat_PRETTY];
+        [feed writeRss:outgen];
+        
         STAssertNotNil(feed, @"Parse feed nil %@", digest);
         STAssertTrue([[feed feedEntries] count] == 300, @"Feed entries count %d", [[feed feedEntries] count]);
         
