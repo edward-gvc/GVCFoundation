@@ -20,10 +20,16 @@
 
 #import "NSDictionary+GVCFoundation.h"
 
+@interface GVCXMLDigester ()
+@property (strong, nonatomic) NSMutableDictionary *digestDictionary;
+@property (strong, nonatomic) GVCXMLDigesterRuleManager *digestRuleManager;
+@property (strong, nonatomic) GVCStack *currentNodeStack;
+@end
+
 @implementation GVCXMLDigester
 
-@synthesize digest;
-@synthesize digestRules;
+@synthesize digestDictionary;
+@synthesize digestRuleManager;
 @synthesize currentNodeStack;
 
 - (id)init
@@ -31,7 +37,7 @@
 	self = [super init];
 	if (self != nil)
 	{
-		digestRules = [[GVCXMLDigesterRuleManager alloc] initForDigester:self];
+		[self setDigestRuleManager:[[GVCXMLDigesterRuleManager alloc] initForDigester:self]];
 		[self resetParser];
 	}
 	return self;
@@ -50,7 +56,7 @@
 	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"ruleset"]  forNodeName:@"ruleset"];
 	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"rule"]  forNodeName:@"rule"];
 	
-	GVCXMLDigesterAttributeMapRule *rulesetPatternRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"pattern", @"pattern", nil];
+	GVCXMLDigesterAttributeMapRule *rulesetPatternRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"pattern", @"pattern", @"nodeName", @"nodeName", nil];
 	[irony addRule:rulesetPatternRule forNodeName:@"ruleset"];
 	
 	GVCXMLDigesterAttributeMapRule *attrRule = [[GVCXMLDigesterAttributeMapRule alloc] init];
@@ -63,15 +69,20 @@
 	[irony parse];
 	if ([irony status] == GVC_XML_ParserDelegateStatus_SUCCESS )
 	{
-		newInstance = [[irony digest] valueForKey:@"digester"];
+		newInstance = [irony digestValueForPath:@"digester"];
 	}
 	return newInstance;
+}
+
+- (NSArray *)digestKeys
+{
+    return [digestDictionary allKeys];
 }
 
 - (id)digestValueForPath:(NSString *)key
 {
 	GVC_ASSERT_VALID_STRING( key );
-	return [digest valueForKey:key];
+	return [digestDictionary valueForKey:key];
 }
 
 - (void)resetParser
@@ -79,7 +90,7 @@
 	[super resetParser];
 	
 	[self setCurrentNodeStack:[[GVCStack alloc] init]];
-	[self setDigest:[NSMutableDictionary dictionary]];
+	[self setDigestDictionary:[NSMutableDictionary dictionary]];
 }
 
 - (void)pushNodeObject:(id)anObject
@@ -87,20 +98,20 @@
 	if ( [currentNodeStack isEmpty] == YES )
 	{
 		NSString *epath = [self elementPath];
-		if ( [digest objectForKey:epath] != nil )
+		if ( [digestDictionary objectForKey:epath] != nil )
 		{
-			NSObject *value = [digest objectForKey:epath];
+			NSObject *value = [digestDictionary objectForKey:epath];
 			if ( [value isKindOfClass:[NSMutableArray class]] == YES )
 				[(NSMutableArray *)value addObject:anObject];
 			else
 			{
 				NSMutableArray *newValue = [NSMutableArray arrayWithObjects:value, anObject, nil];
-				[digest setObject:newValue forKey:[self elementPath]];
+				[digestDictionary setObject:newValue forKey:[self elementPath]];
 			}
 		}
 		else
 		{
-			[digest setObject:anObject forKey:[self elementPath]];
+			[digestDictionary setObject:anObject forKey:[self elementPath]];
 		}
 	}
 	
@@ -145,9 +156,9 @@
 	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
 	
 	// check for rules for the current elementName
-	NSArray *node_rules = [digestRules rulesForNodeName:elementName];
+	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
 	// check for patterns
-	NSArray *pattern_rules = [digestRules rulesForMatch:[self elementPath]];
+	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
     NSArray *rules = nil;
     
     if ( gvc_IsEmpty(node_rules) == NO )
@@ -163,7 +174,7 @@
     }
     else if ( gvc_IsEmpty(pattern_rules) == NO )
     {
-        rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+        rules = pattern_rules;
     }
 
     if ( gvc_IsEmpty(rules) == NO )
@@ -179,9 +190,9 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
 	// check for rules for the current elementName
-	NSArray *node_rules = [digestRules rulesForNodeName:elementName];
+	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
 	// check for patterns
-	NSArray *pattern_rules = [digestRules rulesForMatch:[self elementPath]];
+	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
     NSArray *rules = nil;
     
     if ( gvc_IsEmpty(node_rules) == NO )
@@ -197,7 +208,7 @@
     }
     else if ( gvc_IsEmpty(pattern_rules) == NO )
     {
-        rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
+        rules = pattern_rules;
     }
     
     if ( gvc_IsEmpty(rules) == NO )
@@ -218,26 +229,52 @@
 
 - (void)addRule:(GVCXMLDigesterRule *)rule forNodeName:(NSString *)node_name
 {
-	[digestRules addRule:rule forNodeName:node_name];
+	[[self digestRuleManager] addRule:rule forNodeName:node_name];
 }
 
 - (void) addRule:(GVCXMLDigesterRule *)rule forPattern:(NSString *)pattern
 {
-	[digestRules addRule:rule forPattern:pattern];
+	[[self digestRuleManager] addRule:rule forPattern:pattern];
 }
 
 - (void)addRuleset:(GVCXMLDigesterRuleset *)set
 {
-	[digestRules addRuleList:[set rules] forPattern:[set pattern]];
+    if ( gvc_IsEmpty([set nodeName]) == NO )
+    {
+        [[self digestRuleManager] addRuleList:[set rules] forNodeName:[set nodeName]];
+    }
+    else
+    {
+        [[self digestRuleManager] addRuleList:[set rules] forPattern:[set pattern]];
+    }
 }
-					   
+
+- (NSString *)description
+{
+    GVCStringWriter *stringWriter = [[GVCStringWriter alloc] init];
+    GVCXMLGenerator *generator = [[GVCXMLGenerator alloc] initWithWriter:stringWriter andFormat:GVC_XML_GeneratorFormat_PRETTY];
+    [generator open];
+	[generator openElement:@"digester"];
+    [[self digestRuleManager] writeConfiguration:generator];
+    
+	[generator openElement:@"digest"];
+    for ( NSString *dgst in digestDictionary )
+    {
+        [generator writeElement:dgst withText:[[digestDictionary objectForKey:dgst] description]];
+    }
+	[generator closeElement];
+	[generator closeElement];
+    
+    [generator closeDocument];
+    return [stringWriter string];
+}
+
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator
 {
 	[outputGenerator openDocumentWithDeclaration:YES andEncoding:YES];
 	[outputGenerator openElement:@"digester"];
-    [digestRules writeConfiguration:outputGenerator];
+    [[self digestRuleManager] writeConfiguration:outputGenerator];
 	[outputGenerator closeElement];
-	
 }
 
 @end

@@ -51,10 +51,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 		STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
 		STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
 
-        NSDictionary *digest = [parseDelegate digest];
+        NSArray *digest = [parseDelegate digestKeys];
 		STAssertNotNil(digest, @"Parse digest %@", digest);
 
-        GVCRSSFeed *feed = (GVCRSSFeed *)[digest objectForKey:@"feed"];
+        GVCRSSFeed *feed = (GVCRSSFeed *)[parseDelegate digestValueForPath:@"feed"];
 		STAssertNotNil(feed, @"Parse feed %@", feed);
         STAssertTrue([[feed feedEntries] count] == 47, @"Feed entries count %d", [[feed feedEntries] count]);
         
@@ -94,10 +94,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
             STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
             STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
             
-            NSDictionary *digest = [parseDelegate digest];
+            NSArray *digest = [parseDelegate digestKeys];
             STAssertNotNil(digest, @"Parse digest %@", digest);
             
-            GVCRSSFeed *feed = (GVCRSSFeed *)[digest objectForKey:@"rss"];
+            GVCRSSFeed *feed = (GVCRSSFeed *)[parseDelegate digestValueForPath:@"rss"];
             STAssertNotNil(feed, @"Parse feed nil %@", digest);
             STAssertTrue([[feed feedEntries] count] == 300, @"Feed entries count %d", [[feed feedEntries] count]);
             
@@ -171,10 +171,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
         STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
         
-        NSDictionary *digest = [parseDelegate digest];
+        NSArray *digest = [parseDelegate digestKeys];
         STAssertNotNil(digest, @"Parse digest %@", digest);
         
-        GVCRSSFeed *feed = (GVCRSSFeed *)[digest objectForKey:@"rss"];
+        GVCRSSFeed *feed = (GVCRSSFeed *)[parseDelegate digestValueForPath:@"rss"];
         
         GVCFileWriter *writer = [GVCFileWriter writerForFilename:@"/tmp/apple300.rss"];
         GVCXMLGenerator *outgen = [[GVCXMLGenerator alloc] initWithWriter:writer andFormat:GVC_XML_GeneratorFormat_PRETTY];

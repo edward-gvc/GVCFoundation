@@ -185,7 +185,7 @@
         [outputGenerator closeElement];
     }
 
-    if ( gvc_IsEmpty(ruleset_nodes) == NO )
+    if ( gvc_IsEmpty(ruleset_patterns) == NO )
     {
         [outputGenerator openElement:@"patterns"];
         
@@ -205,6 +205,16 @@
         [outputGenerator closeElement];
     }
 
+}
+
+- (NSString *)description
+{
+    GVCStringWriter *stringWriter = [[GVCStringWriter alloc] init];
+    GVCXMLGenerator *generator = [[GVCXMLGenerator alloc] initWithWriter:stringWriter andFormat:GVC_XML_GeneratorFormat_PRETTY];
+    [generator open];
+    [self writeConfiguration:generator];
+    [generator closeDocument];
+    return [stringWriter string];
 }
 
 @end

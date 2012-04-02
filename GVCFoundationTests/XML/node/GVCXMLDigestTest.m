@@ -54,7 +54,9 @@
 	GVC_XML_ParserDelegateStatus stat = [parser parse];
 	STAssertTrue(stat == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse status = %d", stat);
 	
-	GVCLogError(@"Digest %@", [parser digest]);
+    NSObject *agents = [parser digestValueForPath:@"agents"];
+	GVCLogError(@"Agents %@", agents);
+	GVCLogError(@"Digest %@", [parser digestKeys]);
 
 }
 

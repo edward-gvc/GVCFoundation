@@ -20,12 +20,10 @@
  */
 @interface GVCXMLDigester : GVCXMLParserDelegate
 
-@property (strong, nonatomic) NSMutableDictionary *digest;
-@property (strong, nonatomic) GVCXMLDigesterRuleManager *digestRules;
-@property (strong, nonatomic) GVCStack *currentNodeStack;
 
 + (GVCXMLDigester *)digesterWithConfiguration:(NSString *)path;
 
+- (NSArray *)digestKeys;
 - (id)digestValueForPath:(NSString *)key;
 
 - (void)addRule:(GVCXMLDigesterRule *)rule forNodeName:(NSString *)node_name;
