@@ -61,4 +61,47 @@
 	return [hash isEqualToString:[self gvc_md5Hash:path]];
 }
 
+- (NSArray *)gvc_filePathsWithExtension:(NSString *)extension inDirectory:(NSString *)directoryPath 
+{
+	NSArray *extensions = nil;
+	
+	if (gvc_IsEmpty(extension) == NO )
+		extensions = [NSArray arrayWithObject:extension];
+	
+	return [self gvc_filePathsWithExtensions:extensions inDirectory:directoryPath];
+}
+
+- (NSArray *)gvc_filePathsWithExtensions:(NSArray *)extensions inDirectory:(NSString *)directoryPath 
+{
+	if ( gvc_IsEmpty(directoryPath) == YES )
+		return nil;
+	
+	// |basenames| will contain only the matching file names, not their full paths.
+	NSArray *basenames = [self contentsOfDirectoryAtPath:directoryPath  error:nil];
+	
+	// Check if dir doesn't exist or couldn't be opened.
+	if (basenames == nil)
+		return nil;
+	
+	// Check if dir is empty.
+	if ([basenames count] == 0)
+		return basenames;
+	
+	NSMutableArray *paths = [NSMutableArray arrayWithCapacity:[basenames count]];
+	NSString *basename;
+    
+	// Convert all the |basenames| to full paths.
+	for (basename in basenames)
+	{
+		NSString *fullPath = [directoryPath stringByAppendingPathComponent:basename];
+		[paths addObject:fullPath];
+	}
+	
+	// Check if caller wants all files, regardless of extension.
+	if ((extensions == nil) || ([extensions count] == 0))
+		return paths;
+	
+	return [paths pathsMatchingExtensions:extensions];
+}
+
 @end

@@ -117,7 +117,7 @@ NSString *gvc_LocalizedStringWithDefaultValue(NSString *key, NSString *defValue)
 	return localValue;
 }
 
-GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...)
+NSString *gvc_LocalizedFormat(NSString *fmt, ...)
 {
 	NSString *localFmt = [[NSBundle mainBundle] localizedStringForKey:fmt value:fmt table:nil];
 	if ((localFmt == nil) || ([localFmt isEqualToString:fmt] == YES))
@@ -136,3 +136,36 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...)
 	return localFmt;
 }
 
+
+/* XML functions to split prefix and local names from qualified names */
+NSString *gvc_XMLPrefixFromQualifiedName(NSString *qname)
+{
+	if (gvc_IsEmpty(qname) == NO)
+	{
+		NSArray *comps = [qname componentsSeparatedByString:@":"];
+		
+		// if there is only one component, that means no prefix
+		if ( [comps count] > 1 )
+			return [comps objectAtIndex:0];
+	}
+    
+	return nil;
+}
+
+NSString *gvc_XMLLocalNameFromQualifiedName(NSString *qname)
+{
+	if (gvc_IsEmpty(qname) == NO)
+	{
+		NSArray *comps = [qname componentsSeparatedByString:@":"];
+		// if there is only one component, that means no prefix so the qname and the local name are the same
+		if ( [comps count] > 1 )
+			return [comps objectAtIndex:1];
+	}
+	
+	return qname;
+}
+
+void gvc_UncaughtException(NSException *exception)
+{
+    NSLog(@"uncaught exception: %@", exception.description);
+}

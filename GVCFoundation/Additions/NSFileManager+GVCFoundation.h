@@ -21,4 +21,7 @@
 
 - (BOOL)gvc_directoryExists:(NSString *)path;
 
+- (NSArray *)gvc_filePathsWithExtension:(NSString *)extension inDirectory:(NSString *)directoryPath;
+- (NSArray *)gvc_filePathsWithExtensions:(NSArray *)extensions inDirectory:(NSString *)directoryPath;
+
 @end

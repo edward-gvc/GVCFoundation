@@ -61,4 +61,11 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...);
 #define GVC_LOGIN_LABEL			GVC_LocalizedString(@"Label/Login",     @"Login")
 #define GVC_LOGOUT_LABEL		GVC_LocalizedString(@"Label/Logout",    @"Logout")
 
+
+/* XML functions to split prefix and local names from qualified names */
+GVC_EXTERN NSString *gvc_XMLPrefixFromQualifiedName(NSString *qname);
+GVC_EXTERN NSString *gvc_XMLLocalNameFromQualifiedName(NSString *qname);
+
+GVC_EXTERN void gvc_UncaughtException(NSException *exception);
+
 #endif // _GVCFunctions_

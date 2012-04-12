@@ -128,6 +128,8 @@
 		05762D6B15229B610002081C /* GVCXMLParserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05762D6915229B610002081C /* GVCXMLParserOperation.m */; };
 		057AB3671513B49600C8E193 /* NSDictionary+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 057AB3651513B49600C8E193 /* NSDictionary+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		057AB3681513B49600C8E193 /* NSDictionary+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 057AB3661513B49600C8E193 /* NSDictionary+GVCFoundation.m */; };
+		05879D0B15371084007A35C4 /* NSDate+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05879D0915371084007A35C4 /* NSDate+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05879D0C15371084007A35C4 /* NSDate+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05879D0A15371084007A35C4 /* NSDate+GVCFoundation.m */; };
 		0590B6B015195C2000B4DAAA /* GVCNetOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 0590B6AE15195C2000B4DAAA /* GVCNetOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0590B6B115195C2000B4DAAA /* GVCNetOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0590B6AF15195C2000B4DAAA /* GVCNetOperation.m */; };
 		0590B6B51519608500B4DAAA /* GVCNetResponseData.h in Headers */ = {isa = PBXBuildFile; fileRef = 0590B6B31519608500B4DAAA /* GVCNetResponseData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -335,6 +337,8 @@
 		05762D6915229B610002081C /* GVCXMLParserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLParserOperation.m; sourceTree = "<group>"; };
 		057AB3651513B49600C8E193 /* NSDictionary+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GVCFoundation.h"; sourceTree = "<group>"; };
 		057AB3661513B49600C8E193 /* NSDictionary+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GVCFoundation.m"; sourceTree = "<group>"; };
+		05879D0915371084007A35C4 /* NSDate+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+GVCFoundation.h"; sourceTree = "<group>"; };
+		05879D0A15371084007A35C4 /* NSDate+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+GVCFoundation.m"; sourceTree = "<group>"; };
 		0590B6AE15195C2000B4DAAA /* GVCNetOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCNetOperation.h; sourceTree = "<group>"; };
 		0590B6AF15195C2000B4DAAA /* GVCNetOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCNetOperation.m; sourceTree = "<group>"; };
 		0590B6B31519608500B4DAAA /* GVCNetResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCNetResponseData.h; sourceTree = "<group>"; };
@@ -794,6 +798,8 @@
 				0521B836148E73C800FD75AF /* NSFileManager+GVCFoundation.m */,
 				0546BE611516BBD500140C4D /* NSError+GVCFoundation.h */,
 				0546BE621516BBD500140C4D /* NSError+GVCFoundation.m */,
+				05879D0915371084007A35C4 /* NSDate+GVCFoundation.h */,
+				05879D0A15371084007A35C4 /* NSDate+GVCFoundation.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -989,6 +995,7 @@
 				053B8F3E151A183F00A9DCFA /* GVCHTTPOperation.h in Headers */,
 				057543E71525475A00160469 /* GVCStopwatch.h in Headers */,
 				05762D6A15229B610002081C /* GVCXMLParserOperation.h in Headers */,
+				05879D0B15371084007A35C4 /* NSDate+GVCFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,6 +1186,7 @@
 				053B8F3F151A183F00A9DCFA /* GVCHTTPOperation.m in Sources */,
 				05762D6B15229B610002081C /* GVCXMLParserOperation.m in Sources */,
 				057543E81525475A00160469 /* GVCStopwatch.m in Sources */,
+				05879D0C15371084007A35C4 /* NSDate+GVCFoundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 #import "NSBundle+GVCFoundation.h"
 #import "NSCharacterSet+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+#import "NSDate+GVCFoundation.h"
 #import "NSDictionary+GVCFoundation.h"
 #import "NSError+GVCFoundation.h"
 #import "NSFileManager+GVCFoundation.h"
