@@ -20,9 +20,9 @@
 	UniChar endMarker;
 }
 
-@property (retain,nonatomic) NSData *source;
-@property (retain,nonatomic) NSObject <GVCWriter> *output;
-@property (retain,nonatomic) NSObject *callback;
+@property (strong,nonatomic) NSData *source;
+@property (strong,nonatomic) NSObject <GVCWriter> *output;
+@property (strong,nonatomic) NSObject *callback;
 
 - (void)process;
 

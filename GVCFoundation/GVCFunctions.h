@@ -51,15 +51,19 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...);
     #define GVC_LocalizedClassString(K, V)  gvc_LocalizedStringWithDefaultValue(GVC_CLS_DOMAIN_KEY(K), V)
     #define GVC_LocalizedFormat(K, ...)     gvc_LocalizedFormat(K, ##__VA_ARGS__)
 #else
-    #define GVC_LocalizedString(K, V)       NSLocalizedString(K, V)
+    #define GVC_LocalizedString(K, V)       XNSLocalizedString(K, V)
     #define GVC_LocalizedFormat(K, ...)     [NSString stringWithFormat:NSLocalizedString(K), ##__VA_ARGS__]
 #endif
 
-#define GVC_UNKNOWN_LABEL		GVC_LocalizedString(@"Label/Unknown",   @"Unknown")
+// Common Button labels
 #define GVC_SAVE_LABEL			GVC_LocalizedString(@"Label/Save",      @"Save")
 #define GVC_CANCEL_LABEL		GVC_LocalizedString(@"Label/Cancel",    @"Cancel")
 #define GVC_LOGIN_LABEL			GVC_LocalizedString(@"Label/Login",     @"Login")
 #define GVC_LOGOUT_LABEL		GVC_LocalizedString(@"Label/Logout",    @"Logout")
+#define GVC_SEARCH_LABEL		GVC_LocalizedString(@"Label/Search",     @"Search")
+
+// general labels
+#define GVC_UNKNOWN_LABEL		GVC_LocalizedString(@"Label/Unknown",   @"Unknown")
 #define GVC_ERROR_LABEL			GVC_LocalizedString(@"Label/Error",     @"Error")
 #define GVC_OK_LABEL			GVC_LocalizedString(@"Label/OK",     	@"Ok")
 #define GVC_PROCESSING_LABEL	GVC_LocalizedString(@"Label/Processing",@"Processing")

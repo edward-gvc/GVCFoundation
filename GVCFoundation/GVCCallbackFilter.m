@@ -22,19 +22,14 @@ typedef enum {
 
 
 @interface  GVCCallbackNode  : NSObject 
-{
-	GVCCallbackNodeType type;
-	NSMutableString *buffer;
-	NSMutableArray *children;
-}
 
 + (GVCCallbackNode *)node:(GVCCallbackNodeType)t;
 
 - (id)initForType:(GVCCallbackNodeType)t;
 
 @property (assign) GVCCallbackNodeType type;
-@property (retain, nonatomic) NSMutableString *buffer;
-@property (retain, nonatomic) NSMutableArray *children;
+@property (strong, nonatomic) NSMutableString *buffer;
+@property (strong, nonatomic) NSMutableArray *children;
 
 - (void)addChild:(GVCCallbackNode *)m;
 - (void)append:(UniChar)c;
