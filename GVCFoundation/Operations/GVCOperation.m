@@ -86,7 +86,7 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 	}
 }
 
-// break a possible retain cycle
+// break a possible strong cycle
 - (void)setCompletionBlock:(void (^)(void))block
 {
     if (block == nil) 

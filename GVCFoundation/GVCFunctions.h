@@ -60,6 +60,12 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...);
 #define GVC_CANCEL_LABEL		GVC_LocalizedString(@"Label/Cancel",    @"Cancel")
 #define GVC_LOGIN_LABEL			GVC_LocalizedString(@"Label/Login",     @"Login")
 #define GVC_LOGOUT_LABEL		GVC_LocalizedString(@"Label/Logout",    @"Logout")
+#define GVC_ERROR_LABEL			GVC_LocalizedString(@"Label/Error",     @"Error")
+#define GVC_OK_LABEL			GVC_LocalizedString(@"Label/OK",     	@"Ok")
+#define GVC_PROCESSING_LABEL	GVC_LocalizedString(@"Label/Processing",@"Processing")
+
+#define GVC_NETWORK_ERR_LABEL	GVC_LocalizedString(@"Label/NetworkError",	@"Network Error")
+#define GVC_NETWORK_NO_RESPONSE_LABEL	GVC_LocalizedString(@"Label/NetworkNoResponse",	@"No response from server")
 
 
 /* XML functions to split prefix and local names from qualified names */

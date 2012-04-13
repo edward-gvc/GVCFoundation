@@ -27,9 +27,9 @@
 - (id)init;
 - (void)resetParser;
 
-@property (retain, nonatomic) NSString *filename;
-@property (retain, nonatomic) NSURL *sourceURL;
-@property (retain, nonatomic) NSData *xmlData;
+@property (strong, nonatomic) NSString *filename;
+@property (strong, nonatomic) NSURL *sourceURL;
+@property (strong, nonatomic) NSData *xmlData;
 
 - (id <GVCXMLDocumentNode>)document;
 

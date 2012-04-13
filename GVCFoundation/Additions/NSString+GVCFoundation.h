@@ -21,6 +21,9 @@
 - (NSString *)gvc_StringWithCapitalizedFirstCharacter;
 - (NSString *)gvc_TrimWhitespace;
 
+/* files and filenames */
+- (NSString *)gvc_stringByAppendingFilename:(NSString *)fname withExtension:(NSString *)ext;
+
 /*  XML supporting methods */
 - (NSString *)gvc_XMLAttributeEscapedString;
 - (NSString *)gvc_XMLEntityEscapedString:(BOOL)escapeQuotes;

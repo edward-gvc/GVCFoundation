@@ -29,6 +29,7 @@
 /* 
  * 
  */
+#import "GVCCallbackFilter.h"
 #import "GVCDirectory.h"
 #import "GVCFileHandleWriter.h"
 #import "GVCFileWriter.h"
@@ -48,6 +49,7 @@
 #import "GVCHTTPOperation.h"
 #import "GVCNetOperation.h"
 #import "GVCNetResponseData.h"
+#import "GVCUDPSocket.h"
 
 /* 
  * Operations 

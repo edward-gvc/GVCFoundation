@@ -21,9 +21,9 @@
 
 - (id)init;
 
-@property (retain, nonatomic) id <GVCXMLDocumentTypeDeclaration> documentType;
-@property (retain, nonatomic) NSString *baseURL;
-@property (retain, nonatomic) GVCStack *nodeStack;
+@property (strong, nonatomic) id <GVCXMLDocumentTypeDeclaration> documentType;
+@property (strong, nonatomic) NSString *baseURL;
+@property (strong, nonatomic) GVCStack *nodeStack;
 
 // XMLParentProtocol
 //- (int)indexOf:(id <XMLContent>) child;

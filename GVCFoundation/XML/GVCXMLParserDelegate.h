@@ -42,11 +42,11 @@ typedef enum _GVC_XML_ParserDelegateStatus
 - (void)resetParser;
 - (BOOL)isReady;
 
-@property (retain, nonatomic) NSString *filename;
-@property (retain, nonatomic) NSURL *sourceURL;
-@property (retain, nonatomic) NSData *xmlData;
+@property (strong, nonatomic) NSString *filename;
+@property (strong, nonatomic) NSURL *sourceURL;
+@property (strong, nonatomic) NSData *xmlData;
 
-@property (retain, nonatomic) NSError *xmlError;
+@property (strong, nonatomic) NSError *xmlError;
 
 - (NSData *)currentCDATA;
 - (NSString *)currentTextString;

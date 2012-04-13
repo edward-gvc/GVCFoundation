@@ -22,9 +22,9 @@
 
 - (void)setElementName:(NSString *)name publicID:(NSString *)public systemID:(NSString *)system forInternalSubset:(NSString *)internal;
 
-@property (retain, nonatomic) NSString *elementName;
-@property (retain, nonatomic) NSString *publicID;
-@property (retain, nonatomic) NSString *systemID;
-@property (retain, nonatomic) NSString *internalSubset;
+@property (strong, nonatomic) NSString *elementName;
+@property (strong, nonatomic) NSString *publicID;
+@property (strong, nonatomic) NSString *systemID;
+@property (strong, nonatomic) NSString *internalSubset;
 
 @end

@@ -29,8 +29,8 @@
 - (id)initForFileHandle:(NSFileHandle *)file encoding:(NSStringEncoding)encoding;
 - (id)initForFilename:(NSString *)file encoding:(NSStringEncoding)encoding;
 
-@property (retain, nonatomic) NSString *logPath;
-@property (retain, nonatomic) NSFileHandle	*log;
+@property (strong, nonatomic) NSString *logPath;
+@property (strong, nonatomic) NSFileHandle	*log;
 
 /*
  * String encoding when writer is generating for destinations where the encoding can be used.

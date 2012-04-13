@@ -67,6 +67,21 @@
 	return [s copy];
 }
 
+#pragma mark - file names
+
+- (NSString *)gvc_stringByAppendingFilename:(NSString *)fname withExtension:(NSString *)ext
+{
+	NSString *result = self;
+	if (gvc_IsEmpty(fname) == NO)
+	{
+		if (gvc_IsEmpty(ext) == NO)
+			result = [self stringByAppendingPathComponent:GVC_SPRINTF(@"%@.%@", fname, ext )];
+		else
+			result = [self stringByAppendingPathComponent:fname];
+	}
+	return result;
+}
+
 #pragma mark - XML support
 
 - (NSString *)gvc_XMLAttributeEscapedString

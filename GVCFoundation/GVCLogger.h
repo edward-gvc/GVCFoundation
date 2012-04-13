@@ -36,7 +36,7 @@ typedef enum
 
 GVC_SINGLETON_HEADER(GVCLogger)
 
-@property (nonatomic, retain) NSObject<GVCLogWriter> *writer;
+@property (nonatomic, strong) NSObject<GVCLogWriter> *writer;
 @property (nonatomic, assign) GVCLoggerLevel loggerLevel;
 
 - (BOOL)isLevelActive:(GVCLoggerLevel)level;

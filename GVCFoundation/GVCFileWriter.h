@@ -26,7 +26,7 @@
 - (id)initForFilename:(NSString *)file;
 - (id)initForFilename:(NSString *)file encoding:(NSStringEncoding)encoding;
 
-@property (retain, nonatomic) NSString *filename;
-@property (retain, nonatomic) NSOutputStream *fileStream;
+@property (strong, nonatomic) NSString *filename;
+@property (strong, nonatomic) NSOutputStream *fileStream;
 
 @end

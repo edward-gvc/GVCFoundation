@@ -15,7 +15,7 @@
 	NSString *propertyName;
 }
 
-@property (retain, nonatomic) NSString *propertyName;
+@property (strong, nonatomic) NSString *propertyName;
 
 - (id)initWithPropertyName:(NSString *)pname;
 

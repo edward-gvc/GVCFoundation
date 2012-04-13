@@ -31,12 +31,12 @@ GVC_SINGLETON_HEADER(GVCCache)
 @end
 
 @interface GVCKeyValueNode : NSObject <GVCCacheValueNode> 
-@property (retain, nonatomic) NSString *cacheKey;
-@property (retain, nonatomic) NSString *cacheValue;
+@property (strong, nonatomic) NSString *cacheKey;
+@property (strong, nonatomic) NSString *cacheValue;
 @end
 
 @interface GVCDataValueNode : NSObject <GVCCacheDataNode> 
-@property (retain, nonatomic) NSString *cacheDataPath;
-@property (retain, nonatomic) NSString *cacheKey;
-@property (retain, nonatomic) NSData *cacheData;
+@property (strong, nonatomic) NSString *cacheDataPath;
+@property (strong, nonatomic) NSString *cacheKey;
+@property (strong, nonatomic) NSData *cacheData;
 @end

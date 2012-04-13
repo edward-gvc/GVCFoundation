@@ -13,7 +13,7 @@
 #define GVCCACHE_QUEUE_SIZE 1000
 
 @interface GVCCache ()
-@property (retain, nonatomic) NSMutableDictionary *cachesByKey;
+@property (strong, nonatomic) NSMutableDictionary *cachesByKey;
 + (void)applicationWillTerminate:(NSNotification *)notification;
 - (void)flushQueue;
 - (void)writeNode:(id <GVCCacheNode>)node;
