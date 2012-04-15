@@ -23,6 +23,8 @@
 
 + (GVCXMLDigester *)digesterWithConfiguration:(NSString *)path;
 
+@property (strong, nonatomic, readonly) NSMutableDictionary *digestDictionary;
+
 - (NSArray *)digestKeys;
 - (id)digestValueForPath:(NSString *)key;
 

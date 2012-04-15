@@ -21,7 +21,7 @@
 #import "NSDictionary+GVCFoundation.h"
 
 @interface GVCXMLDigester ()
-@property (strong, nonatomic) NSMutableDictionary *digestDictionary;
+@property (strong, nonatomic, readwrite) NSMutableDictionary *digestDictionary;
 @property (strong, nonatomic) GVCXMLDigesterRuleManager *digestRuleManager;
 @property (strong, nonatomic) GVCStack *currentNodeStack;
 @end
