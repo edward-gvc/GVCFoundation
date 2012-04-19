@@ -49,6 +49,22 @@
 	}
 }
 
+- (void)pushObjects:(id)object,...
+{
+	if (object != nil)
+    {
+        id obj = object;
+        va_list objects;
+        va_start(objects, object);
+        do 
+        {
+            [self pushObject:obj];
+            obj = va_arg(objects, id);
+        } while (obj);
+        va_end(objects);
+    }
+}
+
 - (id)popObject
 {
 	id popValue = nil;

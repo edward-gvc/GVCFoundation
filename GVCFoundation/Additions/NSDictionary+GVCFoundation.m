@@ -14,7 +14,7 @@
 
 - (NSArray *)gvc_sortedKeys
 {
-	return [[self allKeys] gvc_sortedArray];
+	return [[self allKeys] gvc_sortedStringArray];
 }
 
 @end

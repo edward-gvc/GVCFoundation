@@ -24,7 +24,7 @@ static GVCDirectory *downloadsDirectory;
 	dispatch_once(&sharedTemp, ^{
         
         NSFileManager *fileMgr = [NSFileManager defaultManager];
-		NSString *systemTemp = [fileMgr gvc_temporaryDirectory];
+		NSString *systemTemp = [fileMgr gvc_temporaryDirectoryPath];
 		
 #if !TARGET_OS_IPHONE
 		NSString *name = GVC_SPRINTF( @"%@.XXXXXX", [NSBundle gvc_MainBundleIdentifier] );
@@ -63,7 +63,7 @@ static GVCDirectory *downloadsDirectory;
 	dispatch_once(&sharedCache, ^{
         
         NSFileManager *fileMgr = [NSFileManager defaultManager];
-		NSString *systemTemp = [fileMgr gvc_cachesDirectory];
+		NSString *systemTemp = [fileMgr gvc_cachesDirectoryPath];
 #if defined(TARGET_IPHONE_SIMULATOR)
         systemTemp = [systemTemp stringByAppendingPathComponent:[NSBundle gvc_MainBundleIdentifier]];
 #endif
@@ -85,7 +85,7 @@ static GVCDirectory *downloadsDirectory;
 	dispatch_once(&sharedDoc, ^{
         
         NSFileManager *fileMgr = [NSFileManager defaultManager];
-		NSString *systemTemp = [fileMgr gvc_documentsDirectory];
+		NSString *systemTemp = [fileMgr gvc_documentsDirectoryPath];
 #if defined(TARGET_IPHONE_SIMULATOR)
         systemTemp = [systemTemp stringByAppendingPathComponent:[NSBundle gvc_MainBundleIdentifier]];
 #endif
@@ -107,7 +107,7 @@ static GVCDirectory *downloadsDirectory;
 	dispatch_once(&sharedDownloads, ^{
         
         NSFileManager *fileMgr = [NSFileManager defaultManager];
-		NSString *systemTemp = [fileMgr gvc_downloadsDirectory];
+		NSString *systemTemp = [fileMgr gvc_downloadsDirectoryPath];
 #if defined(TARGET_IPHONE_SIMULATOR)
         systemTemp = [systemTemp stringByAppendingPathComponent:[NSBundle gvc_MainBundleIdentifier]];
 #endif

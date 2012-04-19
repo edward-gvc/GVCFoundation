@@ -58,9 +58,10 @@
     return result;
 }
 
-- (NSArray *)gvc_sortedArray
+- (NSArray *)gvc_sortedStringArray
 {
-    return [self sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *strings = [self gvc_filterArrayForClass:[NSString class]];
+    return [strings sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (NSArray *)gvc_ArrayOrderingByKey:(NSString *)key ascending:(BOOL)ascending
@@ -68,5 +69,72 @@
 	return [NSArray gvc_ArrayByOrdering:self byKey:key ascending:ascending];
 }
 
+- (NSArray *)gvc_filterArrayForClass:(Class) clazz
+{
+    GVC_ASSERT(clazz != nil, @"Filter class is required" );
+
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:[self count]];
+    for (id each in self) 
+    {
+        if ( [each isKindOfClass:clazz] == YES )
+            [results addObject:each];
+    }
+    return [results copy];
+}
+
+- (NSArray *)gvc_filterArrayForAccept:(GVCNSArrayAcceptBlock)evaluator
+{
+    GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
+
+    NSIndexSet *indexes = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+		return evaluator(obj);
+	}];
+	return [self objectsAtIndexes:indexes];
+}
+
+- (NSArray *)gvc_filterArrayForReject:(GVCNSArrayAcceptBlock)evaluator
+{
+    GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
+
+    NSIndexSet *indexes = [self indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+		return (evaluator(obj) == NO);
+	}];
+	return [self objectsAtIndexes:indexes];
+}
+
+- (void)gvc_performOnEach:(GVCNSArrayEachBlock)evaluator
+{
+    GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
+    
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		evaluator(obj);
+	}];
+}
+
+- (NSArray *)gvc_resultArray:(GVCNSArrayResultBlock)evaluator
+{
+    GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
+
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:[self count]];
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		id value = evaluator(obj);
+		if (value != nil)
+        {
+            [results addObject:value];
+         }
+	}];
+    return [results copy];
+}
+
+@end
+
+
+@implementation NSMutableArray (GVCFoundation)
+
+- (NSMutableArray *) gvc_removeFirstObject
+{
+	[self removeObjectAtIndex:0];
+	return self;
+}
 
 @end

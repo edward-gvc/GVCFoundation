@@ -14,6 +14,7 @@
 
 - (void)pushObject:(id)anObject;
 - (id)popObject;
+- (void)pushObjects:(id)object,...;
 
 - (id)peekObject;
 - (id)peekObjectAtIndex:(NSUInteger)idx;

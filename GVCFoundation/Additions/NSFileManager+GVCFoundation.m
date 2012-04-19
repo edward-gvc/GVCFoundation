@@ -17,31 +17,58 @@
 	return ([self fileExistsAtPath:path isDirectory:&isDir] == YES) && (isDir == YES);
 }
 
-- (NSString *)gvc_documentsDirectory
+- (NSString *)gvc_documentsDirectoryPath
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	return [paths objectAtIndex:0];
 }
 
-- (NSString *)gvc_cachesDirectory
+- (NSString *)gvc_cachesDirectoryPath
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	if ( [paths count] == 0 )
-		return [self gvc_temporaryDirectory];
+		return [self gvc_temporaryDirectoryPath];
 	return [paths objectAtIndex:0];
 }
 
-- (NSString *)gvc_downloadsDirectory
+- (NSString *)gvc_downloadsDirectoryPath
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
 	if ( [paths count] == 0 )
-		return [self gvc_temporaryDirectory];
+		return [self gvc_temporaryDirectoryPath];
 	return [paths objectAtIndex:0];
 }
 
-- (NSString *)gvc_temporaryDirectory
+- (NSString *)gvc_temporaryDirectoryPath
 {
 	return NSTemporaryDirectory();
+}
+
+- (NSURL *)gvc_documentsDirectoryURL
+{
+    NSArray *urls = [self URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    return [urls lastObject];
+}
+
+- (NSURL *)gvc_cachesDirectoryURL
+{
+    NSArray *urls = [self URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
+	if ( [urls count] == 0 )
+		return [self gvc_temporaryDirectoryURL];
+    return [urls lastObject];
+}
+
+- (NSURL *)gvc_temporaryDirectoryURL
+{
+    return [NSURL URLWithString:[self gvc_temporaryDirectoryPath]];
+}
+
+- (NSURL *)gvc_downloadsDirectoryURL
+{
+    NSArray *urls = [self URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask];
+	if ( [urls count] == 0 )
+		return [self gvc_temporaryDirectoryURL];
+    return [urls lastObject];
 }
 
 

@@ -11,10 +11,15 @@
 
 @interface NSFileManager (GVCFoundation)
 
-- (NSString *)gvc_cachesDirectory;
-- (NSString *)gvc_documentsDirectory;
-- (NSString *)gvc_temporaryDirectory;
-- (NSString *)gvc_downloadsDirectory;
+- (NSString *)gvc_cachesDirectoryPath;
+- (NSString *)gvc_documentsDirectoryPath;
+- (NSString *)gvc_temporaryDirectoryPath;
+- (NSString *)gvc_downloadsDirectoryPath;
+
+- (NSURL *)gvc_cachesDirectoryURL;
+- (NSURL *)gvc_documentsDirectoryURL;
+- (NSURL *)gvc_temporaryDirectoryURL;
+- (NSURL *)gvc_downloadsDirectoryURL;
 
 - (NSString *)gvc_md5Hash:(NSString *)path;
 - (BOOL)gvc_validateFile:(NSString *)path withMD5Hash:(NSString *)hash;

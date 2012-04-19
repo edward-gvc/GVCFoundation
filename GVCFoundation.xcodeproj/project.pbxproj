@@ -156,6 +156,7 @@
 		05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EA14852992004E04C0 /* GVCLogTest.m */; };
 		05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */; };
+		05CEF7DC153C647F006A3E5F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CEF7DB153C647F006A3E5F /* CFNetwork.framework */; };
 		05D185FD1503D17200EDBE80 /* GVCISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D185FB1503D17200EDBE80 /* GVCISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05D185FE1503D17200EDBE80 /* GVCISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D185FC1503D17200EDBE80 /* GVCISO8601DateFormatter.m */; };
 		05D186B71504136A00EDBE80 /* NSCharacterSet+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D186B51504136A00EDBE80 /* NSCharacterSet+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -370,6 +371,7 @@
 		05C2C7EA14852992004E04C0 /* GVCLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCLogTest.m; sourceTree = "<group>"; };
 		05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileHandleWriter.h; sourceTree = "<group>"; };
 		05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileHandleWriter.m; sourceTree = "<group>"; };
+		05CEF7DB153C647F006A3E5F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		05D185FB1503D17200EDBE80 /* GVCISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCISO8601DateFormatter.h; sourceTree = "<group>"; };
 		05D185FC1503D17200EDBE80 /* GVCISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCISO8601DateFormatter.m; sourceTree = "<group>"; };
 		05D186B51504136A00EDBE80 /* NSCharacterSet+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+GVCFoundation.h"; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05CEF7DC153C647F006A3E5F /* CFNetwork.framework in Frameworks */,
 				056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */,
 				056F5945147EE84D0076010D /* Foundation.framework in Frameworks */,
 				056F5948147EE84D0076010D /* libGVCFoundation.a in Frameworks */,
@@ -573,6 +576,7 @@
 		056F5932147EE84D0076010D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05CEF7DB153C647F006A3E5F /* CFNetwork.framework */,
 				056F5933147EE84D0076010D /* Foundation.framework */,
 				056F5941147EE84D0076010D /* SenTestingKit.framework */,
 			);
