@@ -12,14 +12,6 @@
 #import "GVCReaderWriter.h"
 
 @interface GVCFileHandleWriter : NSObject <GVCWriter>
-{
-	GVCWriterStatus writerStatus;
-	NSStringEncoding stringEncoding;
-	dispatch_group_t group;
-	
-    NSFileHandle	*log;
-    NSString		*logPath;
-}
 
 + (GVCFileHandleWriter *)writerForFileHandle:(NSFileHandle *)file;
 + (GVCFileHandleWriter *)writerForFileHandle:(NSFileHandle *)file encoding:(NSStringEncoding)encoding;
@@ -32,14 +24,7 @@
 @property (strong, nonatomic) NSString *logPath;
 @property (strong, nonatomic) NSFileHandle	*log;
 
-/*
- * String encoding when writer is generating for destinations where the encoding can be used.
- */
-- (NSStringEncoding)stringEncoding;
-
-/*
- * String encoding when writer is generating for destinations where the encoding can be used.
- */
-- (void)setStringEncoding:(NSStringEncoding)encode;
+@property (nonatomic, readonly) GVCWriterStatus writerStatus;
+@property (nonatomic, readonly) NSStringEncoding stringEncoding;
 
 @end

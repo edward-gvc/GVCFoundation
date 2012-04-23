@@ -33,6 +33,7 @@ typedef id (^GVCNSArrayResultBlock)(id item);
 
 - (NSArray *)gvc_resultArray:(GVCNSArrayResultBlock)evaluator;
 
+- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCNSArrayResultBlock)evaluator;
 
 @end
 

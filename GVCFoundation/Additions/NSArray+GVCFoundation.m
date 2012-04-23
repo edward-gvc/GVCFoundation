@@ -126,6 +126,11 @@
     return [results copy];
 }
 
+- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCNSArrayResultBlock)evaluator
+{
+    return [[self gvc_resultArray:evaluator] componentsJoinedByString:val];
+}
+
 @end
 
 

@@ -33,7 +33,7 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		writer = wrtr;
+		[self setWriter:wrtr];
 	}
 	return self;
 }
@@ -46,14 +46,14 @@
 
 - (void)open
 {
-	GVC_ASSERT( [writer status] < GVC_IO_Status_OPEN, @"Writer status is %d", [writer status] );
+	GVC_ASSERT( [writer writerStatus] < GVC_IO_Status_OPEN, @"Writer status is %d", [writer writerStatus] );
 	
 	[writer openWriter];
 }
 
 - (void)close;
 {
-	GVC_ASSERT( [writer status] < GVC_IO_Status_CLOSED, @"Writer status is %d", [writer status] );
+	GVC_ASSERT( [writer writerStatus] < GVC_IO_Status_CLOSED, @"Writer status is %d", [writer writerStatus] );
 	
 	[writer flush];
 	[writer closeWriter];
@@ -67,10 +67,10 @@
 
 - (void)writeString:(NSString *)string;
 {
-	if ( [writer status] < GVC_IO_Status_OPEN )
+	if ( [writer writerStatus] < GVC_IO_Status_OPEN )
 		[self open];
     
-	GVC_ASSERT( [writer status] == GVC_IO_Status_OPEN, @"Writer status should be open is %d", [writer status] );
+	GVC_ASSERT( [writer writerStatus] == GVC_IO_Status_OPEN, @"Writer status should be open is %d", [writer writerStatus] );
 	
     [writer writeString:string];
 }

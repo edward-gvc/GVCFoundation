@@ -62,9 +62,9 @@
 
 - (NSString *)gvc_TrimWhitespace 
 {
-	NSMutableString *s = [self mutableCopy];
-	CFStringTrimWhitespace ((__bridge CFMutableStringRef) s);
-	return [s copy];
+	NSMutableString *sBuffer = [self mutableCopy];
+	CFStringTrimWhitespace ((__bridge CFMutableStringRef) sBuffer);
+	return sBuffer;
 }
 
 #pragma mark - file names

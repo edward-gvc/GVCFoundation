@@ -8,6 +8,8 @@
 
 #import "GVCXMLDigesterRule.h"
 #import "GVCMacros.h"
+#import "NSString+GVCFoundation.h"
+#import "GVCLogger.h"
 
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigester.h"
@@ -56,6 +58,42 @@
 
 - (void) finishDigest
 {
+}
+
+- (void)setObject:(id)object value:(id)value forKey:(NSString *)propertyKey
+{
+    GVC_ASSERT(object != nil, @"Object cannot be nil");
+    GVC_ASSERT(propertyKey != nil, @"property cannot be nil");
+
+    NS_DURING
+        [object setValue:value forKey:propertyKey];
+    NS_HANDLER
+        NSString *selectorName = GVC_SPRINTF( @"set%@:", [propertyKey gvc_StringWithCapitalizedFirstCharacter] );
+        SEL selector = NSSelectorFromString(selectorName);
+        if ( [object respondsToSelector:selector] == YES )
+        {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [object performSelector:selector withObject:value];
+    #pragma clang diagnostic pop
+        }
+        else
+        {
+            selectorName = GVC_SPRINTF( @"add%@:", [propertyKey gvc_StringWithCapitalizedFirstCharacter] );
+            selector = NSSelectorFromString(selectorName);
+            if ( [object respondsToSelector:selector] == YES )
+            {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                [object performSelector:selector withObject:value];
+    #pragma clang diagnostic pop
+            }
+            else 
+            {
+                GVCLogError( @"Object %@ does not accept property name %@", object, propertyKey);
+            }
+        }
+    NS_ENDHANDLER
 }
 
 - (NSString *)description

@@ -9,7 +9,18 @@
 #import "GVCStringWriter.h"
 #import "GVCMacros.h"
 
+@interface GVCStringWriter ()
+@property (assign, nonatomic, readwrite) GVCWriterStatus writerStatus;
+@property (assign, nonatomic, readwrite) NSStringEncoding stringEncoding;
+@property (strong, nonatomic) NSMutableString *stringBuffer;
+@end
+
+
 @implementation GVCStringWriter
+
+@synthesize writerStatus;
+@synthesize stringEncoding;
+@synthesize stringBuffer;
 
 + (GVCStringWriter *)stringWriter
 {
@@ -21,8 +32,8 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		writerStatus = GVC_IO_Status_INITIAL;
-		stringEncoding = NSUTF8StringEncoding;
+		[self setWriterStatus:GVC_IO_Status_INITIAL];
+		[self setStringEncoding:NSUTF8StringEncoding];
 	}
 	return self;
 }
@@ -30,22 +41,6 @@
 - (NSString *)string
 {
 	return stringBuffer;
-}
-
-- (NSStringEncoding)stringEncoding
-{
-	return stringEncoding;
-}
-
-- (void)setStringEncoding:(NSStringEncoding)encode
-{
-	GVC_ASSERT( writerStatus == GVC_IO_Status_INITIAL, @"Cannot change encoding once writer is open" );
-	stringEncoding = encode;
-}
-
-- (GVC_IO_Status)status
-{
-	return writerStatus;
 }
 
 - (void)openWriter

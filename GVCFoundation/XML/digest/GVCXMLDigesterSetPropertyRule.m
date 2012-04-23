@@ -57,11 +57,7 @@
     id object = [[self digester] peekNodeObject];
 	NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
 
-	NS_DURING
-    [object setValue:nodeText forKey:propertyKey];
-	NS_HANDLER
-	GVCLogError( @"Object %@ does not accept property name %@", object, propertyKey);
-	NS_ENDHANDLER
+    [self setObject:object value:nodeText forKey:propertyKey];
 }
 
 - (NSString *)description
@@ -103,11 +99,7 @@
 {
     id object = [[self digester] peekNodeObject];
 	NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
-	NS_DURING
-    [object setValue:nodeCDATA forKey:propertyKey];
-	NS_HANDLER
-	GVCLogError( @"Object %@ does not accept property name %@", object, propertyKey);
-	NS_ENDHANDLER
+    [self setObject:object value:nodeCDATA forKey:propertyKey];
 }
 
 @end

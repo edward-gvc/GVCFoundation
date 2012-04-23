@@ -10,6 +10,7 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "GVCStack.h"
+#import "NSString+GVCFoundation.h"
 
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigesterRule.h"
@@ -138,6 +139,15 @@
 	return [[elementNameStack allObjects] componentsJoinedByString:@"/"];
 }
 
+/**
+ * returns the current text with whitespace trimed from the prefix and suffix .. or nil
+ */
+- (NSString *)currentTrimmedTextString
+{
+    NSString  *trimed = [[self currentTextString] gvc_TrimWhitespace];
+    return (gvc_IsEmpty(trimed) ? nil : trimed);
+}
+
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
 	[super parserDidStartDocument:parser];
@@ -216,8 +226,8 @@
         rules = [rules gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:NO];
 		for (GVCXMLDigesterRule *rule in rules)
 		{
-			if (gvc_IsEmpty([self currentTextString]) == NO)
-				[rule didFindCharacters:[self currentTextString]];
+			if (gvc_IsEmpty([self currentTrimmedTextString]) == NO)
+				[rule didFindCharacters:[self currentTrimmedTextString]];
 			if (gvc_IsEmpty([self currentCDATA]) == NO)
 				[rule didFindCDATA:[self currentCDATA]];
 			[rule didEndElement:elementName];
@@ -257,13 +267,21 @@
 	[generator openElement:@"digester"];
     [[self digestRuleManager] writeConfiguration:generator];
     
-	[generator openElement:@"digest"];
-    for ( NSString *dgst in digestDictionary )
+	[generator openElement:@"currentDigest"];
+    if ( gvc_IsEmpty(digestDictionary) == NO )
     {
-        [generator writeElement:dgst withText:[[digestDictionary objectForKey:dgst] description]];
+        [generator writeText:[digestDictionary description]];
     }
 	[generator closeElement];
-	[generator closeElement];
+
+    if ( [[self currentNodeStack] count] > 0 )
+    {
+        [generator openElement:@"currentNodeStack" inNamespace:nil withAttributeKeyValues:@"elementPath", [self elementPath]];
+        [generator writeText:[currentNodeStack description]];
+        [generator closeElement];
+    }
+
+    [generator closeElement];
     
     [generator closeDocument];
     return [stringWriter string];
@@ -275,6 +293,7 @@
 	[outputGenerator openElement:@"digester"];
     [[self digestRuleManager] writeConfiguration:outputGenerator];
 	[outputGenerator closeElement];
+    [outputGenerator closeDocument];
 }
 
 @end

@@ -11,13 +11,6 @@
 #import "GVCReaderWriter.h"
 
 @interface GVCFileWriter : NSObject <GVCWriter, NSStreamDelegate>
-{
-	GVCWriterStatus writerStatus;
-	NSStringEncoding stringEncoding;
-	
-	NSOutputStream *fileStream;
-	NSString *filename;
-}
 
 + (GVCFileWriter *)writerForFilename:(NSString *)file;
 + (GVCFileWriter *)writerForFilename:(NSString *)file encoding:(NSStringEncoding)encoding;
@@ -29,4 +22,6 @@
 @property (strong, nonatomic) NSString *filename;
 @property (strong, nonatomic) NSOutputStream *fileStream;
 
+@property (nonatomic, readonly) GVCWriterStatus writerStatus;
+@property (nonatomic, readonly) NSStringEncoding stringEncoding;
 @end

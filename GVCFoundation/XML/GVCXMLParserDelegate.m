@@ -106,9 +106,13 @@
 			[parser setShouldReportNamespacePrefixes:YES];
 			[parser setShouldProcessNamespaces:YES];
 
-			
-			BOOL success = [parser parse];
-			status = ( success ? GVC_XML_ParserDelegateStatus_SUCCESS : GVC_XML_ParserDelegateStatus_FAILURE );
+			status = GVC_XML_ParserDelegateStatus_SUCCESS;
+            
+			if ( [parser parse] != YES )
+            {
+                status = GVC_XML_ParserDelegateStatus_PARSE_FAILED;
+                [self setXmlError:[parser parserError]];
+            }
 		}
 	}
 	return status;
@@ -186,14 +190,15 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
 	currentCDATA = nil;
-	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 	[elementNameStack pushObject:elementName];
+	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
 	NSString *popName = [elementNameStack popObject];
 	GVC_ASSERT([elementName isEqualToString:popName] == YES, @"end element %@ != %@ with stack %@", elementName, popName, elementNameStack );
+	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
@@ -232,7 +237,7 @@
 
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
 {
-		//GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
+    GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
 }
 
 - (void)parser:(NSXMLParser *)parser foundProcessingInstructionWithTarget:(NSString *)target data:(NSString *)data

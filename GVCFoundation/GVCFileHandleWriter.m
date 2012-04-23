@@ -12,10 +12,22 @@
 #import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
+@interface GVCFileHandleWriter ()
+{
+	dispatch_group_t group;
+}
+
+@property (assign, nonatomic, readwrite) GVCWriterStatus writerStatus;
+@property (assign, nonatomic, readwrite) NSStringEncoding stringEncoding;
+
+@end
+
 @implementation GVCFileHandleWriter
 
 @synthesize log;
 @synthesize logPath;
+@synthesize writerStatus;
+@synthesize stringEncoding;
 
 + (GVCFileHandleWriter *)writerForFileHandle:(NSFileHandle *)file;
 {

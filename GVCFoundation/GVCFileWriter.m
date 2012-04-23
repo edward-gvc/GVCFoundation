@@ -14,10 +14,17 @@
 #import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
+@interface GVCFileWriter ()
+@property (assign, nonatomic, readwrite) GVCWriterStatus writerStatus;
+@property (assign, nonatomic, readwrite) NSStringEncoding stringEncoding;
+@end
+
 @implementation GVCFileWriter
 
 @synthesize filename;
 @synthesize fileStream;
+@synthesize writerStatus;
+@synthesize stringEncoding;
 
 + (GVCFileWriter *)writerForFilename:(NSString *)file
 {
@@ -34,8 +41,8 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		writerStatus = GVC_IO_Status_INITIAL;
-		stringEncoding = NSUTF8StringEncoding;
+		[self setWriterStatus:GVC_IO_Status_INITIAL];
+        [self setStringEncoding:NSUTF8StringEncoding];
 	}
 	return self;
 }
@@ -63,22 +70,6 @@
 	return self;
 }
 
-- (NSStringEncoding)stringEncoding
-{
-	return stringEncoding;
-}
-
-- (void)setStringEncoding:(NSStringEncoding)encode
-{
-	GVC_ASSERT( writerStatus == GVC_IO_Status_INITIAL, @"Cannot change encoding once writer is open" );
-	stringEncoding = encode;
-}
-
-- (GVCWriterStatus)status
-{
-	return writerStatus;
-}
-
 - (void)openWriter
 {
 	GVC_ASSERT( writerStatus == GVC_IO_Status_INITIAL, @"Cannot open writer more than once" );
@@ -87,12 +78,11 @@
 	[self setFileStream:[NSOutputStream outputStreamToFileAtPath:[self filename] append:NO]];
 	[fileStream setDelegate:self];
 	[fileStream open];
-	writerStatus = GVC_IO_Status_OPEN;
+	[self setWriterStatus:GVC_IO_Status_OPEN];
 }
 
 - (void)flush
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot flush unless writer is open" );
 }
 
 - (void)writeString:(NSString *)str
@@ -118,9 +108,12 @@
 
 - (void)closeWriter
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot close writer unless writer is open" );
-	[fileStream close];
-	writerStatus = GVC_IO_Status_CLOSED;
+    if ( writerStatus > GVC_IO_Status_INITIAL )
+    {
+        GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot close writer unless writer is open" );
+        [fileStream close];
+    }
+    [self setWriterStatus:GVC_IO_Status_CLOSED];
 }
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode

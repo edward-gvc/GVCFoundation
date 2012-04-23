@@ -10,15 +10,12 @@
 #import "GVCReaderWriter.h"
 
 @interface GVCStringWriter : NSObject <GVCWriter>
-{
-	GVCWriterStatus writerStatus;
-	NSStringEncoding stringEncoding;
-
-	NSMutableString *stringBuffer;
-}
 
 + (GVCStringWriter *)stringWriter;
 
 - (NSString *)string;
+
+@property (nonatomic, readonly) GVCWriterStatus writerStatus;
+@property (nonatomic, readonly) NSStringEncoding stringEncoding;
 
 @end

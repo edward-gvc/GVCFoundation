@@ -31,6 +31,8 @@ typedef enum _GVC_XML_DigesterRule_Order
 
 - (void) finishDigest;
 
+- (void)setObject:(id)object value:(id)value forKey:(NSString *)propertyKey;
+
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator;
 
 + (GVCXMLDigesterRule *)ruleForCreateObject:(NSString *)clazz;

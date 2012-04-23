@@ -75,7 +75,7 @@ typedef GVC_IO_Status GVCWriterStatus;
 /*
  * Returns the current writer status
  */
-- (GVCWriterStatus)status;
+@property (nonatomic, readonly) GVCWriterStatus writerStatus;
 
 /*
  * String encoding when writer is generating for destinations where the encoding can be used.

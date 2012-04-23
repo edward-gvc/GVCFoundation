@@ -35,7 +35,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
     NSData *xmlData;	
 	
 	GVC_XML_ParserDelegateStatus status;
-	NSError *xmlError;
+	NSError *xml;
 }
 
 - (id)init;

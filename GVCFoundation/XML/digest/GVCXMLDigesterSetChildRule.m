@@ -55,34 +55,10 @@
 		key = elementName;
 	}
 	
-	NSString *selectorName = GVC_SPRINTF( @"set%@:", [key gvc_StringWithCapitalizedFirstCharacter] );
-	SEL selector = NSSelectorFromString(selectorName);
-	if ( [parent respondsToSelector:selector] == YES )
-	{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-		[parent performSelector:selector withObject:child];
-#pragma clang diagnostic pop
-	}
-	else
-	{
-		selectorName = GVC_SPRINTF( @"add%@:", [key gvc_StringWithCapitalizedFirstCharacter] );
-		selector = NSSelectorFromString(selectorName);
-		if ( [parent respondsToSelector:selector] == YES )
-		{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [parent performSelector:selector withObject:child];
-#pragma clang diagnostic pop
-		}
-		else
-		{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			[parent setValue:child forKey:key];
-#pragma clang diagnostic pop
-		}
-	}
+    if ((parent != nil) && (child != nil))
+    {
+        [self setObject:parent value:child forKey:key];
+    }
 }
 
 - (NSString *)description

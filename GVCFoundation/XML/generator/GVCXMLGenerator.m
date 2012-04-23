@@ -82,7 +82,7 @@
 	
 	if ( [[self writer] stringEncoding] != anEncoding )
 	{
-		GVC_ASSERT( [[self writer] status] < GVC_IO_Status_OPEN, @"Writer cannot change encoding from %@ to %@ once the writer is open.", [NSString localizedNameOfStringEncoding:[[self writer] stringEncoding]], [NSString localizedNameOfStringEncoding:anEncoding] );
+		GVC_ASSERT( [[self writer] writerStatus] < GVC_IO_Status_OPEN, @"Writer cannot change encoding from %@ to %@ once the writer is open.", [NSString localizedNameOfStringEncoding:[[self writer] stringEncoding]], [NSString localizedNameOfStringEncoding:anEncoding] );
         
 		[[self writer] setStringEncoding:anEncoding];
 	}
