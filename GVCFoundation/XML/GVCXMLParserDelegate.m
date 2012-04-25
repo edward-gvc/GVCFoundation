@@ -190,8 +190,8 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
 	currentCDATA = nil;
-	[elementNameStack pushObject:elementName];
 	[currentTextBuffer setString:[NSString gvc_EmptyString]];
+	[elementNameStack pushObject:elementName];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName

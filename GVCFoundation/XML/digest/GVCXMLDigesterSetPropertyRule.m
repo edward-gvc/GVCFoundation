@@ -46,6 +46,10 @@
 	return GVC_XML_DigesterRule_Order_LOW;
 }
 
+- (void) didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict
+{
+    [self setNodeText:nil];
+}
 
 - (void) didFindCharacters:(NSString *)text
 {
@@ -88,6 +92,12 @@
 	{
 	}
 	return self;
+}
+
+- (void) didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict
+{
+    [super didStartElement:elementName attributes:attributeDict];
+    [self setNodeCDATA:nil];
 }
 
 - (void) didFindCDATA:(NSData *)text
