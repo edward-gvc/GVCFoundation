@@ -142,4 +142,14 @@
 	return self;
 }
 
+- (void)gvc_sortWithOrderingKey:(NSString *)key ascending:(BOOL)ascending
+{
+	if (gvc_IsEmpty(key) == NO)
+	{
+		NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:key ascending:ascending];
+		[self sortUsingDescriptors:[NSArray arrayWithObject:descriptor]];
+    }
+}
+
+
 @end

@@ -29,6 +29,7 @@
 - (id)digestValueForPath:(NSString *)key;
 
 - (void)addRule:(GVCXMLDigesterRule *)rule forNodeName:(NSString *)node_name;
+- (void)addRule:(GVCXMLDigesterRule *)rule forNodePath:(NSString *)node_path;
 - (void)addRule:(GVCXMLDigesterRule *)rule forPattern:(NSString *)pattern;
 - (void)addRuleset:(GVCXMLDigesterRuleset *)set;
 

@@ -40,5 +40,5 @@ typedef id (^GVCNSArrayResultBlock)(id item);
 
 @interface NSMutableArray (GVCFoundation)
 - (NSMutableArray *) gvc_removeFirstObject;
-
+- (void)gvc_sortWithOrderingKey:(NSString *)key ascending:(BOOL)ascending;
 @end

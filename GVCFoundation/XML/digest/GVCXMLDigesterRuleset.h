@@ -13,6 +13,7 @@
 @interface GVCXMLDigesterRuleset : NSObject
 
 @property (strong, nonatomic) NSString *nodeName;
+@property (strong, nonatomic) NSString *nodePath;
 @property (strong, nonatomic) NSString *pattern;
 @property (strong, nonatomic) NSMutableArray *rules;
 

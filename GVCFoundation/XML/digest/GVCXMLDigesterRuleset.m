@@ -13,6 +13,7 @@
 @implementation GVCXMLDigesterRuleset
 
 @synthesize nodeName;
+@synthesize nodePath;
 @synthesize pattern;
 @synthesize rules;
 

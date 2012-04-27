@@ -57,7 +57,7 @@
 	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"ruleset"]  forNodeName:@"ruleset"];
 	[irony addRule:[GVCXMLDigesterRule ruleForParentChild:@"rule"]  forNodeName:@"rule"];
 	
-	GVCXMLDigesterAttributeMapRule *rulesetPatternRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"pattern", @"pattern", @"nodeName", @"nodeName", nil];
+	GVCXMLDigesterAttributeMapRule *rulesetPatternRule = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"pattern", @"pattern", @"nodeName", @"nodeName", @"nodePath", @"nodePath", nil];
 	[irony addRule:rulesetPatternRule forNodeName:@"ruleset"];
 	
 	GVCXMLDigesterAttributeMapRule *attrRule = [[GVCXMLDigesterAttributeMapRule alloc] init];
@@ -165,31 +165,30 @@
 {
 	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
 	
+	// check for rules for the current path
+	NSArray *path_rules = [[self digestRuleManager] rulesForNodePath:[self elementPath]];
 	// check for rules for the current elementName
 	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
 	// check for patterns
 	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
-    NSArray *rules = nil;
+    NSMutableArray *rules = [NSMutableArray arrayWithCapacity:2];
     
     if ( gvc_IsEmpty(node_rules) == NO )
     {
-        if ( gvc_IsEmpty(pattern_rules) == NO )
-        {
-            rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
-        }
-        else
-        {
-            rules = node_rules;
-        }
+        [rules addObjectsFromArray:node_rules];
     }
-    else if ( gvc_IsEmpty(pattern_rules) == NO )
+    if ( gvc_IsEmpty(path_rules) == NO )
     {
-        rules = pattern_rules;
+        [rules addObjectsFromArray:path_rules];
+    }
+    if ( gvc_IsEmpty(pattern_rules) == NO )
+    {
+        [rules addObjectsFromArray:pattern_rules];
     }
 
     if ( gvc_IsEmpty(rules) == NO )
     {
-        rules = [rules gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:YES];
+        [rules gvc_sortWithOrderingKey:GVC_PROPERTY(rulePriority) ascending:YES];
 		for (GVCXMLDigesterRule *rule in rules) 
 		{
 			[rule didStartElement:elementName attributes:attributeDict];
@@ -199,31 +198,30 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
+	// check for rules for the current path
+	NSArray *path_rules = [[self digestRuleManager] rulesForNodePath:[self elementPath]];
 	// check for rules for the current elementName
 	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
 	// check for patterns
 	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
-    NSArray *rules = nil;
+    NSMutableArray *rules = [NSMutableArray arrayWithCapacity:2];
     
     if ( gvc_IsEmpty(node_rules) == NO )
     {
-        if ( gvc_IsEmpty(pattern_rules) == NO )
-        {
-            rules = [NSArray gvc_ArrayByCombining:node_rules, pattern_rules, nil];
-        }
-        else
-        {
-            rules = node_rules;
-        }
+        [rules addObjectsFromArray:node_rules];
     }
-    else if ( gvc_IsEmpty(pattern_rules) == NO )
+    if ( gvc_IsEmpty(path_rules) == NO )
     {
-        rules = pattern_rules;
+        [rules addObjectsFromArray:path_rules];
     }
-    
+    if ( gvc_IsEmpty(pattern_rules) == NO )
+    {
+        [rules addObjectsFromArray:pattern_rules];
+    }
+
     if ( gvc_IsEmpty(rules) == NO )
     {
-        rules = [rules gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:NO];
+        [rules gvc_sortWithOrderingKey:GVC_PROPERTY(rulePriority) ascending:NO];
 		for (GVCXMLDigesterRule *rule in rules)
 		{
 			if (gvc_IsEmpty([self currentTrimmedTextString]) == NO)
@@ -242,6 +240,11 @@
 	[[self digestRuleManager] addRule:rule forNodeName:node_name];
 }
 
+- (void)addRule:(GVCXMLDigesterRule *)rule forNodePath:(NSString *)node_name
+{
+	[[self digestRuleManager] addRule:rule forNodePath:node_name];
+}
+
 - (void) addRule:(GVCXMLDigesterRule *)rule forPattern:(NSString *)pattern
 {
 	[[self digestRuleManager] addRule:rule forPattern:pattern];
@@ -252,6 +255,10 @@
     if ( gvc_IsEmpty([set nodeName]) == NO )
     {
         [[self digestRuleManager] addRuleList:[set rules] forNodeName:[set nodeName]];
+    }
+    else if ( gvc_IsEmpty([set nodePath]) == NO )
+    {
+        [[self digestRuleManager] addRuleList:[set rules] forNodePath:[set nodePath]];
     }
     else
     {

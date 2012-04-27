@@ -18,6 +18,7 @@
 @interface GVCXMLDigesterRuleManager ()
 @property (weak, readwrite, nonatomic) GVCXMLDigester *digester;
 @property (strong, nonatomic) NSMutableDictionary *ruleset_patterns;
+@property (strong, nonatomic) NSMutableDictionary *ruleset_paths;
 @property (strong, nonatomic) NSMutableDictionary *ruleset_nodes;
 
 @property (strong, nonatomic) NSMutableDictionary *patternCache;
@@ -28,6 +29,7 @@
 
 @synthesize digester;
 @synthesize ruleset_patterns;
+@synthesize ruleset_paths;
 @synthesize ruleset_nodes;
 @synthesize patternCache;
 
@@ -37,6 +39,7 @@
 	if (self != nil) 
 	{
 		[self setRuleset_nodes:[NSMutableDictionary dictionaryWithCapacity:0]];
+		[self setRuleset_paths:[NSMutableDictionary dictionaryWithCapacity:0]];
 		[self setRuleset_patterns:[NSMutableDictionary dictionaryWithCapacity:0]];
 		[self setPatternCache:[NSMutableDictionary dictionaryWithCapacity:0]];
 		digester = dgst;
@@ -71,6 +74,32 @@
 	}
 }
 
+- (void)addRule:(GVCXMLDigesterRule *)rule forNodePath:(NSString *)node_path
+{
+    GVC_ASSERT( gvc_IsEmpty(node_path) == NO, @"Cannot add rule for empty node_path" );
+	GVC_ASSERT( rule != nil, @"Cannot add nil rule" );
+	
+	NSMutableArray *array = [ruleset_paths objectForKey:node_path];
+	if ( array == nil )
+	{
+		array = [NSMutableArray arrayWithCapacity:1];
+		[ruleset_paths setObject:array forKey:node_path];
+	}
+	
+	[rule setDigester:[self digester]];
+	[array addObject:rule];
+}
+
+- (void)addRuleList:(NSArray *)ruleList forNodePath:(NSString *)node_path
+{
+    GVC_ASSERT( gvc_IsEmpty(node_path) == NO, @"Cannot add rule for empty node_path" );
+	GVC_ASSERT( gvc_IsEmpty(ruleList) == NO, @"Cannot add empty list of rules" );
+	
+	for (GVCXMLDigesterRule *rule in ruleList)
+	{
+		[self addRule:rule forNodePath:node_path];
+	}
+}
 
 - (void)addRuleList:(NSArray *)ruleList forPattern:(NSString *)pattern
 {
@@ -109,6 +138,42 @@
 	GVC_ASSERT( gvc_IsEmpty(node_name) == NO, @"Cannot evaluate an empty node path" );
 	
 	NSMutableArray *matches = [ruleset_nodes objectForKey:node_name];
+	if (gvc_IsEmpty(namesp) == NO)
+	{
+		NSPredicate *nspTest = [NSPredicate predicateWithFormat:@"namespaceURI = %@", namesp];
+		[matches filterUsingPredicate:nspTest];
+	}
+	
+	return [matches gvc_ArrayOrderingByKey:GVC_PROPERTY(rulePriority) ascending:YES];
+}
+
+- (NSArray *)rulesForNodePath:(NSString *)node_path
+{
+	return [self rulesForNodePath:node_path inNamespace:nil];
+}
+
+- (NSArray *)rulesForNodePath:(NSString *)node_path inNamespace:(NSString *)namesp
+{
+	GVC_ASSERT( gvc_IsEmpty(node_path) == NO, @"Cannot evaluate an empty node path" );
+	
+	NSArray *matchingPaths = [[ruleset_paths allKeys] gvc_filterArrayForAccept:^BOOL(id item) {
+        BOOL match = [node_path isEqualToString:item];
+        if ((match == NO) && ([node_path length] >= [item length])) 
+        {
+            NSUInteger point = [node_path length] - [item length];
+            NSString *tail = [node_path substringFromIndex:point];
+            match = [tail isEqualToString:item];
+        }
+        return match;
+    }];
+    
+    NSMutableArray *matches = [NSMutableArray arrayWithCapacity:0];
+    for (NSString *hitpath in matchingPaths )
+    {
+        NSArray *ruleList = [ruleset_paths objectForKey:hitpath];
+        [matches addObjectsFromArray:ruleList];
+    }
+
 	if (gvc_IsEmpty(namesp) == NO)
 	{
 		NSPredicate *nspTest = [NSPredicate predicateWithFormat:@"namespaceURI = %@", namesp];
@@ -175,6 +240,26 @@
             [outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"nodeName", pattern, nil];
             
             NSArray *rules = [ruleset_nodes objectForKey:pattern];
+            for (GVCXMLDigesterRule *aRule in rules)
+            {
+                [aRule writeConfiguration:outputGenerator];
+            }
+            
+            [outputGenerator closeElement];
+        }
+        [outputGenerator closeElement];
+    }
+
+    if ( gvc_IsEmpty(ruleset_paths) == NO )
+    {
+        [outputGenerator openElement:@"paths"];
+        
+        NSArray *rulesets = [ruleset_paths gvc_sortedKeys];
+        for (NSString *pattern in rulesets)
+        {
+            [outputGenerator openElement:@"ruleset" inNamespace:nil withAttributeKeyValues:@"nodePath", pattern, nil];
+            
+            NSArray *rules = [ruleset_patterns objectForKey:pattern];
             for (GVCXMLDigesterRule *aRule in rules)
             {
                 [aRule writeConfiguration:outputGenerator];
