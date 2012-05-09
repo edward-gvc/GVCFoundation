@@ -131,6 +131,26 @@
     return [[self gvc_resultArray:evaluator] componentsJoinedByString:val];
 }
 
+- (BOOL)gvc_isEqualToArrayInAnyOrder:(NSArray *)other;
+{
+    BOOL isEqual = NO;
+    if ( other == self )
+        isEqual = YES;
+    else if ([other count] == [self count])
+    {
+        isEqual = YES;
+        for (NSObject *obj in other) 
+        {
+            // the count is the same so all the objects in the other list should also be in mine
+            if ( [self containsObject:obj] == NO )
+            {
+                isEqual = NO;
+                break;
+            }
+        }
+    }
+    return isEqual;
+}
 @end
 
 

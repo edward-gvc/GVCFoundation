@@ -25,6 +25,7 @@
 @synthesize fieldSeparator;
 @synthesize fieldNames;
 @synthesize separatorIsSingleChar;
+@synthesize cancelled;
 
 
 - (id)initWithDelegate:(id <GVCParserDelegate>)del separator:(NSString *)aSep fieldNames:(NSArray *)names;
@@ -35,7 +36,7 @@
 		[self setDelegate:del];
 		[self setFieldNames:[names mutableCopy]];
 		[self setFieldSeparator:aSep];
-		
+		[self setCancelled:NO];
 		if ([fieldSeparator length] == 1)
 		{
 			separatorIsSingleChar = YES;
@@ -79,8 +80,7 @@
 	return [self parseFilename:afile withEncoding:NSUTF8StringEncoding error:err];
 }
 
-- (BOOL)parseFilename:(NSString *)afile withEncoding:(NSStringEncoding)encode error:(NSError **)err;
-
+- (BOOL)parseFilename:(NSString *)afile withEncoding:(NSStringEncoding)encode error:(NSError **)err
 {
 	GVC_ASSERT( gvc_IsEmpty(afile) == NO, @"Cannot parse nil file" );
 	BOOL success = NO;

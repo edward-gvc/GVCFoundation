@@ -157,6 +157,11 @@ static GVCDirectory *downloadsDirectory;
 	return [[self rootDirectory] stringByAppendingPathComponent:filename];
 }
 
+- (NSURL *)fullURLForFile:(NSString *)filename
+{
+	return [NSURL fileURLWithPath:[self fullpathForFile:filename]];
+}
+
 - (NSString *)uniqueFilename
 {
     return [self uniqueFilename:nil];
@@ -171,5 +176,16 @@ static GVCDirectory *downloadsDirectory;
 	}
 	return [self fullpathForFile:tf];
 }
+
+- (NSURL *)uniqueURLForFile
+{
+	return [NSURL fileURLWithPath:[self uniqueFilename:nil]];
+}
+
+- (NSURL *)uniqueURLForFilename:(NSString *)prefix
+{
+	return [NSURL fileURLWithPath:[self uniqueFilename:prefix]];
+}
+
 
 @end

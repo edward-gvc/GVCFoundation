@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSMutableArray *fieldNames;
 @property (assign, nonatomic) BOOL separatorIsSingleChar;
 @property (strong, nonatomic) NSCharacterSet *endTextCharacterSet;
+@property (assign, nonatomic) BOOL cancelled;
 
 - (id)initWithDelegate:(id <GVCParserDelegate>)del separator:(NSString *)aSep fieldNames:(NSArray *)names;
 

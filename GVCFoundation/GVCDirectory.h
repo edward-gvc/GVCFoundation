@@ -21,9 +21,14 @@
 - (id)initWithRootPath:(NSString *)path;
 
 - (NSString *)fullpathForFile:(NSString *)filename;
+- (NSURL *)fullURLForFile:(NSString *)filename;
 
 - (NSString *)uniqueFilename;
 - (NSString *)uniqueFilename:(NSString *)prefix;
+
+- (NSURL *)uniqueURLForFile;
+- (NSURL *)uniqueURLForFilename:(NSString *)prefix;
+
 
 - (GVCDirectory *)createSubdirectory:(NSString *)name;
 

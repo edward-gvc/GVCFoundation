@@ -35,6 +35,8 @@ typedef id (^GVCNSArrayResultBlock)(id item);
 
 - (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCNSArrayResultBlock)evaluator;
 
+- (BOOL)gvc_isEqualToArrayInAnyOrder:(NSArray *)other;
+
 @end
 
 

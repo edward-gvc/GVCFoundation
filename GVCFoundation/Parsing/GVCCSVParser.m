@@ -58,35 +58,26 @@
 
 - (BOOL)performParse:(NSError **)err
 {
-	BOOL success = NO;
-	
+    if ( [self cancelled] == YES )
+        return NO;
+    
 	if ( parseFirstLineAsHeaders == YES )
 	{
 		[self parseHeaders];
 	}
 	
-	BOOL isFinished = NO;
-	while (isFinished == NO)
+	while (([self cancelled] == NO) && ([[self scanner] isAtEnd] == NO))
 	{
 		NSDictionary *record = [self parseRecord];
 		
-		if ( record == nil )
-		{
-			isFinished = YES;
-			success = YES;
-		}
-		else
+		if ( record != nil )
 		{
 			[[self delegate] parser:self didParseRow:record];
-			if ([self parseLineSeparator] == nil)
-			{
-				isFinished = YES;
-				success = YES;
-			}
+			[self parseLineSeparator];
 		}
 	}
 
-	return success;
+	return ([self cancelled] == NO) && ([[self scanner] isAtEnd] == YES);
 }
 
 - (NSDictionary *)parseRecord
@@ -95,7 +86,7 @@
 	// Special case: return nil if the line is blank. Without this special case,
 	// it would parse as a single blank field.
 	//
-	if ([self parseLineSeparator] || [[self scanner] isAtEnd])
+	if ([self parseLineSeparator])
 	{
 		return nil;
 	}
