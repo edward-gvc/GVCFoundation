@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GVCRunLoopOperation.h"
+#import "GVCNetworking.h"
 
 @class GVCNetResponseData;
 
@@ -54,9 +55,6 @@ typedef void (^GVCNetOperationAuthChallengeBlock)(NSURLConnection *connection, N
 
 @property (copy, nonatomic)  NSURLRequest *lastRequest;
 @property (strong, nonatomic)  NSURLResponse *lastResponse;
-
-	// response data
-- (void)setResponseOutputStream:(NSOutputStream *)newValue;
 
 - (NSUInteger)defaultResponseSize;
 - (void)setDefaultResponseSize:(NSUInteger)newValue;

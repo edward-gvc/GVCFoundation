@@ -10,10 +10,13 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "NSArray+GVCFoundation.h"
+#import "NSDictionary+GVCFoundation.h"
 
 #import "GVCXMLDigesterRuleManager.h"
 #import "GVCXMLDigester.h"
 #import "GVCXMLDigesterRule.h"
+#import "GVCXMLGenerator.h"
+#import "GVCStringWriter.h"
 
 @interface GVCXMLDigesterRuleManager ()
 @property (weak, readwrite, nonatomic) GVCXMLDigester *digester;

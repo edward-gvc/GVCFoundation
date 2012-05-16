@@ -15,6 +15,7 @@
 #import "NSData+GVCFoundation.h"
 
 #import "GVCXMLDocument.h"
+#import "GVCXMLGenericNode.h"
 #import "GVCXMLDocType.h"
 #import "GVCXMLNamespace.h"
 #import "GVCXMLText.h"

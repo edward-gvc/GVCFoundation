@@ -7,7 +7,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
 
 typedef void (^GVCNSArrayEachBlock)(id item);
 typedef BOOL (^GVCNSArrayAcceptBlock)(id item);

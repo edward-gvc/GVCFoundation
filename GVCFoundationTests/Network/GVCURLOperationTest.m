@@ -47,7 +47,8 @@
 		GVCLogError(@"%d of %d", totalBytes, totalBytesExpected);
 	}];
 	[apple_Op setDidFinishBlock:^(GVCOperation *operation) {
-		NSData *data = [[(GVCNetOperation *)operation responseData] responseBody];
+        GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
+		NSData *data = [respData responseBody];
 		GVCLogError(@"Operation success with data %@", data);
 		[data writeToFile:@"/tmp/apple.com.html" atomically:YES];
 		hasCalledBack = YES;
@@ -77,7 +78,8 @@
 		GVCLogError(@"Received %d of %d", totalBytes, totalBytesExpected);
 	}];
 	[ftp_Op setDidFinishBlock:^(GVCOperation *operation) {
-		NSData *data = [[(GVCNetOperation *)operation responseData] responseBody];
+        GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
+		NSData *data = [respData responseBody];
 		STAssertTrue(data == nil, @"Basic url connection should work, but no data");
 		hasCalledBack = YES;
 	}];
@@ -132,7 +134,8 @@
 	
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
 		GVCLogError(@"GVCOperation success");
-		NSData *data = [[(GVCNetOperation *)operation responseData] responseBody];
+        GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
+		NSData *data = [respData responseBody];
 		[data writeToFile:@"/tmp/media-local.html" atomically:YES];
 		STAssertTrue(data != nil, @"Self signed server should have returned a page");
 		STAssertTrue([data length] > 10, @"Self signed server should have content");

@@ -8,6 +8,7 @@
 #import "GVCParser.h"
 #import "GVCMacros.h"
 #import "GVCLogger.h"
+#import "GVCFunctions.h"
 
 #import "NSArray+GVCFoundation.h"
 #import "NSString+GVCFoundation.h"

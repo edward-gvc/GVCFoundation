@@ -7,6 +7,9 @@
  */
 
 #import "NSData+GVCFoundation.h"
+#import "NSString+GVCFoundation.h"
+#import "GVCFunctions.h"
+
 #import <CommonCrypto/CommonDigest.h>
 
 const NSUInteger kDefaultMaxBytesToHexDump = 1024;

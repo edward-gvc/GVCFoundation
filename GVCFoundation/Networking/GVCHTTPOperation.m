@@ -9,6 +9,7 @@
 #import "GVCHTTPOperation.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCNetworking.h"
 
 @implementation GVCHTTPOperation
 
@@ -58,6 +59,11 @@
 		acceptableContentTypes = [newValue copy];
 		[self didChangeValueForKey:@"acceptableContentTypes"];
 	}
+}
+
+- (void)setImageContentTypesOnly
+{
+    [self setAcceptableContentTypes:gvc_MimeType_Images()];
 }
 
 - (BOOL)isStatusCodeAcceptable

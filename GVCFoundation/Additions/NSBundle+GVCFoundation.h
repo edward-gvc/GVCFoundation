@@ -7,7 +7,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
 
 @interface NSBundle (GVCFoundation)
 

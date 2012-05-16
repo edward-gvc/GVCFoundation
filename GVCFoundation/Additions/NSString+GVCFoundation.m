@@ -8,6 +8,8 @@
 
 #import "NSString+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+#import "NSCharacterSet+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
@@ -62,9 +64,32 @@
 
 - (NSString *)gvc_TrimWhitespace 
 {
-	NSMutableString *sBuffer = [self mutableCopy];
-	CFStringTrimWhitespace ((__bridge CFMutableStringRef) sBuffer);
-	return sBuffer;
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
+#pragma mark - Components
+- (NSArray *)gvc_componentsSeparatedByCharactersInSet:(NSCharacterSet *)val includeEmpty:(BOOL)included
+{
+    NSArray *comps = [self componentsSeparatedByCharactersInSet:val];
+    if (included == NO)
+    {
+        comps = [comps gvc_filterArrayForAccept:^BOOL(id item) {
+            return (gvc_IsEmpty(item) == NO);
+        }];
+    }
+    return comps;
+}
+
+- (NSArray *)gvc_componentsSeparatedByString:(NSString *)val includeEmpty:(BOOL)included
+{
+    NSArray *comps = [self componentsSeparatedByString:val];
+    if (included == NO)
+    {
+        comps = [comps gvc_filterArrayForAccept:^BOOL(id item) {
+            return (gvc_IsEmpty(item) == NO);
+        }];
+    }
+    return comps;
 }
 
 #pragma mark - file names
@@ -81,6 +106,27 @@
 	}
 	return result;
 }
+
+#pragma mark - substrings
+- (BOOL)gvc_beginsWith:(NSString *)substr
+{
+    NSRange range = [self rangeOfString:substr];
+    return range.location == 0;
+}
+
+- (BOOL)gvc_contains:(NSString *)substr
+{
+    NSRange range = [self rangeOfString:substr];
+    return range.location != NSNotFound;
+}
+
+- (BOOL)gvc_endsWith:(NSString *)substr
+{
+    NSRange range = [self rangeOfString:substr];
+    return (range.location + range.length == [self length]);
+}
+
+
 
 #pragma mark - XML support
 
@@ -254,6 +300,17 @@
 	}
 	
 	return self;
+}
+
+@end
+
+
+
+@implementation NSMutableString (GVCFoundation)
+
+- (void)appendUniCharacter:(unichar)achar
+{
+    [self appendString:[NSString stringWithCharacters:&achar length:1]];
 }
 
 @end

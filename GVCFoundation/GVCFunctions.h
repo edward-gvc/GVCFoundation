@@ -34,6 +34,9 @@ static inline BOOL gvc_IsEmpty(id thing)
 		|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0);
 }
 
+#pragma mark - Keypath constructor
+GVC_EXTERN NSString *gvc_KeyPath(NSString *aKey, ...);
+
 #pragma mark - Localized Resource Functions
 
 /* These functions are roughly equivalent to the NSLocalizedString, with the addition of creating a usable strings file in /tmp/ with any missing keys.  Useful in development to generating a strings list.

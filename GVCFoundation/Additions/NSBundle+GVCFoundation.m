@@ -7,6 +7,7 @@
  */
 
 #import "NSBundle+GVCFoundation.h"
+#import "GVCMacros.h"
 
 @implementation NSBundle (GVCFoundation)
 

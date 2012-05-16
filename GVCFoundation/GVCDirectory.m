@@ -187,5 +187,9 @@ static GVCDirectory *downloadsDirectory;
 	return [NSURL fileURLWithPath:[self uniqueFilename:prefix]];
 }
 
+- (NSString *)description
+{
+    return GVC_SPRINTF(@"%@ [%@]", [super description], [self rootDirectory]);
+}
 
 @end

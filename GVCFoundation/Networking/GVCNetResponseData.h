@@ -7,6 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "GVCHTTPHeaderSet.h"
 
 @interface GVCNetResponseData : NSObject
 
@@ -24,13 +25,34 @@
 
 @property (assign, nonatomic) NSUInteger totalBytesRead;
 
-	// defaults to nil, which puts response into responseBody
-@property (strong, nonatomic) NSOutputStream *responseOutputStream;
+@property (assign, nonatomic) NSStringEncoding responseEncoding;
 
-	// data container for in memory response
-@property (strong, nonatomic)  NSData *responseBody;   
+@property (readonly, strong, nonatomic) GVCHTTPHeaderSet *httpHeaders;
 
+- (void)parseResponseHeaders:(NSDictionary *)rawHeaders;
 - (BOOL)appendData:(NSData *)data error:(NSError **)err;
 - (BOOL)openData:(long long)expectedLength error:(NSError **)err;
 - (BOOL)closeData:(NSError **)err;
+@end
+
+
+@interface GVCMemoryResponseData : GVCNetResponseData
+
+// data container for in memory response
+@property (strong, nonatomic)  NSData *responseBody;   
+
+@end
+
+
+@interface GVCStreamResponseData : GVCNetResponseData
+
+- initForFilename:(NSString *)fName;
+- initForOutputStream:(NSOutputStream *)output;
+
+// either a stream or a filename is required
+@property (strong, nonatomic) NSString *responseFilename;
+
+// either a stream or a filename is required
+@property (strong, nonatomic) NSOutputStream *responseOutputStream;
+
 @end

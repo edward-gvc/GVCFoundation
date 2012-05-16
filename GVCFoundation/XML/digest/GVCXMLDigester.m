@@ -10,7 +10,9 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "GVCStack.h"
+#import "GVCStringWriter.h"
 #import "NSString+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigesterRule.h"

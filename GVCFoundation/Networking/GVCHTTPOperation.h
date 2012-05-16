@@ -19,7 +19,7 @@
 
 	// default is nil, implying anything is acceptable
 @property (copy, nonatomic) NSSet *acceptableContentTypes;
-
+- (void)setImageContentTypesOnly;
 
 // Things you can configure up to the point where you start receiving data.
 

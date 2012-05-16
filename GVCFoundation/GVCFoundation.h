@@ -18,6 +18,8 @@
 #import "NSDictionary+GVCFoundation.h"
 #import "NSError+GVCFoundation.h"
 #import "NSFileManager+GVCFoundation.h"
+#import "NSScanner+GVCFoundation.h"
+#import "NSSet+GVCFoundation.h"
 #import "NSString+GVCFoundation.h"
 
 /* 
@@ -30,6 +32,7 @@
  * 
  */
 #import "GVCCallbackFilter.h"
+#import "GVCConfiguration.h"
 #import "GVCDirectory.h"
 #import "GVCFileHandleWriter.h"
 #import "GVCFileWriter.h"
@@ -46,9 +49,14 @@
 /* 
  * Networking 
  */
+#import "GVCHTTPHeader.h"
+#import "GVCHTTPHeaderSet.h"
 #import "GVCHTTPOperation.h"
+#import "GVCMultipartResponseData.h"
 #import "GVCNetOperation.h"
 #import "GVCNetResponseData.h"
+#import "GVCNetworking.h"
+#import "GVCReachability.h"
 #import "GVCUDPSocket.h"
 
 /* 

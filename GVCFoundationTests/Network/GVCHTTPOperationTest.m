@@ -70,7 +70,7 @@
 	
 	NSURL *apple = [NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=300/rss.xml"];
 	GVCNetOperation *apple_Op = [[GVCNetOperation alloc] initForURL:apple];
-    [apple_Op setResponseOutputStream:[NSOutputStream outputStreamToFileAtPath:@"/tmp/itunesTop300.xml" append:NO]];
+    [apple_Op setResponseData:[[GVCStreamResponseData alloc] initForFilename:@"/tmp/itunesTop300.xml"]];
 	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSInteger totalBytesExpected){
 		GVCLogError(@"Received %d of %d", totalBytes, totalBytesExpected);
 	}];

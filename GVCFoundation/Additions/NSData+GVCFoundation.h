@@ -7,7 +7,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
 
 @interface NSData (GVCFoundation)
 

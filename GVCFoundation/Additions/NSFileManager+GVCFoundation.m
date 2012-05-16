@@ -8,6 +8,7 @@
 
 #import "NSFileManager+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+#import "GVCFunctions.h"
 
 @implementation NSFileManager (GVCFoundation)
 

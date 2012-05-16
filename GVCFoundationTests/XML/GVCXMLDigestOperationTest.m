@@ -84,7 +84,8 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
     
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
         GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
-        NSData *data = [[(GVCNetOperation *)operation responseData] responseBody];
+        GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
+        NSData *data = [respData responseBody];
 		[[xml_op xmlParser] setXmlData:data];
 
         [xml_op setDidFinishBlock:^(GVCOperation *operation) {
@@ -153,7 +154,8 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 	}];
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
 		GVCLogError(@"%f: GVCOperation (%@) finished", [stopwatch elapsed], operation);
-        NSData *data = [[(GVCNetOperation *)operation responseData] responseBody];
+        GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
+		NSData *data = [respData responseBody];
 		[[xml_op xmlParser] setXmlData:data];
 	}];
 	[url_Op setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {

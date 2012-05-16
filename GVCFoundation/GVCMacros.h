@@ -110,9 +110,13 @@ static classname *shared##classname = nil; \
 	// general purpose GVC Assert Macro
 #define GVC_ASSERT(condition, ...)	do { if (!(condition)) { GVC_ASSERT_LOG(__VA_ARGS__); }} while(0)
 
+    // convenient assert test for not nil
+#define GVC_ASSERT_NOT_NIL(condition) \
+do { if (condition == nil)	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#condition); }} while(0)
+
 	// convenient assert test for strings
 #define GVC_ASSERT_VALID_STRING(strcond) \
-	do { if ((strcond == nil || [(NSData *)strcond length] == 0))	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#strcond, @#strcond); }} while(0)
+	do { if ((strcond == nil || [(NSData *)strcond length] == 0))	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#strcond); }} while(0)
 
 	// this will Assert that subclass must implement this required method.  Despite this I disable in production code.
 #define GVC_SUBCLASS_RESPONSIBLE	GVC_ASSERT_LOG( @"Subclasses %@ must implement %@", GVC_CLASSNAME(self), NSStringFromSelector(_cmd));

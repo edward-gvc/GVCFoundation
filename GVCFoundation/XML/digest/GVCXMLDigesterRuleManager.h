@@ -12,6 +12,7 @@
 @class GVCXMLDigester;
 @class GVCXMLDigesterRule;
 @class GVCXMLDigesterRuleset;
+@class GVCXMLGenerator;
 
 @interface GVCXMLDigesterRuleManager : NSObject 
 

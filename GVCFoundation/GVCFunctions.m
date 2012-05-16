@@ -169,3 +169,20 @@ void gvc_UncaughtException(NSException *exception)
 {
     NSLog(@"uncaught exception: %@", exception.description);
 }
+
+
+NSString *gvc_KeyPath(NSString *aKey, ...)
+{
+    NSMutableArray *keypath = [NSMutableArray array];
+    NSString *keyValue = aKey;
+
+    va_list argumentList;
+    va_start(argumentList, aKey);
+    while (keyValue != nil)
+    {
+        [keypath addObject:keyValue];
+        keyValue = va_arg(argumentList, NSString *);
+    }
+    va_end(argumentList);
+    return [keypath componentsJoinedByString:@"."];
+}

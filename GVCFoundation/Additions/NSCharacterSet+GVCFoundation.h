@@ -10,6 +10,15 @@
 
 @interface NSCharacterSet (GVCFoundation)
 
+
++ (NSCharacterSet *)gvc_ASCIICharacterSet;
++ (NSCharacterSet *)gvc_LinebreakCharacterSet;
+
++ (NSCharacterSet *)gvc_MIMETokenCharacterSet;
++ (NSCharacterSet *)gvc_MIMENonTokenCharacterSet;
++ (NSCharacterSet *)gvc_MIMETSpecialsCharacterSet;
++ (NSCharacterSet *)gvc_MIMEHeaderDefaultLiteralCharacterSet;
+
 + (NSCharacterSet *)gvc_XMLAttributeCharacterEscapeSet;
 
 + (NSCharacterSet *)gvc_XMLEntityCharacterEscapeSetWithoutQuote;

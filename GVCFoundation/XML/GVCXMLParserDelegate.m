@@ -205,7 +205,7 @@
 {
 	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
 	
-	GVC_ASSERT( namespace == nil, @"Namespace prefix already in use [%@] as %@", prefix, namespace );
+//	GVC_ASSERT( namespace == nil, @"Namespace prefix already in use [%@] as %@", prefix, namespace );
 		
 	// should this be an error?
 	if ( namespace == nil )
@@ -215,12 +215,17 @@
 		
 		[declaredNamespaces addObject:namespace];
 	}
+    else
+    {
+        GVC_ASSERT([[namespace uri] isEqualToString:namespaceURI] == YES, @"Remapped Namespace to new URI %@ != %@", namespace, namespaceURI);
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndMappingPrefix:(NSString *)prefix
 {
 	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
-	GVC_ASSERT( namespace != nil, @"Namespace prefix NOT in use [%@] as %@", prefix, namespace );
+    
+//	GVC_ASSERT( namespace != nil, @"Namespace prefix NOT in use [%@] as %@", prefix, namespace );
 	[namespaceStack removeObjectForKey:prefix];
 	[declaredNamespaces removeObject:namespace];
 }

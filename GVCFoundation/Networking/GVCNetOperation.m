@@ -2,13 +2,18 @@
 #import "GVCNetOperation.h"
 
 #import "GVCNetResponseData.h"
+#import "GVCMultipartResponseData.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "NSString+GVCFoundation.h"
 
 GVC_DEFINE_STR( GVCNetOperationErrorDomain )
 
 @interface GVCNetOperation ()
 
+// if the responseData has been set, then these are passed through
+@property (assign, nonatomic) NSUInteger defaultSize;
+@property (assign, nonatomic) NSUInteger maximumSize;
 
 // Internal properties
 
@@ -25,18 +30,19 @@ enum {
 
 @implementation GVCNetOperation
 
+@synthesize defaultSize;
+@synthesize maximumSize;
+@synthesize urlConnection;
+@synthesize state;
+
 @synthesize request;
 @synthesize lastRequest;
 @synthesize lastResponse;
 @synthesize responseData;
-@synthesize urlConnection;
-@synthesize state;
-
 @synthesize allowSelfSignedCerts;
 @synthesize progressBlock;
 @synthesize authEvaluationBlock;
 @synthesize authChallengeBlock;
-
 
 #pragma mark * Initialise and finalise
 
@@ -48,9 +54,10 @@ enum {
     if (self != nil) 
 	{
         [self setRequest:req];
-		[self setResponseData:[[GVCNetResponseData alloc] init]];
 		[self setAllowSelfSignedCerts:NO];
 		[self setState:GVC_NetOperation_State_INITIAL];
+        maximumSize = -1;
+        defaultSize = -1;
     }
     return self;
 }
@@ -72,7 +79,7 @@ enum {
 	
     [[self urlConnection] cancel];
     [self setUrlConnection:nil];
-	if ( [[self responseData] isClosed] == NO)
+	if (([self responseData] != nil) && ([[self responseData] isClosed] == NO))
 	{
 		NSError *err = nil;
 		if ( [[self responseData] closeData:&err] == NO )
@@ -88,35 +95,29 @@ enum {
     GVC_ASSERT(urlConnection == nil, @"Connection should already be closed");
 }
 
-#pragma mark * Response Data
-
-- (void)setResponseOutputStream:(NSOutputStream *)newValue
-{
-	[self willChangeValueForKey:@"responseOutputStream"];
-	[[self responseData] setResponseOutputStream:newValue];
-	[self didChangeValueForKey:@"responseOutputStream"];
-}
 
 - (NSUInteger)defaultResponseSize
 {
-	return [[self responseData] defaultResponseSize];
+	return ([self responseData] == nil ? defaultSize : [[self responseData] defaultResponseSize]);
 }
 
 - (void)setDefaultResponseSize:(NSUInteger)newValue
 {
 	[self willChangeValueForKey:@"defaultResponseSize"];
+    defaultSize = newValue;
 	[[self responseData] setDefaultResponseSize:newValue];
 	[self didChangeValueForKey:@"defaultResponseSize"];
 }
 
 - (NSUInteger)maximumResponseSize
 {
-	return [[self responseData] maximumResponseSize];
+	return ([self responseData] == nil ? maximumSize : [[self responseData] maximumResponseSize]);
 }
 
 - (void)setMaximumResponseSize:(NSUInteger)newValue
 {
 	[self willChangeValueForKey:@"maximumResponseSize"];
+    maximumSize = newValue;
 	[[self responseData] setMaximumResponseSize:newValue];
 	[self didChangeValueForKey:@"maximumResponseSize"];
 }
@@ -205,6 +206,24 @@ enum {
 	}
 }
 
+#pragma mark * NS(HTTP)URLResponse methods
+- (NSString *)responseEncodingName 
+{
+    return [[self lastResponse] textEncodingName];    
+}
+
+- (NSStringEncoding)responseEncoding 
+{
+    CFStringEncoding cfEncoding = kCFStringEncodingInvalidId;    
+    NSString *responseEncodingName = [self responseEncodingName];
+    if (responseEncodingName) 
+    {
+        cfEncoding = CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef) responseEncodingName);
+    }
+    return (cfEncoding ==  kCFStringEncodingInvalidId) ? NSUTF8StringEncoding : CFStringConvertEncodingToNSStringEncoding(cfEncoding);
+}
+
+
 #pragma mark * NSURLConnection delegate callbacks
 
 - (void)connection:(NSURLConnection *)cnx didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
@@ -247,11 +266,34 @@ enum {
     #pragma unused(cnx)
     GVC_ASSERT(gvc_IsEmpty(data) == NO, @"No data");
     
+    BOOL    success = YES;
+
     // If we don't yet have a destination for the data, calculate one.  Note that, even 
     // if there is an output stream, we don't use it for error responses.
-    
-    BOOL    success = YES;
-	
+    if ( [self responseData] == nil )
+    {
+        if ( [[[self lastResponse] MIMEType] gvc_beginsWith:@"multipart"] == YES )
+        {
+            [self setResponseData:[[GVCMultipartResponseData alloc] init]];
+        }
+        else
+        {
+            [self setResponseData:[[GVCMemoryResponseData alloc] init]];
+        }
+        
+        [[self responseData] setResponseEncoding:[self responseEncoding]];
+        if ( [[self lastResponse] isKindOfClass:[NSHTTPURLResponse class]] == YES )
+        {
+            [[self responseData] parseResponseHeaders:[(NSHTTPURLResponse *)[self lastResponse] allHeaderFields]];
+        }
+        
+        
+        if ( defaultSize > 0 )
+            [[self responseData] setMaximumResponseSize:defaultSize];
+        if ( maximumSize > 0 )
+            [[self responseData] setMaximumResponseSize:maximumSize];
+    }
+    	
     if ([[self responseData] hasDataReceived] == NO) 
 	{
 		NSError *err = nil;
