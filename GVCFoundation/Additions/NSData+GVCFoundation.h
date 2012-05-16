@@ -26,6 +26,8 @@
 - (NSString *)gvc_base64Encoded;
 - (NSData *)gvc_base64Decoded;
 
+- (NSRange) gvc_rangeOfData:(NSData *)pattern fromStart: (NSUInteger)start;
+
 @end
 
 
@@ -33,5 +35,5 @@
 
 - (void)gvc_appendUTF8String:(NSString *) string;
 - (void)gvc_appendUTF8Format:(NSString *) format, ...;
-
+- (void)gvc_removeDataRange:(NSRange)range;
 @end

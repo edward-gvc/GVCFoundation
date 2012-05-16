@@ -248,6 +248,13 @@ static char encodingTable[64] = {
 	return [NSData dataWithData:result];
 }
 
+
+- (NSRange) gvc_rangeOfData:(NSData *)pattern fromStart: (NSUInteger)start;
+{
+    return [self rangeOfData:pattern options:0 range:NSMakeRange(start, [self length] - start)];
+}
+
+
 @end
 
 
@@ -265,6 +272,11 @@ static char encodingTable[64] = {
     va_start(argList, format);
     [self gvc_appendUTF8String:[[NSString alloc] initWithFormat:format arguments:argList]];
     va_end(argList);
+}
+
+- (void)gvc_removeDataRange:(NSRange)range;
+{
+    [self replaceBytesInRange:range withBytes: NULL length: 0];
 }
 
 @end

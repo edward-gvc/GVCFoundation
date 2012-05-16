@@ -230,7 +230,7 @@ static NSDictionary *rawHeaders = nil;
     NSString *responseFile = [self pathForResource:@"multipart-response" extension:@"http"];
     GVC_ASSERT_NOT_NIL(responseFile);
     
-    GVCMultipartResponseData *responseData = [[GVCMultipartResponseData alloc] init];
+    GVCMultipartResponseData *responseData = [[GVCMultipartResponseData alloc] initForFilename:@"/tmp/mime-test/Message"];
     [responseData parseResponseHeaders:rawHeaders];
     [self verify:[responseData httpHeaders]];
 

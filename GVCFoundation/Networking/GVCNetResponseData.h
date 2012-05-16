@@ -30,6 +30,8 @@
 @property (readonly, strong, nonatomic) GVCHTTPHeaderSet *httpHeaders;
 
 - (void)parseResponseHeaders:(NSDictionary *)rawHeaders;
+- (void)parseResponseHeader:(NSString *)name forValue:(NSString *)val;
+
 - (BOOL)appendData:(NSData *)data error:(NSError **)err;
 - (BOOL)openData:(long long)expectedLength error:(NSError **)err;
 - (BOOL)closeData:(NSError **)err;

@@ -42,6 +42,7 @@
         [self setTotalBytesRead:0];
         [self setDefaultResponseSize:1 * 1024 * 1024];
         [self setMaximumResponseSize:4 * 1024 * 1024];
+        [self setResponseEncoding:NSUTF8StringEncoding];
 	}
 	
     return self;
@@ -78,11 +79,23 @@
 {
     if ( gvc_IsEmpty(rawHeaders) == NO )
     {
-        [self setHttpHeaders:[[GVCHTTPHeaderSet alloc] init]];
         for (NSString *headerName in rawHeaders )
         {
-            [[self httpHeaders] parseHeaderValue:[rawHeaders valueForKey:headerName] forKey:headerName];
+            [self parseResponseHeader:headerName forValue:[rawHeaders valueForKey:headerName]];
         }
+    }
+}
+
+- (void)parseResponseHeader:(NSString *)name forValue:(NSString *)val
+{
+    if ((gvc_IsEmpty(name) == NO) && (gvc_IsEmpty(val) == NO))
+    {
+        if ( [self httpHeaders] == nil )
+        {
+            [self setHttpHeaders:[[GVCHTTPHeaderSet alloc] init]];
+        }
+
+        [[self httpHeaders] parseHeaderValue:val forKey:name];
     }
 }
 
