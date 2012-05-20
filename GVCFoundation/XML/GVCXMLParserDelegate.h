@@ -50,6 +50,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 
 - (NSData *)currentCDATA;
 - (NSString *)currentTextString;
+- (NSString *)currentNodeName;
 
 - (GVC_XML_ParserDelegateStatus)status;
 - (GVC_XML_ParserDelegateStatus)parse;

@@ -15,4 +15,7 @@
 
 // either a stream or a filename is required
 @property (strong, nonatomic) NSString *responseFilename;
+
+- (NSArray *)responseParts;
+
 @end

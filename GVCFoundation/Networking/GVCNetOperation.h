@@ -50,6 +50,7 @@ typedef void (^GVCNetOperationAuthChallengeBlock)(NSURLConnection *connection, N
 
 @property (copy, nonatomic)  NSURLRequest *request;
 @property (strong, nonatomic)  GVCNetResponseData *responseData;
+@property (assign, nonatomic, readonly) BOOL hasResponseData;
 
 	// redirected requests
 

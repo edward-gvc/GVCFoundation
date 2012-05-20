@@ -53,15 +53,25 @@
 
 - (void) didFindCharacters:(NSString *)text
 {
-    [self setNodeText:text];
+    if ( gvc_IsEmpty(nodeText) == NO )
+    {
+        [self setNodeText:GVC_SPRINTF(@"%@%@", [self nodeText], text)];
+    }
+    else
+    {
+        [self setNodeText:text];
+    }
 }
 
 - (void) didEndElement:(NSString *)elementName
 {
-    id object = [[self digester] peekNodeObject];
-	NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
-
-    [self setObject:object value:nodeText forKey:propertyKey];
+    if ( gvc_IsEmpty(nodeText) == NO )
+    {
+        id object = [[self digester] peekNodeObject];
+        NSString *propertyKey = (gvc_IsEmpty([self propertyName]) ? elementName : [self propertyName]);
+        
+        [self setObject:object value:nodeText forKey:propertyKey];
+    }
 }
 
 - (NSString *)description

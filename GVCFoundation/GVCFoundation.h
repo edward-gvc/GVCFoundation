@@ -81,6 +81,15 @@
 #import "GVCXMLParsingModel.h"
 
 /* 
+ * XML config 
+ */
+#import "GVCConfigDocument.h"
+#import "GVCConfigObject.h"
+#import "GVCConfigPackage.h"
+#import "GVCConfigProperty.h"
+#import "GVCConfigResource.h"
+
+/* 
  * XML digest 
  */
 #import "GVCXMLDigestSetChildForAttributeKeyRule.h"

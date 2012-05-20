@@ -34,7 +34,7 @@ typedef enum {
 @property (strong, nonatomic) NSData *CRLFCRLF;
 @property (strong, nonatomic) NSMutableData *buffer;
 
-@property (strong, nonatomic) NSMutableArray *responseParts;
+@property (strong, nonatomic) NSMutableArray *multipart_responses;
 @property (strong, nonatomic) GVCNetResponseData *currentResponseData;
 - (BOOL)createResponsePart:(NSError **)anError;
 @end
@@ -47,7 +47,7 @@ typedef enum {
 @synthesize multipart_boundary_end;
 @synthesize CRLFCRLF;
 @synthesize responseFilename;
-@synthesize responseParts;
+@synthesize multipart_responses;
 @synthesize currentResponseData;
 @synthesize buffer;
 
@@ -62,7 +62,7 @@ typedef enum {
 	if ( self != nil )
 	{
         [self setResponseFilename:fName];
-        [self setResponseParts:[[NSMutableArray alloc] initWithCapacity:1]];
+        [self setMultipart_responses:[[NSMutableArray alloc] initWithCapacity:1]];
         [self setMultipart_state:GVCMultipartResponseData_STATE_initial];
         [self setCRLFCRLF:[NSData dataWithBytes:"\r\n\r\n" length: 4]];
 	}
@@ -88,6 +88,11 @@ typedef enum {
     return (aState >= GVCMultipartResponseData_STATE_initial) && (aState < GVCMultipartResponseData_STATE_at_end);
 }
 
+- (NSArray *)responseParts
+{
+    return [multipart_responses copy];
+}
+
 - (BOOL)createResponsePart:(NSError **)err
 {
     BOOL success = ([self currentResponseData] == nil) || ([[self currentResponseData] closeData:err] == YES);
@@ -96,7 +101,7 @@ typedef enum {
         [self setCurrentResponseData:nil];
         if ( gvc_IsEmpty([self responseFilename]) == NO)
         {
-            NSUInteger indx = [[self responseParts] count] + 1;
+            NSUInteger indx = [[self multipart_responses] count] + 1;
             NSString *partFilename = GVC_SPRINTF(@"%@.%d", [self responseFilename], indx);
             [self setCurrentResponseData:[[GVCStreamResponseData alloc] initForFilename:partFilename]];
         }
@@ -105,7 +110,7 @@ typedef enum {
             [self setCurrentResponseData:[[GVCMemoryResponseData alloc] init]];
         }
         success = [[self currentResponseData] openData:NSURLResponseUnknownLength error:err];
-        [[self responseParts] addObject:[self currentResponseData]];
+        [[self multipart_responses] addObject:[self currentResponseData]];
     }
 
     return success;

@@ -67,6 +67,11 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
+- (NSString *)gvc_TrimWhitespaceAndNewline 
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 #pragma mark - Components
 - (NSArray *)gvc_componentsSeparatedByCharactersInSet:(NSCharacterSet *)val includeEmpty:(BOOL)included
 {

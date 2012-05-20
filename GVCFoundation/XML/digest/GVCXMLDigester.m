@@ -11,8 +11,7 @@
 #import "GVCFunctions.h"
 #import "GVCStack.h"
 #import "GVCStringWriter.h"
-#import "NSString+GVCFoundation.h"
-#import "NSArray+GVCFoundation.h"
+#import "GVCLogger.h"
 
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigesterRule.h"
@@ -22,6 +21,8 @@
 #import "GVCXMLDigesterPairAttributeTextRule.h"
 
 #import "NSDictionary+GVCFoundation.h"
+#import "NSString+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 @interface GVCXMLDigester ()
 @property (strong, nonatomic, readwrite) NSMutableDictionary *digestDictionary;
@@ -146,7 +147,7 @@
  */
 - (NSString *)currentTrimmedTextString
 {
-    NSString  *trimed = [[self currentTextString] gvc_TrimWhitespace];
+    NSString  *trimed = [[self currentTextString] gvc_TrimWhitespaceAndNewline];
     return (gvc_IsEmpty(trimed) ? nil : trimed);
 }
 
@@ -162,15 +163,12 @@
 	// TODO: loop through all rules and send [rule finishDigest];
 }
 
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+- (NSMutableArray *)rulesForCurrentPath
 {
-	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
-	
 	// check for rules for the current path
 	NSArray *path_rules = [[self digestRuleManager] rulesForNodePath:[self elementPath]];
 	// check for rules for the current elementName
-	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
+	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:[self currentNodeName]];
 	// check for patterns
 	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
     NSMutableArray *rules = [NSMutableArray arrayWithCapacity:2];
@@ -187,40 +185,49 @@
     {
         [rules addObjectsFromArray:pattern_rules];
     }
+    return rules;
+}
 
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if (gvc_IsEmpty([self currentTrimmedTextString]) == NO)
+    {
+        NSMutableArray *rules = [self rulesForCurrentPath];
+        if ( gvc_IsEmpty(rules) == NO )
+        {
+            [rules gvc_sortWithOrderingKey:GVC_PROPERTY(rulePriority) ascending:YES];
+            for (GVCXMLDigesterRule *rule in rules) 
+            {
+                [rule didFindCharacters:[self currentTrimmedTextString]];
+            }
+        }
+    }
+    
+	[super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
+	
+    NSMutableArray *rules = [self rulesForCurrentPath];
     if ( gvc_IsEmpty(rules) == NO )
     {
         [rules gvc_sortWithOrderingKey:GVC_PROPERTY(rulePriority) ascending:YES];
 		for (GVCXMLDigesterRule *rule in rules) 
 		{
+			if (gvc_IsEmpty([self currentTrimmedTextString]) == NO)
+				[rule didFindCharacters:[self currentTrimmedTextString]];
+			if (gvc_IsEmpty([self currentCDATA]) == NO)
+				[rule didFindCDATA:[self currentCDATA]];
 			[rule didStartElement:elementName attributes:attributeDict];
 		}
 	}
+    else
+    {
+        GVCLogError(@"No digest rules for node %@", [self elementPath] );
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	// check for rules for the current path
-	NSArray *path_rules = [[self digestRuleManager] rulesForNodePath:[self elementPath]];
-	// check for rules for the current elementName
-	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:elementName];
-	// check for patterns
-	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
-    NSMutableArray *rules = [NSMutableArray arrayWithCapacity:2];
-    
-    if ( gvc_IsEmpty(node_rules) == NO )
-    {
-        [rules addObjectsFromArray:node_rules];
-    }
-    if ( gvc_IsEmpty(path_rules) == NO )
-    {
-        [rules addObjectsFromArray:path_rules];
-    }
-    if ( gvc_IsEmpty(pattern_rules) == NO )
-    {
-        [rules addObjectsFromArray:pattern_rules];
-    }
-
+    NSMutableArray *rules = [self rulesForCurrentPath];
     if ( gvc_IsEmpty(rules) == NO )
     {
         [rules gvc_sortWithOrderingKey:GVC_PROPERTY(rulePriority) ascending:NO];

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="1.0" md5="jksdhfjksdhfjhdfjahsdjfh">
+	<shared>
+		<property name="GVCCacheSize">10240</property>
+		<property action="delete" name="key">value</property>
+
+		<resource action="delete" md5="aksjkadshdkashkdjhaakdhakjshd" tag="initial_data" name="Agents.xml" />
+	</shared>
+	
+	<package name="Intersystems" status="loaded">
+		<property name="key">value</property>
+
+		<resource action="store" md5="aksjkadshdkashkdjhaakdhakjshd" tag="initial_data" status="applied" name="Agents.xml">Intersystems/Agents.xml</resource>
+		<resource action="store" md5="aksjkadshdkashkdjhaakdhakjshd" tag="hl7service" status="error" name="Intersystems.hl7service">Intersystems/Intersystems.hl7service</resource>
+		<resource action="store" md5="aksjkadshdkashkdjhaakdhakjshd" tag="template" name="XDS_query.xml">Intersystems/template/XDS_query.xml</resource>
+		
+	</package>
+</config>

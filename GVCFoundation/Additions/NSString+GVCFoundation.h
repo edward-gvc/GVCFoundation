@@ -20,6 +20,7 @@
 
 - (NSString *)gvc_StringWithCapitalizedFirstCharacter;
 - (NSString *)gvc_TrimWhitespace;
+- (NSString *)gvc_TrimWhitespaceAndNewline;
 
 /* components */
 - (NSArray *)gvc_componentsSeparatedByCharactersInSet:(NSCharacterSet *)val includeEmpty:(BOOL)included;

@@ -24,6 +24,7 @@ enum {
 };
 
 @property (assign, nonatomic) NSInteger state;
+@property (assign, nonatomic, readwrite) BOOL hasResponseData;
 @property (strong, nonatomic) NSURLConnection *urlConnection;
 
 @end
@@ -34,6 +35,7 @@ enum {
 @synthesize maximumSize;
 @synthesize urlConnection;
 @synthesize state;
+@synthesize hasResponseData;
 
 @synthesize request;
 @synthesize lastRequest;
@@ -58,6 +60,7 @@ enum {
 		[self setState:GVC_NetOperation_State_INITIAL];
         maximumSize = -1;
         defaultSize = -1;
+        [self setHasResponseData:NO];
     }
     return self;
 }
@@ -270,15 +273,21 @@ enum {
 
     // If we don't yet have a destination for the data, calculate one.  Note that, even 
     // if there is an output stream, we don't use it for error responses.
-    if ( [self responseData] == nil )
+    if ( [self hasResponseData] == NO )
     {
-        if ( [[[self lastResponse] MIMEType] gvc_beginsWith:@"multipart"] == YES )
+        // we do now
+        [self setHasResponseData:YES];
+        
+        if ( [self responseData] == nil )
         {
-            [self setResponseData:[[GVCMultipartResponseData alloc] init]];
-        }
-        else
-        {
-            [self setResponseData:[[GVCMemoryResponseData alloc] init]];
+            if ( [[[self lastResponse] MIMEType] gvc_beginsWith:@"multipart"] == YES )
+            {
+                [self setResponseData:[[GVCMultipartResponseData alloc] init]];
+            }
+            else
+            {
+                [self setResponseData:[[GVCMemoryResponseData alloc] init]];
+            }
         }
         
         [[self responseData] setResponseEncoding:[self responseEncoding]];

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "GVCMacros.h"
 
+@class GVCXMLDigester;
+
 @interface GVCConfiguration : NSObject
 
 GVC_SINGLETON_HEADER(GVCConfiguration)
@@ -16,6 +18,7 @@ GVC_SINGLETON_HEADER(GVCConfiguration)
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
 @property (strong, nonatomic) NSDate *lastModifiedDate;
 
+- (GVCXMLDigester *)digester;
 - (void)reloadConfiguration;
 - (BOOL)hasCompletedLoad;
 
@@ -24,3 +27,4 @@ GVC_SINGLETON_HEADER(GVCConfiguration)
 - (NSArray *)configurationResourceKeysForGroup:(NSString *)key;
 
 @end
+

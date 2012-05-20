@@ -41,7 +41,8 @@ static dispatch_semaphore_t semaphore;
 @implementation NSLogWriter
 - (void)log:(GVCLogMessage *)msg
 {
-    NSLog( @"%@", msg );
+    printf("%s\n", [[[msg description] stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
+//    NSLog( @"%@", msg );
 }
 @end
 

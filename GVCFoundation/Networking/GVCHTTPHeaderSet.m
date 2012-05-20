@@ -43,6 +43,7 @@ static NSSet *http_headers_with_parameters = nil;
                                         [GVC_HTTP_HEADER_KEY_content_type lowercaseString],
                                         [GVC_HTTP_HEADER_KEY_set_cookie lowercaseString],
                                         [GVC_HTTP_HEADER_KEY_keep_alive lowercaseString],
+                                        [@"X-Powered-By" lowercaseString],
                                         nil];
     });
     return http_headers_with_parameters;
@@ -112,7 +113,7 @@ static NSSet *http_headers_with_parameters = nil;
             {
                 if ( [token gvc_contains:@"="] == NO )
                 {
-                    GVC_ASSERT(gvc_IsEmpty([header headerValue]) == YES, @"Found parameter %@ but header has value %@", token, [header headerValue]);
+//                    GVC_ASSERT(gvc_IsEmpty([header headerValue]) == YES, @"Found parameter %@ but header has value %@", token, [header headerValue]);
                     [header setHeaderValue:[token gvc_TrimWhitespace]];
                 }
                 else

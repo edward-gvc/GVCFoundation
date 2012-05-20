@@ -34,22 +34,42 @@
     [super tearDown];
 }
 
-	// All code under test must be linked into the Unit Test bundle
-- (void)testInitial
+- (void)testDigestLocal
 {
     GVCConfiguration *config = [GVCConfiguration sharedGVCConfiguration];
     [config setOperationQueue:[self queue]];
-    [config reloadConfiguration];
-    
-//    [[self queue] waitUntilAllOperationsAreFinished];
-    int count = 0;
-    while (count < 10)
-	{
-        GVCLogError(@"Configuration loop %d", count);
 
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
-        count++;
-    }
+    NSString *path = [self pathForResource:@"LocalConfiguration" extension:@"xml"];
+    STAssertNotNil(path, @"Path should not be nil");
+    
+    GVCXMLDigester *dgst = [config digester];
+    [dgst setFilename:path];
+
+    GVCLogError( @"Starting parse" );
+    GVC_XML_ParserDelegateStatus status = [dgst parse];
+    STAssertTrue(status == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse Failed %@", [dgst xmlError]);
+    GVCLogError( @"parse finished" );
+
+    GVCConfigDocument *doc = [dgst digestValueForPath:@"config"];
+    GVCLogError( @"%@ %@", [dgst digestKeys], [doc description] );
+}
+
+	// All code under test must be linked into the Unit Test bundle
+- (void)testInitial
+{
+//    GVCConfiguration *config = [GVCConfiguration sharedGVCConfiguration];
+//    [config setOperationQueue:[self queue]];
+//    [config reloadConfiguration];
+//    
+////    [[self queue] waitUntilAllOperationsAreFinished];
+//    int count = 0;
+//    while (count < 10)
+//	{
+//        GVCLogError(@"Configuration loop %d", count);
+//
+//        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+//        count++;
+//    }
 
 }
 

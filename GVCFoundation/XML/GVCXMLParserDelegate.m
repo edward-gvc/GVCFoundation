@@ -128,6 +128,10 @@
 	return [NSString stringWithString:currentTextBuffer];
 }
 
+- (NSString *)currentNodeName
+{
+    return [elementNameStack peekObject];
+}
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
@@ -189,8 +193,8 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-	currentCDATA = nil;
-	[currentTextBuffer setString:[NSString gvc_EmptyString]];
+//	currentCDATA = nil;
+//	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 	[elementNameStack pushObject:elementName];
 }
 
@@ -198,7 +202,9 @@
 {
 	NSString *popName = [elementNameStack popObject];
 	GVC_ASSERT([elementName isEqualToString:popName] == YES, @"end element %@ != %@ with stack %@", elementName, popName, elementNameStack );
-	[currentTextBuffer setString:[NSString gvc_EmptyString]];
+
+    currentCDATA = nil;
+    [currentTextBuffer setString:[NSString gvc_EmptyString]];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
