@@ -53,14 +53,7 @@
 
 - (void) didFindCharacters:(NSString *)text
 {
-    if ( gvc_IsEmpty(nodeText) == NO )
-    {
-        [self setNodeText:GVC_SPRINTF(@"%@%@", [self nodeText], text)];
-    }
-    else
-    {
-        [self setNodeText:text];
-    }
+    [self setNodeText:text];
 }
 
 - (void) didEndElement:(NSString *)elementName

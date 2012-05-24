@@ -54,8 +54,8 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...);
     #define GVC_LocalizedClassString(K, V)  gvc_LocalizedStringWithDefaultValue(GVC_CLS_DOMAIN_KEY(K), V)
     #define GVC_LocalizedFormat(K, ...)     gvc_LocalizedFormat(K, ##__VA_ARGS__)
 #else
-    #define GVC_LocalizedString(K, V)       NSLocalizedString(K, V)
-    #define GVC_LocalizedClassString(K, V)  NSLocalizedString(GVC_CLS_DOMAIN_KEY(K), V)
+    #define GVC_LocalizedString(K, V)       [[NSBundle mainBundle] localizedStringForKey:(K) value:(V) table:(nil)]
+    #define GVC_LocalizedClassString(K, V)  [[NSBundle mainBundle] localizedStringForKey:(GVC_CLS_DOMAIN_KEY(K)) value:(V) table:(nil)]
     #define GVC_LocalizedFormat(K, ...)     [NSString stringWithFormat:NSLocalizedString(K, K), ##__VA_ARGS__]
 #endif
 

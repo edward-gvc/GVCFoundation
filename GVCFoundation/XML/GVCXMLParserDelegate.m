@@ -193,8 +193,8 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-//	currentCDATA = nil;
-//	[currentTextBuffer setString:[NSString gvc_EmptyString]];
+	currentCDATA = nil;
+	[currentTextBuffer setString:[NSString gvc_EmptyString]];
 	[elementNameStack pushObject:elementName];
 }
 

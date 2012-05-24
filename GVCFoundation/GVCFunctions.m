@@ -19,7 +19,6 @@ void gvc_UpdateMissingLocalizations(NSString *key, NSString *value);
  */
 void gcv_SwizzleClassMethod(Class c, SEL orig, SEL new) 
 {
-	
     Method origMethod = class_getClassMethod(c, orig);
     Method newMethod = class_getClassMethod(c, new);
 	
