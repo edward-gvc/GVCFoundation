@@ -137,6 +137,43 @@ static GVCDirectory *downloadsDirectory;
     return self;
 }
 
+- (NSString *)md5Hash:(NSString *)path
+{
+    GVC_ASSERT_VALID_STRING(path);
+    GVC_ASSERT([self fileExists:path], @"No file at path %@", path );
+    
+    return [[NSFileManager defaultManager] gvc_md5Hash:[self fullpathForFile:path]];
+}
+
+- (BOOL)removeFileIfExists:(NSString *)path
+{
+    BOOL success = YES;
+    if ( [self fileExists:path] == YES )
+    {
+        NSError *err = nil;
+        success = [[NSFileManager defaultManager] removeItemAtPath:[self fullpathForFile:path] error:&err];
+        if ( success == NO )
+        {
+            GVCLogError(@"remove file error %@", err);
+        }
+    }
+    return success;
+}
+
+- (BOOL)fileExists:(NSString *)path
+{
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    return ([fileMgr fileExistsAtPath:[self fullpathForFile:path] isDirectory:&isDir]) && (isDir == NO);
+}
+
+- (BOOL)directoryExists:(NSString *)path
+{
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    return ([fileMgr fileExistsAtPath:[self fullpathForFile:path] isDirectory:&isDir]) && (isDir == YES);
+}
+
 - (GVCDirectory *)createSubdirectory:(NSString *)name
 {
     NSString *full = [[self rootDirectory] stringByAppendingPathComponent:name];
@@ -149,6 +186,54 @@ static GVCDirectory *downloadsDirectory;
 
     return [[GVCDirectory alloc] initWithRootPath:full];
 }
+
+- (BOOL)moveFileFrom:(NSString *)source to:(NSString *)dest
+{
+    GVC_ASSERT_VALID_STRING(source);
+    GVC_ASSERT_VALID_STRING(dest);
+
+    if ( [source isAbsolutePath] == NO )
+        source = [self fullpathForFile:source];
+
+    BOOL success = NO;
+    NSFileManager *fmgr = [NSFileManager defaultManager];
+    if ( [fmgr fileExistsAtPath:source] == YES )
+    {
+        success = [self removeFileIfExists:dest];
+
+        if ( success == YES )
+        {
+            NSError *err = nil;
+            NSString *fullPathDest = [self fullpathForFile:dest];
+            success = [fmgr moveItemAtPath:source toPath:fullPathDest error:&err];
+            if ( success == NO )
+            {
+                GVCLogError(@"Copyfile error %@", err);
+            }
+        }
+    }
+    
+    return success;
+}
+
+- (BOOL)copyFileFrom:(NSString *)source to:(NSString *)dest
+{
+    GVC_ASSERT_VALID_STRING(source);
+    GVC_ASSERT_VALID_STRING(dest);
+    
+    NSString *fullPathDest = [self fullpathForFile:dest];
+    if ( [source isAbsolutePath] == NO )
+        source = [self fullpathForFile:source];
+
+    NSError *err = nil;
+    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:source toPath:fullPathDest error:&err];
+    if ( success == NO )
+    {
+        GVCLogError(@"Copyfile error %@", err);
+    }
+    return success;
+}
+
 
 - (NSString *)fullpathForFile:(NSString *)filename
 {

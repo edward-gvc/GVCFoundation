@@ -16,13 +16,9 @@
 GVC_SINGLETON_HEADER(GVCConfiguration)
 
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
-@property (strong, nonatomic) NSDate *lastModifiedDate;
 
-- (GVCXMLDigester *)digester;
 - (void)reloadConfiguration;
-- (BOOL)hasCompletedLoad;
 
-- (NSString *)configurationPropertyForKey:(NSString *)key;
 - (NSString *)configurationResourcePathForKey:(NSString *)key;
 - (NSArray *)configurationResourceKeysForGroup:(NSString *)key;
 

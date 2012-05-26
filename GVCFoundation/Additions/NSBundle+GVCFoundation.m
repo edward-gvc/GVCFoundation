@@ -8,6 +8,7 @@
 
 #import "NSBundle+GVCFoundation.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 @implementation NSBundle (GVCFoundation)
 
@@ -24,6 +25,11 @@
 		appName = [[NSProcessInfo processInfo] processName];
 	}
 	return appName;
+}
+
++ (NSString *)gvc_MainBundleMarketingVersion
+{
+	return [[NSBundle mainBundle] gvc_bundleMarketingVersion];
 }
 
 + (NSString *)gvc_MainBundleVersion
@@ -51,26 +57,25 @@
 	return appName;
 }
 
-- (NSString *)gvc_bundleVersion
+- (NSString *)gvc_bundleMarketingVersion
 {
 	NSString *marketingVersionNumber = [self objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    return (marketingVersionNumber ? marketingVersionNumber : @"1.0");
+}
+
+- (NSString *)gvc_bundleVersion
+{
+	NSString *marketingVersionNumber = [self gvc_bundleMarketingVersion];
 	NSString *devVersionNumber = [self objectForInfoDictionaryKey:@"CFBundleVersion"];
-	
 	NSString *appVersion = nil;
-	if (marketingVersionNumber && devVersionNumber) 
+    
+	if (devVersionNumber) 
 	{
-		if ([marketingVersionNumber isEqualToString:devVersionNumber]) 
-		{
-			appVersion = marketingVersionNumber;
-		}
-		else 
-		{
-			appVersion = [NSString stringWithFormat:@"%@ rev:%@", marketingVersionNumber, devVersionNumber];
-		}
+        appVersion = [NSString stringWithFormat:@"%@ rev:%@", marketingVersionNumber, devVersionNumber];
 	}
 	else
 	{
-		appVersion = (marketingVersionNumber ? marketingVersionNumber : devVersionNumber);
+		appVersion = marketingVersionNumber;
 	}
 	
 	return appVersion;

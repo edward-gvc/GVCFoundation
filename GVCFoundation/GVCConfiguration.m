@@ -7,6 +7,7 @@
  */
 
 #import "GVCConfiguration.h"
+#import <dispatch/dispatch.h>
 
 #import "GVCFunctions.h"
 #import "GVCDirectory.h"
@@ -21,32 +22,22 @@
 #import "GVCConfigPackage.h"
 #import "GVCConfigProperty.h"
 
-GVC_DEFINE_STRVALUE(GVCConfiguration_LOCAL_INITIAL_FILE, LocalConfiguration.xml)
-GVC_DEFINE_STRVALUE(GVCConfiguration_REMOTE_FILE, RemoteConfiguration.xml)
-GVC_DEFINE_STRVALUE(GVCConfiguration_CACHED_FILE, Configuration.xml)
+GVC_DEFINE_STRVALUE(GVCConfiguration_RESOURCES_FILE, resources.plist)
 
 @interface GVCConfiguration ()
-{
-    __block NSInteger activeDownloads;
-}
-@property (strong, nonatomic) NSString *baseURL;
-@property (strong, nonatomic) GVCConfigDocument *consolidatedConfig;
 
-@property (strong, nonatomic) NSMutableDictionary *properties;
+@property (strong, nonatomic) NSString *baseURL;
+
+@property (strong, nonatomic) NSMutableDictionary *md5Hashes;
 @property (strong, nonatomic) NSMutableDictionary *resourceDictionary;
 @property (strong, nonatomic) NSMutableDictionary *resourceGroupDictionary;
 
 - (void)checkLocalConfiguration;
-- (void)checkCachedRemoteFile;
+- (void)checkRemoteConfiguration;
 //- (void)storeCachedConfiguration;
 
-- (void)processProperties:(NSDictionary *)propDict;
-- (void)processResources:(NSDictionary *)propDict;
-- (void)processRemoteResources:(NSDictionary *)propDict;
+- (void)processRemoteResource:(NSString *)itemKey md5:(NSString *)md5 forGroup:(NSString *)group;
 
-- (void)setActiveDownloads:(NSInteger)val;
-- (void)increaseActiveDownloads;
-- (void)decreaseActiveDownloads;
 @end
 
 NSString * const GVCConfiguration_sourceURL = @"https://apps.global-village.net/mobile_configuration";
@@ -56,150 +47,35 @@ NSString * const GVCConfiguration_sourceURL = @"https://apps.global-village.net/
 GVC_SINGLETON_CLASS(GVCConfiguration)
 
 @synthesize baseURL;
-@synthesize properties;
+@synthesize md5Hashes;
 @synthesize resourceDictionary;
 @synthesize resourceGroupDictionary;
-@synthesize consolidatedConfig;
 
-@synthesize lastModifiedDate;
 @synthesize operationQueue;
-
-static dispatch_queue_t activeDownloadCounter = NULL;
 
 - (id)init
 {
 	self = [super init];
 	if ( self != nil )
 	{
-        activeDownloadCounter = dispatch_queue_create("net.global-village.configCounter", DISPATCH_QUEUE_SERIAL);
-        
-        [self setActiveDownloads:-1];
-        [self setProperties:[[NSMutableDictionary alloc] initWithCapacity:10]];
+        [self setMd5Hashes:[[NSMutableDictionary alloc] initWithCapacity:10]];
         [self setResourceDictionary:[[NSMutableDictionary alloc] initWithCapacity:10]];
+        [self setResourceGroupDictionary:[[NSMutableDictionary alloc] initWithCapacity:10]];
+        
+        // should be something like
+        // https://apps.global-village.net/mobile_configuration/<bundleIdentifier>/<appVersion>/
+        [self setBaseURL:GVC_SPRINTF(@"%@/%@/%@", GVCConfiguration_sourceURL, [NSBundle gvc_MainBundleIdentifier], [NSBundle gvc_MainBundleMarketingVersion])];
+
 	}
 	
     return self;
 }
 
-- (GVCXMLDigester *)digester
-{
-    GVCXMLDigester *dgst = [[GVCXMLDigester alloc] init];
-	[dgst addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCConfigDocument"] forNodeName:@"config"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCConfigSharedPackage"] forNodeName:@"shared"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCConfigPackage"] forNodeName:@"package"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCConfigProperty"] forNodeName:@"property"];
-    [dgst addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCConfigResource"] forNodeName:@"resource"];
-
-	[dgst addRule:[GVCXMLDigesterRule ruleForParentChild:@"sharedPackage"]  forNodeName:@"shared"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForParentChild:@"package"]  forNodeName:@"package"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForParentChild:@"property"]  forNodeName:@"property"];
-	[dgst addRule:[GVCXMLDigesterRule ruleForParentChild:@"resource"]  forNodeName:@"resource"];
-    	
-	GVCXMLDigesterAttributeMapRule *configAttributes = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"version", @"version", @"md5", @"md5", nil];
-	[configAttributes setTryToAssignAll:YES];
-	[dgst addRule:configAttributes forNodeName:@"config"];
-
-	GVCXMLDigesterAttributeMapRule *propAttribute = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"name", @"name", @"action", @"action", nil];
-	[propAttribute setTryToAssignAll:YES];
-	[dgst addRule:propAttribute forNodeName:@"property"];
-    
-	GVCXMLDigesterAttributeMapRule *pkgAttribute = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"name", @"name", @"status", @"status", nil];
-	[pkgAttribute setTryToAssignAll:YES];
-	[dgst addRule:pkgAttribute forNodeName:@"package"];
-
-    GVCXMLDigesterAttributeMapRule *resourceAttributes = [[GVCXMLDigesterAttributeMapRule alloc] initWithKeysAndValues:@"name", @"name", @"action", @"action", @"tag", @"tag", @"status", @"status", @"md5", @"md5", nil];
-	[resourceAttributes setTryToAssignAll:YES];
-	[dgst addRule:resourceAttributes forNodeName:@"resource"];
-
-    GVCXMLDigesterSetPropertyRule *remote = [[GVCXMLDigesterSetPropertyRule alloc] initWithPropertyName:@"path"];
-	[dgst addRule:remote forNodeName:@"resource"];
-
-    GVCXMLDigesterSetPropertyRule *value = [[GVCXMLDigesterSetPropertyRule alloc] initWithPropertyName:@"value"];
-	[dgst addRule:value forNodeName:@"property"];
-
-    return dgst;
-}
-
-- (void)setActiveDownloads:(NSInteger)val
-{
-    dispatch_async(activeDownloadCounter, ^{
-        activeDownloads = val;
-    });
-}
-- (void)increaseActiveDownloads
-{
-    dispatch_async(activeDownloadCounter, ^{
-        activeDownloads ++;
-        GVCLogError(@"Active Downloads %d", activeDownloads);
-    });
-}
-- (void)decreaseActiveDownloads
-{
-    dispatch_async(activeDownloadCounter, ^{
-        activeDownloads --;
-        GVCLogError(@"Active Downloads %d", activeDownloads);
-    });
-}
-
-- (BOOL)hasCompletedLoad
-{
-    return activeDownloads == 0;
-}
-
 - (void)reloadConfiguration
 {
-    [self setActiveDownloads:-1];
-    
     // when the local configuration loads, there may be a new remote configuration URL
     [self checkLocalConfiguration];
-    [self checkCachedRemoteFile]; 
-
-//    // only need to test this once, the remote service is no allowed to change the location of the remote service, only a new build
-//    if ( gvc_IsEmpty([self baseURL]) == YES )
-//    {
-//        NSString *newBase = [self configurationPropertyForKey:GVCConfiguration_plist_CONFIG_PROPERTIES_remote_url];
-//        if ( gvc_IsEmpty(newBase) == YES )
-//        {
-//            // should be something like
-//            // https://apps.global-village.net/mobile_configuration/<bundleIdentifier>/<appVersion/
-//            newBase = GVCConfiguration_sourceURL;
-//        }
-//        [self setBaseURL:GVC_SPRINTF(@"%@/%@/%@", newBase, [NSBundle gvc_MainBundleIdentifier], [NSBundle gvc_MainBundleVersion])];
-//    }
-//
-//    if (([self operationQueue] != nil) && (gvc_IsEmpty([self baseURL]) == NO))
-//    {
-//        // get the base configuration file
-//        NSURL *url = [NSURL URLWithString:GVC_SPRINTF(@"%@/%@", [self baseURL], GVCConfiguration_INITIAL_FILE)];
-//        
-//        GVCNetOperation *configOp = [[GVCNetOperation alloc] initForURL:url];
-//        [configOp setDidFinishBlock:^(GVCOperation *operation) {
-//            GVCMemoryResponseData *responseData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
-//            NSData *data = [responseData responseBody];
-//            NSError *plistError = nil;
-//            NSObject *plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&plistError];
-//            if ( plist != nil )
-//            {
-//                [self processProperties:[plist valueForKey:GVCConfiguration_plist_CONFIG_PROPERTIES]];
-//                [self processRemoteResources:[plist valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE]];
-//            }
-//            else 
-//            {
-//                GVCLogError(@"Error loading %@ %@", GVCConfiguration_LOCAL_INITIAL_FILE, plistError);
-//            }
-//        }];
-//        [configOp setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
-//            GVCLogError(@"Operation Failed %@", err);
-//        }];
-//        [[self operationQueue] addOperation:configOp];
-//    }
-//    
-//    [self storeCachedConfiguration];
-}
-
-- (NSString *)configurationPropertyForKey:(NSString *)key
-{
-    return [properties valueForKey:key];
+    [self checkRemoteConfiguration]; 
 }
 
 - (NSString *)configurationResourcePathForKey:(NSString *)key
@@ -213,184 +89,193 @@ static dispatch_queue_t activeDownloadCounter = NULL;
     return (gvc_IsEmpty(set) ? nil : [set allObjects]);
 }
 
+- (void)updateIndexes:(NSString *)item forGroup:(NSString *)group
+{
+    dispatch_sync( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ 
+        GVCDirectory *docs = [GVCDirectory DocumentDirectory];
+
+        // full path index
+        [[self resourceDictionary] setObject:[docs fullpathForFile:item] forKey:item];
+        
+        // item index list by group
+        NSMutableArray *list = [[self resourceGroupDictionary] objectForKey:group];
+        if ( list == nil )
+        {
+            list = [[NSMutableArray alloc] initWithCapacity:10];
+            [[self resourceGroupDictionary] setObject:list forKey:group];
+        }
+        [list addObject:item];
+        
+        // finally the md5 checksum
+        [[self md5Hashes] setObject:[docs md5Hash:item] forKey:item];
+
+        // update the cached database
+        NSMutableDictionary *store = [[NSMutableDictionary alloc] initWithCapacity:3];
+        [store setObject:[self resourceGroupDictionary] forKey:@"groups"];
+        [store setObject:[self resourceDictionary] forKey:@"resources"];
+        [store setObject:[self md5Hashes] forKey:@"md5"];
+        
+        NSString *dest = [[GVCDirectory DocumentDirectory] fullpathForFile:GVCConfiguration_RESOURCES_FILE];
+        NSError *plistError = nil;
+        NSData *archive = [NSPropertyListSerialization dataWithPropertyList:store format:NSPropertyListBinaryFormat_v1_0 options:0 error:&plistError];
+        [archive writeToFile:dest atomically:YES];
+	});
+}
+
 - (void)checkLocalConfiguration
 {
-    NSString *localConfigPath = [[NSBundle mainBundle] pathForResource:GVCConfiguration_LOCAL_INITIAL_FILE ofType:nil];
-    if ( gvc_IsEmpty(localConfigPath) == NO )
+    GVCDirectory *docs = [GVCDirectory DocumentDirectory];
+    NSError *plistError = nil;
+    GVCLogError(@"Docs %@", docs );
+
+    if ( [docs fileExists:GVCConfiguration_RESOURCES_FILE] == YES )
     {
-        GVCXMLDigester *dgst = [self digester];
-        [dgst setFilename:localConfigPath];
-        GVC_XML_ParserDelegateStatus status = [dgst parse];
-        if (status == GVC_XML_ParserDelegateStatus_SUCCESS)
+        NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:[docs fullpathForFile:GVCConfiguration_RESOURCES_FILE]] options:NSPropertyListMutableContainers format:nil error:&plistError];
+        [self setResourceDictionary:[(NSDictionary *)[plist objectForKey:@"resources"] mutableCopy]];
+        [self setResourceGroupDictionary:[(NSDictionary *)[plist objectForKey:@"groups"] mutableCopy]];
+        [self setMd5Hashes:[(NSDictionary *)[plist objectForKey:@"md5"] mutableCopy]];
+    }
+    else
+    {
+        NSString *localConfigPath = [[NSBundle mainBundle] pathForResource:GVCConfiguration_RESOURCES_FILE ofType:nil];
+        if ( gvc_IsEmpty(localConfigPath) == NO )
         {
-//            GVCConfigDocument *localDoc = [dgst digestValueForPath:@"config"];
-//            GVCConfigSharedPackage *shared = [localDoc sharedPackage];
-//            NSArray *packages = [localDoc allPackages];
+            NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:localConfigPath] options:NSPropertyListImmutable format:nil error:&plistError];
+            
+            NSArray *groups = [plist allKeys];
+            for ( NSString *group in groups)
+            {
+                NSArray *templateList = (NSArray *)[plist objectForKey:group];
+                for (NSString *item in templateList )
+                {
+                    NSString *filename = [[item lastPathComponent] stringByDeletingPathExtension];
+                    NSString *ext = [[item lastPathComponent] pathExtension];
+                    NSString *subdir = [item stringByDeletingLastPathComponent];
+                    
+                    // if the resource already exists in the doc directory, then skip it
+                    if ( [docs fileExists:item] == NO )
+                    {
+                        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:filename ofType:ext inDirectory:subdir];
+                        if ( gvc_IsEmpty(bundlePath) == NO )
+                        {
+                            [docs createSubdirectory:subdir];
+                            if ([docs copyFileFrom:bundlePath to:item] == YES)
+                            {
+                                // add it to the indexes
+                                [self updateIndexes:item forGroup:group];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // add it to the indexes
+                        [self updateIndexes:item forGroup:group];
+                    }
+                }
+            }
         }
-        else
+        else 
         {
-            GVCLogError( @"Parse Failed %@", [dgst xmlError]);
-            GVC_ASSERT(NO, @"Parse Failed %@", [dgst xmlError]);
+            GVCLogInfo(@"No local configuration file named %@", GVCConfiguration_RESOURCES_FILE );
         }
     }
-    else 
+}
+
+- (void)checkRemoteConfiguration
+{
+    NSString *temp = [[GVCDirectory TempDirectory] fullpathForFile:[NSString gvc_StringWithUUID]];
+
+    NSString *remoteURL = remoteURL = GVC_SPRINTF(@"%@/%@", [self baseURL], GVCConfiguration_RESOURCES_FILE);
+    NSURL *url = [NSURL URLWithString:remoteURL];
+    GVCNetOperation *rscDownload = [[GVCNetOperation alloc] initForURL:url];
+    [rscDownload setAllowSelfSignedCerts:YES];
+    [rscDownload setResponseData:[[GVCStreamResponseData alloc] initForFilename:temp]];
+    [rscDownload setDidFinishBlock:^(GVCOperation *operation) {
+
+        NSError *plistError = nil;
+        NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:temp] options:NSPropertyListImmutable format:nil error:&plistError];
+        if ( plist != nil )
+        {
+            NSArray *groups = [plist allKeys];
+            for ( NSString *group in groups)
+            {
+                NSArray *templateList = (NSArray *)[plist objectForKey:group];
+                for (NSDictionary *item in templateList )
+                {
+                    NSString *itemKey = [[item allKeys] lastObject];
+                    NSString *md5 = [item objectForKey:itemKey];
+                    
+                    [self processRemoteResource:itemKey md5:md5 forGroup:group];
+                }
+            }
+        }
+    }];
+    
+    [rscDownload setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
+        GVCLogError(@"Operation Failed %@", err);
+    }];
+    [[self operationQueue] addOperation:rscDownload];
+}
+
+- (void)processRemoteResource:(NSString *)itemKey md5:(NSString *)md5 forGroup:(NSString *)group;
+{
+    BOOL needsUpdate = YES;
+    if ( [[self md5Hashes] objectForKey:itemKey] != nil )
     {
-        GVCLogInfo(@"No local configuration file named %@", GVCConfiguration_LOCAL_INITIAL_FILE );
+        NSString *currentMD5 = [[self md5Hashes] objectForKey:itemKey];
+        if ( [currentMD5 isEqualToString:md5] == YES )
+        {
+            needsUpdate = NO;
+        }
     }
-}
-
-- (void)checkCachedRemoteFile
-{
-//    NSString *cached = [[GVCDirectory CacheDirectory] fullpathForFile:GVCConfiguration_CACHED_REMOTE_FILE];
-//    if ( [[NSFileManager defaultManager] fileExistsAtPath:cached] == YES )
-//    {
-//        NSError *plistError = nil;
-//        NSData *data = [NSData dataWithContentsOfFile:cached];
-//        NSDictionary *plist = (NSDictionary *)[NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:&plistError];
-//        if ( plist != nil )
-//        {
-//            [self processProperties:[plist valueForKey:GVCConfiguration_plist_CONFIG_PROPERTIES]];
-//            [self processResources:[plist valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE]];
-//        }
-//        else 
-//        {
-//            GVCLogError(@"Error loading %@ %@", GVCConfiguration_LOCAL_INITIAL_FILE, plistError);
-//        }
-//    }
-//    else 
-//    {
-//        GVCLogInfo(@"No local configuration file named %@", GVCConfiguration_LOCAL_INITIAL_FILE );
-//    }
-}
-
-- (void)processProperties:(NSDictionary *)propDict
-{
-    if ( gvc_IsEmpty(propDict) == NO)
+    
+    if (needsUpdate == YES)
     {
-        [[self properties] addEntriesFromDictionary:propDict];
+        NSString *temp = [[GVCDirectory TempDirectory] fullpathForFile:[NSString gvc_StringWithUUID]];
+        
+        NSString *remoteURL = remoteURL = GVC_SPRINTF(@"%@/%@", [self baseURL], itemKey);
+        NSURL *url = [NSURL URLWithString:remoteURL];
+        GVCNetOperation *rscDownload = [[GVCNetOperation alloc] initForURL:url];
+        [rscDownload setAllowSelfSignedCerts:YES];
+        [rscDownload setResponseData:[[GVCStreamResponseData alloc] initForFilename:temp]];
+        [rscDownload setDidFinishBlock:^(GVCOperation *operation) {
+            NSString *subdir = [itemKey stringByDeletingLastPathComponent];
+            GVCDirectory *docs = [GVCDirectory DocumentDirectory];
+            NSString *backupName = nil;
+            BOOL success = YES;
+            
+            [docs createSubdirectory:subdir];
+            if ( [docs fileExists:itemKey] == YES) 
+            {
+                backupName = GVC_SPRINTF(@"%@~", itemKey);
+                success = [docs moveFileFrom:itemKey to:backupName];
+            }
+            
+            if (success == YES)
+            {
+                success = [docs moveFileFrom:temp to:itemKey];
+                if (success == YES)
+                {
+                    [self updateIndexes:itemKey forGroup:group];
+                    if ( gvc_IsEmpty(backupName) == NO )
+                    {
+                        [docs removeFileIfExists:backupName];
+                    }
+                }
+                else if ( gvc_IsEmpty(backupName) == NO )
+                {
+                    // restore old file
+                    success = [docs moveFileFrom:backupName to:itemKey];
+                }
+            }
+        }];
+        
+        [rscDownload setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
+            GVCLogError(@"Operation Failed %@", err);
+        }];
+        [[self operationQueue] addOperation:rscDownload];
+
     }
-}
-
-- (void)processResources:(NSDictionary *)propDict
-{
-//    if ( gvc_IsEmpty(propDict) == NO)
-//    {
-//        for (NSString *resourceGroup in propDict )
-//        {
-//            NSArray *group = [propDict valueForKey:resourceGroup];
-//            NSMutableSet *groupSet = [resourceGroupDictionary valueForKey:resourceGroup];
-//            if ( groupSet == nil )
-//            {
-//                groupSet = [[NSMutableSet alloc] initWithCapacity:[group count]];
-//                [resourceGroupDictionary setObject:groupSet forKey:resourceGroup];
-//            }
-//
-//            for ( NSDictionary *resource in group)
-//            {
-//                NSString *filename = [[resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_FILENAME] lastPathComponent];
-//                NSString *subpath = [[resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_FILENAME] stringByDeletingLastPathComponent];
-//                NSString *ext = [resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_EXT];
-//                NSBundle *rscBundle = [NSBundle mainBundle];
-//                if ( gvc_IsEmpty([resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_BUNDLE_CLASS]) == NO)
-//                {
-//                    Class bundleClass = NSClassFromString([resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_BUNDLE_CLASS]);
-//                    rscBundle = [NSBundle bundleForClass:bundleClass];
-//                }
-//
-//                if ( rscBundle != nil )
-//                {
-//                    NSString *localPath = [rscBundle pathForResource:[filename lastPathComponent] ofType:ext inDirectory:subpath];
-//                    if ( localPath != nil )
-//                    {
-//                        [resourceDictionary setObject:localPath forKey:[filename stringByAppendingPathExtension:ext]];
-//                        [groupSet addObject:[filename stringByAppendingPathExtension:ext]];
-//                    }
-//                    else
-//                    {
-//                        GVCLogError(@"Failed to find resource %@  %@/%@.%@", rscBundle, subpath, filename, ext);
-//                    }
-//                }
-//                else 
-//                {
-//                    GVCLogError(@"Failed to find class %@ for resource %@.%@", [resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_BUNDLE_CLASS], filename, ext);
-//                }
-//            }
-//        }
-//    }
-}
-
-- (void)processRemoteResources:(NSDictionary *)propDict
-{
-//    // no downloads required
-//    [self setActiveDownloads:0];
-//
-//    if ( gvc_IsEmpty(propDict) == NO)
-//    {
-//        for (NSString *resourceGroup in propDict )
-//        {
-//            NSArray *group = [propDict valueForKey:resourceGroup];
-//            NSMutableSet *groupSet = [resourceGroupDictionary valueForKey:resourceGroup];
-//            if ( groupSet == nil )
-//            {
-//                groupSet = [[NSMutableSet alloc] initWithCapacity:[group count]];
-//                [resourceGroupDictionary setObject:groupSet forKey:resourceGroup];
-//            }
-//            
-//            for ( NSDictionary *resource in group)
-//            {
-//                NSString *remotePath = [resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_PATH];
-//                NSString *remoteURL = [resource valueForKey:GVCConfiguration_plist_CONFIG_RESOURCE_URL];
-//                if ((gvc_IsEmpty(remoteURL) == YES) && (gvc_IsEmpty(remotePath) == NO))
-//                {
-//                    remoteURL = GVC_SPRINTF(@"%@/%@", [self baseURL], remotePath);
-//                }
-//                NSURL *url = [NSURL URLWithString:remoteURL];
-//                if ( url != nil )
-//                {
-//                    // create a local destination path
-//                    NSString *filename = [url lastPathComponent];
-//                    NSString *cached = [[[GVCDirectory CacheDirectory] createSubdirectory:resourceGroup] fullpathForFile:filename];
-//                    NSString *temp = [[GVCDirectory TempDirectory] fullpathForFile:[NSString gvc_StringWithUUID]];
-//
-//                    GVCNetOperation *rscDownload = [[GVCNetOperation alloc] initForURL:url];
-//                    [rscDownload setResponseData:[[GVCStreamResponseData alloc] initForFilename:temp]];
-//                    [rscDownload setDidFinishBlock:^(GVCOperation *operation) {
-//                        
-//                        NSFileManager *fileMgr = [NSFileManager defaultManager];
-//                        NSString *newFileHash = [fileMgr gvc_md5Hash:temp];
-//                        if (([fileMgr fileExistsAtPath:cached] == NO) || ([fileMgr gvc_validateFile:cached withMD5Hash:newFileHash] == NO))
-//                        {
-//                            GVCLogError(@"cached %@", cached);
-//                            NSError *mvErr = nil;
-//                            if ([fileMgr moveItemAtPath:temp toPath:cached error:&mvErr] == YES )
-//                            {
-//                                // success !
-//                                [resourceDictionary setObject:cached forKey:filename];
-//                                [groupSet addObject:filename];
-//                            }
-//                            else
-//                            {
-//                                GVCLogError(@"Move file error %@", mvErr);
-//                            }
-//                        }
-//                        else
-//                        {
-//                            GVCLogError(@"Finalpath %@ hashes match %@", cached, newFileHash);
-//                        }
-//                    }];
-//                    
-//                    [rscDownload setDidStartBlock:^(GVCOperation *operation) {
-//                        [self increaseActiveDownloads];
-//                    }];
-//                    [rscDownload setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
-//                        GVCLogError(@"Operation Failed %@", err);
-//                        [self decreaseActiveDownloads];
-//                    }];
-//                    [[self operationQueue] addOperation:rscDownload];
-//                }
-//            }
-//        }
-//    }
 }
 
 @end

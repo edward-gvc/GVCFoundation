@@ -29,7 +29,13 @@
 - (NSURL *)uniqueURLForFile;
 - (NSURL *)uniqueURLForFilename:(NSString *)prefix;
 
+- (NSString *)md5Hash:(NSString *)path;
+- (BOOL)fileExists:(NSString *)path;
+- (BOOL)directoryExists:(NSString *)path;
 
+- (BOOL)removeFileIfExists:(NSString *)path;
+- (BOOL)moveFileFrom:(NSString *)source to:(NSString *)dest;
+- (BOOL)copyFileFrom:(NSString *)source to:(NSString *)dest;
 - (GVCDirectory *)createSubdirectory:(NSString *)name;
 
 @end

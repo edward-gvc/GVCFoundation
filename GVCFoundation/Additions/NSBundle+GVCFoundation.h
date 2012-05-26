@@ -13,10 +13,12 @@
 + (NSString *)gvc_MainBundleName;
 + (NSString *)gvc_MainBundleDisplayName;
 + (NSString *)gvc_MainBundleVersion;
++ (NSString *)gvc_MainBundleMarketingVersion;
 + (NSString *)gvc_MainBundleIdentifier;
 
 - (NSString *)gvc_bundleName;
 - (NSString *)gvc_bundleDisplayName;
+- (NSString *)gvc_bundleMarketingVersion;
 - (NSString *)gvc_bundleVersion;
 - (NSString *)gvc_bundleIdentifier;
 
