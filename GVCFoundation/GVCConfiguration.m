@@ -104,7 +104,8 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
             list = [[NSMutableArray alloc] initWithCapacity:10];
             [[self resourceGroupDictionary] setObject:list forKey:group];
         }
-        [list addObject:item];
+        if ( [list containsObject:item] == NO )
+            [list addObject:item];
         
         // finally the md5 checksum
         [[self md5Hashes] setObject:[docs md5Hash:item] forKey:item];
