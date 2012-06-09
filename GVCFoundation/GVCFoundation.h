@@ -62,6 +62,7 @@
 /* 
  * Operations 
  */
+#import "GVCDemoDelayedOperation.h"
 #import "GVCFileOperation.h"
 #import "GVCOperation.h"
 #import "GVCRunLoopOperation.h"

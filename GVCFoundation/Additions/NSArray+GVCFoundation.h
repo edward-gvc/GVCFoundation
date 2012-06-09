@@ -19,6 +19,7 @@ typedef id (^GVCNSArrayResultBlock)(id item);
 + (id)gvc_ArrayByOrderingSet:(NSSet *)set byKey:(NSString *)key ascending:(BOOL)ascending;
 
 + (NSArray *)gvc_ArrayByCombining:(NSArray *)array, ...;
++ (NSArray *)gvc_ArrayByCombining:(NSArray *)one withArray:(NSArray *)two;
 
 - (NSArray *)gvc_sortedStringArray;
 

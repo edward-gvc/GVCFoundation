@@ -104,6 +104,8 @@
 		055F98C7150FFF4000D243AB /* GVCXMLContainerNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 055F98C5150FFF4000D243AB /* GVCXMLContainerNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		055F98C8150FFF4000D243AB /* GVCXMLContainerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 055F98C6150FFF4000D243AB /* GVCXMLContainerNode.m */; };
 		0567E0CD1509D3710039ABEF /* GVCXMLParseNodeDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0567E0CC1509D3710039ABEF /* GVCXMLParseNodeDelegateTest.m */; };
+		056874F81582A87E00031B5A /* GVCDemoDelayedOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056874F61582A87E00031B5A /* GVCDemoDelayedOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		056874F91582A87E00031B5A /* GVCDemoDelayedOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 056874F71582A87E00031B5A /* GVCDemoDelayedOperation.m */; };
 		056F5934147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
 		056F5942147EE84D0076010D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5941147EE84D0076010D /* SenTestingKit.framework */; };
 		056F5945147EE84D0076010D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056F5933147EE84D0076010D /* Foundation.framework */; };
@@ -320,6 +322,8 @@
 		055F98C5150FFF4000D243AB /* GVCXMLContainerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLContainerNode.h; sourceTree = "<group>"; };
 		055F98C6150FFF4000D243AB /* GVCXMLContainerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLContainerNode.m; sourceTree = "<group>"; };
 		0567E0CC1509D3710039ABEF /* GVCXMLParseNodeDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLParseNodeDelegateTest.m; sourceTree = "<group>"; };
+		056874F61582A87E00031B5A /* GVCDemoDelayedOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCDemoDelayedOperation.h; sourceTree = "<group>"; };
+		056874F71582A87E00031B5A /* GVCDemoDelayedOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCDemoDelayedOperation.m; sourceTree = "<group>"; };
 		056F5930147EE84D0076010D /* libGVCFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGVCFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		056F5933147EE84D0076010D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVCFoundation-Prefix.pch"; sourceTree = "<group>"; };
@@ -562,6 +566,8 @@
 				0551D34D15166BC90089217F /* GVCRunLoopOperation.m */,
 				05762D6815229B610002081C /* GVCXMLParserOperation.h */,
 				05762D6915229B610002081C /* GVCXMLParserOperation.m */,
+				056874F61582A87E00031B5A /* GVCDemoDelayedOperation.h */,
+				056874F71582A87E00031B5A /* GVCDemoDelayedOperation.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -1130,6 +1136,7 @@
 				05EAE09615655066004F5126 /* GVCConfigPackage.h in Headers */,
 				05EAE09A1565507D004F5126 /* GVCConfigDocument.h in Headers */,
 				05EAE09E156550B1004F5126 /* GVCConfigObject.h in Headers */,
+				056874F81582A87E00031B5A /* GVCDemoDelayedOperation.h in Headers */,
 				058E4F811560B0BA00DD2CAF /* NSScanner+GVCFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1341,6 +1348,7 @@
 				05EAE09715655066004F5126 /* GVCConfigPackage.m in Sources */,
 				05EAE09B1565507D004F5126 /* GVCConfigDocument.m in Sources */,
 				05EAE09F156550B1004F5126 /* GVCConfigObject.m in Sources */,
+				056874F91582A87E00031B5A /* GVCDemoDelayedOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

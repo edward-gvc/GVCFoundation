@@ -58,6 +58,20 @@
     return result;
 }
 
++ (NSArray *)gvc_ArrayByCombining:(NSArray *)one withArray:(NSArray *)two
+{
+    NSArray *result = one;
+    if ( result == nil )
+    {
+        result = two;
+    }
+    else if (two != nil)
+    {
+        result = [result arrayByAddingObjectsFromArray:two];
+    }
+    return result;
+}
+
 - (NSArray *)gvc_sortedStringArray
 {
     NSArray *strings = [self gvc_filterArrayForClass:[NSString class]];
