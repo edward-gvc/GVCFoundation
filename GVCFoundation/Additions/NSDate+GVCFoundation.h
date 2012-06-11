@@ -22,4 +22,6 @@
 
 - (BOOL)gvc_isFutureDate;
 
+- (NSString *)gvc_FormattedStringValue:(NSString *)fmt;
+
 @end

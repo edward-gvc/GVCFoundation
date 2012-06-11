@@ -77,6 +77,13 @@
 	return date;
 }
 
+- (NSString *)gvc_FormattedStringValue:(NSString *)fmt
+{
+    GVC_ASSERT_VALID_STRING(fmt);
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:fmt];
+	return [formatter stringFromDate:self];
+}
 
 - (BOOL)gvc_isFutureDate
 {
