@@ -13,7 +13,9 @@
 @interface GVCDemoDelayedOperation : GVCOperation
 
 - initWithResponseFile:(NSString *)filename;
+- initWithResponseFile:(NSString *)filename withDUID:(NSString*) duid andRUID: (NSString*) ruid;
 
-@property (strong, nonatomic)  GVCMemoryResponseData *responseData;   
+@property (strong, nonatomic)  GVCNetResponseData *responseData;   
+
 
 @end
