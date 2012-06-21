@@ -32,6 +32,24 @@
     return string;
 }
 
+/*  Returns a NSString with randomly selected characters */
++ (NSString *)gvc_RandomStringWithLength:(NSUInteger)len
+{
+    return [self gvc_RandomStringWithLength:len fromSample:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
+}
+
++ (NSString *)gvc_RandomStringWithLength:(NSUInteger)len fromSample:(NSString *)sample
+{
+    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
+    
+    for (int i = 0; i < len; i++)
+    {
+        [randomString appendFormat: @"%C", [sample characterAtIndex:(arc4random() % [sample length]) ]];
+    }
+    
+    return randomString;
+}
+
 #pragma mark - General Instance methods
 
 - (NSString *)gvc_md5Hash

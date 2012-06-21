@@ -11,6 +11,7 @@
 #import "GVCFunctions.h"
 #import "NSBundle+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 void gvc_UpdateMissingLocalizations(NSString *key, NSString *value);
 
@@ -88,7 +89,7 @@ void gvc_UpdateMissingLocalizations(NSString *key, NSString *value)
 		[missingLocale setObject:value forKey:key];
 		[missingLocale writeToFile:[basePath stringByAppendingPathExtension:@"plist"] atomically:NO];
 		
-		NSArray *allKeys = [missingLocale allKeys];
+		NSArray *allKeys = [[missingLocale allKeys] gvc_sortedStringArray];
 		NSMutableData *data = [NSMutableData data];
 		[data gvc_appendUTF8String:@"/*\n * Missing Localization\n *\n */\n"];
 		for (NSString *v in allKeys )

@@ -22,6 +22,7 @@
 
 - (BOOL)gvc_isFutureDate;
 
+- (NSString *)gvc_FormattedStyle:(NSDateFormatterStyle)style;
 - (NSString *)gvc_FormattedStringValue:(NSString *)fmt;
 
 @end

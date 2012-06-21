@@ -13,8 +13,12 @@
 /*  simple class method to return an empty string */
 + (NSString *)gvc_EmptyString;
 
-/*  Returns an NSString with a hex encoded UUID */
+/*  Returns a NSString with a hex encoded UUID */
 + (NSString *)gvc_StringWithUUID;
+
+/*  Returns a NSString with randomly selected characters */
++ (NSString *)gvc_RandomStringWithLength:(NSUInteger)len;
++ (NSString *)gvc_RandomStringWithLength:(NSUInteger)len fromSample:(NSString *)sample;
 
 - (NSString *)gvc_md5Hash;
 
