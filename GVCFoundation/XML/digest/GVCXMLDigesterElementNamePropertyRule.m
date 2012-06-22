@@ -1,6 +1,5 @@
 //
 //  GVCXMLDigesterElementNamePropertyRule.m
-//  GVCOpenXML
 //
 //  Created by David Aspinall on 11-03-11.
 //  Copyright 2011 Global Village Consulting Inc. All rights reserved.
