@@ -7,10 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class GVCISO8601DateFormatter;
+
 @interface NSDate (GVCFoundation)
 
-+ (NSDateFormatter *)gvc_ISO8601LongDateFormatter;
-+ (NSDateFormatter *)gvc_ISO8601ShortDateFormatter;
++ (GVCISO8601DateFormatter *)gvc_ISO8601LongDateFormatter;
++ (GVCISO8601DateFormatter *)gvc_ISO8601ShortDateFormatter;
 
 + (NSDate *)gvc_DateFromISO8601:(NSString *)value;
 + (NSDate *)gvc_DateFromISO8601ShortValue:(NSString *)value;

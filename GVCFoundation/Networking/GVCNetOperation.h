@@ -36,7 +36,6 @@ typedef enum
 
 GVC_DEFINE_EXTERN_STR( GVCNetOperationErrorDomain )
 
-typedef void (^GVCNetOperationProgressBlock)(NSInteger bytes, NSInteger totalBytes, NSInteger totalBytesExpected);
 typedef BOOL (^GVCNetOperationAuthAgainstProtectionSpaceBlock)(NSURLConnection *connection, NSURLProtectionSpace *protectionSpace);
 typedef void (^GVCNetOperationAuthChallengeBlock)(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge);
 
@@ -62,8 +61,6 @@ typedef void (^GVCNetOperationAuthChallengeBlock)(NSURLConnection *connection, N
 
 - (NSUInteger)maximumResponseSize;
 - (void)setMaximumResponseSize:(NSUInteger)newValue;
-
-@property (readwrite, copy) GVCNetOperationProgressBlock progressBlock;
 
 	// secure connection
 @property (assign, nonatomic)  BOOL allowSelfSignedCerts;

@@ -149,8 +149,8 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
     GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=300/rss.xml"]];
     GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
 
-    [url_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSInteger totalBytesExpected){
-		GVCLogError(@"%f: URL Received %d of %d", [stopwatch elapsed], totalBytes, totalBytesExpected);
+    [url_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+		GVCLogError(@"%f: URL Received %d of %d", [stopwatch elapsed], bytes, totalBytes);
 	}];
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
 		GVCLogError(@"%f: GVCOperation (%@) finished", [stopwatch elapsed], operation);

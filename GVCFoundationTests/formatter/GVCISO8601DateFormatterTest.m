@@ -55,4 +55,13 @@
 	GVCLogError(@"%@ = %@", today, [formatter stringFromDate:today]);
 }
 
+- (void)testFullParse
+{
+	GVCISO8601DateFormatter *formatter = [[GVCISO8601DateFormatter alloc] init];
+	[formatter setFormat:GVCISO8601DateFormatter_Calendar];
+	NSString *iso_1 = @"2012-06-26T07:37:05Z";
+	NSDate *date_1 = [formatter dateFromString:iso_1];
+	STAssertNotNil(date_1, @"Failed to parse date %@", date_1);
+}
+
 @end

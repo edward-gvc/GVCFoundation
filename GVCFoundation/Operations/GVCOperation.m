@@ -25,6 +25,7 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 @synthesize didFinishBlock;
 @synthesize didFailWithErrorBlock;
 @synthesize willFinishBlock;
+@synthesize progressBlock;
 
 @synthesize operationError;
 
@@ -50,7 +51,36 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 	[self performSelectorOnMainThread:@selector(operationDidFinishOnMainThread:) withObject:self waitUntilDone:[NSThread isMainThread]];
 }
 
+- (void)operationProgress:(NSInteger)item forTotal:(NSInteger)total statusMessage:(NSString *)msg
+{
+	if ([self progressBlock] != nil) 
+	{
+		NSMutableArray *args = [[NSMutableArray alloc] initWithCapacity:3];
+		[args addObject:[NSNumber numberWithInteger:item]];
+		[args addObject:[NSNumber numberWithInteger:total]];
+		[args addObject:(msg == nil ? [NSNull null] : msg)];
+		
+		[self performSelectorOnMainThread:@selector(operationProgressOnMainThread:) withObject:args waitUntilDone:[NSThread isMainThread]];
+	}
+}
+
 // execute the will finish block on the operation thread
+
+- (void)operationProgressOnMainThread:(NSArray *)args
+{
+	if ([self progressBlock] != nil) 
+	{
+		GVC_ASSERT_NOT_NIL(args);
+		GVC_ASSERT([args count] == 3, @"Invalid number of arguments %@", args);
+		
+		NSInteger item = [(NSNumber *)[args objectAtIndex:0] integerValue];
+		NSInteger total = [(NSNumber *)[args objectAtIndex:1] integerValue];
+		NSObject *msg = [args objectAtIndex:2];
+		NSString *message = (NSString *)(msg == [NSNull null] ? nil : msg);
+		self.progressBlock(item, total, message);
+	}
+
+}
 - (void)operationWillFinish 
 {
 	if (nil != [self willFinishBlock])

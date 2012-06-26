@@ -42,7 +42,6 @@ enum {
 @synthesize lastResponse;
 @synthesize responseData;
 @synthesize allowSelfSignedCerts;
-@synthesize progressBlock;
 @synthesize authEvaluationBlock;
 @synthesize authChallengeBlock;
 
@@ -234,7 +233,7 @@ enum {
 #pragma unused(cnx)
     if ([self progressBlock] != nil)
 	{
-        self.progressBlock(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+        self.progressBlock(totalBytesWritten, totalBytesExpectedToWrite, nil);
     }
 }
 
@@ -326,7 +325,7 @@ enum {
 		
 		if ((success == YES) && ([self progressBlock] != nil)) 
 		{
-			self.progressBlock([data length], [[self responseData] totalBytesRead], (NSInteger)[[self lastResponse] expectedContentLength]);
+			self.progressBlock([[self responseData] totalBytesRead], (NSInteger)[[self lastResponse] expectedContentLength], nil);
 		}
 
     }

@@ -115,7 +115,7 @@
 		}
 		else
 		{
-			[digestDictionary setObject:anObject forKey:[self elementPath]];
+			[digestDictionary setObject:anObject forKey:epath];
 		}
 	}
 	

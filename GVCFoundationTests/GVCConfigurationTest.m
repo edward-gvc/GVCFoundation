@@ -42,16 +42,16 @@
     NSString *path = [self pathForResource:@"LocalConfiguration" extension:@"xml"];
     STAssertNotNil(path, @"Path should not be nil");
     
-    GVCXMLDigester *dgst = [config digester];
-    [dgst setFilename:path];
-
-    GVCLogError( @"Starting parse" );
-    GVC_XML_ParserDelegateStatus status = [dgst parse];
-    STAssertTrue(status == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse Failed %@", [dgst xmlError]);
-    GVCLogError( @"parse finished" );
-
-    GVCConfigDocument *doc = [dgst digestValueForPath:@"config"];
-    GVCLogError( @"%@ %@", [dgst digestKeys], [doc description] );
+//    GVCXMLDigester *dgst = [config digester];
+//    [dgst setFilename:path];
+//
+//    GVCLogError( @"Starting parse" );
+//    GVC_XML_ParserDelegateStatus status = [dgst parse];
+//    STAssertTrue(status == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse Failed %@", [dgst xmlError]);
+//    GVCLogError( @"parse finished" );
+//
+//    GVCConfigDocument *doc = [dgst digestValueForPath:@"config"];
+//    GVCLogError( @"%@ %@", [dgst digestKeys], [doc description] );
 }
 
 	// All code under test must be linked into the Unit Test bundle

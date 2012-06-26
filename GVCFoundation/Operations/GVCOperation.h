@@ -28,6 +28,7 @@ typedef enum
 
 typedef void (^GVCOperationBlock)(GVCOperation *operation);
 typedef void (^GVCOperationErrorBlock)(GVCOperation *operation, NSError* error);
+typedef void (^GVCOperationProgressBlock)(NSInteger itemNumber, NSInteger totalItem, NSString *statusMessage);
 
 
 @interface GVCOperation : NSOperation
@@ -36,6 +37,7 @@ typedef void (^GVCOperationErrorBlock)(GVCOperation *operation, NSError* error);
 @property (readwrite, copy) GVCOperationBlock didStartBlock;
 @property (readwrite, copy) GVCOperationBlock didFinishBlock;
 @property (readwrite, copy) GVCOperationErrorBlock didFailWithErrorBlock;
+@property (readwrite, copy) GVCOperationProgressBlock progressBlock;
 
 // Performed on the operation thread.
 @property (readwrite, copy) GVCOperationBlock willFinishBlock;
@@ -46,6 +48,7 @@ typedef void (^GVCOperationErrorBlock)(GVCOperation *operation, NSError* error);
 - (void)operationDidStart;
 - (void)operationDidFinish;
 - (void)operationDidFailWithError:(NSError *)error;
+- (void)operationProgress:(NSInteger)item forTotal:(NSInteger)total statusMessage:(NSString *)msg;
 - (void)operationWillFinish;
 
 @end

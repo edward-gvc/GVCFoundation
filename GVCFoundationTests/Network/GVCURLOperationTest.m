@@ -43,8 +43,8 @@
 
 	NSURL *apple = [NSURL URLWithString:@"http://www.apple.com"];
 	GVCNetOperation *apple_Op = [[GVCNetOperation alloc] initForURL:apple];
-	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSInteger totalBytesExpected){
-		GVCLogError(@"%d of %d", totalBytes, totalBytesExpected);
+	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+		GVCLogError(@"%d of %d", bytes, totalBytes);
 	}];
 	[apple_Op setDidFinishBlock:^(GVCOperation *operation) {
         GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
@@ -74,8 +74,8 @@
 	
 	NSURL *ftpurl = [NSURL URLWithString:@"ftp://media.local."];
 	GVCNetOperation *ftp_Op = [[GVCNetOperation alloc] initForURL:ftpurl];
-	[ftp_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSInteger totalBytesExpected){
-		GVCLogError(@"Received %d of %d", totalBytes, totalBytesExpected);
+	[ftp_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+		GVCLogError(@"Received %d of %d", bytes, totalBytes);
 	}];
 	[ftp_Op setDidFinishBlock:^(GVCOperation *operation) {
         GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];

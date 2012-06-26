@@ -7,37 +7,32 @@
 
 #import "NSDate+GVCFoundation.h"
 #import "GVCMacros.h"
+#import "GVCISO8601DateFormatter.h"
 
 @implementation NSDate (GVCFoundation)
 
 
 
-+ (NSDateFormatter *)gvc_ISO8601LongDateFormatter
++ (GVCISO8601DateFormatter *)gvc_ISO8601LongDateFormatter
 {
-	static NSDateFormatter *iso8601LongDateFormatter = nil;
+	static GVCISO8601DateFormatter *iso8601LongDateFormatter = nil;
 	if (iso8601LongDateFormatter == nil)
 	{
-		const NSDateFormatterBehavior theOldBehavior = [NSDateFormatter defaultFormatterBehavior];
-		[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
-		iso8601LongDateFormatter = [[NSDateFormatter alloc] init];
-		[iso8601LongDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-		[iso8601LongDateFormatter setDateFormat:@"yyyyy-MM-dd'T'hh:mm'Z'"];
-		[NSDateFormatter setDefaultFormatterBehavior:theOldBehavior];
+		iso8601LongDateFormatter = [[GVCISO8601DateFormatter alloc] init];
+		[(GVCISO8601DateFormatter *)iso8601LongDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
+		[(GVCISO8601DateFormatter *)iso8601LongDateFormatter setIncludeTime:YES];
 	}
 	return iso8601LongDateFormatter;
 }
 
-+ (NSDateFormatter *)gvc_ISO8601ShortDateFormatter
++ (GVCISO8601DateFormatter *)gvc_ISO8601ShortDateFormatter
 {
-	static NSDateFormatter *iso8601ShortDateFormatter = nil;
+	static GVCISO8601DateFormatter *iso8601ShortDateFormatter = nil;
 	if (iso8601ShortDateFormatter == nil)
 	{
-		const NSDateFormatterBehavior theOldBehavior = [NSDateFormatter defaultFormatterBehavior];
-		[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
-		iso8601ShortDateFormatter = [[NSDateFormatter alloc] init];
-		[iso8601ShortDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-		[iso8601ShortDateFormatter setDateFormat:@"yyyyy-MM-dd"];
-		[NSDateFormatter setDefaultFormatterBehavior:theOldBehavior];
+		iso8601ShortDateFormatter = [[GVCISO8601DateFormatter alloc] init];
+		[(GVCISO8601DateFormatter *)iso8601ShortDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
+		[(GVCISO8601DateFormatter *)iso8601ShortDateFormatter setIncludeTime:NO];
 	}
 	return iso8601ShortDateFormatter;
 }
@@ -59,7 +54,7 @@
 
 - (NSString *)gvc_iso8601StringValue
 {
-	return [[NSDate gvc_ISO8601LongDateFormatter] stringFromDate:self];
+	return [[NSDate gvc_ISO8601LongDateFormatter] stringFromDate:self timeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 }
 
 + (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d
