@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^GVCNSArrayEachBlock)(id item);
-typedef BOOL (^GVCNSArrayAcceptBlock)(id item);
-typedef id (^GVCNSArrayResultBlock)(id item);
+typedef void (^GVCCollectionForEachBlock)(id item);
+typedef BOOL (^GVCCollectionAcceptBlock)(id item);
+typedef id (^GVCCollectionResultBlock)(id item);
 
 @interface NSArray (GVCFoundation)
 
@@ -25,15 +25,15 @@ typedef id (^GVCNSArrayResultBlock)(id item);
 
 - (NSArray *)gvc_ArrayOrderingByKey:(NSString *)key ascending:(BOOL)ascending;
 
-- (NSArray *)gvc_filterArrayForClass:(Class) clazz;
-- (NSArray *)gvc_filterArrayForAccept:(GVCNSArrayAcceptBlock)evaluator;
-- (NSArray *)gvc_filterArrayForReject:(GVCNSArrayAcceptBlock)evaluator;
+- (NSArray *)gvc_filterForClass:(Class) clazz;
+- (NSArray *)gvc_filterArrayForAccept:(GVCCollectionAcceptBlock)evaluator;
+- (NSArray *)gvc_filterArrayForReject:(GVCCollectionAcceptBlock)evaluator;
 
-- (void)gvc_performOnEach:(GVCNSArrayEachBlock)evaluator;
+- (void)gvc_performOnEach:(GVCCollectionForEachBlock)evaluator;
 
-- (NSArray *)gvc_resultArray:(GVCNSArrayResultBlock)evaluator;
+- (NSArray *)gvc_resultArray:(GVCCollectionResultBlock)evaluator;
 
-- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCNSArrayResultBlock)evaluator;
+- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCCollectionResultBlock)evaluator;
 
 - (BOOL)gvc_isEqualToArrayInAnyOrder:(NSArray *)other;
 

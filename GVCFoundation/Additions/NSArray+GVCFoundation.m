@@ -74,7 +74,7 @@
 
 - (NSArray *)gvc_sortedStringArray
 {
-    NSArray *strings = [self gvc_filterArrayForClass:[NSString class]];
+    NSArray *strings = [self gvc_filterForClass:[NSString class]];
     return [strings sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
@@ -83,7 +83,7 @@
 	return [NSArray gvc_ArrayByOrdering:self byKey:key ascending:ascending];
 }
 
-- (NSArray *)gvc_filterArrayForClass:(Class) clazz
+- (NSArray *)gvc_filterForClass:(Class) clazz
 {
     GVC_ASSERT(clazz != nil, @"Filter class is required" );
 
@@ -96,7 +96,7 @@
     return [results copy];
 }
 
-- (NSArray *)gvc_filterArrayForAccept:(GVCNSArrayAcceptBlock)evaluator
+- (NSArray *)gvc_filterArrayForAccept:(GVCCollectionAcceptBlock)evaluator
 {
     GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
 
@@ -106,7 +106,7 @@
 	return [self objectsAtIndexes:indexes];
 }
 
-- (NSArray *)gvc_filterArrayForReject:(GVCNSArrayAcceptBlock)evaluator
+- (NSArray *)gvc_filterArrayForReject:(GVCCollectionAcceptBlock)evaluator
 {
     GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
 
@@ -116,7 +116,7 @@
 	return [self objectsAtIndexes:indexes];
 }
 
-- (void)gvc_performOnEach:(GVCNSArrayEachBlock)evaluator
+- (void)gvc_performOnEach:(GVCCollectionForEachBlock)evaluator
 {
     GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
     
@@ -125,7 +125,7 @@
 	}];
 }
 
-- (NSArray *)gvc_resultArray:(GVCNSArrayResultBlock)evaluator
+- (NSArray *)gvc_resultArray:(GVCCollectionResultBlock)evaluator
 {
     GVC_ASSERT(evaluator != nil, @"Evaluator block is required" );
 
@@ -140,7 +140,7 @@
     return [results copy];
 }
 
-- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCNSArrayResultBlock)evaluator
+- (NSString *)gvc_componentsJoinedByString:(NSString *)val after:(GVCCollectionResultBlock)evaluator
 {
     return [[self gvc_resultArray:evaluator] componentsJoinedByString:val];
 }

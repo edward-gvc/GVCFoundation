@@ -58,7 +58,7 @@
 - (void)testgvc_performOnEach
 {
     __block NSInteger total = 0;
-    GVCNSArrayEachBlock each = ^(id item) {
+    GVCCollectionForEachBlock each = ^(id item) {
         total += [(NSString *)item length];
     };
     [[self alphaArray] gvc_performOnEach:each];
@@ -68,7 +68,7 @@
 
 - (void)testgvc_filterArrayForAccept
 {
-    GVCNSArrayAcceptBlock each = ^(id item) {
+    GVCCollectionAcceptBlock each = ^(id item) {
         NSRange range = [(NSString *)item rangeOfString:@"a"];
         return (BOOL)(range.length == 1);
     };
@@ -80,7 +80,7 @@
 
 - (void)testgvc_filterArrayForRejects
 {
-    GVCNSArrayAcceptBlock each = ^(id item) {
+    GVCCollectionAcceptBlock each = ^(id item) {
         NSRange range = [(NSString *)item rangeOfString:@"a"];
         return (BOOL)(range.length == 1);
     };
@@ -92,7 +92,7 @@
 
 - (void)testgvc_filterArrayFor
 {
-    GVCNSArrayResultBlock each = ^(id item) {
+    GVCCollectionResultBlock each = ^(id item) {
         NSNumber *num = [NSNumber numberWithInteger:[item intValue]];
         return num;
     };
