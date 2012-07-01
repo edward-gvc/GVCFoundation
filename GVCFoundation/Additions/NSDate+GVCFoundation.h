@@ -11,8 +11,8 @@
 
 @interface NSDate (GVCFoundation)
 
-+ (GVCISO8601DateFormatter *)gvc_ISO8601LongDateFormatter;
-+ (GVCISO8601DateFormatter *)gvc_ISO8601ShortDateFormatter;
++ (NSDateFormatter *)gvc_ISO8601LongDateFormatter;
++ (NSDateFormatter *)gvc_ISO8601ShortDateFormatter;
 
 + (NSDate *)gvc_DateFromISO8601:(NSString *)value;
 + (NSDate *)gvc_DateFromISO8601ShortValue:(NSString *)value;

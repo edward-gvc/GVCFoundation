@@ -13,26 +13,28 @@
 
 
 
-+ (GVCISO8601DateFormatter *)gvc_ISO8601LongDateFormatter
++ (NSDateFormatter *)gvc_ISO8601LongDateFormatter
 {
-	static GVCISO8601DateFormatter *iso8601LongDateFormatter = nil;
+	static NSDateFormatter *iso8601LongDateFormatter = nil;
 	if (iso8601LongDateFormatter == nil)
 	{
-		iso8601LongDateFormatter = [[GVCISO8601DateFormatter alloc] init];
-		[(GVCISO8601DateFormatter *)iso8601LongDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
-		[(GVCISO8601DateFormatter *)iso8601LongDateFormatter setIncludeTime:YES];
+		iso8601LongDateFormatter = [[NSDateFormatter alloc] init];
+        [iso8601LongDateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+		[iso8601LongDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 	}
 	return iso8601LongDateFormatter;
 }
 
-+ (GVCISO8601DateFormatter *)gvc_ISO8601ShortDateFormatter
++ (NSDateFormatter *)gvc_ISO8601ShortDateFormatter
 {
-	static GVCISO8601DateFormatter *iso8601ShortDateFormatter = nil;
+	static NSDateFormatter *iso8601ShortDateFormatter = nil;
 	if (iso8601ShortDateFormatter == nil)
 	{
-		iso8601ShortDateFormatter = [[GVCISO8601DateFormatter alloc] init];
-		[(GVCISO8601DateFormatter *)iso8601ShortDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
-		[(GVCISO8601DateFormatter *)iso8601ShortDateFormatter setIncludeTime:NO];
+		iso8601ShortDateFormatter = [[NSDateFormatter alloc] init];
+        [iso8601ShortDateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [iso8601ShortDateFormatter setDateFormat:@"yyyy-MM-dd"];
+		[iso8601ShortDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 	}
 	return iso8601ShortDateFormatter;
 }
@@ -54,7 +56,7 @@
 
 - (NSString *)gvc_iso8601StringValue
 {
-	return [[NSDate gvc_ISO8601LongDateFormatter] stringFromDate:self timeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+	return [[NSDate gvc_ISO8601LongDateFormatter] stringFromDate:self];
 }
 
 + (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d
