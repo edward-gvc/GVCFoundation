@@ -80,7 +80,7 @@ GVC_SINGLETON_CLASS(GVCCache)
             NSData *data = [[NSData alloc] initWithContentsOfFile: path];
             NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
             cachesByKey = [unarchiver decodeObjectForKey: @"Index"];
-            GVCLogError(@"Cache Keys %@", cachesByKey);
+            GVCLogInfo(@"Cache Keys %@", cachesByKey);
         }
         else
         {
@@ -110,7 +110,7 @@ GVC_SINGLETON_CLASS(GVCCache)
     [archiver encodeObject:cachesByKey forKey:@"Index"];
     [archiver finishEncoding];
     
-    GVCLogError(@"Cache index = %@", [[GVCDirectory CacheDirectory] fullpathForFile:@"GVCCache.plist"]);
+    GVCLogInfo(@"Cache index = %@", [[GVCDirectory CacheDirectory] fullpathForFile:@"GVCCache.plist"]);
     [data writeToFile:[[GVCDirectory CacheDirectory] fullpathForFile:@"GVCCache.plist"] atomically:YES];
     
     // have the new/updated node store any additional data

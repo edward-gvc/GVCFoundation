@@ -221,7 +221,7 @@
 	}
     else
     {
-        GVCLogError(@"No digest rules for node %@", [self elementPath] );
+        GVCLogInfo(@"No digest rules for node %@", [self elementPath] );
     }
 }
 

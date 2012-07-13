@@ -76,7 +76,7 @@
 {
 	if ((anEncoding != NSASCIIStringEncoding) && (anEncoding != NSUTF8StringEncoding) && (anEncoding != NSISOLatin1StringEncoding) && (anEncoding != NSUnicodeStringEncoding))
 	{
-		GVCLogError( @"Unsupported character encoding, using UTF-8" );
+		GVCLogInfo( @"Unsupported character encoding, using UTF-8" );
 		anEncoding = NSUTF8StringEncoding;
 	}
 	

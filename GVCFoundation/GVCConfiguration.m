@@ -65,7 +65,7 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
         // should be something like
         // https://apps.global-village.net/mobile_configuration/<bundleIdentifier>/<appVersion>/
         [self setBaseURL:GVC_SPRINTF(@"%@/%@/%@", GVCConfiguration_sourceURL, [NSBundle gvc_MainBundleIdentifier], [NSBundle gvc_MainBundleMarketingVersion])];
-        GVCLogError(@"Configuration url = %@", [self baseURL]);
+        GVCLogInfo(@"Configuration url = %@", [self baseURL]);
 	}
 	
     return self;
@@ -127,7 +127,7 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
 {
     GVCDirectory *docs = [GVCDirectory DocumentDirectory];
     NSError *plistError = nil;
-    GVCLogError(@"Docs %@", docs );
+    GVCLogInfo(@"Docs %@", docs );
 
     if ( [docs fileExists:GVCConfiguration_RESOURCES_FILE] == YES )
     {
