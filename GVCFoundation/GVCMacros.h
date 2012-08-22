@@ -77,6 +77,8 @@ static classname *shared##classname = nil; \
 	// Class and file identification MACROs
 #define	GVC_CLASSNAME(o)	NSStringFromClass([o class])
 #define	GVC_FILEID          [NSString stringWithFormat:@"[%s:%d]", __FILE__,  __LINE__]
+#define	GVC_FILENAME        [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding]
+#define GVC_FUNCTIONNAME    [NSString stringWithCString:__PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding]
 
 	// convenient macro to create a formatted string
 #define GVC_SPRINTF(FORMAT, ... )  [NSString stringWithFormat:(FORMAT), ##__VA_ARGS__]
@@ -100,9 +102,7 @@ static classname *shared##classname = nil; \
 
 #ifdef DEBUG
 	#define GVC_ASSERT_LOG(...)		[[NSAssertionHandler currentHandler] \
-		handleFailureInFunction:[NSString stringWithCString:__PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding] \
-		file:[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding] \
-		lineNumber:__LINE__ description:__VA_ARGS__]
+		handleFailureInFunction:GVC_FUNCTIONNAME file:GVC_FILENAME lineNumber:__LINE__ description:__VA_ARGS__]
 #else
 	#define GVC_ASSERT_LOG(...)		NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
 #endif
