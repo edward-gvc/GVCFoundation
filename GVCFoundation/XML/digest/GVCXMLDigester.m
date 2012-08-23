@@ -85,7 +85,7 @@
 
 - (id)digestValueForPath:(NSString *)key
 {
-	GVC_ASSERT_VALID_STRING( key );
+	GVC_ASSERT_NOT_EMPTY( key );
 	return [digestDictionary valueForKey:key];
 }
 

@@ -172,6 +172,8 @@
 		05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EA14852992004E04C0 /* GVCLogTest.m */; };
 		05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */; };
+		05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */; };
+		05CD317015E5B8A100E5780F /* NSObject+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */; };
 		05CEF7DC153C647F006A3E5F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CEF7DB153C647F006A3E5F /* CFNetwork.framework */; };
 		05D185FD1503D17200EDBE80 /* GVCISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D185FB1503D17200EDBE80 /* GVCISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05D185FE1503D17200EDBE80 /* GVCISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D185FC1503D17200EDBE80 /* GVCISO8601DateFormatter.m */; };
@@ -425,6 +427,8 @@
 		05C2C7EA14852992004E04C0 /* GVCLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCLogTest.m; sourceTree = "<group>"; };
 		05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileHandleWriter.h; sourceTree = "<group>"; };
 		05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileHandleWriter.m; sourceTree = "<group>"; };
+		05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GVCFoundation.h"; sourceTree = "<group>"; };
+		05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GVCFoundation.m"; sourceTree = "<group>"; };
 		05CEF7DB153C647F006A3E5F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		05D185FB1503D17200EDBE80 /* GVCISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCISO8601DateFormatter.h; sourceTree = "<group>"; };
 		05D185FC1503D17200EDBE80 /* GVCISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCISO8601DateFormatter.m; sourceTree = "<group>"; };
@@ -895,6 +899,8 @@
 		056F5989147EEDC40076010D /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */,
+				05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */,
 				056F598A147EEDC40076010D /* NSArray+GVCFoundation.h */,
 				056F598B147EEDC40076010D /* NSArray+GVCFoundation.m */,
 				057AB3651513B49600C8E193 /* NSDictionary+GVCFoundation.h */,
@@ -1152,6 +1158,7 @@
 				056874F81582A87E00031B5A /* GVCDemoDelayedOperation.h in Headers */,
 				058E4F811560B0BA00DD2CAF /* NSScanner+GVCFoundation.h in Headers */,
 				05E091F21594F01B00C6B1A0 /* GVCKeychain.h in Headers */,
+				05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1364,6 +1371,7 @@
 				05EAE09F156550B1004F5126 /* GVCConfigObject.m in Sources */,
 				056874F91582A87E00031B5A /* GVCDemoDelayedOperation.m in Sources */,
 				05E091F31594F01B00C6B1A0 /* GVCKeychain.m in Sources */,
+				05CD317015E5B8A100E5780F /* NSObject+GVCFoundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

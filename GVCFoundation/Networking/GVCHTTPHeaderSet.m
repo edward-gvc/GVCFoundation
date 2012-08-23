@@ -55,7 +55,7 @@ static NSSet *http_headers_with_parameters = nil;
 - (void)addHeader:(GVCHTTPHeader *)header
 {
     GVC_ASSERT_NOT_NIL(header);
-    GVC_ASSERT_VALID_STRING([header headerName]);
+    GVC_ASSERT_NOT_EMPTY([header headerName]);
     
     if ( [self headerDictionary] == nil )
     {
@@ -81,8 +81,8 @@ static NSSet *http_headers_with_parameters = nil;
  */
 - (void)parseHeaderValue:(NSString *)value forKey:(NSString *)key
 {
-    GVC_ASSERT_VALID_STRING(key);
-    GVC_ASSERT_VALID_STRING(value);
+    GVC_ASSERT_NOT_EMPTY(key);
+    GVC_ASSERT_NOT_EMPTY(value);
     
     GVCHTTPHeader *header = [[GVCHTTPHeader alloc] initForHeaderName:key andValue:[NSString gvc_EmptyString]];
     [self addHeader:header];

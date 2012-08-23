@@ -24,7 +24,7 @@
 	self = [super init];
 	if (self != nil)
 	{
-		GVC_ASSERT_VALID_STRING(filename);
+		GVC_ASSERT_NOT_EMPTY(filename);
 		[self setResponseData:[[GVCMemoryResponseData alloc] init]];
 		[(GVCMemoryResponseData *)[self responseData] setResponseBody:[NSData dataWithContentsOfFile:filename]];
 	}
@@ -37,7 +37,7 @@
 	self = [super init];
 	if (self != nil)
 	{
-		GVC_ASSERT_VALID_STRING(filename);
+		GVC_ASSERT_NOT_EMPTY(filename);
         
         NSDictionary *headers = [NSDictionary dictionaryWithObjectsAndKeys:@"1.0", @"Mime-Version", @"multipart/mixed; boundary=--boundary4001.94117647058823549.29411764705882353--", @"Content-type", nil];
 

@@ -83,7 +83,7 @@
 
 - (NSString *)gvc_FormattedStringValue:(NSString *)fmt
 {
-    GVC_ASSERT_VALID_STRING(fmt);
+    GVC_ASSERT_NOT_EMPTY(fmt);
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:fmt];
 	return [formatter stringFromDate:self];

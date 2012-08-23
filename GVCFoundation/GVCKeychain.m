@@ -32,8 +32,10 @@ GVC_SINGLETON_CLASS(GVCKeychain)
 
 - (BOOL)setSecureObject:(id)object forKey:(NSString *)aKey
 {
-    GVC_ASSERT_NOT_NIL(aKey);
-    GVC_ASSERT_NOT_NIL(object);
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_EMPTY(object);
+					GVC_DBC_FACT_NOT_EMPTY(aKey);
+					)
 
     BOOL success = NO;
     NSString *errMessage = nil;
@@ -72,13 +74,15 @@ GVC_SINGLETON_CLASS(GVCKeychain)
         GVCLogError( @"plist serialization failed '' for object %@", errMessage, object);
     }
 
+	GVC_DBC_ENSURE()
     return success;
 }
 
 - (id)secureObjectForKey:(NSString *)aKey;
 {
-    GVC_ASSERT_NOT_NIL(aKey);
     id object = nil;
+
+	GVC_DBC_REQUIRE(GVC_DBC_FACT_NOT_EMPTY(aKey);)
     
 #if TARGET_OS_IPHONE
     NSString *errMessage = nil;
@@ -108,12 +112,14 @@ GVC_SINGLETON_CLASS(GVCKeychain)
         object = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:&errMessage];
     }
 #endif
+	
+	GVC_DBC_ENSURE()
     return object;
 }
 
 - (BOOL)removeSecureObjectForKey:(NSString *)aKey;
 {
-    GVC_ASSERT_NOT_NIL(aKey);
+	GVC_DBC_REQUIRE(GVC_DBC_FACT_NOT_EMPTY(aKey);)
 
 #if TARGET_OS_IPHONE
     NSMutableDictionary* queryDictionary = [[NSMutableDictionary alloc] init];
@@ -130,6 +136,8 @@ GVC_SINGLETON_CLASS(GVCKeychain)
         status = SecKeychainItemDelete(item);
     }
 #endif
+	GVC_DBC_ENSURE()
+
     return ((status == noErr) || (status == errSecItemNotFound));
 }
 

@@ -82,7 +82,7 @@
 
 - (void)mapAttribute:(NSString *)attributeName toProperty:(NSString *)propertyName
 {
-	GVC_ASSERT_VALID_STRING( attributeName );
+	GVC_ASSERT_NOT_EMPTY( attributeName );
 
 	[attributeMap setObject:(gvc_IsEmpty(propertyName) ? attributeName : propertyName) forKey:attributeName];
 }

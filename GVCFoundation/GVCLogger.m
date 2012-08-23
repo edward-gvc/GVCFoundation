@@ -91,9 +91,17 @@ GVC_SINGLETON_CLASS(GVCLogger)
     return self;
 }
 
+- (void)gvc_invariants
+{
+	[super gvc_invariants];
+	GVC_DBC_FACT_NOT_NIL([self writer]);
+}
+
 - (NSString *)stringForLevel:(GVCLoggerLevel)level
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+	)
     
 	NSString *strLevel = GVC_DEBUG;
 	switch (level)
@@ -112,29 +120,21 @@ GVC_SINGLETON_CLASS(GVCLogger)
 		default:
 			break;
 	}
+	
+	GVC_DBC_ENSURE(
+				   GVC_DBC_FACT_NOT_EMPTY(strLevel);
+	)
 	return strLevel;
 }
 
 - (BOOL)isLevelActive:(GVCLoggerLevel)level
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+					)
     
     // error level logs ALWAYS are active
 	return (level == GVCLoggerLevel_ERROR) || (loggerLevel >= level );
-}
-
-- (GVCLoggerLevel)loggerLevel
-{
-	return loggerLevel;
-}
-
-- (void)setLoggerLevel:(GVCLoggerLevel)level
-{
-	GVC_ASSERT(level >= GVCLoggerLevel_OFF, @"Log level must be greater than GVCLoggerLevel_OFF");
-	GVC_ASSERT(level <= GVCLoggerLevel_INFO, @"Log level must be less than GVCLoggerLevel_INFO");
-	
-	if ((level >= GVCLoggerLevel_OFF) && (level <= GVCLoggerLevel_INFO))
-		loggerLevel = level;
 }
 
 - (void)flushQueue
@@ -147,6 +147,11 @@ GVC_SINGLETON_CLASS(GVCLogger)
 
 - (void)writeMessage:(GVCLogMessage *)message
 {
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL([self writer]);
+					GVC_DBC_FACT_NOT_NIL(message);
+					)
+
     if ( writer == nil )
     {
         [self setWriter:[[NSLogWriter alloc] init]];
@@ -155,10 +160,16 @@ GVC_SINGLETON_CLASS(GVCLogger)
     
     // GCD counting semaphore is incremented each time a message is written
     dispatch_semaphore_signal( semaphore );
+	
+	GVC_DBC_ENSURE()
 }
 
 - (void)enqueue:(GVCLogMessage *)message
 {
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL(message);
+					)
+
     // GCD counting semaphore is decremented each time a message is enqueued, if it hits zero then
     // we block waiting for the queue to clear some messages
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -177,13 +188,16 @@ GVC_SINGLETON_CLASS(GVCLogger)
     {
         dispatch_sync( queue, loggerBlock );
     }
+	GVC_DBC_ENSURE()
 }
 
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber message:(NSString*)fmt,...
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
-    GVC_ASSERT(filename != nil, @"No Filename for log");
-    GVC_ASSERT(fmt != nil, @"No message" );
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+					GVC_DBC_FACT_NOT_NIL(filename);
+					GVC_DBC_FACT_NOT_EMPTY(fmt);
+					)
 	
 	if ( [self isLevelActive:level] == true )
 	{
@@ -194,25 +208,31 @@ GVC_SINGLETON_CLASS(GVCLogger)
 
         [self enqueue:[[GVCLogMessage alloc] initLevel:level file:filename function:NULL line:lineNumber message:message]];
 	}
+	GVC_DBC_ENSURE()
 }
 
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber forError:(NSError*)err
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
-    GVC_ASSERT(filename != nil, @"No Filename for log");
-    GVC_ASSERT(err != nil, @"No error object" );
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+					GVC_DBC_FACT_NOT_NIL(filename);
+					GVC_DBC_FACT_NOT_NIL(err);
+					)
 	
 	if ( [self isLevelActive:level] == true )
 	{
         [self enqueue:[[GVCLogMessage alloc] initLevel:level file:filename function:NULL line:lineNumber message:[err description]]];
 	}
+	GVC_DBC_ENSURE()
 }
 
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber functionName:(const char *)functionName message:(NSString*)fmt,...
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
-    GVC_ASSERT(filename != nil, @"No Filename for log");
-    GVC_ASSERT(fmt != nil, @"No message" );
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+					GVC_DBC_FACT_NOT_NIL(filename);
+					GVC_DBC_FACT_NOT_EMPTY(fmt);
+					)
 	
 	if ( [self isLevelActive:level] == true )
 	{
@@ -223,17 +243,22 @@ GVC_SINGLETON_CLASS(GVCLogger)
 
         [self enqueue:[[GVCLogMessage alloc] initLevel:level file:filename function:functionName line:lineNumber message:message]];
 	}
+	GVC_DBC_ENSURE()
 }
+
 -(void)log:(GVCLoggerLevel)level file:(char*)filename lineNumber:(int)lineNumber functionName:(const char *)functionName forError:(NSError*)err
 {
-	GVC_ASSERT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO, @"Invalid log level [%d]", level);
-    GVC_ASSERT(filename != nil, @"No Filename for log");
-    GVC_ASSERT(err != nil, @"No error object" );
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT(level > GVCLoggerLevel_OFF && level <= GVCLoggerLevel_INFO);
+					GVC_DBC_FACT_NOT_NIL(filename);
+					GVC_DBC_FACT_NOT_NIL(err);
+					)
 	
 	if ( [self isLevelActive:level] == true )
 	{
         [self enqueue:[[GVCLogMessage alloc] initLevel:level file:filename function:functionName line:lineNumber message:[err description]]];
 	}
+	GVC_DBC_ENSURE()
 }
 
 @end

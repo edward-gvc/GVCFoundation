@@ -139,7 +139,7 @@ static GVCDirectory *downloadsDirectory;
 
 - (NSString *)md5Hash:(NSString *)path
 {
-    GVC_ASSERT_VALID_STRING(path);
+    GVC_ASSERT_NOT_EMPTY(path);
     GVC_ASSERT([self fileExists:path], @"No file at path %@", path );
     
     return [[NSFileManager defaultManager] gvc_md5Hash:[self fullpathForFile:path]];
@@ -189,8 +189,8 @@ static GVCDirectory *downloadsDirectory;
 
 - (BOOL)moveFileFrom:(NSString *)source to:(NSString *)dest
 {
-    GVC_ASSERT_VALID_STRING(source);
-    GVC_ASSERT_VALID_STRING(dest);
+    GVC_ASSERT_NOT_EMPTY(source);
+    GVC_ASSERT_NOT_EMPTY(dest);
 
     if ( [source isAbsolutePath] == NO )
         source = [self fullpathForFile:source];
@@ -218,8 +218,8 @@ static GVCDirectory *downloadsDirectory;
 
 - (BOOL)copyFileFrom:(NSString *)source to:(NSString *)dest
 {
-    GVC_ASSERT_VALID_STRING(source);
-    GVC_ASSERT_VALID_STRING(dest);
+    GVC_ASSERT_NOT_EMPTY(source);
+    GVC_ASSERT_NOT_EMPTY(dest);
     
     NSString *fullPathDest = [self fullpathForFile:dest];
     if ( [source isAbsolutePath] == NO )

@@ -6,8 +6,16 @@
 //  Copyright (c) 2011 Global Village Consulting Inc. All rights reserved.
 //
 
+#import "NSObject+GVCFoundation.h"
+
 #ifndef GVCFoundation_GVCMacros_h
 #define GVCFoundation_GVCMacros_h
+
+/**
+ * @file
+ * @brief 'C' Macros definitions for cleaner coding
+ * @see 
+ **/
 
 #pragma mark - External Defines
 #ifndef GVC_EXTERN
@@ -18,6 +26,16 @@
 #ifndef GVC_PRIVATE_EXTERN
     #define GVC_PRIVATE_EXTERN	__private_extern__
 #endif
+
+#pragma mark - Empty or Nil test
+	// Credit: http://www.wilshipley.com/blog/2005/10/pimp-my-code-interlude-free-code.html
+static inline BOOL gvc_IsEmpty(id thing)
+{
+    return thing == nil
+	|| ([thing isEqual:[NSNull null]])
+	|| ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
+	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0);
+}
 
 #pragma mark - char constants
 #define GVC_DOMAIN_SEPARATOR ((char)'/')
@@ -30,38 +48,6 @@
 #define GVC_OBJ_DOMAIN_KEY(obj, key)	GVC_SPRINTF(@"%@%c%@", GVC_CLASSNAME(obj), GVC_DOMAIN_SEPARATOR, ((key)))
 #define GVC_CLS_DOMAIN_KEY(key)         GVC_SPRINTF(@"%@%c%@", GVC_CLASSNAME(self), GVC_DOMAIN_SEPARATOR, ((key)))
 
-#pragma mark - Singletons
-
-/** header definition */
-#define GVC_SINGLETON_HEADER(classname)	\
-+ (classname *)shared##classname; \
-- (id)sharedDoOnceInit;
-
-
-/** class implementation */
-#define GVC_SINGLETON_CLASS(classname) \
-static classname *shared##classname = nil; \
-+ (classname *)shared##classname \
-{ \
-	static dispatch_once_t sharedDispatch;  \
-	dispatch_once(&sharedDispatch, ^{ shared##classname = [[self alloc] init]; }); \
-	return shared##classname; \
-} \
-+ (id)allocWithZone:(NSZone *)zone \
-{ \
-	static dispatch_once_t sharedAlloc; \
-	dispatch_once(&sharedAlloc, ^{ \
-		shared##classname = [super allocWithZone:zone]; \
-		gcv_SwizzleInstanceMethod([shared##classname class], @selector(init), @selector(sharedDoOnceInit)); \
-	}); \
-	return shared##classname; \
-} \
-- (id)sharedDoOnceInit \
-{ \
-	static dispatch_once_t sharedInit; \
-	dispatch_once(&sharedInit, ^{ shared##classname = [shared##classname sharedDoOnceInit]; }); \
-	return shared##classname; \
-}
 
 #pragma mark - Defined Constant Strings
 
@@ -97,29 +83,81 @@ static classname *shared##classname = nil; \
 	#define GVC_PROPERTY(propName)    @#propName
 #endif
 
+#ifdef DEBUG
+#define GVC_ASSERT_LOG(...)		[[NSAssertionHandler currentHandler] handleFailureInFunction:GVC_FUNCTIONNAME file:GVC_FILENAME lineNumber:__LINE__ description:__VA_ARGS__]
+#else
+#define GVC_ASSERT_LOG(...)		GVCLogWarn(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+#endif
 
 #pragma mark - Assertions
-
-#ifdef DEBUG
-	#define GVC_ASSERT_LOG(...)		[[NSAssertionHandler currentHandler] \
-		handleFailureInFunction:GVC_FUNCTIONNAME file:GVC_FILENAME lineNumber:__LINE__ description:__VA_ARGS__]
-#else
-	#define GVC_ASSERT_LOG(...)		NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
-#endif
 
 	// general purpose GVC Assert Macro
 #define GVC_ASSERT(condition, ...)	do { if (!(condition)) { GVC_ASSERT_LOG(__VA_ARGS__); }} while(0)
 
     // convenient assert test for not nil
-#define GVC_ASSERT_NOT_NIL(condition) \
-do { if (condition == nil)	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#condition); }} while(0)
+#define GVC_ASSERT_NOT_NIL(condition) do { if (condition == nil) { GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#condition); }} while(0)
 
 	// convenient assert test for strings
-#define GVC_ASSERT_VALID_STRING(strcond) \
-	do { if ((strcond == nil || [(NSData *)strcond length] == 0))	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#strcond); }} while(0)
+#define GVC_ASSERT_NOT_EMPTY(condition) \
+do { if ( gvc_IsEmpty((condition)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#condition); }} while(0)
 
 	// this will Assert that subclass must implement this required method.  Despite this I disable in production code.
 #define GVC_SUBCLASS_RESPONSIBLE	GVC_ASSERT_LOG( @"Subclasses %@ must implement %@", GVC_CLASSNAME(self), NSStringFromSelector(_cmd));
+
+
+#pragma mark - Design by Contract
+
+#define GVC_DBC_REQUIRE(asserts) do { \
+	asserts; \
+	[self gvc_invariants]; \
+} while(0);
+
+#define GVC_DBC_ENSURE(asserts) do { \
+	[self gvc_invariants]; \
+	asserts; \
+} while(0);
+
+#define GVC_DBC_FACT(condition) if (!(condition)) { GVC_ASSERT_LOG(@"DBC failure %@", @#condition);  }
+
+#define GVC_DBC_FACT_NOT_NIL(object) if ((object == nil)) { GVC_ASSERT_LOG(@"DBC failure %@ is not allowed to be nil", @#object); }
+#define GVC_DBC_FACT_NOT_EMPTY(object) if ( gvc_IsEmpty((object)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#object); }
+
+
+#pragma mark - Singleton Header
+
+/** header definition */
+#define GVC_SINGLETON_HEADER(classname)	\
++ (classname *)shared##classname; \
+- (id)sharedDoOnceInit;
+
+#pragma mark - Singleton Implementation
+
+/** class implementation */
+#define GVC_SINGLETON_CLASS(classname) \
+static classname *shared##classname = nil; \
++ (classname *)shared##classname \
+{ \
+	static dispatch_once_t sharedDispatch;  \
+	dispatch_once(&sharedDispatch, ^{ shared##classname = [[self alloc] init]; }); \
+	return shared##classname; \
+} \
++ (id)allocWithZone:(NSZone *)zone \
+{ \
+	static dispatch_once_t sharedAlloc; \
+	dispatch_once(&sharedAlloc, ^{ \
+		shared##classname = [super allocWithZone:zone]; \
+		gcv_SwizzleInstanceMethod([shared##classname class], @selector(init), @selector(sharedDoOnceInit)); \
+	}); \
+	return shared##classname; \
+} \
+- (id)sharedDoOnceInit \
+{ \
+	static dispatch_once_t sharedInit; \
+	dispatch_once(&sharedInit, ^{ shared##classname = [shared##classname sharedDoOnceInit]; }); \
+	return shared##classname; \
+}
+
+
 
 
 #endif

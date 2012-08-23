@@ -23,17 +23,6 @@ GVC_EXTERN void gcv_SwizzleInstanceMethod(Class c, SEL orig, SEL new);
 #pragma mark - Collection Functions
 GVC_EXTERN BOOL gcv_IsEqualCollection(id collectionA, id collectionB);
 
-
-#pragma mark - Empty or Nil test 
-	// Credit: http://www.wilshipley.com/blog/2005/10/pimp-my-code-interlude-free-code.html
-static inline BOOL gvc_IsEmpty(id thing) 
-{
-    return thing == nil	
-        || ([thing isEqual:[NSNull null]]) 
-		|| ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
-		|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0);
-}
-
 #pragma mark - Keypath constructor
 GVC_EXTERN NSString *gvc_KeyPath(NSString *aKey, ...);
 

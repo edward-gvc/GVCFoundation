@@ -67,7 +67,7 @@
 
 - (void) didEndElement:(NSString *)elementName
 {
-	GVC_ASSERT_VALID_STRING( pairKey );
+	GVC_ASSERT_NOT_EMPTY( pairKey );
 	
     id object = [[self digester] peekNodeObject];
 	GVCPair *pair = [[GVCPair alloc] initWith:pairKey and:([self nodeText] == nil ? [NSString gvc_EmptyString] : [self nodeText])];

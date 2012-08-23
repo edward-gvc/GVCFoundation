@@ -193,7 +193,7 @@
     self = [super init];
     if ( self != nil )
     {
-        GVC_ASSERT_VALID_STRING(fName);
+        GVC_ASSERT_NOT_EMPTY(fName);
         GVC_ASSERT([fName characterAtIndex:0] == '/', @"Filename must be an absolute path");
 
         [self setResponseFilename:fName];

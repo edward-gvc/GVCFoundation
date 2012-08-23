@@ -270,7 +270,7 @@
 
 - (void)writeProcessingInstruction:(NSString *)target instructions:(NSString *)instructions
 {
-	GVC_ASSERT_VALID_STRING( target );
+	GVC_ASSERT_NOT_EMPTY( target );
     
 	if ( tagIsOpen == YES )
 	{
@@ -451,7 +451,7 @@
 
 - (void)openElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue
 {
-	GVC_ASSERT_VALID_STRING( name );
+	GVC_ASSERT_NOT_EMPTY( name );
 	
 	if ( tagIsOpen == YES )
 	{
@@ -490,7 +490,7 @@
 - (void)appendAttribute:(NSString *)key forValue:(NSString *)value
 {
 	GVC_ASSERT( tagIsOpen == YES, @"Cannot write attribute, tag is already closed!" );
-	GVC_ASSERT_VALID_STRING( key );
+	GVC_ASSERT_NOT_EMPTY( key );
 	
 	[self writeFormat:@" %@=\"%@\"", key, [value gvc_XMLAttributeEscapedString]];
 }
@@ -499,9 +499,9 @@
 {
 	GVC_ASSERT( tagIsOpen == YES, @"Cannot write attribute, tag is already closed!" );
 	// assert namespace prefix is declared
-	GVC_ASSERT_VALID_STRING( key );
-	GVC_ASSERT_VALID_STRING( prefix );
-	GVC_ASSERT_VALID_STRING( value );
+	GVC_ASSERT_NOT_EMPTY( key );
+	GVC_ASSERT_NOT_EMPTY( prefix );
+	GVC_ASSERT_NOT_EMPTY( value );
 	
 	[self writeFormat:@" %@:%@=\"%@\"", prefix, key, [value gvc_XMLAttributeEscapedString]];
 }

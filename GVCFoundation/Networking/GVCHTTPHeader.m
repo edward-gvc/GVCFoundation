@@ -50,7 +50,7 @@
 
 - (void)addParameter:(NSString *)paramName withValue:(NSString *)paramValue
 {
-    GVC_ASSERT_VALID_STRING(paramName);
+    GVC_ASSERT_NOT_EMPTY(paramName);
     
     if ( [self parameterDictionary] == nil )
     {
