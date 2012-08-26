@@ -20,6 +20,10 @@ build/
 *.mode2v3
 xcuserdata
 project.xcworkspace
+xcuserstate
 
 # old skool
 .svn
+
+# Doxygen output
+Doxygen/html
