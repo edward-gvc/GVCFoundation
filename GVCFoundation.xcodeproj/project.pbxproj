@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		05CB837415EAAAC20037072E /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 05CB837515EAAAC20037072E /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				05CB837815EAAAE30037072E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		051053E01507AEE5002CDA3C /* GVCXMLDigester.h in Headers */ = {isa = PBXBuildFile; fileRef = 051053B41507AEE5002CDA3C /* GVCXMLDigester.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		051053E11507AEE5002CDA3C /* GVCXMLDigester.m in Sources */ = {isa = PBXBuildFile; fileRef = 051053B51507AEE5002CDA3C /* GVCXMLDigester.m */; };
@@ -172,7 +186,7 @@
 		05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EA14852992004E04C0 /* GVCLogTest.m */; };
 		05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */; };
-		05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */; };
+		05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05CD317015E5B8A100E5780F /* NSObject+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */; };
 		05CEF7DC153C647F006A3E5F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CEF7DB153C647F006A3E5F /* CFNetwork.framework */; };
 		05D185FD1503D17200EDBE80 /* GVCISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05D185FB1503D17200EDBE80 /* GVCISO8601DateFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -466,6 +480,8 @@
 		05EAE0A61565572F004F5126 /* RemoteConfiguration.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RemoteConfiguration.xml; sourceTree = "<group>"; };
 		05F075551537C51900F8A8BD /* GVCUDPSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCUDPSocket.h; sourceTree = "<group>"; };
 		05F075561537C51900F8A8BD /* GVCUDPSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCUDPSocket.m; sourceTree = "<group>"; };
+		05F1A62E15EAA87600568FEE /* BuildDoxygen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = BuildDoxygen.sh; sourceTree = "<group>"; };
+		05F1A62F15EAA87600568FEE /* doxygen.config */ = {isa = PBXFileReference; lastKnownFileType = text; path = doxygen.config; sourceTree = "<group>"; };
 		05F6478515385F7400EFF492 /* GVCCallbackFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCCallbackFilter.h; sourceTree = "<group>"; };
 		05F6478615385F7400EFF492 /* GVCCallbackFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCCallbackFilter.m; sourceTree = "<group>"; };
 		05F8B880155E51ED00625B01 /* GVCConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCConfiguration.h; sourceTree = "<group>"; };
@@ -767,6 +783,8 @@
 				0594FA4C15099D7100614D48 /* Test */,
 				056F595B147EED900076010D /* BuildKitHeader.sh */,
 				056F595C147EED900076010D /* GitIgnore.txt */,
+				05F1A62E15EAA87600568FEE /* BuildDoxygen.sh */,
+				05F1A62F15EAA87600568FEE /* doxygen.config */,
 				056F595D147EED900076010D /* GVCDebug.xcconfig */,
 				056F595E147EED900076010D /* GVCRelease.xcconfig */,
 				056F595F147EED900076010D /* Licenses */,
@@ -1157,8 +1175,8 @@
 				05EAE09E156550B1004F5126 /* GVCConfigObject.h in Headers */,
 				056874F81582A87E00031B5A /* GVCDemoDelayedOperation.h in Headers */,
 				058E4F811560B0BA00DD2CAF /* NSScanner+GVCFoundation.h in Headers */,
-				05E091F21594F01B00C6B1A0 /* GVCKeychain.h in Headers */,
 				05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */,
+				05E091F21594F01B00C6B1A0 /* GVCKeychain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,6 +1243,7 @@
 			targets = (
 				056F592F147EE84D0076010D /* GVCFoundation */,
 				056F593F147EE84D0076010D /* GVCFoundationTests */,
+				05CB837415EAAAC20037072E /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -1284,6 +1303,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/Resources/BuildKitHeader.sh";
+		};
+		05CB837815EAAAE30037072E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/Resources/BuildDoxygen.sh";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1533,6 +1566,20 @@
 			};
 			name = Release;
 		};
+		05CB837615EAAAC20037072E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05CB837715EAAAC20037072E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1562,6 +1609,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		05CB837515EAAAC20037072E /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05CB837615EAAAC20037072E /* Debug */,
+				05CB837715EAAAC20037072E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
