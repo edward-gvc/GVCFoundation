@@ -90,6 +90,8 @@ typedef enum {
 
 @implementation GVCCallbackFilter
 
+@synthesize startMarker;
+@synthesize endMarker;
 @synthesize source;
 @synthesize output;
 @synthesize callback;
@@ -99,9 +101,8 @@ typedef enum {
     self = [super init];
     if (self != nil)
 	{
-		startMarker = '[';
-		endMarker = ']';
-
+		[self setStartMarker:'['];
+		[self setEndMarker:']'];
     }
     return self;
 }
@@ -125,13 +126,13 @@ typedef enum {
 	while ( position < length )
 	{
 		UniChar data = [stringSource characterAtIndex:position];
-		if ( data == startMarker )
+		if ( data == [self startMarker] )
 		{
 			current = [GVCCallbackNode node:GVCCallbackNodeType_MTH];
 			[(GVCCallbackNode *)[stack peekObject] addChild:current];
 			[stack pushObject:current];
 		}
-		else if ( data == endMarker )
+		else if ( data == [self endMarker] )
 		{
 			[stack popObject];
 			current = (GVCCallbackNode *)[stack peekObject];

@@ -15,13 +15,30 @@
 	<li><PRE>[method.returns.condition some value]</PRE> the filter will only display the "some value" if the condition is a Number > 0 (ie boolean true, or [array count]
  */
 @interface GVCCallbackFilter : NSObject
-{
-    UniChar startMarker;
-	UniChar endMarker;
-}
 
+/**
+ * The start marker is the unicode char that indicates the beginning of a callback in the template.  By default this is '['.  An example callback: <pre>Today is [object.today.@format.YYYYMMDD]</pre>
+ */
+@property (assign, nonatomic) UniChar startMarker;
+
+/**
+ * The end marker is the unicode char that indicates the end of a callback in the template.  By default this is ']'.  An example callback: <pre>Today is [object.today.@format.YYYYMMDD]</pre>
+ */
+@property (assign, nonatomic) UniChar endMarker;
+
+/**
+ * source data contains the template content
+ */
 @property (strong,nonatomic) NSData *source;
+
+/**
+ * output destination
+ */
 @property (strong,nonatomic) NSObject <GVCWriter> *output;
+
+/**
+ * The callback object will be the target for the template kvc messages
+ */
 @property (strong,nonatomic) NSObject *callback;
 
 - (void)process;
