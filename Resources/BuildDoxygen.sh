@@ -32,7 +32,7 @@ fi
 # Append the proper input/output directories and docset info to the config file.
 # This works even though values are assigned higher up in the file. Easier than sed.
 SRC_ROOT=`abspath ${SCRIPT_ROOT}/../GVCFoundation`
-OUT_ROOT=$TMPDIR/GVCFoundation
+OUT_ROOT=/tmp/GVCFoundation
 TEMP_CONFIG=$OUT_ROOT/doxygen.config
 
 echo "Clearing $OUT_ROOT"
@@ -47,10 +47,11 @@ cp $CONFIG_PATH $TEMP_CONFIG
 echo "INPUT = $SRC_ROOT" >> $TEMP_CONFIG
 echo "OUTPUT_DIRECTORY = $OUT_ROOT" >> $TEMP_CONFIG
 echo "PROJECT_NUMBER = `date \"+%Y-%m-%d\"`" >> $TEMP_CONFIG
+echo "WARN_LOGFILE = $OUT_ROOT/doxygen.log" >> $TEMP_CONFIG
 
 # Run doxygen on the updated config file.
 # Note: doxygen creates a Makefile that does most of the heavy lifting.
-$DOXYGEN_PATH $TEMP_CONFIG 1>/dev/null
+$DOXYGEN_PATH $TEMP_CONFIG 
 
 # make will invoke docsetutil. Take a look at the Makefile to see how this is done.
 make -C $OUT_ROOT/html install  1>/dev/null
