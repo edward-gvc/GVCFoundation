@@ -49,7 +49,7 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         GVCRSSDigester *parseDelegate = (GVCRSSDigester *)[xmlParseOp xmlParser];
         
 		STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
-		STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
+		STAssertTrue( [parseDelegate status] == GVCXMLParserDelegate_Status_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
 
         NSArray *digest = [parseDelegate digestKeys];
 		STAssertNotNil(digest, @"Parse digest %@", digest);
@@ -93,7 +93,7 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
             GVCRSSDigester *parseDelegate = (GVCRSSDigester *)[xmlParseOp xmlParser];
             
             STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
-            STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
+            STAssertTrue( [parseDelegate status] == GVCXMLParserDelegate_Status_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
             
             NSArray *digest = [parseDelegate digestKeys];
             STAssertNotNil(digest, @"Parse digest %@", digest);
@@ -171,7 +171,7 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         GVCRSSDigester *parseDelegate = (GVCRSSDigester *)[xmlParseOp xmlParser];
         
         STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
-        STAssertTrue( [parseDelegate status] == GVC_XML_ParserDelegateStatus_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
+        STAssertTrue( [parseDelegate status] == GVCXMLParserDelegate_Status_SUCCESS , @"Operation should be success %d", [parseDelegate status]);
         
         NSArray *digest = [parseDelegate digestKeys];
         STAssertNotNil(digest, @"Parse digest %@", digest);

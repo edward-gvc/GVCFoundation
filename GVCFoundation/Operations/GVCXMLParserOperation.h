@@ -10,6 +10,9 @@
 
 @class GVCXMLParserDelegate;
 
+/**
+ * XML parsing operation.
+ */
 @interface GVCXMLParserOperation : GVCOperation
 
 - initForParser:(GVCXMLParserDelegate *)dgst;

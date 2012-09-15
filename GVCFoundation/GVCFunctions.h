@@ -16,11 +16,23 @@
 
 #import "GVCMacros.h"
 
+#pragma mark - Method Swizzle
 
+/**
+ * This function will perform an Objective-C class method swap between the original selector and the new selector
+ */
 GVC_EXTERN void gcv_SwizzleClassMethod(Class c, SEL orig, SEL new);
+
+/**
+ * This function will perform an Objective-C instance method swap between the original selector and the new selector
+ */
 GVC_EXTERN void gcv_SwizzleInstanceMethod(Class c, SEL orig, SEL new);
 
 #pragma mark - Collection Functions
+
+/**
+ * This function will compare 2 collections. They must both be the same type of collection object
+ */
 GVC_EXTERN BOOL gcv_IsEqualCollection(id collectionA, id collectionB);
 
 #pragma mark - Keypath constructor

@@ -21,7 +21,7 @@
     NSData *xmlData;	
 	
 	id <GVCXMLDocumentNode> documentNode;
-	GVC_XML_ParserDelegateStatus status;
+	GVCXMLParserDelegate_Status status;
 }
 
 - (id)init;
@@ -33,7 +33,7 @@
 
 - (id <GVCXMLDocumentNode>)document;
 
-- (GVC_XML_ParserDelegateStatus)status;
-- (GVC_XML_ParserDelegateStatus)parse;
+- (GVCXMLParserDelegate_Status)status;
+- (GVCXMLParserDelegate_Status)parse;
 
 @end

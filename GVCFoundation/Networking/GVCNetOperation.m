@@ -70,9 +70,9 @@ enum {
     return [self initForRequest:[NSURLRequest requestWithURL:url]];
 }
 
-- (GVC_Operation_Type)operationType
+- (GVCOperation_Type)operationType
 {
-	return GVC_Operation_Type_NETWORK;
+	return GVCOperation_Type_NETWORK;
 }
 
 - (void)stopConnection

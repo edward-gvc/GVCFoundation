@@ -6,7 +6,7 @@
  *
  */
 
-#import "GVCFoundation.h"
+#import <Foundation/Foundation.h>
 
 #ifndef ___PROJECTNAMEASIDENTIFIER_______FILEBASENAMEASIDENTIFIER_______FILEEXTENSION___
 #define ___PROJECTNAMEASIDENTIFIER_______FILEBASENAMEASIDENTIFIER_______FILEEXTENSION___

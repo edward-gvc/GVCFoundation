@@ -29,9 +29,9 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 
 @synthesize operationError;
 
-- (GVC_Operation_Type)operationType
+- (GVCOperation_Type)operationType
 {
-	return GVC_Operation_Type_NORMAL;
+	return GVCOperation_Type_NORMAL;
 }
 
 - (void)operationDidFailWithError:(NSError *)theError 

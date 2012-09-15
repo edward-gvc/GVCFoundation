@@ -34,7 +34,7 @@
 	self = [super init];
 	if (self != nil)
 	{
-		status = GVC_XML_ParserDelegateStatus_INITIAL;
+		status = GVCXMLParserDelegate_Status_INITIAL;
 	}
 	return self;
 }
@@ -50,7 +50,7 @@
  NSData *xmlData;	
  
  id <GVCXMLDocumentNode> documentNode;
- GVC_XML_ParserDelegateStatus status;
+ GVCXMLParserDelegate_Status status;
 
  */
 - (void)resetParser
@@ -63,22 +63,22 @@
 	xmlData = nil;
 	documentNode = nil;
 	
-	status = GVC_XML_ParserDelegateStatus_INITIAL;
+	status = GVCXMLParserDelegate_Status_INITIAL;
 }
 
 
-- (GVC_XML_ParserDelegateStatus)status
+- (GVCXMLParserDelegate_Status)status
 {
 	return status;
 }
 
-- (GVC_XML_ParserDelegateStatus)parse
+- (GVCXMLParserDelegate_Status)parse
 {
-	if ( status == GVC_XML_ParserDelegateStatus_INITIAL )
+	if ( status == GVCXMLParserDelegate_Status_INITIAL )
 	{
 		NSXMLParser *parser = nil;
 		
-		status = GVC_XML_ParserDelegateStatus_PROCESSING;
+		status = GVCXMLParserDelegate_Status_PROCESSING;
 		
 		if ( [self filename] != nil )
 		{
@@ -94,10 +94,10 @@
 		}
 		else 
 		{
-			status = GVC_XML_ParserDelegateStatus_FAILURE;
+			status = GVCXMLParserDelegate_Status_FAILURE;
 		}
 		
-		if ( status < GVC_XML_ParserDelegateStatus_FAILURE )
+		if ( status < GVCXMLParserDelegate_Status_FAILURE )
 		{
 			[parser setDelegate:self];
 			[parser setShouldResolveExternalEntities:NO];
@@ -106,7 +106,7 @@
 
 			
 			BOOL success = [parser parse];
-			status = ( success ? GVC_XML_ParserDelegateStatus_SUCCESS : GVC_XML_ParserDelegateStatus_FAILURE );
+			status = ( success ? GVCXMLParserDelegate_Status_SUCCESS : GVCXMLParserDelegate_Status_FAILURE );
 		}
 	}
 	return status;
@@ -147,7 +147,7 @@
 
 - (id <GVCXMLDocumentNode>)document
 {
-	GVC_ASSERT(status == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse failed, no document" );
+	GVC_ASSERT(status == GVCXMLParserDelegate_Status_SUCCESS, @"Parse failed, no document" );
 	return documentNode;
 }
 

@@ -38,8 +38,8 @@
 	
 	GVCRSSDigester *parser = [[GVCRSSDigester alloc] init];
 	[parser setFilename:[self pathForResource:file extension:@"xml"]];
-	GVC_XML_ParserDelegateStatus stat = [parser parse];
-	STAssertTrue(stat == GVC_XML_ParserDelegateStatus_SUCCESS, @"%@ Parse status = %d", file, stat);
+	GVCXMLParserDelegate_Status stat = [parser parse];
+	STAssertTrue(stat == GVCXMLParserDelegate_Status_SUCCESS, @"%@ Parse status = %d", file, stat);
 	
 	GVCRSSFeed *feed = [parser digestValueForPath:root];
 	GVCFileWriter *writer = [GVCFileWriter writerForFilename:GVC_SPRINTF(@"/tmp/%@.rss", file)];

@@ -13,6 +13,9 @@
 /** modified from OmniGroup's OmniFoundation/OpenStepExtensions.subproj/NSScanner-OFExtensions.hm 
  */
 - (BOOL)gvc_scanStringOfLength:(NSUInteger)length intoString:(NSString **)result;
+
+/** modified from OmniGroup's OmniFoundation/OpenStepExtensions.subproj/NSScanner-OFExtensions.hm
+ */
 - (BOOL)gvc_scanStringWithEscape:(NSString *)escape terminator:(NSString *)quoteMark intoString:(NSString **)output;
 
 @end

@@ -71,7 +71,7 @@
 	[irony addRule:pairRule forNodeName:@"map"];
 	
 	[irony parse];
-	if ([irony status] == GVC_XML_ParserDelegateStatus_SUCCESS )
+	if ([irony status] == GVCXMLParserDelegate_Status_SUCCESS )
 	{
 		newInstance = [irony digestValueForPath:@"digester"];
 	}

@@ -18,15 +18,26 @@
 
 /*  Returns a NSString with randomly selected characters */
 + (NSString *)gvc_RandomStringWithLength:(NSUInteger)len;
+
+/**
+ * generates a random string
+ * @param len - length of the random string to create
+ * @param sample - the string to randomly sample characters
+ * @returns the random string
+ */
 + (NSString *)gvc_RandomStringWithLength:(NSUInteger)len fromSample:(NSString *)sample;
 
+/**
+ * Generates an md5 hash of the string by converting it to UTF8 bytes
+ * @returns md5 hash
+ */
 - (NSString *)gvc_md5Hash;
 
 - (NSString *)gvc_StringWithCapitalizedFirstCharacter;
 - (NSString *)gvc_TrimWhitespace;
 - (NSString *)gvc_TrimWhitespaceAndNewline;
 
-/* components */
+/* components, optionally filters out blank string results */
 - (NSArray *)gvc_componentsSeparatedByCharactersInSet:(NSCharacterSet *)val includeEmpty:(BOOL)included;
 - (NSArray *)gvc_componentsSeparatedByString:(NSString *)val includeEmpty:(BOOL)included;
 
@@ -35,7 +46,9 @@
 
 /* beginsWith, contains, endWith substring test */
 - (BOOL)gvc_beginsWith:(NSString *)substr;
+/* beginsWith, contains, endWith substring test */
 - (BOOL)gvc_contains:(NSString *)substr;
+/* beginsWith, contains, endWith substring test */
 - (BOOL)gvc_endsWith:(NSString *)substr;
 
 /*  XML supporting methods */

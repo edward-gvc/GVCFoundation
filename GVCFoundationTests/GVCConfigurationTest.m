@@ -46,8 +46,8 @@
 //    [dgst setFilename:path];
 //
 //    GVCLogError( @"Starting parse" );
-//    GVC_XML_ParserDelegateStatus status = [dgst parse];
-//    STAssertTrue(status == GVC_XML_ParserDelegateStatus_SUCCESS, @"Parse Failed %@", [dgst xmlError]);
+//    GVCXMLParserDelegate_Status status = [dgst parse];
+//    STAssertTrue(status == GVCXMLParserDelegate_Status_SUCCESS, @"Parse Failed %@", [dgst xmlError]);
 //    GVCLogError( @"parse finished" );
 //
 //    GVCConfigDocument *doc = [dgst digestValueForPath:@"config"];

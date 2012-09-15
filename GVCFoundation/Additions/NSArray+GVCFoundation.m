@@ -172,7 +172,10 @@
 
 - (NSMutableArray *) gvc_removeFirstObject
 {
-	[self removeObjectAtIndex:0];
+	if ( [self count] > 0 )
+	{
+		[self removeObjectAtIndex:0];
+	}
 	return self;
 }
 

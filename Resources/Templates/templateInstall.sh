@@ -6,6 +6,8 @@ IFS=$(echo -en "\n\b")
 # wont print error in for loop if there are no avi files in the directory
 shopt -s nullglob
 
+cd `dirname $0`
+
 ROOT=~/Library/Developer/Xcode/Templates
 
 if [ ! -d "$ROOT" ]; then

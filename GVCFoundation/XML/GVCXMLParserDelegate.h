@@ -8,15 +8,15 @@
 #import <Foundation/Foundation.h>
 #import "GVCXMLParsingModel.h"
 
-typedef enum _GVC_XML_ParserDelegateStatus 
+typedef enum _GVCXMLParserDelegate_Status 
 {
-	GVC_XML_ParserDelegateStatus_INITIAL,
-	GVC_XML_ParserDelegateStatus_PROCESSING,
-	GVC_XML_ParserDelegateStatus_SUCCESS,
-	GVC_XML_ParserDelegateStatus_FAILURE,
-	GVC_XML_ParserDelegateStatus_PARSE_FAILED,
-	GVC_XML_ParserDelegateStatus_VALIDATION_FAILED
-} GVC_XML_ParserDelegateStatus;
+	GVCXMLParserDelegate_Status_INITIAL,
+	GVCXMLParserDelegate_Status_PROCESSING,
+	GVCXMLParserDelegate_Status_SUCCESS,
+	GVCXMLParserDelegate_Status_FAILURE,
+	GVCXMLParserDelegate_Status_PARSE_FAILED,
+	GVCXMLParserDelegate_Status_VALIDATION_FAILED
+} GVCXMLParserDelegate_Status;
 
 /*
 	Basic XML parser delegate to handle the most common tasks
@@ -34,7 +34,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 	NSURL *sourceURL;
     NSData *xmlData;	
 	
-	GVC_XML_ParserDelegateStatus status;
+	GVCXMLParserDelegate_Status status;
 	NSError *xml;
 }
 
@@ -52,7 +52,7 @@ typedef enum _GVC_XML_ParserDelegateStatus
 - (NSString *)currentTextString;
 - (NSString *)currentNodeName;
 
-- (GVC_XML_ParserDelegateStatus)status;
-- (GVC_XML_ParserDelegateStatus)parse;
+- (GVCXMLParserDelegate_Status)status;
+- (GVCXMLParserDelegate_Status)parse;
 
 @end

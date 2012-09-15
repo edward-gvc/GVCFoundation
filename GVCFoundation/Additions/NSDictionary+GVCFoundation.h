@@ -10,6 +10,7 @@
 
 @interface NSDictionary (GVCFoundation)
 
+/** return the dictonary keys in sorted order */
 - (NSArray *)gvc_sortedKeys;
 
 @end

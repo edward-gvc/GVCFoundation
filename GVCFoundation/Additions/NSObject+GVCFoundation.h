@@ -7,9 +7,14 @@
  */
 
 
+/**
+ * Category on NSObject for GVCFoundation.
+ */
 @interface NSObject (GVCFoundation)
 
-	// Design by contract
+/**
+ * Design by contract
+ */
 - (void) gvc_invariants;
 
 @end

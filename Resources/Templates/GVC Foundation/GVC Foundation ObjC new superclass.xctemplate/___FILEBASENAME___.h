@@ -6,9 +6,11 @@
  *
  */
 
-#import "___IMPORTFILENAME___"
-#import "GVCFoundation.h"
+#import <Foundation/Foundation.h>
 
+/**
+ * <#description#>
+ */
 @interface ___FILEBASENAMEASIDENTIFIER___ : ___SUPERCLASSNAME___
 
 @end

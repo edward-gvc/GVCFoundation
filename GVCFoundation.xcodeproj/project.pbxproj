@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		05993995160504050020BDD9 /* Install Templates */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 05993996160504050020BDD9 /* Build configuration list for PBXAggregateTarget "Install Templates" */;
+			buildPhases = (
+				059939991605041B0020BDD9 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Install Templates";
+			productName = "Install Templates";
+		};
 		05CB837415EAAAC20037072E /* Documentation */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 05CB837515EAAAC20037072E /* Build configuration list for PBXAggregateTarget "Documentation" */;
@@ -325,7 +336,7 @@
 		054472C01599D70000DF90BA /* NSDateAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDateAdditionsTest.m; sourceTree = "<group>"; };
 		0546BE611516BBD500140C4D /* NSError+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+GVCFoundation.h"; sourceTree = "<group>"; };
 		0546BE621516BBD500140C4D /* NSError+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+GVCFoundation.m"; sourceTree = "<group>"; };
-		0551D34815166BC90089217F /* GVCFileOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileOperation.h; sourceTree = "<group>"; };
+		0551D34815166BC90089217F /* GVCFileOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GVCFileOperation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0551D34915166BC90089217F /* GVCFileOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileOperation.m; sourceTree = "<group>"; };
 		0551D34A15166BC90089217F /* GVCOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCOperation.h; sourceTree = "<group>"; };
 		0551D34B15166BC90089217F /* GVCOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCOperation.m; sourceTree = "<group>"; };
@@ -435,6 +446,7 @@
 		0597AA0A150706AB00D177AC /* GVCXMLGenericNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLGenericNode.h; sourceTree = "<group>"; };
 		0597AA0B150706AB00D177AC /* GVCXMLGenericNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLGenericNode.m; sourceTree = "<group>"; };
 		0597AA10150706AC00D177AC /* GVCXMLParsingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLParsingModel.h; sourceTree = "<group>"; };
+		0599399A160506E80020BDD9 /* BuildDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildDocs.sh; sourceTree = "<group>"; };
 		05A7BF14148D756200866A42 /* GVCCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCCache.h; sourceTree = "<group>"; };
 		05A7BF15148D756200866A42 /* GVCCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCCache.m; sourceTree = "<group>"; };
 		05BB433A1515155D007DD3A2 /* sample-rss-2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sample-rss-2.xml"; sourceTree = "<group>"; };
@@ -667,6 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				056F5935147EE84D0076010D /* GVCFoundation */,
+				056F5936147EE84D0076010D /* Supporting Files */,
 				056F5949147EE84D0076010D /* GVCFoundationTests */,
 				056F595A147EED900076010D /* Resources */,
 				056F5932147EE84D0076010D /* Frameworks */,
@@ -698,7 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				056F5938147EE84D0076010D /* GVCFoundation.h */,
-				056F5936147EE84D0076010D /* Supporting Files */,
 				056F5989147EEDC40076010D /* Additions */,
 				0551D34715166BC90089217F /* Operations */,
 				055C5AF4148D2CCD00B2FC03 /* Networking */,
@@ -744,6 +756,7 @@
 				056F5937147EE84D0076010D /* GVCFoundation-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = GVCFoundation;
 			sourceTree = "<group>";
 		};
 		056F5949147EE84D0076010D /* GVCFoundationTests */ = {
@@ -783,6 +796,7 @@
 				0594FA4C15099D7100614D48 /* Test */,
 				056F595B147EED900076010D /* BuildKitHeader.sh */,
 				056F595C147EED900076010D /* GitIgnore.txt */,
+				0599399A160506E80020BDD9 /* BuildDocs.sh */,
 				05F1A62E15EAA87600568FEE /* BuildDoxygen.sh */,
 				05F1A62F15EAA87600568FEE /* doxygen.config */,
 				056F595D147EED900076010D /* GVCDebug.xcconfig */,
@@ -1226,7 +1240,7 @@
 		056F5927147EE84C0076010D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "Global Village Consulting";
 			};
 			buildConfigurationList = 056F592A147EE84C0076010D /* Build configuration list for PBXProject "GVCFoundation" */;
@@ -1244,6 +1258,7 @@
 				056F592F147EE84D0076010D /* GVCFoundation */,
 				056F593F147EE84D0076010D /* GVCFoundationTests */,
 				05CB837415EAAAC20037072E /* Documentation */,
+				05993995160504050020BDD9 /* Install Templates */,
 			);
 		};
 /* End PBXProject section */
@@ -1304,6 +1319,19 @@
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/Resources/BuildKitHeader.sh";
 		};
+		059939991605041B0020BDD9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/Resources/Templates/templateInstall.sh";
+		};
 		05CB837815EAAAE30037072E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1315,7 +1343,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PROJECT_DIR}/Resources/BuildDoxygen.sh";
+			shellScript = "# build documents using Doxygen\n# ${PROJECT_DIR}/Resources/BuildDoxygen.sh\n\n# build documents using appledocs\n${PROJECT_DIR}/Resources/BuildDocs.sh";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1566,6 +1594,20 @@
 			};
 			name = Release;
 		};
+		05993997160504050020BDD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05993998160504050020BDD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		05CB837615EAAAC20037072E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1610,6 +1652,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		05993996160504050020BDD9 /* Build configuration list for PBXAggregateTarget "Install Templates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05993997160504050020BDD9 /* Debug */,
+				05993998160504050020BDD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		05CB837515EAAAC20037072E /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1617,6 +1667,7 @@
 				05CB837715EAAAC20037072E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

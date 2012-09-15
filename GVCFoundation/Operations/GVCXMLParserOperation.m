@@ -27,14 +27,19 @@
 
 - (void)main
 {
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL([self xmlParser]);
+					)
+	
+	// implementation
 	if ([self isCancelled] == YES)
 	{
 		return;
 	}
 	
 	[self operationDidStart];
-    GVC_XML_ParserDelegateStatus stat = [[self xmlParser] parse];
-	if ( stat != GVC_XML_ParserDelegateStatus_SUCCESS )
+    GVCXMLParserDelegate_Status stat = [[self xmlParser] parse];
+	if ( stat != GVCXMLParserDelegate_Status_SUCCESS )
 	{
 		[self operationDidFailWithError:[xmlParser xmlError]];
 	}
@@ -42,6 +47,8 @@
 	{
 		[self operationDidFinish];
 	}
+
+	GVC_DBC_ENSURE()
 }
 
 @end

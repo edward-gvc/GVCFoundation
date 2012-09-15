@@ -34,7 +34,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 
 + (GVCFileOperation *)saveData:(NSData *)data toPath:(NSString *)path
 {
-	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVC_FileOperation_Type_OVERWRITE];
+	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVCFileOperation_Type_OVERWRITE];
 	[op setSourceData:data];
 	[op setTargetPath:path];
 	return op;
@@ -42,7 +42,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 
 + (GVCFileOperation *)duplicateFile:(NSString *)src toPath:(NSString *)path
 {
-	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVC_FileOperation_Type_COPY];
+	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVCFileOperation_Type_COPY];
 	[op setSourcePath:src];
 	[op setTargetPath:path];
 	return op;
@@ -50,7 +50,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 
 + (GVCFileOperation *)moveFile:(NSString *)src toPath:(NSString *)path
 {
-	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVC_FileOperation_Type_MOVE];
+	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVCFileOperation_Type_MOVE];
 	[op setSourcePath:src];
 	[op setTargetPath:path];
 	return op;
@@ -58,12 +58,12 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 
 + (GVCFileOperation *)deleteFile:(NSString *)src
 {
-	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVC_FileOperation_Type_DELETE];
+	GVCFileOperation *op = [[GVCFileOperation alloc] initForAction:GVCFileOperation_Type_DELETE];
 	[op setTargetPath:src];
 	return op;
 }
 
-- initForAction:(GVC_FileOperation_Type)atype;
+- initForAction:(GVCFileOperation_Type)atype;
 {
 	self = [super init];
 	if (self != nil)
@@ -85,26 +85,26 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 
 	switch ([self action])
 	{
-		case GVC_FileOperation_Type_CREATE:
+		case GVCFileOperation_Type_CREATE:
 			[self performCreateAction:&err];
 			break;
-		case GVC_FileOperation_Type_COPY:
+		case GVCFileOperation_Type_COPY:
 			[self performCopyAction:&err];
 			break;
-		case GVC_FileOperation_Type_MOVE:
+		case GVCFileOperation_Type_MOVE:
 			[self performMoveAction:&err];
 			break;
-		case GVC_FileOperation_Type_DELETE:
+		case GVCFileOperation_Type_DELETE:
 			[self performDeleteAction:&err];
 			break;
-		case GVC_FileOperation_Type_APPEND:
+		case GVCFileOperation_Type_APPEND:
 			[self performAppendAction:&err];
 			break;
-		case GVC_FileOperation_Type_OVERWRITE:
+		case GVCFileOperation_Type_OVERWRITE:
 			[self performOverwriteAction:&err];
 			break;
 		default:
-			err = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_UNKNOWN localizedDescription:GVC_LocalizedString(@"Unknown File Operation", @"Unknown File Operation")];
+			err = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_UNKNOWN localizedDescription:GVC_LocalizedString(@"Unknown File Operation", @"Unknown File Operation")];
 			break;
 	}
 	
@@ -133,7 +133,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 				
 				if ( error != NULL )
 				{
-					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_DELETE userInfo:userInfo];
+					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_DELETE userInfo:userInfo];
 				}
 			}
 			else
@@ -146,7 +146,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 	{
 		if ( error != NULL )
 		{
-			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_DELETE localizedDescription:@"No path specified"];
+			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_DELETE localizedDescription:@"No path specified"];
 		}
 	}
 	
@@ -169,7 +169,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 					[userInfo setObject:GVC_LocalizedFormat(@"Unable to move file from '%@' to '%@'", srcpath, destpath) forKey:NSLocalizedDescriptionKey];
 					[userInfo setObject:localError forKey:NSUnderlyingErrorKey];
 					
-					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_MOVE userInfo:userInfo];
+					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_MOVE userInfo:userInfo];
 				}
 				else
 				{
@@ -183,12 +183,12 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 		}
 		else if ( error != NULL )
 		{
-			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_MOVE localizedDescription:GVC_LocalizedFormat(@"No source file at path '%@'", srcpath)];
+			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_MOVE localizedDescription:GVC_LocalizedFormat(@"No source file at path '%@'", srcpath)];
 		}
 	}
 	else if ( error != NULL )
 	{
-		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_MOVE localizedDescription:@"No source or destination path specified"];
+		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_MOVE localizedDescription:@"No source or destination path specified"];
 	}
 	return YES;
 }
@@ -210,7 +210,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 					[userInfo setObject:GVC_LocalizedFormat(@"Unable to copy file from '%@' to '%@'", srcpath, destpath) forKey:NSLocalizedDescriptionKey];
 					[userInfo setObject:localError forKey:NSUnderlyingErrorKey];
 					
-					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_COPY userInfo:userInfo];
+					*error = [NSError errorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_COPY userInfo:userInfo];
 				}
 				else
 				{
@@ -224,12 +224,12 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 		}
 		else if ( error != NULL )
 		{
-			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_COPY localizedDescription:GVC_LocalizedFormat(@"No source file at path '%@'", srcpath)];
+			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_COPY localizedDescription:GVC_LocalizedFormat(@"No source file at path '%@'", srcpath)];
 		}
 	}
 	else if ( error != NULL )
 	{
-		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_COPY localizedDescription:@"No source or destination path specified"];
+		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_COPY localizedDescription:@"No source or destination path specified"];
 	}
 	return YES;
 }
@@ -247,7 +247,7 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 	}
 	else if ( error != NULL )
 	{
-		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
+		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
 	}
 	return YES;
 }
@@ -291,17 +291,17 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 			}
 			else if ( error != NULL )
 			{
-				*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:@"No source content"];
+				*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:@"No source content"];
 			}
 		}
 		else if ( error != NULL )
 		{
-			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:GVC_LocalizedFormat(@"Unable to open file '%@'", targetPath)];
+			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:GVC_LocalizedFormat(@"Unable to open file '%@'", targetPath)];
 		}
 	}
 	else if ( error != NULL )
 	{
-		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
+		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
 	}
 	return YES;
 }
@@ -325,12 +325,12 @@ GVC_DEFINE_STR( GVCFileOperationErrorDomain )
 		}
 		else if ( error != NULL )
 		{
-			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:@"No source content"];
+			*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:@"No source content"];
 		}
 	}
 	else if ( error != NULL )
 	{
-		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVC_FileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
+		*error = [NSError gvc_ErrorWithDomain:GVCFileOperationErrorDomain code:GVCFileOperation_Type_OVERWRITE localizedDescription:@"No destination path"];
 	}
 	return YES;
 }

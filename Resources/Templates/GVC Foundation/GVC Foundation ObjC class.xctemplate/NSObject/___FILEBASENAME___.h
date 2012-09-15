@@ -6,9 +6,11 @@
  *
  */
 
-___IMPORTHEADER_cocoaSubclass___
-#import "GVCFoundation.h"
+#import <Foundation/Foundation.h>
 
+/**
+ * <#description#>
+ */
 @interface ___FILEBASENAMEASIDENTIFIER___ : ___VARIABLE_cocoaSubclass___
 
 @end

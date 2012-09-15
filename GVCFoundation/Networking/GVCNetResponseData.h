@@ -32,6 +32,12 @@
 - (void)parseResponseHeaders:(NSDictionary *)rawHeaders;
 - (void)parseResponseHeader:(NSString *)name forValue:(NSString *)val;
 
+/**
+ * Append data to the memory or file sink.
+ * @param data a chunk of data from the response
+ * @param err pointer to an NSError object that the GVCNetResponseData will allocate if an error occurs
+ * @returns a boolean success code
+ */
 - (BOOL)appendData:(NSData *)data error:(NSError **)err;
 - (BOOL)openData:(long long)expectedLength error:(NSError **)err;
 - (BOOL)closeData:(NSError **)err;

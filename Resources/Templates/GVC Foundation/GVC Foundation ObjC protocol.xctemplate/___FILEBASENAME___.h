@@ -7,8 +7,10 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
 
+/**
+ * <#description#>
+ */
 @protocol ___FILEBASENAMEASIDENTIFIER___ <NSObject>
 
 @end

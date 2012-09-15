@@ -34,7 +34,7 @@
 	self = [super init];
 	if (self != nil)
 	{
-		status = GVC_XML_ParserDelegateStatus_INITIAL;
+		status = GVCXMLParserDelegate_Status_INITIAL;
 	}
 	return self;
 }
@@ -42,7 +42,7 @@
 - (BOOL)isReady
 {
     BOOL ready = NO;
-	if ( status == GVC_XML_ParserDelegateStatus_INITIAL )
+	if ( status == GVCXMLParserDelegate_Status_INITIAL )
     {
         if (([self filename] != nil) || (sourceURL != nil) || (xmlData != nil))
         {
@@ -53,7 +53,7 @@
     return ready;
 }
 
-- (GVC_XML_ParserDelegateStatus)status
+- (GVCXMLParserDelegate_Status)status
 {
 	return status;
 }
@@ -70,17 +70,17 @@
 	currentCDATA = nil;
 	xmlError = nil;
 	
-	status = GVC_XML_ParserDelegateStatus_INITIAL;
+	status = GVCXMLParserDelegate_Status_INITIAL;
 }
 
 
-- (GVC_XML_ParserDelegateStatus)parse
+- (GVCXMLParserDelegate_Status)parse
 {
-	if ( status == GVC_XML_ParserDelegateStatus_INITIAL )
+	if ( status == GVCXMLParserDelegate_Status_INITIAL )
 	{
 		NSXMLParser *parser = nil;
 		
-		status = GVC_XML_ParserDelegateStatus_PROCESSING;
+		status = GVCXMLParserDelegate_Status_PROCESSING;
 		
 		if ( [self filename] != nil )
 		{
@@ -96,21 +96,21 @@
 		}
 		else 
 		{
-			status = GVC_XML_ParserDelegateStatus_FAILURE;
+			status = GVCXMLParserDelegate_Status_FAILURE;
 		}
 		
-		if ( status < GVC_XML_ParserDelegateStatus_FAILURE )
+		if ( status < GVCXMLParserDelegate_Status_FAILURE )
 		{
 			[parser setDelegate:self];
 			[parser setShouldResolveExternalEntities:NO];
 			[parser setShouldReportNamespacePrefixes:YES];
 			[parser setShouldProcessNamespaces:YES];
 
-			status = GVC_XML_ParserDelegateStatus_SUCCESS;
+			status = GVCXMLParserDelegate_Status_SUCCESS;
             
 			if ( [parser parse] != YES )
             {
-                status = GVC_XML_ParserDelegateStatus_PARSE_FAILED;
+                status = GVCXMLParserDelegate_Status_PARSE_FAILED;
                 [self setXmlError:[parser parserError]];
             }
 		}
@@ -271,14 +271,14 @@
 {
 	GVCLogInfo( @"parseErrorOccurred (line %d:%d) %@", [parser lineNumber], [parser columnNumber], parseError);
 	GVCLogInfo( @"parseErrorOccurred - node stack %@", elementNameStack );
-	status = GVC_XML_ParserDelegateStatus_PARSE_FAILED;
+	status = GVCXMLParserDelegate_Status_PARSE_FAILED;
 	[self setXmlError:parseError];
 }
 
 - (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError
 {
 	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
-	status = GVC_XML_ParserDelegateStatus_VALIDATION_FAILED;
+	status = GVCXMLParserDelegate_Status_VALIDATION_FAILED;
 	[self setXmlError:validationError];
 }
 
