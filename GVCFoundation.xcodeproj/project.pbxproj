@@ -155,6 +155,7 @@
 		056F599F147EEDD10076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F59A8147EF4630076010D /* GVCFunctionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F59A7147EF4630076010D /* GVCFunctionsTest.m */; };
 		056F59E5147EFC540076010D /* GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5938147EE84D0076010D /* GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05749FB316066B35007CF96D /* CodeCoverageSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 05749FB216066B35007CF96D /* CodeCoverageSupport.c */; };
 		057543E71525475A00160469 /* GVCStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 057543E51525475A00160469 /* GVCStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		057543E81525475A00160469 /* GVCStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 057543E61525475A00160469 /* GVCStopwatch.m */; };
 		057543EB15254C0C00160469 /* itunesTop300.xml in Resources */ = {isa = PBXBuildFile; fileRef = 057543EA15254C0C00160469 /* itunesTop300.xml */; };
@@ -409,6 +410,7 @@
 		056F599B147EEDD10076010D /* GVCFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctions.m; sourceTree = "<group>"; };
 		056F599C147EEDD10076010D /* GVCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCMacros.h; sourceTree = "<group>"; };
 		056F59A7147EF4630076010D /* GVCFunctionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctionsTest.m; sourceTree = "<group>"; };
+		05749FB216066B35007CF96D /* CodeCoverageSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CodeCoverageSupport.c; sourceTree = "<group>"; };
 		057543E51525475A00160469 /* GVCStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCStopwatch.h; sourceTree = "<group>"; };
 		057543E61525475A00160469 /* GVCStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCStopwatch.m; sourceTree = "<group>"; };
 		057543EA15254C0C00160469 /* itunesTop300.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = itunesTop300.xml; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 				0594FA6A1509AFB800614D48 /* GVCResourceTestCase.h */,
 				0594FA6B1509AFB800614D48 /* GVCResourceTestCase.m */,
 				05F8B88A155E7EE200625B01 /* GVCConfigurationTest.m */,
+				05749FB216066B35007CF96D /* CodeCoverageSupport.c */,
 			);
 			path = GVCFoundationTests;
 			sourceTree = "<group>";
@@ -1461,6 +1464,7 @@
 				05F8B88B155E7EE200625B01 /* GVCConfigurationTest.m in Sources */,
 				051C88E515613C2C00A4D7F6 /* GVCHeaderSetTest.m in Sources */,
 				054472C11599D70000DF90BA /* NSDateAdditionsTest.m in Sources */,
+				05749FB316066B35007CF96D /* CodeCoverageSupport.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1570,6 +1574,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
 				INFOPLIST_FILE = "GVCFoundationTests/GVCFoundationTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1587,6 +1595,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
 				INFOPLIST_FILE = "GVCFoundationTests/GVCFoundationTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1659,6 +1671,7 @@
 				05993998160504050020BDD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05CB837515EAAAC20037072E /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
 			isa = XCConfigurationList;
