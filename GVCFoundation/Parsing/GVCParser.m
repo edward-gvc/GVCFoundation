@@ -65,7 +65,7 @@
 		NSInteger cnt = [fieldNames count];
 		for ( ; [fieldNames count] < idx + 1 ; cnt ++ )
 		{
-			NSString *fName = GVC_SPRINTF( @"FIELD_%d", cnt +1 );
+			NSString *fName = GVC_SPRINTF( @"FIELD_%ld", cnt +1 );
 			if ( [fieldNames containsObject:fName] == NO )
 			{
 				[fieldNames addObject:fName];

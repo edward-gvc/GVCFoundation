@@ -61,8 +61,8 @@
 
 + (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d
 {
-	GVC_ASSERT(d >= 1 && d <= 31, @"Invalid day %d", d);
-	GVC_ASSERT(m >= 1 && m <= 12, @"Invalid month %d", m);
+	GVC_DBC_FACT(d >= 1 && d <= 31);
+	GVC_DBC_FACT(m >= 1 && m <= 12);
 	
 	NSDateComponents *comps = [[NSDateComponents alloc] init];
 	[comps setDay:d];

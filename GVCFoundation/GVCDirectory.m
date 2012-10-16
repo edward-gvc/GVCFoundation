@@ -6,6 +6,8 @@
  *
  */
 
+#include <dispatch/dispatch.h>
+
 #import "GVCDirectory.h"
 #import "NSString+GVCFoundation.h"
 #import "NSBundle+GVCFoundation.h"
@@ -33,12 +35,10 @@ static GVCDirectory *downloadsDirectory;
 		NSMutableData * bufData = [NSMutableData dataWithBytes:fsTemplate length:strlen(fsTemplate)+1];
 		char * buffer = [bufData mutableBytes];
 		
-		if (mkdtemp(buffer) == NULL)
+		if (mkdtemp(buffer) != NULL)
 		{
-			GVCLogError(@"Could not create temporary dir: %s, %s", buffer, strerror(errno));
-			return nil;
+			systemTemp = [fileMgr stringWithFileSystemRepresentation:buffer length:strlen(buffer)];
 		}
-        systemTemp = [fileMgr stringWithFileSystemRepresentation:buffer length:strlen(buffer)];
 
 #elif defined(TARGET_IPHONE_SIMULATOR)
 

@@ -59,7 +59,7 @@ GVC_SINGLETON_CLASS(GVCCache)
 		NSString *notificationName = @"NSApplicationWillTerminateNotification";
 #endif
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:notificationName object:nil];
+		[(NSNotificationCenter *)[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:notificationName object:nil];
 	});
 }
 
@@ -258,9 +258,14 @@ GVC_SINGLETON_CLASS(GVCCache)
 
 - (void)storeCacheEntry
 {
+
     if ( cacheData != nil )
     {
+#if TARGET_OS_IPHONE
         [cacheData writeToFile:[self cacheDataPath] options:NSDataWritingFileProtectionCompleteUnlessOpen error:nil];
+#else
+        [cacheData writeToFile:[self cacheDataPath] options:NSDataWritingAtomic error:nil];
+#endif
     }
 }
 - (void)removeCacheEntry

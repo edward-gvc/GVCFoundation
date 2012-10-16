@@ -5,8 +5,6 @@
 //  Copyright 2011 Global Village Consulting Inc. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "NSArray+GVCFoundation.h"
@@ -160,12 +158,13 @@
 	GVC_ASSERT( gvc_IsEmpty(node_path) == NO, @"Cannot evaluate an empty node path" );
 	
 	NSArray *matchingPaths = [[ruleset_paths allKeys] gvc_filterArrayForAccept:^BOOL(id item) {
-        BOOL match = [node_path isEqualToString:item];
-        if ((match == NO) && ([node_path length] >= [item length])) 
+		NSString *itemString = item;
+        BOOL match = [node_path isEqualToString:itemString];
+        if ((match == NO) && ([node_path length] >= [itemString length]))
         {
-            NSUInteger point = [node_path length] - [item length];
+            NSUInteger point = [node_path length] - [itemString length];
             NSString *tail = [node_path substringFromIndex:point];
-            match = [tail isEqualToString:item];
+            match = [tail isEqualToString:itemString];
         }
         return match;
     }];

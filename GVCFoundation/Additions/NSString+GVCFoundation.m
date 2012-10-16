@@ -65,7 +65,7 @@
 
 - (NSString *)gvc_StringWithCapitalizedFirstCharacter
 {
-    int len = [self length];
+    NSUInteger len = [self length];
     if ( len == 1)
 	{
 		NSString *firstChar = [self substringToIndex:1];

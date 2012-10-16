@@ -65,7 +65,7 @@ static dispatch_semaphore_t semaphore;
 		NSString *notificationName = @"NSApplicationWillTerminateNotification";
 #endif
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:notificationName object:nil];
+		[(NSNotificationCenter *)[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:notificationName object:nil];
 	});
 }
 

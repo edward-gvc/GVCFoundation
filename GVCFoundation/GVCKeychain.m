@@ -58,7 +58,7 @@ GVC_SINGLETON_CLASS(GVCKeychain)
         }
 #else
         const char* name = [aKey UTF8String];
-        OSStatus status = SecKeychainAddGenericPassword(NULL, strlen(name), name, strlen(name), name, data.length, data.bytes, NULL);
+        OSStatus status = SecKeychainAddGenericPassword(NULL, (int)strlen(name), name, (int)strlen(name), name, (int)data.length, data.bytes, NULL);
 #endif
         if (status == noErr) 
         {
@@ -104,10 +104,11 @@ GVC_SINGLETON_CLASS(GVCKeychain)
     UInt32 length = 0;
     void* bytes = 0;
     const char* name = [aKey UTF8String];
-    OSStatus status = SecKeychainFindGenericPassword(NULL, strlen(name), name, strlen(name), name, &length, &bytes, NULL);
+	NSString *errMessage = nil;
+    OSStatus status = SecKeychainFindGenericPassword(NULL, (int)strlen(name), name, (int)strlen(name), name, &length, &bytes, NULL);
     if (status == noErr)
     {
-        data = [[NSData alloc] initWithBytes:bytes length:length];
+        NSData *data = [[NSData alloc] initWithBytes:bytes length:length];
         SecKeychainItemFreeContent(NULL, bytes);
         object = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:&errMessage];
     }
@@ -130,7 +131,7 @@ GVC_SINGLETON_CLASS(GVCKeychain)
 #else
     SecKeychainItemRef item = NULL;
     const char* name = [aKey UTF8String];
-    OSStatus status = SecKeychainFindGenericPassword(NULL, strlen(name), name, strlen(name), name, NULL, NULL, &item);
+    OSStatus status = SecKeychainFindGenericPassword(NULL, (int)strlen(name), name, (int)strlen(name), name, NULL, NULL, &item);
     if (status == noErr) 
     {
         status = SecKeychainItemDelete(item);
