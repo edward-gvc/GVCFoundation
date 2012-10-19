@@ -51,11 +51,11 @@ static char encodingTable[64] = {
 	NSString* curtailInfo = [NSString gvc_EmptyString];
 	if ((startOffset > 0) || (stopOffset < [self length]))
 	{
-		curtailInfo = GVC_SPRINTF(@" (showing bytes %lu through %lu)", startOffset, stopOffset);
+		curtailInfo = GVC_SPRINTF(@" (showing bytes %lu through %lu)", (long)startOffset, (long)stopOffset);
 	}
 	
 		// Start the hexdump out with an overview of the content
-	NSMutableString *buf = [NSMutableString stringWithFormat:@"NSData %lu bytes %@:\n", [self length], curtailInfo];
+	NSMutableString *buf = [NSMutableString stringWithFormat:@"NSData %lu bytes %@:\n", (long)[self length], curtailInfo];
 	
 		// One row of 16-bytes at a time ...
     NSUInteger i, j;

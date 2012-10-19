@@ -638,7 +638,7 @@ static BOOL is_leap_year(NSUInteger year);
         case GVCISO8601DateFormatter_Ordinal:
             return [self stringFromDate:date formatString:ISO_ORDINAL_DATE_FORMAT timeZone:timeZone];
         default:
-            [NSException raise:NSInternalInconsistencyException format:@"self.format was %ld, not calendar (%d), week (%d), or ordinal (%d)", self.format, GVCISO8601DateFormatter_Calendar, GVCISO8601DateFormatter_Week, GVCISO8601DateFormatter_Ordinal];
+            [NSException raise:NSInternalInconsistencyException format:@"self.format was %ld, not calendar (%d), week (%d), or ordinal (%d)", (long)self.format, GVCISO8601DateFormatter_Calendar, GVCISO8601DateFormatter_Week, GVCISO8601DateFormatter_Ordinal];
             return nil;
     }
 }
@@ -663,7 +663,7 @@ static BOOL is_leap_year(NSUInteger year);
         if (offset == 0)
             str = [str stringByAppendingString:ISO_TIMEZONE_UTC_FORMAT];
         else
-            str = [str stringByAppendingFormat:ISO_TIMEZONE_OFFSET_FORMAT, offset / 60, offset % 60];
+            str = [str stringByAppendingFormat:ISO_TIMEZONE_OFFSET_FORMAT, (long)(offset / 60), (long)(offset % 60)];
     }
     return str;
 }
@@ -747,7 +747,7 @@ static BOOL is_leap_year(NSUInteger year);
         timeString = [NSString gvc_EmptyString];
     }
     
-    return [NSString stringWithFormat:@"%lu-W%02lu-%02lu%@", (NSUInteger)year, (NSUInteger)week, ((NSUInteger)dayOfWeek) + 1U, timeString];
+    return [NSString stringWithFormat:@"%lu-W%02lu-%02lu%@", (long)year, (long)week, ((long)dayOfWeek) + 1U, timeString];
 }
 
 @end

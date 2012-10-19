@@ -102,7 +102,7 @@ typedef enum {
         if ( gvc_IsEmpty([self responseFilename]) == NO)
         {
             NSUInteger indx = [[self multipart_responses] count] + 1;
-            NSString *partFilename = GVC_SPRINTF(@"%@.%lu", [self responseFilename], indx);
+            NSString *partFilename = GVC_SPRINTF(@"%@.%lu", [self responseFilename], (long)indx);
             [self setCurrentResponseData:[[GVCStreamResponseData alloc] initForFilename:partFilename]];
         }
         else
