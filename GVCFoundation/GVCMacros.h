@@ -119,6 +119,7 @@ do { if ( gvc_IsEmpty((condition)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed
 
 #define GVC_DBC_FACT(condition) if (!(condition)) { GVC_ASSERT_LOG(@"DBC failure %@", @#condition);  }
 
+#define GVC_DBC_FACT_NIL(object) if ((object != nil)) { GVC_ASSERT_LOG(@"DBC failure %@ is not allowed to be allocated", @#object); }
 #define GVC_DBC_FACT_NOT_NIL(object) if ((object == nil)) { GVC_ASSERT_LOG(@"DBC failure %@ is not allowed to be nil", @#object); }
 #define GVC_DBC_FACT_NOT_EMPTY(object) if ( gvc_IsEmpty((object)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#object); }
 

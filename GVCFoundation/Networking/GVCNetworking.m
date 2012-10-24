@@ -9,7 +9,12 @@
 #import "GVCNetworking.h"
 #import <objc/runtime.h>
 
+GVC_DEFINE_STRVALUE(GVC_HTTP_METHOD_KEY_get,	GET)
+GVC_DEFINE_STRVALUE(GVC_HTTP_METHOD_KEY_post,	POST)
+
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_content_type,   Content-Type)
+GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_content_length,	Content-Length)
+
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_cache_control,  Cache-Control)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_connection,     Connection)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_date,           Date)
@@ -21,6 +26,9 @@ GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_server,         Server)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_set_cookie,     Set-Cookie)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_cookie,         Cookie)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_transfer_encoding, Transfer-Encoding)
+GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_soap_action,	SOAPAction)
+GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_user_agent,		User-Agent)
+GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_host,			Host)
 
 #pragma mark - HTTP Headers
 
@@ -67,6 +75,7 @@ NSCharacterSet *gvc_RFC1521NonTokenCharacters(void)
 }
 
 #pragma mark - MIME Types
+GVC_DEFINE_STRVALUE(GVC_MIME_TYPE_text_xml,	text/xml)
 
 
 static NSSet *gvc_mimetype_image_set = nil;

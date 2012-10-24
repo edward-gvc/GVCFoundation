@@ -19,4 +19,6 @@
 
 }
 
+- (id)initWithComment:(NSString *)cmt;
+
 @end

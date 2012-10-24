@@ -14,17 +14,11 @@
  * $Author: david $
 */
 @interface GVCXMLProcessingInstructions : NSObject <GVCXMLContent, GVCXMLProcessingInstructionsNode>
-{
-	NSString *target;
-	NSString *data;
-	NSMutableDictionary *mapData;
-}
 
-- (id)init;
+- (id)initTarget:(NSString *)targt forData:(NSString *)dta;
 
 // XMLProcessingInstructions
-- (NSString *)target;
-- (NSString *)data;
-- (void)setData:(NSString *)v;
-- (void)setTarget:(NSString *)v;
+@property (strong, nonatomic) NSString *target;
+@property (strong, nonatomic) NSString *data;
+
 @end

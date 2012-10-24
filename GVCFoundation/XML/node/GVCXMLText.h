@@ -14,15 +14,13 @@
  * $Author: david $
 */
 @interface GVCXMLText : NSObject <GVCXMLTextContent, GVCXMLContent>
-{
-	NSString *text;
-}
 
 - (id)init;
+- (id)initWithContent:(NSString *)string;
 
 /** XMLTextContainer */
-- (NSString *)text;
-- (void)setText:(NSString *)value;
+@property (strong, nonatomic) NSString *text;
+
 - (void)appendText:(NSString *)value;
 - (void)appendTextWithFormat:(NSString*)fmt, ...;
 

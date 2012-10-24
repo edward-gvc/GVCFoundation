@@ -17,10 +17,14 @@
 */
 @implementation GVCXMLComment
 
-
 - (id)init
 {
-	self = [super init];
+	return [self initWithComment:nil];
+}
+
+- (id)initWithComment:(NSString *)cmt
+{
+	self = [super initWithContent:cmt];
 	if (self != nil)
 	{
 	}
@@ -36,7 +40,7 @@
 
 - (NSString *)description
 {
-	return GVC_SPRINTF( @"<!-- %@ -->", text);
+	return GVC_SPRINTF( @"<!-- %@ -->", [self text]);
 }
 
 @end

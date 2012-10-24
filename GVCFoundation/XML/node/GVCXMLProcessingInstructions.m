@@ -21,9 +21,16 @@
 
 - (id)init
 {
+	return [self initTarget:nil forData:nil];
+}
+
+- (id)initTarget:(NSString *)targt forData:(NSString *)dta;
+{
 	self = [super init];
 	if (self != nil)
 	{
+		[self setTarget:targt];
+		[self setData:dta];
 	}
 	return self;
 }
@@ -35,30 +42,10 @@
 
 /** Implementation */
 
-// XMLProcessingInstructions
-- (NSString *)target
-{
-	return target;
-}
-
-- (NSString *)data
-{
-	return data;
-}
-
-- (void)setTarget:(NSString *)v
-{
-	target = v;
-}
-
-- (void)setData:(NSString *)v
-{
-	data = v;
-}
-
 - (NSString *)description
 {
-	return GVC_SPRINTF( @"<?%@%@%@?>", target, (data == nil?[NSString gvc_EmptyString]:@" "), (data == nil?[NSString gvc_EmptyString]:data));
+	NSString *dtaInst = gvc_IsEmpty([self data]) ? [NSString gvc_EmptyString] : GVC_SPRINTF(@" %@", [self data]);
+	return GVC_SPRINTF( @"<?%@%@?>", [self target], dtaInst);
 }
 
 @end

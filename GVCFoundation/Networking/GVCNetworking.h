@@ -14,7 +14,12 @@
 #ifndef GVCFoundation_GVCNetworking_h
 #define GVCFoundation_GVCNetworking_h
 
-#pragma mark - HTTP Headers
+#pragma mark - HTTP Method keys
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_METHOD_KEY_get)
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_METHOD_KEY_post)
+
+
+#pragma mark - HTTP Header keys
 // Special characters defined in the MIME standard, RFC-1521
 // http://www.ietf.org/rfc/rfc1521.txt
 
@@ -23,6 +28,8 @@ GVC_EXTERN NSCharacterSet *gvc_RFC1521TokenCharacters(void);
 GVC_EXTERN NSCharacterSet *gvc_RFC1521NonTokenCharacters(void);
 
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_content_type)
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_content_length)
+
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_cache_control)
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_connection)
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_date)
@@ -34,8 +41,13 @@ GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_server)
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_set_cookie)
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_cookie)
 GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_transfer_encoding)
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_soap_action)
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_user_agent)
+GVC_DEFINE_EXTERN_STR(GVC_HTTP_HEADER_KEY_host)
 
 #pragma mark - MIME Types
+GVC_DEFINE_EXTERN_STR(GVC_MIME_TYPE_text_xml)
+
 /*
  image/tiff
  image/jpeg

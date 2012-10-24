@@ -23,10 +23,6 @@ typedef enum _GVCXMLParserDelegate_Status
  */
 @interface GVCXMLParserDelegate : NSObject  <NSXMLParserDelegate>
 {
-	GVCStack *elementNameStack;
-	NSMutableDictionary *namespaceStack;
-	NSMutableArray *declaredNamespaces;
-	
 	NSMutableString *currentTextBuffer;
 	NSData *currentCDATA;
 	

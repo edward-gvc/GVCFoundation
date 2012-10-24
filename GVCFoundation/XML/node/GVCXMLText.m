@@ -19,9 +19,15 @@
 
 - (id)init
 {
+	return [self initWithContent:nil];
+}
+
+- (id)initWithContent:(NSString *)string;
+{
 	self = [super init];
 	if (self != nil)
 	{
+		[self setText:string];
 	}
 	return self;
 }
@@ -33,22 +39,13 @@
 
 /** Implementation */
 /** XMLTextContainer */
-- (NSString *)text
-{
-	return text;
-}
-
-- (void)setText:(NSString *)value
-{
-	text = value;
-}
 
 - (void)appendText:(NSString *)value
 {
 	if ( value != nil )
 	{
-		if ( text != nil )
-			[self setText:GVC_SPRINTF( @"%@%@", text, value )];
+		if ( [self text] != nil )
+			[self setText:GVC_SPRINTF( @"%@%@", [self text], value )];
 		else
 			[self setText:value];
 	}
@@ -66,8 +63,8 @@
 
 	if ( value != nil )
 	{
-		if ( text != nil )
-			[self setText:GVC_SPRINTF( @"%@%@", text, value )];
+		if ( [self text] != nil )
+			[self setText:GVC_SPRINTF( @"%@%@", [self text], value )];
 		else
 			[self setText:value];
 	}
@@ -75,11 +72,11 @@
 
 - (NSString *)normalizedText
 {
-	return text;
+	return [self text];
 }
 
 - (NSString *)description
 {
-	return text;
+	return [self text];
 }
 @end

@@ -51,15 +51,40 @@
 /* 
  * Networking 
  */
-#import "GVCHTTPHeader.h"
-#import "GVCHTTPHeaderSet.h"
-#import "GVCHTTPOperation.h"
-#import "GVCMultipartResponseData.h"
-#import "GVCNetOperation.h"
-#import "GVCNetResponseData.h"
 #import "GVCNetworking.h"
 #import "GVCReachability.h"
 #import "GVCUDPSocket.h"
+
+/* 
+ * Networking action 
+ */
+#import "GVCHTTPAction.h"
+#import "GVCSOAPAction.h"
+
+/* 
+ * Networking data 
+ */
+#import "GVCMultipartResponseData.h"
+#import "GVCNetResponseData.h"
+
+/* 
+ * Networking header 
+ */
+#import "GVCHTTPHeader.h"
+#import "GVCHTTPHeaderSet.h"
+
+/* 
+ * Networking operation 
+ */
+#import "GVCHTTPOperation.h"
+#import "GVCNetOperation.h"
+
+/* 
+ * Networking session 
+ */
+#import "GVCHTTPSession.h"
+#import "GVCNetworkSession.h"
+#import "GVCSOAPSession.h"
 
 /* 
  * Operations 
