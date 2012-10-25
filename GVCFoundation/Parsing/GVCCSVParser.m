@@ -94,7 +94,7 @@
 	NSMutableDictionary *record = nil;
 	
 	NSString *field = [self parseField];
-	NSInteger fieldCount = 0;
+	NSUInteger fieldCount = 0;
 	
 	record = [NSMutableDictionary dictionaryWithCapacity:[[self fieldNames] count]];
 	while (field != nil)
@@ -155,7 +155,7 @@
 	// Special case: if the current location is immediately
 	// followed by a separator, then the field is a valid, empty string.
 	//
-	NSInteger currentLocation = [[self scanner] scanLocation];
+	NSUInteger currentLocation = [[self scanner] scanLocation];
 	if ([self parseSeparator] || [self parseLineSeparator] || [[self scanner] isAtEnd])
 	{
 		[[self scanner] setScanLocation:currentLocation];

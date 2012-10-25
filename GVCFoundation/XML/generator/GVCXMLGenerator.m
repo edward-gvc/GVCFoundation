@@ -149,8 +149,8 @@
 			{
 				NSString *toEscape = nil;
 				[scanner scanCharactersFromSet:[self illegalCharacterSet] intoString:&toEscape];
-				NSInteger length = [toEscape length];
-				for( NSInteger anIndex = 0; anIndex < length; anIndex++ )
+				NSUInteger length = [toEscape length];
+				for( NSUInteger anIndex = 0; anIndex < length; anIndex++ )
 				{
 					unichar ch = [toEscape characterAtIndex:anIndex];
 					switch (ch)
@@ -188,7 +188,7 @@
 {
 	if ( format != GVC_XML_GeneratorFormat_COMPACT )
 	{
-		for ( int i = 0; i < indentLevel; i++ )
+		for ( NSUInteger i = 0; i < indentLevel; i++ )
 			[super writeString:@"\t"];
 	}
 }

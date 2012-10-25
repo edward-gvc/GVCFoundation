@@ -217,7 +217,7 @@ typedef enum {
                         // searching for boundary
                         if (bufLen >= boundaryLength)
                         {
-                            NSInteger start = MAX(0, (NSInteger)(bufLen - dataLength - boundaryLength));
+                            NSUInteger start = (NSUInteger)MAX(0, (NSInteger)(bufLen - dataLength - boundaryLength));
                             NSRange r = [[self buffer] gvc_rangeOfData:[self multipart_boundary] fromStart:start];
                             if (r.length > 0) 
                             {

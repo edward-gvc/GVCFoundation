@@ -14,7 +14,7 @@
 
 @property (readonly, strong, nonatomic) id <GVCWriter> writer;
 
-- initWithWriter:(id <GVCWriter>)wrter;
+- (id)initWithWriter:(id <GVCWriter>)wrter;
 
 // open is also implied by the first call to write..
 - (void)open;

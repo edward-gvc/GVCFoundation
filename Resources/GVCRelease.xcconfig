@@ -14,6 +14,8 @@ DEPLOYMENT_POSTPROCESSING = NO
 	// Dead code stripping off
 DEAD_CODE_STRIPPING = NO
 
+OTHER_LDFLAGS = -all_load -ObjC
+
 	// Debug symbols should be on obviously
 GCC_GENERATE_DEBUGGING_SYMBOLS = YES
 

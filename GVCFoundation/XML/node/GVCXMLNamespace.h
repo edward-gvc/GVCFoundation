@@ -12,7 +12,7 @@
 @interface GVCXMLNamespace : GVCPair <GVCXMLNamespaceDeclaration>
 
 + (id <GVCXMLNamespaceDeclaration>)namespaceForPrefix:(NSString *)pfx andURI:(NSString *)u;
-- initWithPrefix:(NSString *)name uri:(NSString *)u;
+- (id)initWithPrefix:(NSString *)name uri:(NSString *)u;
 
 - (NSString *)prefix;
 - (NSString *)uri;

@@ -58,8 +58,6 @@ enum {
         [self setRequest:req];
 		[self setAllowSelfSignedCerts:NO];
 		[self setState:GVC_NetOperation_State_INITIAL];
-        maximumSize = -1;
-        defaultSize = -1;
         [self setHasResponseData:NO];
     }
     return self;
@@ -234,7 +232,7 @@ enum {
 #pragma unused(cnx)
     if ([self progressBlock] != nil)
 	{
-        self.progressBlock(totalBytesWritten, totalBytesExpectedToWrite, nil);
+        self.progressBlock((NSUInteger)totalBytesWritten, (NSUInteger)totalBytesExpectedToWrite, nil);
     }
 }
 
@@ -326,7 +324,7 @@ enum {
 		
 		if ((success == YES) && ([self progressBlock] != nil)) 
 		{
-			self.progressBlock([[self responseData] totalBytesRead], (NSInteger)[[self lastResponse] expectedContentLength], nil);
+			self.progressBlock([[self responseData] totalBytesRead], (NSUInteger)[[self lastResponse] expectedContentLength], nil);
 		}
 
     }
@@ -414,14 +412,14 @@ enum {
 		{
             NSURLCredential *credential = nil;
             
-            NSString *username = (__bridge NSString *)CFURLCopyUserName((__bridge CFURLRef)[[self request] URL]);
-            NSString *password = (__bridge NSString *)CFURLCopyPassword((__bridge CFURLRef)[[self request] URL]);
+            NSString *username = (__bridge_transfer NSString *)CFURLCopyUserName((__bridge CFURLRef)[[self request] URL]);
+            NSString *password = (__bridge_transfer  NSString *)CFURLCopyPassword((__bridge CFURLRef)[[self request] URL]);
             
-            if (username && password) 
+            if ((gvc_IsEmpty(username) == NO) && (gvc_IsEmpty(password) == NO))
 			{
                 credential = [NSURLCredential credentialWithUser:username password:password persistence:NSURLCredentialPersistenceNone];
             }
-			else if (username) 
+			else if (gvc_IsEmpty(username) == NO)
 			{
                 credential = [[[NSURLCredentialStorage sharedCredentialStorage] credentialsForProtectionSpace:[challenge protectionSpace]] objectForKey:username];
             } 
@@ -430,7 +428,7 @@ enum {
                 credential = [[NSURLCredentialStorage sharedCredentialStorage] defaultCredentialForProtectionSpace:[challenge protectionSpace]];
             }
             
-            if (credential) 
+            if (credential != nil)
 			{
                 [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
             }

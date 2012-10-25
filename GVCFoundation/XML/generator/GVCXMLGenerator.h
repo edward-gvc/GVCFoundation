@@ -20,8 +20,8 @@ typedef enum
 
 @interface GVCXMLGenerator : GVCTextGenerator
 
-- initWithWriter:(id <GVCWriter>)wrter;
-- initWithWriter:(id <GVCWriter>)wrter andFormat:(GVC_XML_GeneratorFormat)fmt;
+- (id)initWithWriter:(id <GVCWriter>)wrter;
+- (id)initWithWriter:(id <GVCWriter>)wrter andFormat:(GVC_XML_GeneratorFormat)fmt;
 
 - (void)setXmlEncoding:(NSStringEncoding)anEncoding;
 - (NSStringEncoding)xmlEncoding;

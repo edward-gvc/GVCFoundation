@@ -266,7 +266,7 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
                 else if ( gvc_IsEmpty(backupName) == NO )
                 {
                     // restore old file
-                    success = [docs moveFileFrom:backupName to:itemKey];
+                    [docs moveFileFrom:backupName to:itemKey];
                 }
             }
         }];

@@ -73,8 +73,8 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 		GVC_ASSERT_NOT_NIL(args);
 		GVC_ASSERT([args count] == 3, @"Invalid number of arguments %@", args);
 		
-		NSInteger item = [(NSNumber *)[args objectAtIndex:0] integerValue];
-		NSInteger total = [(NSNumber *)[args objectAtIndex:1] integerValue];
+		NSUInteger item = (NSUInteger)[(NSNumber *)[args objectAtIndex:0] integerValue];
+		NSUInteger total = (NSUInteger)[(NSNumber *)[args objectAtIndex:1] integerValue];
 		NSObject *msg = [args objectAtIndex:2];
 		NSString *message = (NSString *)(msg == [NSNull null] ? nil : msg);
 		self.progressBlock(item, total, message);

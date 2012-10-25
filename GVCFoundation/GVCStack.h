@@ -22,7 +22,7 @@
 - (void)clear;
 
 - (id)topObject;
-- (NSArray *)topObjects:(int)count;
+- (NSArray *)topObjects:(NSUInteger)count;
 - (NSUInteger)count;
 - (NSArray *)allObjects;
 - (BOOL)isEmpty;

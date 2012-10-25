@@ -90,12 +90,12 @@
 - (id)peekObjectAtIndex:(NSUInteger)idx
 {
 	id peekValue = nil;
-	NSInteger depth = [internStore count] - 1;
-	NSInteger target = depth - idx;
+	NSInteger depth = (NSInteger)[internStore count] - 1;
+	NSInteger target = (NSInteger)(depth - (NSInteger)idx);
 	
-    if ((target >= 0) && (target < [internStore count]))
+    if ((target >= 0) && (target < (NSInteger)[internStore count]))
 	{
-		peekValue = [internStore objectAtIndex:target];
+		peekValue = [internStore objectAtIndex:(NSUInteger)target];
 	}
 
 	return peekValue;
@@ -113,7 +113,7 @@
     return [internStore lastObject];
 }
 
-- (NSArray *)topObjects:(int)count
+- (NSArray *)topObjects:(NSUInteger)count
 {
     return [internStore subarrayWithRange:NSMakeRange([internStore count] - count , count)];
 }

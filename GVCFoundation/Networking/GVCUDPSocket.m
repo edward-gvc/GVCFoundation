@@ -13,7 +13,7 @@
 #include <unistd.h>
 
 @interface GVCUDPSocket()
-- (void)readData;
+- (int)readData;
 @end
 
 
@@ -265,7 +265,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 }
 
 
-- (void)readData
+- (int)readData
     // Called by the CFSocket read callback to actually read and process data 
     // from the socket.
 {
@@ -296,7 +296,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 		
         err = 0;
 		
-        dataObj = [NSData dataWithBytes:buffer length:bytesRead];
+        dataObj = [NSData dataWithBytes:buffer length:(NSUInteger)bytesRead];
         assert(dataObj != nil);
         addrObj = [NSData dataWithBytes:&addr  length:addrLen  ];
         assert(addrObj != nil);
@@ -324,6 +324,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 //            [self.delegate echo:self didReceiveError:[NSError errorWithDomain:NSPOSIXErrorDomain code:err userInfo:nil]];
 //        }
 //    }
+	return err;
 }
 
 
@@ -334,7 +335,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 - (void)stopWithError:(NSError *)error;
 - (void)stopWithStreamError:(CFStreamError)streamError;
 - (void)stopHostResolution;
-- (void)hostResolutionDone;
+- (BOOL)hostResolutionDone;
 - (void)hostResolutionStart;
 @end
 
@@ -392,14 +393,14 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 	CFHostSetClient( cfHost, HostResolveCallback, &context);
 	
 	CFHostScheduleWithRunLoop( cfHost, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-	success = CFHostStartInfoResolution( cfHost, kCFHostAddresses, &streamError);
+	success = (BOOL)CFHostStartInfoResolution( cfHost, kCFHostAddresses, &streamError);
 	if (success == NO) 
 	{
 		[self stopWithStreamError:streamError];
 	}
 }
 
-- (void)hostResolutionDone
+- (BOOL)hostResolutionDone
 {
     NSError *           error = nil;
     Boolean             resolved;
@@ -416,21 +417,19 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 	{
         for (NSData * address in resolvedAddresses) 
 		{
-            BOOL                    success;
             const struct sockaddr * addrPtr;
-            NSUInteger              addrLen;
+//            NSUInteger              addrLen;
             
             addrPtr = (const struct sockaddr *) [address bytes];
-            addrLen = [address length];
+//            addrLen = [address length];
 //            assert(addrLen >= sizeof(struct sockaddr));
 			
 				// Try to create a connected CFSocket for this address.  If that fails, 
 				// we move along to the next address.  If it succeeds, we're done.
             
-            success = NO;
             if ((addrPtr->sa_family == AF_INET) || (addrPtr->sa_family == AF_INET6))
 			{
-                success = [self setupSocketConnectedToAddress:address port:[self port] error:&error];
+                BOOL success = [self setupSocketConnectedToAddress:address port:[self port] error:&error];
                 if (success == YES) 
 				{
                     CFDataRef   hostData = CFSocketCopyPeerAddress( cfSocket);
@@ -465,6 +464,7 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 	{
         [self stopWithError:error];
     }
+	return (BOOL)resolved;
 }
 
 - (void)stop
@@ -577,3 +577,4 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 
 
 @end
+

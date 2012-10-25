@@ -51,7 +51,7 @@ typedef void (^GVCOperationErrorBlock)(GVCOperation *operation, NSError* error);
  * @param totalItem the total number of items being processed
  * @param statusMessage progress message for updating the user experience 'Loading ..'
  */
-typedef void (^GVCOperationProgressBlock)(NSInteger itemNumber, NSInteger totalItem, NSString *statusMessage);
+typedef void (^GVCOperationProgressBlock)(NSUInteger itemNumber, NSUInteger totalItem, NSString *statusMessage);
 
 /**
  * GVCOperation

@@ -11,7 +11,6 @@ printHeader()
 {
     echo "/**"
     echo " * Header for $1"
-    echo " * Author:" $USER
     echo " */" 
 	echo
 	echo "#ifndef $1_h"

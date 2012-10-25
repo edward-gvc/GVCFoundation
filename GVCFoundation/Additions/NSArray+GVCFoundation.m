@@ -145,7 +145,7 @@
     return [[self gvc_resultArray:evaluator] componentsJoinedByString:val];
 }
 
-- (BOOL)gvc_isEqualToArrayInAnyOrder:(NSArray *)other;
+- (BOOL)gvc_isEqualToArrayInAnyOrder:(NSArray *)other
 {
     BOOL isEqual = NO;
     if ( other == self )
@@ -190,3 +190,4 @@
 
 
 @end
+

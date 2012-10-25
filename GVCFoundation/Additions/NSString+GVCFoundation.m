@@ -42,7 +42,7 @@
 {
     NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
     
-    for (int i = 0; i < len; i++)
+    for (NSUInteger i = 0; i < len; i++)
     {
         [randomString appendFormat: @"%C", [sample characterAtIndex:(arc4random() % [sample length]) ]];
     }
@@ -311,7 +311,7 @@
 	return nil;
 }
 
-- (NSString *)gvc_XMLLocalNameFromQualifiedName;
+- (NSString *)gvc_XMLLocalNameFromQualifiedName
 {
     // minimum size for a fully qualified name is 'a:b'
 	if ([self length] > 2)
@@ -337,3 +337,4 @@
 }
 
 @end
+

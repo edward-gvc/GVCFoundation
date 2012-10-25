@@ -66,7 +66,7 @@ BOOL gcv_IsEqualCollection(id collectionA, id collectionB)
 			{
 					// check each object in collection looking for failure
 				isEqual = YES;
-				for ( int idx = 0; isEqual && idx < [collectionA count]; idx++ )
+				for ( NSUInteger idx = 0; isEqual && idx < [collectionA count]; idx++ )
 				{
 					isEqual = [[collectionA objectAtIndex:idx] isEqual:[collectionB objectAtIndex:idx]];
 				}

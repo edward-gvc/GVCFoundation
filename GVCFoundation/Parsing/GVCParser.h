@@ -22,7 +22,7 @@
 
 - (id)initWithDelegate:(id <GVCParserDelegate>)del separator:(NSString *)aSep fieldNames:(NSArray *)names;
 
-- (NSString *)fieldNameAtIndex:(NSInteger)idx;
+- (NSString *)fieldNameAtIndex:(NSUInteger)idx;
 
 - (BOOL)parseFilename:(NSString *)afile error:(NSError **)err;
 - (BOOL)parseFilename:(NSString *)afile withEncoding:(NSStringEncoding)encode error:(NSError **)err;

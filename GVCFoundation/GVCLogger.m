@@ -71,6 +71,7 @@ static dispatch_semaphore_t semaphore;
 
 + (void)applicationWillTerminate:(NSNotification *)notification
 {
+	[[GVCLogger sharedGVCLogger] log:GVCLoggerLevel_DEBUG file:"Logger" lineNumber:0 message:[notification description]];
 	[[GVCLogger sharedGVCLogger] flushQueue];
 }
 

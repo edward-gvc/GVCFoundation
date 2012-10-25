@@ -128,7 +128,8 @@
         }
         else
         {
-            *err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_RESPONSE_TOO_LARGE userInfo:nil];
+            if (err != NULL)
+				*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_RESPONSE_TOO_LARGE userInfo:nil];
             success = NO;
         }
         [self setIsClosed:(!success)];
@@ -165,7 +166,8 @@
 		} 
 		else
 		{
-			*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_RESPONSE_TOO_LARGE userInfo:nil];
+            if (err != NULL)
+				*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_RESPONSE_TOO_LARGE userInfo:nil];
 			success = NO;
 		}
 	}
@@ -232,7 +234,8 @@
         }
         else
         {
-			*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_OUTPUT_STREAM userInfo:nil];
+            if (err != NULL)
+				*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_OUTPUT_STREAM userInfo:nil];
 			success = NO;
         }
         [self setIsClosed:(!success)];
@@ -279,17 +282,22 @@
 			bytesWritten = [[self responseOutputStream] write:&dataPtr[dataOffset] maxLength:dataLength - dataOffset];
 			if (bytesWritten <= 0) 
 			{
-				*err = [[self responseOutputStream] streamError];
-				if (*err == nil) 
+				if (err != NULL)
 				{
-					*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_OUTPUT_STREAM userInfo:nil];
+					*err = [[self responseOutputStream] streamError];
+					
+					if (*err == nil)
+					{
+						*err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:GVC_NetOperation_ErrorType_OUTPUT_STREAM userInfo:nil];
+					}
 				}
+				
 				success = NO;
 				break;
 			}
 			else
 			{
-				dataOffset += bytesWritten;
+				dataOffset += (NSUInteger)bytesWritten;
 			}
 		} while (YES);
 	}
@@ -315,3 +323,4 @@
 
 
 @end
+

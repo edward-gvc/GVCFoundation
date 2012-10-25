@@ -1,6 +1,5 @@
 /**
  * Header for GVCFoundation
- * Author: daspinall
  */
 
 #ifndef GVCFoundation_h

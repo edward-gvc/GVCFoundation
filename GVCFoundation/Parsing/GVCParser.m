@@ -20,15 +20,6 @@
 
 @implementation GVCParser
 
-@synthesize scanner;
-@synthesize endTextCharacterSet;
-@synthesize delegate;
-@synthesize fieldSeparator;
-@synthesize fieldNames;
-@synthesize separatorIsSingleChar;
-@synthesize cancelled;
-
-
 - (id)initWithDelegate:(id <GVCParserDelegate>)del separator:(NSString *)aSep fieldNames:(NSArray *)names;
 {
 	self = [super init];
@@ -38,42 +29,42 @@
 		[self setFieldNames:[names mutableCopy]];
 		[self setFieldSeparator:aSep];
 		[self setCancelled:NO];
-		if ([fieldSeparator length] == 1)
+		if ([[self fieldSeparator] length] == 1)
 		{
-			separatorIsSingleChar = YES;
+			[self setSeparatorIsSingleChar:YES];
 		}
 		
 		NSMutableCharacterSet *endTextMutableCharacterSet = [[NSCharacterSet newlineCharacterSet] mutableCopy];
 		[endTextMutableCharacterSet addCharactersInString:@"\""];
-		[endTextMutableCharacterSet addCharactersInString:[fieldSeparator substringToIndex:1]];
-		endTextCharacterSet = endTextMutableCharacterSet;
+		[endTextMutableCharacterSet addCharactersInString:[[self fieldSeparator] substringToIndex:1]];
+		[self setEndTextCharacterSet:endTextMutableCharacterSet];
 	}
 	
 	return self;
 }
 
-- (NSString *)fieldNameAtIndex:(NSInteger)idx
+- (NSString *)fieldNameAtIndex:(NSUInteger)idx
 {
-	if ( fieldNames == nil )
+	if ( [self fieldNames] == nil )
 	{
 		[self setFieldNames:[[NSMutableArray alloc] initWithCapacity:10]];
 	}
 	
-	if ( [fieldNames count] < idx + 1 )
+	if ( [[self fieldNames] count] < idx + 1 )
 	{
 		// assign default field names
-		NSInteger cnt = [fieldNames count];
-		for ( ; [fieldNames count] < idx + 1 ; cnt ++ )
+		NSUInteger cnt = [[self fieldNames] count];
+		for ( ; [[self fieldNames] count] < idx + 1 ; cnt ++ )
 		{
 			NSString *fName = GVC_SPRINTF( @"FIELD_%ld", (long)(cnt +1) );
-			if ( [fieldNames containsObject:fName] == NO )
+			if ( [[self fieldNames] containsObject:fName] == NO )
 			{
-				[fieldNames addObject:fName];
+				[[self fieldNames] addObject:fName];
 			}
 		}
 	}
 	
-	return [fieldNames objectAtIndex:idx];
+	return [[self fieldNames] objectAtIndex:idx];
 }
 
 - (BOOL)parseFilename:(NSString *)afile error:(NSError **)err
@@ -86,8 +77,9 @@
 	GVC_ASSERT( gvc_IsEmpty(afile) == NO, @"Cannot parse nil file" );
 	BOOL success = NO;
 
-	if ( delegate != nil )
-		[delegate parser:self didStartFile:afile];
+	id <GVCParserDelegate>strongDelegate = [self delegate];
+	if ( strongDelegate != nil )
+		[strongDelegate parser:self didStartFile:afile];
 	
 	NSString *contentString = [NSString stringWithContentsOfFile:afile encoding:encode error:err];
 	if ( gvc_IsEmpty(contentString) == NO )
@@ -100,8 +92,8 @@
 		// GVCLogNSError(GVCErrorLogLevel_ERROR, *err);
 	}
 
-	if ( delegate != nil )
-		[delegate parser:self didEndFile:afile];
+	if ( strongDelegate != nil )
+		[strongDelegate parser:self didEndFile:afile];
 	
 	return success;
 }
@@ -110,8 +102,8 @@
 {
 	BOOL success = NO;
 
-	scanner = [[NSScanner alloc] initWithString:content];
-	[scanner setCharactersToBeSkipped:[[NSCharacterSet alloc] init]];
+	[self setScanner:[[NSScanner alloc] initWithString:content]];
+	[[self scanner] setCharactersToBeSkipped:[[NSCharacterSet alloc] init]];
 	
 	success = [self performParse:err];
 	

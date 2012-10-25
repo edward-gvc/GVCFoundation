@@ -36,33 +36,43 @@ static char encodingTable[64] = {
 {
     unsigned char *bytes = (unsigned char *)[self bytes];
     NSUInteger stopOffset = [self length];
+	NSUInteger adjustedStartOffset = 0;
 	
-		// Translate negative offset to positive, by subtracting from end
 	if ( startOffset < 0 )
-		startOffset = [self length] + startOffset;
-	
-		// Do we have more data than the caller wants?
-	if ((stopOffset - startOffset) > maxBytes)
 	{
-		stopOffset = startOffset + maxBytes;
+		// Translate negative offset to positive, by subtracting from end
+		NSInteger length = (NSInteger)[self length];
+		startOffset = length - ABS(startOffset);
+		if ( startOffset > 0 )
+			adjustedStartOffset = (NSUInteger)startOffset;
+	}
+	else
+	{
+		adjustedStartOffset = (NSUInteger)startOffset;
+	}
+	
+	NSInteger bytesRequested = (NSInteger)(stopOffset - adjustedStartOffset);
+	if (bytesRequested > (NSInteger)maxBytes)
+	{
+		// Do we have more data than the caller wants?
+		stopOffset = adjustedStartOffset + maxBytes;
 	}
 	
 		// If we're showing a subset, we'll tack in info about that
 	NSString* curtailInfo = [NSString gvc_EmptyString];
-	if ((startOffset > 0) || (stopOffset < [self length]))
+	if ((adjustedStartOffset > 0) || (stopOffset < [self length]))
 	{
-		curtailInfo = GVC_SPRINTF(@" (showing bytes %lu through %lu)", (long)startOffset, (long)stopOffset);
+		curtailInfo = GVC_SPRINTF(@" (showing bytes %lu through %lu)", (long)adjustedStartOffset, (long)stopOffset);
 	}
 	
 		// Start the hexdump out with an overview of the content
 	NSMutableString *buf = [NSMutableString stringWithFormat:@"NSData %lu bytes %@:\n", (long)[self length], curtailInfo];
 	
 		// One row of 16-bytes at a time ...
-    NSUInteger i, j;
-    for ( i = startOffset ; i < stopOffset ; i += 16 )
+    for ( NSUInteger i = adjustedStartOffset ; i < stopOffset ; i += 16 )
     {
 			// Show the row in Hex first
-        for ( j = 0 ; j < 16 ; j++ )    
+        for ( NSUInteger j = 0 ; j < 16 ; j++ )
         {
             NSUInteger rowOffset = i+j;
             if (rowOffset < stopOffset)
@@ -77,7 +87,7 @@ static char encodingTable[64] = {
 		
 			// Now show in ASCII
         [buf appendString:@"| "];   
-        for ( j = 0 ; j < 16 ; j++ )
+        for ( NSUInteger j = 0 ; j < 16 ; j++ )
         {
             NSUInteger rowOffset = i+j;
             if (rowOffset < stopOffset)
@@ -144,7 +154,7 @@ static char encodingTable[64] = {
 	
 	while( YES )
 	{
-		ctremaining = lentext - ixtext;
+		ctremaining = (long)(lentext - ixtext);
 		if( ctremaining <= 0 ) break;
 		
 		for( i = 0; i < 3; i++ ) {
@@ -195,7 +205,8 @@ static char encodingTable[64] = {
 	unsigned long ixtext = 0;
 	unsigned long lentext = [self length];
 	unsigned char ch = 0;
-	unsigned char inbuf[4], outbuf[3];
+	unsigned char inbuf[4];
+	unsigned char outbuf[3];
 	short i = 0, ixinbuf = 0;
 	BOOL flignore = NO;
 	BOOL flendtext = NO;
