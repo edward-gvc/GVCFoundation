@@ -83,4 +83,31 @@
 	return buffer;
 }
 
+- (void)generateOutput:(GVCXMLGenerator *)generator
+{
+	if ( [self documentType] != nil )
+	{
+		[[self documentType] generateOutput:generator];
+	}
+	
+	NSArray *allChildren = [nodeStack allObjects];
+	if ( gvc_IsEmpty(allChildren) == NO )
+	{
+		id <GVCXMLContent> child = nil;
+		for (child in allChildren)
+		{
+			GVC_ASSERT([child conformsToProtocol:@protocol(GVCXMLGeneratorProtocol)], @"Does not generate output %@", child);
+			[(id <GVCXMLGeneratorProtocol>)child generateOutput:generator];
+		}
+	}
+}
+
+#pragma mark - node search / query
+
+- (id <GVCXMLContent>)nodeForPath:(NSString *)path
+{
+	return nil;
+}
+
+
 @end

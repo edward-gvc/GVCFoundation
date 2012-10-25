@@ -39,7 +39,6 @@
 	self = [super init];
 	if (self != nil)
 	{
-		[self setStatus:GVCXMLParserDelegate_Status_INITIAL];
 		[self setNodeStack:[[GVCStack alloc] init]];
 		[self setNamespaceStack:[NSMutableDictionary dictionary]];
 		[self setDeclaredNamespaces:[NSMutableArray array]];
@@ -47,81 +46,14 @@
 	return self;
 }
 
-- (GVCXMLParserDelegate_Status)parseFilename:(NSString *)filename
+- (void)resetParser
 {
-	GVC_DBC_REQUIRE(
-					GVC_DBC_FACT_NOT_EMPTY(filename);
-					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
-					)
-	
-	// implementation
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:filename]];
-	[self parse:parser];
-	
-	GVC_DBC_ENSURE(
-				   GVC_DBC_FACT([self status] != GVCXMLParserDelegate_Status_INITIAL);
-				   )
-
-	return [self status];
+	[super resetParser];
+	[self setNodeStack:[[GVCStack alloc] init]];
+	[self setNamespaceStack:[NSMutableDictionary dictionary]];
+	[self setDeclaredNamespaces:[NSMutableArray array]];
 }
 
-- (GVCXMLParserDelegate_Status)parseSourceURL:(NSURL *)url
-{
-	GVC_DBC_REQUIRE(
-					GVC_DBC_FACT_NOT_NIL(url);
-					GVC_DBC_FACT_NOT_EMPTY([url absoluteString]);
-					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
-					)
-	
-	// implementation
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-	[self parse:parser];
-	
-	GVC_DBC_ENSURE(
-				   GVC_DBC_FACT([self status] != GVCXMLParserDelegate_Status_INITIAL);
-				   )
-	
-	return [self status];
-}
-
-- (GVCXMLParserDelegate_Status)parseData:(NSData *)data
-{
-	GVC_DBC_REQUIRE(
-					GVC_DBC_FACT_NOT_EMPTY(data);
-					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
-					)
-	
-	// implementation
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	[self parse:parser];
-	
-	GVC_DBC_ENSURE(
-				   GVC_DBC_FACT([self status] != GVCXMLParserDelegate_Status_INITIAL);
-				   )
-	
-	return [self status];
-}
-
-
-- (GVCXMLParserDelegate_Status)parse:(NSXMLParser *)parser
-{
-	GVC_DBC_REQUIRE(
-					GVC_DBC_FACT_NOT_NIL(parser);
-					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
-					)
-		
-	[self setStatus:GVCXMLParserDelegate_Status_PROCESSING];
-
-	[parser setDelegate:self];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser setShouldReportNamespacePrefixes:YES];
-	[parser setShouldProcessNamespaces:YES];
-
-	BOOL success = [parser parse];
-	[self setStatus:( success ? GVCXMLParserDelegate_Status_SUCCESS : GVCXMLParserDelegate_Status_FAILURE )];
-
-	return [self status];
-}
 
 //***************** thing for subclasses
 - (id <GVCXMLDocumentNode>)documentInstance
@@ -276,16 +208,16 @@
 		}
 	}
 	
-	id <GVCXMLContent> content = [[self nodeStack] peekObject];
-	if ((content != nil) && ([content conformsToProtocol:@protocol(GVCXMLContainerNode)] == NO))
+	id <GVCXMLContent> parent = [[self nodeStack] peekObject];
+	if ((parent != nil) && ([parent conformsToProtocol:@protocol(GVCXMLContainerNode)] == NO))
 	{
 		/** pop the TextContainer */
 		[[self nodeStack] popObject];
-		content = [[self nodeStack] peekObject];
+		parent = [[self nodeStack] peekObject];
 	}
 	
-	if ( content == nil )
-		content = [self document];
+	if ( parent == nil )
+		parent = [self document];
 
 	NSString *qualPrefix = [qName gvc_XMLPrefixFromQualifiedName];
 	id <GVCXMLNamespaceDeclaration> defaultNamespace = nil;
@@ -304,8 +236,8 @@
 		[[self declaredNamespaces] removeAllObjects];
 	}
 	
-	if ( newChild != nil )
-		[[self nodeStack] pushObject:newChild];
+	[(id <GVCXMLContainerNode>)parent addContent:newChild];
+	[[self nodeStack] pushObject:newChild];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -316,21 +248,20 @@
 					)
 	
 	// implementation
-	id <GVCXMLContent> content = [[self nodeStack] peekObject];
-	if ([content conformsToProtocol:@protocol(GVCXMLNamedNode)] == NO)
+	id <GVCXMLContent> parent = [[self nodeStack] peekObject];
+	if ([parent conformsToProtocol:@protocol(GVCXMLNamedNode)] == NO)
 	{
 		/** pop the TextContainer */
 		[[self nodeStack] popObject];
-		content = [[self nodeStack] peekObject];
+		parent = [[self nodeStack] peekObject];
 	}
 	
-	id <GVCXMLNamedNode> node = (id <GVCXMLNamedNode>)content;
+	id <GVCXMLNamedNode> node = (id <GVCXMLNamedNode>)parent;
 	[[self nodeStack] popObject];
 	
 	GVC_DBC_ENSURE(
 				   GVC_DBC_FACT([[node localname] isEqualToString:elementName]);
 				   )
-
 }
 
 - (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
@@ -461,19 +392,6 @@
 	return nil;
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
-{
-//	GVCLogInfo( @"parseErrorOccurred:%@", parseError);
-	[self setXmlError:parseError];
-	[self setStatus:GVCXMLParserDelegate_Status_PARSE_FAILED];
-}
-
-- (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError
-{
-//	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
-	[self setXmlError:validationError];
-	[self setStatus:GVCXMLParserDelegate_Status_VALIDATION_FAILED];
-}
 
 
 @end

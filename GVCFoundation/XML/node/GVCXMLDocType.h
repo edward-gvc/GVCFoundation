@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "GVCXMLParsingModel.h"
 
+@class GVCXMLGenerator;
+
 @interface GVCXMLDocType : NSObject <GVCXMLDocumentTypeDeclaration>
 {
     NSString *elementName;
@@ -26,5 +28,7 @@
 @property (strong, nonatomic) NSString *publicID;
 @property (strong, nonatomic) NSString *systemID;
 @property (strong, nonatomic) NSString *internalSubset;
+
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 
 @end

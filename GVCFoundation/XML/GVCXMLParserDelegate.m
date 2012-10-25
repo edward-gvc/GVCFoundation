@@ -12,6 +12,7 @@
 #import "GVCLogger.h"
 
 #import "GVCXMLDocument.h"
+#import "GVCXMLGenericNode.h"
 #import "GVCXMLDocType.h"
 #import "GVCXMLNamespace.h"
 #import "GVCXMLText.h"
@@ -20,30 +21,24 @@
 #import "GVCXMLAttribute.h"
 
 #import "NSString+GVCFoundation.h"
-
+#import "NSData+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 @interface GVCXMLParserDelegate ()
 @property (assign, nonatomic, readwrite) GVCXMLParserDelegate_Status status;
-@property (strong, nonatomic) GVCStack *nodeStack;
-@property (strong, nonatomic) NSMutableDictionary *namespaceStack;
-@property (strong, nonatomic) NSMutableArray *declaredNamespaces;
 @end
 
 
 @implementation GVCXMLParserDelegate
 
-@synthesize filename;
-@synthesize sourceURL;
-@synthesize xmlData;
-
-@synthesize xmlError;
 
 - (id)init
 {
 	self = [super init];
 	if (self != nil)
 	{
-		status = GVCXMLParserDelegate_Status_INITIAL;
+		[self setStatus:GVCXMLParserDelegate_Status_INITIAL];
+		[self setElementStack:[[GVCStack alloc] init]];
 	}
 	return self;
 }
@@ -51,244 +46,158 @@
 - (BOOL)isReady
 {
     BOOL ready = NO;
-	if ( status == GVCXMLParserDelegate_Status_INITIAL )
+	if ( [self status] == GVCXMLParserDelegate_Status_INITIAL )
     {
-        if (([self filename] != nil) || (sourceURL != nil) || (xmlData != nil))
+        if (([self xmlFilename] != nil) || ([self xmlSourceURL] != nil) || ([self xmlData] != nil))
         {
             ready = YES;
         }
-
     }
     return ready;
 }
 
-- (GVCXMLParserDelegate_Status)status
-{
-	return status;
-}
-
-/*
-	reset the parser so it can be reused.
- */
 - (void)resetParser
 {
-	elementNameStack = nil;
-	namespaceStack = nil;
-	declaredNamespaces = nil;
-	currentTextBuffer = nil;
-	currentCDATA = nil;
-	xmlError = nil;
-	
-	status = GVCXMLParserDelegate_Status_INITIAL;
+	[self setXmlFilename:nil];
+	[self setXmlSourceURL:nil];
+	[self setXmlData:nil];
+	[self setXmlError:nil];
+	[self setElementStack:[[GVCStack alloc] init]];
+	[self setStatus:GVCXMLParserDelegate_Status_INITIAL];
 }
 
+- (GVCXMLParserDelegate_Status)parse:(NSXMLParser *)parser
+{
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL(parser);
+					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
+					)
+	
+	[self setStatus:GVCXMLParserDelegate_Status_PROCESSING];
+	
+	[parser setDelegate:self];
+	[parser setShouldResolveExternalEntities:NO];
+	[parser setShouldReportNamespacePrefixes:YES];
+	[parser setShouldProcessNamespaces:YES];
+	
+	BOOL success = [parser parse];
+	[self setStatus:( success ? GVCXMLParserDelegate_Status_SUCCESS : GVCXMLParserDelegate_Status_FAILURE )];
+	
+	GVC_DBC_ENSURE(
+				   GVC_DBC_FACT([self status] != GVCXMLParserDelegate_Status_INITIAL);
+				   )
+
+	return [self status];
+}
 
 - (GVCXMLParserDelegate_Status)parse
 {
-	if ( status == GVCXMLParserDelegate_Status_INITIAL )
-	{
-		NSXMLParser *parser = nil;
-		
-		status = GVCXMLParserDelegate_Status_PROCESSING;
-		
-		if ( [self filename] != nil )
-		{
-			parser = [[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:[self filename]]];
-		}
-		else if ( sourceURL != nil )
-		{
-			parser = [[NSXMLParser alloc] initWithContentsOfURL:sourceURL];
-		}
-		else if ( xmlData != nil )
-		{
-			parser = [[NSXMLParser alloc] initWithData:xmlData];
-		}
-		else 
-		{
-			status = GVCXMLParserDelegate_Status_FAILURE;
-		}
-		
-		if ( status < GVCXMLParserDelegate_Status_FAILURE )
-		{
-			[parser setDelegate:self];
-			[parser setShouldResolveExternalEntities:NO];
-			[parser setShouldReportNamespacePrefixes:YES];
-			[parser setShouldProcessNamespaces:YES];
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT( ([self xmlFilename] != nil) || ([self xmlSourceURL] != nil) || ([self xmlData] != nil) );
+					GVC_DBC_FACT([self status] == GVCXMLParserDelegate_Status_INITIAL);
+					)
 
-			status = GVCXMLParserDelegate_Status_SUCCESS;
-            
-			if ( [parser parse] != YES )
-            {
-                status = GVCXMLParserDelegate_Status_PARSE_FAILED;
-                [self setXmlError:[parser parserError]];
-            }
+	if ( gvc_IsEmpty([self xmlFilename]) == NO )
+	{
+		[self parse:[[NSXMLParser alloc] initWithData:[NSData dataWithContentsOfFile:[self xmlFilename]]]];
+	}
+	else if ( [self xmlSourceURL] != nil )
+	{
+		[self parse:[[NSXMLParser alloc] initWithContentsOfURL:[self xmlSourceURL]]];
+	}
+	else if ( [self xmlData] != nil )
+	{
+		[self parse:[[NSXMLParser alloc] initWithData:[self xmlData]]];
+	}
+	else 
+	{
+		[self setXmlError:[NSError errorWithDomain:@"GVCXMLParsingDomain" code:-1 userInfo:@{ @"reason" : @"No input source"}]];
+		[self setStatus:GVCXMLParserDelegate_Status_FAILURE];
+	}
+
+	GVC_DBC_ENSURE(
+				   GVC_DBC_FACT([self status] != GVCXMLParserDelegate_Status_INITIAL);
+				   )
+
+	return [self status];
+}
+
+#pragma mark - node peeking
+- (NSString *)peekTopElementName
+{
+	GVC_DBC_REQUIRE(
+					)
+	
+	// implementation
+	NSObject *top = [[self elementStack] peekObject];
+	if ( [top isKindOfClass:[NSString class]] == NO )
+	{
+		if ( [top conformsToProtocol:@protocol(GVCXMLNamedContent)] == YES )
+		{
+			top = [(id <GVCXMLNamedContent>)top localname];
+		}
+		else
+		{
+			top = [top description];
 		}
 	}
-	return status;
+	return (NSString *)top;
 }
 
-- (NSData *)currentCDATA
+- (NSString *)elementFullpath:(NSString *)separator
 {
-	return currentCDATA;
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL([self elementStack]);
+					GVC_DBC_FACT_NOT_EMPTY(separator);
+					)
+	NSArray *allElements = [[self elementStack] allObjects];
+
+	return [allElements gvc_componentsJoinedByString:separator after:^(id item) {
+		NSString *elementName = nil;
+		if ( [item isKindOfClass:[NSString class]] == YES )
+		{
+			elementName = (NSString *)item;
+		}
+		else
+		{
+			if ( [item conformsToProtocol:@protocol(GVCXMLNamedContent)] == YES )
+			{
+				elementName = [(id <GVCXMLNamedContent>)item localname];
+			}
+			else
+			{
+				elementName = [item description];
+			}
+		}
+		return (NSString *)elementName;
+    }];
 }
 
-- (NSString *)currentTextString
-{
-	return [NSString stringWithString:currentTextBuffer];
-}
-
-- (NSString *)currentNodeName
-{
-    return [elementNameStack peekObject];
-}
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser
-{
-	GVC_ASSERT(elementNameStack == nil, @"Node stack already initialized" );
-	GVC_ASSERT(namespaceStack == nil, @"Namespace stack already initialized" );
-	
-	elementNameStack = [[GVCStack alloc] init];
-	namespaceStack = [[NSMutableDictionary alloc] init];
-	declaredNamespaces = [[NSMutableArray alloc] init];
-	currentTextBuffer = [[NSMutableString alloc] init];
-	currentCDATA = nil;
-}
-
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser
-{
-	GVC_ASSERT( elementNameStack != nil, @"No node stack for document" );
-	GVC_ASSERT( [elementNameStack count] == 0, @"Node stack is not empty %@", elementNameStack );
-	GVC_ASSERT( namespaceStack != nil, @"No namespace stack for document" );
-	GVC_ASSERT( [namespaceStack count] == 0, @"Namespace stack is not empty %@", namespaceStack );
-	GVC_ASSERT( [declaredNamespaces count] == 0, @"Namespaces declared but not assigned to nodes %@", declaredNamespaces);
-	
-}
-
-- (void)parser:(NSXMLParser *)parser foundNotationDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID
-{
-	GVCLogInfo( @"foundNotationDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
-}
-
-- (void)parser:(NSXMLParser *)parser foundUnparsedEntityDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID notationName:(NSString *)notationName
-{
-	GVCLogInfo( @"foundUnparsedEntityDeclarationWithName:%@ publicID:%@ systemID:%@ notationName:%@", name, publicID, systemID, notationName);
-}
-
-
-- (void)parser:(NSXMLParser *)parser foundAttributeDeclarationWithName:(NSString *)attributeName forElement:(NSString *)elementName type:(NSString *)type defaultValue:(NSString *)defaultValue
-{
-	GVCLogInfo( @"foundAttributeDeclarationWithName:%@ forElement:%@ type:%@ defaultValue:%@", attributeName, elementName, type, defaultValue);
-}
-
-
-- (void)parser:(NSXMLParser *)parser foundElementDeclarationWithName:(NSString *)elementName model:(NSString *)model
-{
-	GVCLogInfo( @"foundElementDeclarationWithName:%@ model:%@", elementName, model);
-}
-
-
-- (void)parser:(NSXMLParser *)parser foundInternalEntityDeclarationWithName:(NSString *)name value:(NSString *)value
-{
-	GVCLogInfo( @"foundInternalEntityDeclarationWithName:%@ value:%@", name, value);
-}
-
-
-- (void)parser:(NSXMLParser *)parser foundExternalEntityDeclarationWithName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID
-{
-	GVCLogInfo( @"foundExternalEntityDeclarationWithName:%@ publicID:%@ systemID:%@", name, publicID, systemID );
-}
-
+#pragma mark - NSXMLParserDelegate
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-	currentCDATA = nil;
-	[currentTextBuffer setString:[NSString gvc_EmptyString]];
-	[elementNameStack pushObject:elementName];
+	[[self elementStack] pushObject:elementName];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-	NSString *popName = [elementNameStack popObject];
-	GVC_ASSERT([elementName isEqualToString:popName] == YES, @"end element %@ != %@ with stack %@", elementName, popName, elementNameStack );
-
-    currentCDATA = nil;
-    [currentTextBuffer setString:[NSString gvc_EmptyString]];
+	[[self elementStack] popObject];
 }
 
-- (void)parser:(NSXMLParser *)parser didStartMappingPrefix:(NSString *)prefix toURI:(NSString *)namespaceURI
-{
-	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
-	
-//	GVC_ASSERT( namespace == nil, @"Namespace prefix already in use [%@] as %@", prefix, namespace );
-		
-	// should this be an error?
-	if ( namespace == nil )
-	{
-		namespace = [GVCXMLNamespace namespaceForPrefix:prefix andURI:namespaceURI];
-		[namespaceStack setObject:namespace forKey:prefix];
-		
-		[declaredNamespaces addObject:namespace];
-	}
-    else
-    {
-        GVC_ASSERT([[namespace uri] isEqualToString:namespaceURI] == YES, @"Remapped Namespace to new URI %@ != %@", namespace, namespaceURI);
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser didEndMappingPrefix:(NSString *)prefix
-{
-	id <GVCXMLNamespaceDeclaration>namespace = [namespaceStack objectForKey:prefix];
-    
-//	GVC_ASSERT( namespace != nil, @"Namespace prefix NOT in use [%@] as %@", prefix, namespace );
-	[namespaceStack removeObjectForKey:prefix];
-	[declaredNamespaces removeObject:namespace];
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-	[currentTextBuffer appendString:string];
-}
-
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
-{
-	currentCDATA = CDATABlock;
-}
-
-- (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
-{
-    GVCLogInfo( @"foundIgnorableWhitespace:%@", whitespaceString);
-}
-
-- (void)parser:(NSXMLParser *)parser foundProcessingInstructionWithTarget:(NSString *)target data:(NSString *)data
-{
-		//GVCLogInfo( @"foundProcessingInstructionWithTarget:%@ data:%@", target, data);
-}
-
-- (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
-{
-		//GVCLogInfo( @"foundComment:%@", comment);
-}
-
-- (NSData *)parser:(NSXMLParser *)parser resolveExternalEntityName:(NSString *)name systemID:(NSString *)systemID
-{
-		//GVCLogInfo( @"resolveExternalEntityName:%@ systemID:%@", name, systemID);
-	return nil;
-}
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
-	GVCLogInfo( @"parseErrorOccurred (line %d:%d) %@", [parser lineNumber], [parser columnNumber], parseError);
-	GVCLogInfo( @"parseErrorOccurred - node stack %@", elementNameStack );
-	status = GVCXMLParserDelegate_Status_PARSE_FAILED;
+	//	GVCLogInfo( @"parseErrorOccurred:%@", parseError);
 	[self setXmlError:parseError];
+	[self setStatus:GVCXMLParserDelegate_Status_PARSE_FAILED];
 }
 
 - (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError
 {
-	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
-	status = GVCXMLParserDelegate_Status_VALIDATION_FAILED;
+	//	GVCLogInfo( @"validationErrorOccurred:%@", validationError);
 	[self setXmlError:validationError];
+	[self setStatus:GVCXMLParserDelegate_Status_VALIDATION_FAILED];
 }
 
 

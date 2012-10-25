@@ -9,6 +9,8 @@
 #import "GVCXMLParsingModel.h"
 #import "GVCXMLText.h"
 
+@class GVCXMLGenerator;
+
 /**
  * $Date: 2009-08-05 14:34:08 -0400 (Wed, 05 Aug 2009) $
  * $Rev: 31 $
@@ -20,5 +22,7 @@
 }
 
 - (id)initWithComment:(NSString *)cmt;
+
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 
 @end

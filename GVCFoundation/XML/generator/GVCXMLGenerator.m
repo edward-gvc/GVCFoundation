@@ -369,11 +369,22 @@
 
 - (void)writeElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributes:(NSDictionary *)attributeDict
 {
+	[self writeElement:name inNamespace:nmspValue withAttributes:attributeDict andText:nil];
+}
+
+- (void)writeElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributes:(NSDictionary *)attributeDict andText:(NSString *)text
+{
 	[self openElement:name inNamespace:nmspValue];
+	
 	for (NSString *attkey in attributeDict)
 	{
 		[self appendAttribute:attkey forValue:[attributeDict objectForKey:attkey]];
 	}
+	if ( gvc_IsEmpty(text) == NO )
+	{
+		[self writeText:text];
+	}
+	
 	[self closeElement];
 }
 

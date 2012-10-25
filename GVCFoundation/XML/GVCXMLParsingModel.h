@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
 @class GVCStack;
+@protocol GVCXMLGeneratorProtocol;
+
 
 typedef enum
 {
@@ -84,7 +87,7 @@ typedef enum {
 
 
 
-@protocol GVCXMLDocumentTypeDeclaration <GVCXMLContent>
+@protocol GVCXMLDocumentTypeDeclaration <GVCXMLContent, GVCXMLGeneratorProtocol>
 - (void)setElementName:(NSString *)name publicID:(NSString *)publicID systemID:(NSString *)systemID forInternalSubset:(NSString *)internalSubset;
 
 @property (readwrite, strong, nonatomic) NSString *elementName;
@@ -94,16 +97,16 @@ typedef enum {
 @end
 
 
-@protocol GVCXMLProcessingInstructionsNode <GVCXMLContent>
+@protocol GVCXMLProcessingInstructionsNode <GVCXMLContent, GVCXMLGeneratorProtocol>
 @property (readwrite, strong, nonatomic) NSString *target;
 @property (readwrite, strong, nonatomic) NSString *data;
 @end
 
 
-@protocol GVCXMLCommentNode <GVCXMLContent, GVCXMLTextContent>
+@protocol GVCXMLCommentNode <GVCXMLContent, GVCXMLTextContent, GVCXMLGeneratorProtocol>
 @end
 
-@protocol GVCXMLNamedNode <GVCXMLContent, GVCXMLNamedContent, GVCXMLNamespaceContent>
+@protocol GVCXMLNamedNode <GVCXMLContent, GVCXMLNamedContent, GVCXMLNamespaceContent, GVCXMLGeneratorProtocol>
 - (NSArray *)attributes;
 - (void)addAttribute:(id <GVCXMLAttributeContent>)attrb;
 - (void)addAttribute:(NSString *)attrb withValue:(NSString *)attval inNamespace:(id <GVCXMLNamespaceDeclaration>)ns;
@@ -111,13 +114,13 @@ typedef enum {
 - (id <GVCXMLAttributeContent>)attributeForName:(NSString *)key;
 @end
 
-@protocol GVCXMLContainerNode <GVCXMLContent>
+@protocol GVCXMLContainerNode <GVCXMLContent, GVCXMLGeneratorProtocol>
 - (NSArray *)children;
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child;
 @end
 
 
-@protocol GVCXMLDocumentNode <GVCXMLContent, GVCXMLContainerNode>
+@protocol GVCXMLDocumentNode <GVCXMLContent, GVCXMLContainerNode, GVCXMLGeneratorProtocol>
 @property (readwrite, strong, nonatomic) id <GVCXMLDocumentTypeDeclaration> documentType;
 @property (readwrite, strong, nonatomic) NSString *baseURL;
 @end

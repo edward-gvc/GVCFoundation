@@ -15,4 +15,8 @@
  */
 @interface GVCSOAPAction : GVCHTTPAction
 
+- (id)initWithActionName:(NSString *)aName;
+
+@property (strong, nonatomic) NSString *soapActionName;
+
 @end

@@ -7,13 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #import "GVCXMLParsingModel.h"
+#import "GVCXMLGenerator.h"
+
 
 /**
  * $Date: 2009-08-05 14:34:08 -0400 (Wed, 05 Aug 2009) $
  * $Rev: 31 $
  * $Author: david $
 */
-@interface GVCXMLText : NSObject <GVCXMLTextContent, GVCXMLContent>
+@interface GVCXMLText : NSObject <GVCXMLTextContent, GVCXMLContent, GVCXMLGeneratorProtocol>
 
 - (id)init;
 - (id)initWithContent:(NSString *)string;
@@ -25,4 +27,7 @@
 - (void)appendTextWithFormat:(NSString*)fmt, ...;
 
 - (NSString *)normalizedText;
+
+- (void)generateOutput:(GVCXMLGenerator *)generator;
+
 @end

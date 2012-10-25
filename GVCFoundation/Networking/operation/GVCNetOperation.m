@@ -5,6 +5,7 @@
 #import "GVCMultipartResponseData.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
 GVC_DEFINE_STR( GVCNetOperationErrorDomain )
@@ -171,9 +172,9 @@ enum {
 {
     GVC_ASSERT([self isRunLoopThread], @"Not on runLoop thread" );
 	[self stopConnection];
-	[self setResponseData:nil];
     [super operationDidFailWithError:err];
     [self setState:GVC_NetOperation_State_FINISHED];
+	[self setResponseData:nil];
 }
 
 // Starts the operation.  The actual -start method is very simple, 

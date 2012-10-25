@@ -22,6 +22,7 @@
 #import "NSScanner+GVCFoundation.h"
 #import "NSSet+GVCFoundation.h"
 #import "NSString+GVCFoundation.h"
+#import "NSURLRequest+GVCFoundation.h"
 
 /* 
  * Cache 
@@ -152,6 +153,7 @@
 #import "GVCXMLParseNodeDelegate.h"
 #import "GVCXMLProcessingInstructions.h"
 #import "GVCXMLText.h"
+#import "GVCXMLTextNode.h"
 
 /* 
  * XML rss 
@@ -162,6 +164,15 @@
 #import "GVCRSSLink.h"
 #import "GVCRSSNode.h"
 #import "GVCRSSText.h"
+
+/* 
+ * XML soap 
+ */
+#import "GVCSOAPBody.h"
+#import "GVCSOAPDocument.h"
+#import "GVCSOAPEnvelope.h"
+#import "GVCSOAPFault.h"
+#import "GVCSOAPHeader.h"
 
 /* 
  * formatter 

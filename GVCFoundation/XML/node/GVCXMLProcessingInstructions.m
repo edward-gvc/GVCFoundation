@@ -48,4 +48,9 @@
 	return GVC_SPRINTF( @"<?%@%@?>", [self target], dtaInst);
 }
 
+- (void)generateOutput:(GVCXMLGenerator *)generator
+{
+	[generator writeProcessingInstruction:[self target] instructions:[self data]];
+}
+
 @end

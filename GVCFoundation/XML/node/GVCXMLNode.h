@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "GVCXMLParsingModel.h"
 
+@class GVCXMLGenerator;
+
 @interface GVCXMLNode : NSObject <GVCXMLNamedContent, GVCXMLAttributeContainer>
 
 	// GVCXMLContent
@@ -26,5 +28,7 @@
 - (void)addAttribute:(NSString *)attrb withValue:(NSString *)attval inNamespace:(id <GVCXMLNamespaceDeclaration>)ns;
 - (void)addAttributesFromArray:(NSArray *)attArray;
 - (id <GVCXMLAttributeContent>)attributeForName:(NSString *)key;
+
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 
 @end

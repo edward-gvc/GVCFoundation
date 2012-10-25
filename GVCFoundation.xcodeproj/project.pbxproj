@@ -180,6 +180,20 @@
 		0597AA1F150706AC00D177AC /* GVCXMLGenericNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 0597AA0A150706AB00D177AC /* GVCXMLGenericNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0597AA20150706AC00D177AC /* GVCXMLGenericNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0597AA0B150706AB00D177AC /* GVCXMLGenericNode.m */; };
 		0597AA25150706AC00D177AC /* GVCXMLParsingModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0597AA10150706AC00D177AC /* GVCXMLParsingModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DA01638744800339074 /* GVCSOAPEnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1D9E1638744800339074 /* GVCSOAPEnvelope.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DA11638744800339074 /* GVCSOAPEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1D9F1638744800339074 /* GVCSOAPEnvelope.m */; };
+		059D1DA51638773200339074 /* GVCSOAPBody.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DA31638773200339074 /* GVCSOAPBody.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DA61638773200339074 /* GVCSOAPBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DA41638773200339074 /* GVCSOAPBody.m */; };
+		059D1DA91638774900339074 /* GVCSOAPFault.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DA71638774900339074 /* GVCSOAPFault.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DAA1638774900339074 /* GVCSOAPFault.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DA81638774900339074 /* GVCSOAPFault.m */; };
+		059D1DAD163877D700339074 /* GVCXMLTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DAB163877D600339074 /* GVCXMLTextNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DAE163877D700339074 /* GVCXMLTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DAC163877D600339074 /* GVCXMLTextNode.m */; };
+		059D1DB116387C5B00339074 /* GVCSOAPHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DAF16387C5B00339074 /* GVCSOAPHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DB216387C5B00339074 /* GVCSOAPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DB016387C5B00339074 /* GVCSOAPHeader.m */; };
+		059D1DB51638893800339074 /* NSURLRequest+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DB31638893800339074 /* NSURLRequest+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DB61638893800339074 /* NSURLRequest+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DB41638893800339074 /* NSURLRequest+GVCFoundation.m */; };
+		059D1DBC1638D2F400339074 /* GVCSOAPDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 059D1DBA1638D2F300339074 /* GVCSOAPDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059D1DBD1638D2F400339074 /* GVCSOAPDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 059D1DBB1638D2F300339074 /* GVCSOAPDocument.m */; };
 		05A7BF16148D756200866A42 /* GVCCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 05A7BF14148D756200866A42 /* GVCCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05A7BF17148D756200866A42 /* GVCCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A7BF15148D756200866A42 /* GVCCache.m */; };
 		05BB433B1515155D007DD3A2 /* sample-rss-2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 05BB433A1515155D007DD3A2 /* sample-rss-2.xml */; };
@@ -447,6 +461,20 @@
 		0597AA0B150706AB00D177AC /* GVCXMLGenericNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLGenericNode.m; sourceTree = "<group>"; };
 		0597AA10150706AC00D177AC /* GVCXMLParsingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLParsingModel.h; sourceTree = "<group>"; };
 		0599399A160506E80020BDD9 /* BuildDocs.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = BuildDocs.sh; sourceTree = "<group>"; };
+		059D1D9E1638744800339074 /* GVCSOAPEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCSOAPEnvelope.h; sourceTree = "<group>"; };
+		059D1D9F1638744800339074 /* GVCSOAPEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCSOAPEnvelope.m; sourceTree = "<group>"; };
+		059D1DA31638773200339074 /* GVCSOAPBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCSOAPBody.h; sourceTree = "<group>"; };
+		059D1DA41638773200339074 /* GVCSOAPBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCSOAPBody.m; sourceTree = "<group>"; };
+		059D1DA71638774900339074 /* GVCSOAPFault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCSOAPFault.h; sourceTree = "<group>"; };
+		059D1DA81638774900339074 /* GVCSOAPFault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCSOAPFault.m; sourceTree = "<group>"; };
+		059D1DAB163877D600339074 /* GVCXMLTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLTextNode.h; sourceTree = "<group>"; };
+		059D1DAC163877D600339074 /* GVCXMLTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXMLTextNode.m; sourceTree = "<group>"; };
+		059D1DAF16387C5B00339074 /* GVCSOAPHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCSOAPHeader.h; sourceTree = "<group>"; };
+		059D1DB016387C5B00339074 /* GVCSOAPHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCSOAPHeader.m; sourceTree = "<group>"; };
+		059D1DB31638893800339074 /* NSURLRequest+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+GVCFoundation.h"; sourceTree = "<group>"; };
+		059D1DB41638893800339074 /* NSURLRequest+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+GVCFoundation.m"; sourceTree = "<group>"; };
+		059D1DBA1638D2F300339074 /* GVCSOAPDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCSOAPDocument.h; sourceTree = "<group>"; };
+		059D1DBB1638D2F300339074 /* GVCSOAPDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCSOAPDocument.m; sourceTree = "<group>"; };
 		05A7BF14148D756200866A42 /* GVCCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCCache.h; sourceTree = "<group>"; };
 		05A7BF15148D756200866A42 /* GVCCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCCache.m; sourceTree = "<group>"; };
 		05BB433A1515155D007DD3A2 /* sample-rss-2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sample-rss-2.xml"; sourceTree = "<group>"; };
@@ -612,6 +640,8 @@
 				051053DF1507AEE5002CDA3C /* GVCXMLText.m */,
 				055F98C1150FFA8C00D243AB /* GVCXMLNode.h */,
 				055F98C2150FFA8C00D243AB /* GVCXMLNode.m */,
+				059D1DAB163877D600339074 /* GVCXMLTextNode.h */,
+				059D1DAC163877D600339074 /* GVCXMLTextNode.m */,
 				055F98C5150FFF4000D243AB /* GVCXMLContainerNode.h */,
 				055F98C6150FFF4000D243AB /* GVCXMLContainerNode.m */,
 			);
@@ -621,6 +651,16 @@
 		05366F86163838E200743624 /* soap */ = {
 			isa = PBXGroup;
 			children = (
+				059D1DBA1638D2F300339074 /* GVCSOAPDocument.h */,
+				059D1DBB1638D2F300339074 /* GVCSOAPDocument.m */,
+				059D1D9E1638744800339074 /* GVCSOAPEnvelope.h */,
+				059D1D9F1638744800339074 /* GVCSOAPEnvelope.m */,
+				059D1DAF16387C5B00339074 /* GVCSOAPHeader.h */,
+				059D1DB016387C5B00339074 /* GVCSOAPHeader.m */,
+				059D1DA31638773200339074 /* GVCSOAPBody.h */,
+				059D1DA41638773200339074 /* GVCSOAPBody.m */,
+				059D1DA71638774900339074 /* GVCSOAPFault.h */,
+				059D1DA81638774900339074 /* GVCSOAPFault.m */,
 			);
 			path = soap;
 			sourceTree = "<group>";
@@ -960,6 +1000,8 @@
 				053B12EC155BAF1900F18A28 /* NSSet+GVCFoundation.m */,
 				058E4F7F1560B0BA00DD2CAF /* NSScanner+GVCFoundation.h */,
 				058E4F801560B0BA00DD2CAF /* NSScanner+GVCFoundation.m */,
+				059D1DB31638893800339074 /* NSURLRequest+GVCFoundation.h */,
+				059D1DB41638893800339074 /* NSURLRequest+GVCFoundation.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -1277,6 +1319,13 @@
 				05E39DC416373348007BD9D1 /* GVCSOAPSession.h in Headers */,
 				05E39DC916373384007BD9D1 /* GVCHTTPAction.h in Headers */,
 				05E39DCD16373398007BD9D1 /* GVCSOAPAction.h in Headers */,
+				059D1DBC1638D2F400339074 /* GVCSOAPDocument.h in Headers */,
+				059D1DA01638744800339074 /* GVCSOAPEnvelope.h in Headers */,
+				059D1DA51638773200339074 /* GVCSOAPBody.h in Headers */,
+				059D1DB116387C5B00339074 /* GVCSOAPHeader.h in Headers */,
+				059D1DA91638774900339074 /* GVCSOAPFault.h in Headers */,
+				059D1DB51638893800339074 /* NSURLRequest+GVCFoundation.h in Headers */,
+				059D1DAD163877D700339074 /* GVCXMLTextNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1524,6 +1573,13 @@
 				05E39DC516373348007BD9D1 /* GVCSOAPSession.m in Sources */,
 				05E39DCA16373384007BD9D1 /* GVCHTTPAction.m in Sources */,
 				05E39DCE16373398007BD9D1 /* GVCSOAPAction.m in Sources */,
+				059D1DA11638744800339074 /* GVCSOAPEnvelope.m in Sources */,
+				059D1DA61638773200339074 /* GVCSOAPBody.m in Sources */,
+				059D1DAA1638774900339074 /* GVCSOAPFault.m in Sources */,
+				059D1DAE163877D700339074 /* GVCXMLTextNode.m in Sources */,
+				059D1DB216387C5B00339074 /* GVCSOAPHeader.m in Sources */,
+				059D1DB61638893800339074 /* NSURLRequest+GVCFoundation.m in Sources */,
+				059D1DBD1638D2F400339074 /* GVCSOAPDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

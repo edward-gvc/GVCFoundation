@@ -38,6 +38,11 @@
 
 /** Implementation */
 
+- (void)generateOutput:(GVCXMLGenerator *)generator
+{
+	[generator writeComment:[self text]];
+}
+
 - (NSString *)description
 {
 	return GVC_SPRINTF( @"<!-- %@ -->", [self text]);

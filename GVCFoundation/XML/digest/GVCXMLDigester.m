@@ -32,10 +32,6 @@
 
 @implementation GVCXMLDigester
 
-@synthesize digestDictionary;
-@synthesize digestRuleManager;
-@synthesize currentNodeStack;
-
 - (id)init
 {
 	self = [super init];
@@ -51,7 +47,7 @@
 {
 	GVCXMLDigester *newInstance = nil;
 	GVCXMLDigester *irony = [[GVCXMLDigester alloc] init];
-	[irony setFilename:path];
+	[irony setXmlFilename:path];
 	
 	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigester"] forNodeName:@"digester"];
 	[irony addRule:[GVCXMLDigesterRule ruleForCreateObject:@"GVCXMLDigesterRuleset"] forNodeName:@"ruleset"];
@@ -80,13 +76,13 @@
 
 - (NSArray *)digestKeys
 {
-    return [digestDictionary allKeys];
+    return [[self digestDictionary] allKeys];
 }
 
 - (id)digestValueForPath:(NSString *)key
 {
 	GVC_ASSERT_NOT_EMPTY( key );
-	return [digestDictionary valueForKey:key];
+	return [[self digestDictionary] valueForKey:key];
 }
 
 - (void)resetParser
@@ -99,47 +95,47 @@
 
 - (void)pushNodeObject:(id)anObject
 {
-	if ( [currentNodeStack isEmpty] == YES )
+	if ( [[self currentNodeStack] isEmpty] == YES )
 	{
 		NSString *epath = [self elementPath];
-		if ( [digestDictionary objectForKey:epath] != nil )
+		if ( [[self digestDictionary] objectForKey:epath] != nil )
 		{
-			NSObject *value = [digestDictionary objectForKey:epath];
+			NSObject *value = [[self digestDictionary] objectForKey:epath];
 			if ( [value isKindOfClass:[NSMutableArray class]] == YES )
 				[(NSMutableArray *)value addObject:anObject];
 			else
 			{
 				NSMutableArray *newValue = [NSMutableArray arrayWithObjects:value, anObject, nil];
-				[digestDictionary setObject:newValue forKey:[self elementPath]];
+				[[self digestDictionary] setObject:newValue forKey:[self elementPath]];
 			}
 		}
 		else
 		{
-			[digestDictionary setObject:anObject forKey:epath];
+			[[self digestDictionary] setObject:anObject forKey:epath];
 		}
 	}
 	
-	[currentNodeStack pushObject:anObject];
+	[[self currentNodeStack] pushObject:anObject];
 }
 
 - (id)popNodeObject
 {
-	return [currentNodeStack popObject];
+	return [[self currentNodeStack] popObject];
 }
 
 - (id)peekNodeObject
 {
-	return [currentNodeStack peekObject];
+	return [[self currentNodeStack] peekObject];
 }
 
 - (id)peekNodeObjectAtIndex:(NSUInteger)idx
 {
-	return [currentNodeStack peekObjectAtIndex:idx];
+	return [[self currentNodeStack] peekObjectAtIndex:idx];
 }
 
 - (NSString *)elementPath
 {
-	return [[elementNameStack allObjects] componentsJoinedByString:@"/"];
+	return [self elementFullpath:@"/"];
 }
 
 /**
@@ -147,20 +143,8 @@
  */
 - (NSString *)currentTrimmedTextString
 {
-    NSString  *trimed = [[self currentTextString] gvc_TrimWhitespaceAndNewline];
+    NSString  *trimed = [[self currentTextBuffer] gvc_TrimWhitespaceAndNewline];
     return (gvc_IsEmpty(trimed) ? nil : trimed);
-}
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser
-{
-	[super parserDidStartDocument:parser];
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser
-{
-	[super parserDidEndDocument:parser];
-	
-	// TODO: loop through all rules and send [rule finishDigest];
 }
 
 - (NSMutableArray *)rulesForCurrentPath
@@ -168,7 +152,7 @@
 	// check for rules for the current path
 	NSArray *path_rules = [[self digestRuleManager] rulesForNodePath:[self elementPath]];
 	// check for rules for the current elementName
-	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:[self currentNodeName]];
+	NSArray *node_rules = [[self digestRuleManager] rulesForNodeName:[self peekTopElementName]];
 	// check for patterns
 	NSArray *pattern_rules = [[self digestRuleManager] rulesForMatch:[self elementPath]];
     NSMutableArray *rules = [NSMutableArray arrayWithCapacity:2];
@@ -186,6 +170,32 @@
         [rules addObjectsFromArray:pattern_rules];
     }
     return rules;
+}
+
+#pragma mark - NSXMLParserDelegate
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+	[super parserDidStartDocument:parser];
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+	[super parserDidEndDocument:parser];
+	
+	// TODO: loop through all rules and send [rule finishDigest];
+}
+
+- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
+{
+	[self setCurrentCDATA:CDATABlock];
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+	if (gvc_IsEmpty(string) == NO)
+	{
+		[self setCurrentTextBuffer:GVC_SPRINTF(@"%@%@", [self currentTextBuffer], string)];
+	}
 }
 
 
@@ -241,6 +251,8 @@
 		}
 	}
 
+	[self setCurrentCDATA:nil];
+	[self setCurrentTextBuffer:nil];
 	[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
 }
 
@@ -284,16 +296,16 @@
     [[self digestRuleManager] writeConfiguration:generator];
     
 	[generator openElement:@"currentDigest"];
-    if ( gvc_IsEmpty(digestDictionary) == NO )
+    if ( gvc_IsEmpty([self digestDictionary]) == NO )
     {
-        [generator writeText:[digestDictionary description]];
+        [generator writeText:[[self digestDictionary] description]];
     }
 	[generator closeElement];
 
     if ( [[self currentNodeStack] count] > 0 )
     {
         [generator openElement:@"currentNodeStack" inNamespace:nil withAttributeKeyValues:@"elementPath", [self elementPath]];
-        [generator writeText:[currentNodeStack description]];
+        [generator writeText:[[self currentNodeStack] description]];
         [generator closeElement];
     }
 

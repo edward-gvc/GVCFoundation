@@ -36,7 +36,7 @@ GVC_DEFINE_STR(GVCOperationErrorDomain)
 
 - (void)operationDidFailWithError:(NSError *)theError 
 {
-	GVCLogInfo(@"%@ failed: %@", self, theError);	
+	GVCLogError(@"%@ failed: %@", self, theError);
 	[self setOperationError:theError];
 	[self performSelectorOnMainThread:@selector(operationDidFailOnMainThread:) withObject:self waitUntilDone:[NSThread isMainThread]];
 }

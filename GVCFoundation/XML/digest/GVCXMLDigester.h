@@ -40,6 +40,8 @@
 - (id)peekNodeObjectAtIndex:(NSUInteger)idx;
 
 - (NSString *)elementPath;
+@property (strong, nonatomic) NSData *currentCDATA;
+@property (strong, nonatomic) NSString *currentTextBuffer;
 
 - (void)writeConfiguration:(GVCXMLGenerator *)outputGenerator;
 @end

@@ -10,6 +10,7 @@
 #import "GVCXMLParsingModel.h"
 
 @class GVCXMLDocType;
+@class GVCXMLGenerator;
 
 @interface GVCXMLDocument : NSObject <GVCXMLDocumentNode>
 {
@@ -25,16 +26,7 @@
 @property (strong, nonatomic) NSString *baseURL;
 @property (strong, nonatomic) GVCStack *nodeStack;
 
-// XMLParentProtocol
-//- (int)indexOf:(id <XMLContent>) child;
-//- (id <XMLContent>)contentAtIndex:(int) idx;
-//
-//- (NSArray *)nodeStack;
-//- (id <XMLContent>)addContent:(id <XMLContent>) child;
-//
-//- (void)removeAllContent;
-//- (void)removeContent:(id <XMLContent>) child;
-//- (void)removeContentAtIndex:(int) idx;
-//- (void)replaceContentAtIndex:(int) idx with:(id <XMLContent>) child;
+- (id <GVCXMLContent>)nodeForPath:(NSString *)path;
 
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 @end

@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "GVCXMLParsingModel.h"
 
+@class GVCXMLGenerator;
+
 /**
  * $Date: 2009-08-05 14:34:08 -0400 (Wed, 05 Aug 2009) $
  * $Rev: 31 $
@@ -20,5 +22,7 @@
 // XMLProcessingInstructions
 @property (strong, nonatomic) NSString *target;
 @property (strong, nonatomic) NSString *data;
+
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 
 @end

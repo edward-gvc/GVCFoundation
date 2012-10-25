@@ -1,43 +1,32 @@
-//
-//  DAXMLText.m
-//
-//  Created by David Aspinall on 03/02/09.
-//  Copyright 2010 Global Village Consulting Inc. All rights reserved.
-//
+/*
+ * GVCXMLTextNode.m
+ * 
+ * Created by David Aspinall on 2012-10-24. 
+ * Copyright (c) 2012 Global Village Consulting. All rights reserved.
+ *
+ */
 
-#import "GVCXMLText.h"
+#import "GVCXMLTextNode.h"
 #import "GVCXMLGenerator.h"
 
 #import "GVCMacros.h"
 
-/**
- * $Date: 2009-01-20 16:28:51 -0500 (Tue, 20 Jan 2009) $
- * $Rev: 121 $
- * $Author: david $
-*/
-@implementation GVCXMLText
+@interface GVCXMLTextNode ()
+
+@end
+
+@implementation GVCXMLTextNode
 
 - (id)init
 {
-	return [self initWithContent:nil];
-}
-
-- (id)initWithContent:(NSString *)string;
-{
 	self = [super init];
-	if (self != nil)
+	if ( self != nil )
 	{
-		[self setText:string];
 	}
-	return self;
+	
+    return self;
 }
 
--(GVC_XML_ContentType)xmlType
-{
-	return GVC_XML_ContentType_TEXT;
-}
-
-/** Implementation */
 /** XMLTextContainer */
 
 - (void)appendText:(NSString *)value
@@ -60,7 +49,7 @@
 	va_start(argList, fmt);
 	value = [[NSString alloc] initWithFormat:fmt arguments:argList];
 	va_end(argList);
-
+	
 	if ( value != nil )
 	{
 		if ( [self text] != nil )
@@ -75,14 +64,18 @@
 	return [self text];
 }
 
-- (NSString *)description
-{
-	return [self text];
-}
-
 - (void)generateOutput:(GVCXMLGenerator *)generator
 {
+	[generator openElement:[self localname] inNamespace:[self defaultNamespace]];
+	if ( gvc_IsEmpty([self attributes]) == NO )
+	{
+		for ( id <GVCXMLAttributeContent>attr in [self attributes])
+		{
+			[generator appendAttribute:[attr localname] inNamespacePrefix:[[attr defaultNamespace] prefix] forValue:[attr attributeValue]];
+		}
+	}
 	[generator writeText:[self text]];
+	[generator closeElement];
 }
 
 @end

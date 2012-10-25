@@ -8,7 +8,7 @@
 
 #import "GVCXMLNode.h"
 #import "GVCXMLAttribute.h"
-
+#import "GVCXMLGenerator.h"
 #import "GVCFunctions.h"
 
 @interface GVCXMLNode ()
@@ -36,8 +36,7 @@
 }
 
 	// GVCXMLNamedContent
-@synthesize localname;
-@synthesize defaultNamespace;
+
 - (NSString *)qualifiedName
 {
 	NSString *qName = [self localname];
@@ -94,6 +93,19 @@
 		}
 	}
 	return attrObject;
+}
+
+- (void)generateOutput:(GVCXMLGenerator *)generator
+{
+	[generator openElement:[self localname] inNamespace:[self defaultNamespace]];
+	if ( gvc_IsEmpty([self attributes]) == NO )
+	{
+		for ( id <GVCXMLAttributeContent>attr in [self attributes])
+		{
+			[generator appendAttribute:[attr localname] inNamespacePrefix:[[attr defaultNamespace] prefix] forValue:[attr attributeValue]];
+		}
+	}
+	[generator closeElement];
 }
 
 @end

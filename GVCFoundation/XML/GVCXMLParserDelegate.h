@@ -18,37 +18,32 @@ typedef enum _GVCXMLParserDelegate_Status
 	GVCXMLParserDelegate_Status_VALIDATION_FAILED
 } GVCXMLParserDelegate_Status;
 
+@class GVCStack;
+
 /*
 	Basic XML parser delegate to handle the most common tasks
  */
 @interface GVCXMLParserDelegate : NSObject  <NSXMLParserDelegate>
-{
-	NSMutableString *currentTextBuffer;
-	NSData *currentCDATA;
-	
-	NSString *filename;
-	NSURL *sourceURL;
-    NSData *xmlData;	
-	
-	GVCXMLParserDelegate_Status status;
-	NSError *xml;
-}
 
 - (id)init;
 - (void)resetParser;
+
 - (BOOL)isReady;
 
-@property (strong, nonatomic) NSString *filename;
-@property (strong, nonatomic) NSURL *sourceURL;
-@property (strong, nonatomic) NSData *xmlData;
-
+@property (assign, nonatomic, readonly) GVCXMLParserDelegate_Status status;
 @property (strong, nonatomic) NSError *xmlError;
 
-- (NSData *)currentCDATA;
-- (NSString *)currentTextString;
-- (NSString *)currentNodeName;
+@property (strong, nonatomic) NSString *xmlFilename;
+@property (strong, nonatomic) NSURL *xmlSourceURL;
+@property (strong, nonatomic) NSData *xmlData;
+
+@property (strong, nonatomic) GVCStack *elementStack;
+- (NSString *)peekTopElementName;
+- (NSString *)elementFullpath:(NSString *)separator;
 
 - (GVCXMLParserDelegate_Status)status;
+
+- (GVCXMLParserDelegate_Status)parse:(NSXMLParser *)parser;
 - (GVCXMLParserDelegate_Status)parse;
 
 @end

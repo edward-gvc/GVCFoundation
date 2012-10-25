@@ -16,6 +16,8 @@ typedef enum
 	GVC_XML_GeneratorFormat_PRETTY
 } GVC_XML_GeneratorFormat;
 
+
+
 @interface GVCXMLGenerator : GVCTextGenerator
 
 - initWithWriter:(id <GVCWriter>)wrter;
@@ -43,6 +45,7 @@ typedef enum
 - (void)openElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributes:(NSDictionary *)attributeDict;
 
 - (void)writeElement:(NSString *)name withText:(NSString *)text;
+- (void)writeElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributes:(NSDictionary *)attributeDict andText:(NSString *)text;
 - (void)writeElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributeKeyValues:(NSString *)key, ...;
 - (void)writeElement:(NSString *)name inNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue withAttributes:(NSDictionary *)attributeDict;
 - (void)writeElement:(NSString *)nodeName withAttributeKey:(NSString *)key value:(NSString *)value;
@@ -61,4 +64,10 @@ typedef enum
 - (void)startCDATA;
 - (void)endCDATA;
 
+@end
+
+
+
+@protocol GVCXMLGeneratorProtocol <NSObject>
+- (void)generateOutput:(GVCXMLGenerator *)generator;
 @end

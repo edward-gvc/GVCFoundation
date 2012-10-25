@@ -11,6 +11,8 @@
 #import "GVCFunctions.h"
 #import "GVCNetworking.h"
 
+#import "NSBundle+GVCFoundation.h"
+
 @interface GVCHTTPAction ()
 @end
 
@@ -22,6 +24,7 @@
 	if ( self != nil )
 	{
 		[self setAlerts:YES];
+		[self setAlertMessageKey:GVC_CLASSNAME(self)];
 	}
 	
     return self;
@@ -66,7 +69,7 @@
 
 - (NSDictionary *)requestHeaders
 {
-	return @{ GVC_HTTP_HEADER_KEY_user_agent : @"GVCFoundation" };
+	return @{ GVC_HTTP_HEADER_KEY_user_agent : [NSBundle gvc_MainBundleIdentifier] };
 }
 
 

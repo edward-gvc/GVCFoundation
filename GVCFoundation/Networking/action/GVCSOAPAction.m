@@ -7,6 +7,9 @@
  */
 
 #import "GVCSOAPAction.h"
+#import "GVCMacros.h"
+#import "GVCFunctions.h"
+#import "GVCNetworking.h"
 
 @interface GVCSOAPAction ()
 
@@ -16,9 +19,15 @@
 
 - (id)init
 {
+	return [self initWithActionName:GVC_CLASSNAME(self)];
+}
+
+- (id)initWithActionName:(NSString *)aName
+{
 	self = [super init];
 	if ( self != nil )
 	{
+		[self setSoapActionName:aName];
 	}
 	
     return self;
