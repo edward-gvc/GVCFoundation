@@ -10,6 +10,7 @@
 
 #import "GVCReaderWriter.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 @interface GVCTextGenerator ()
 @property (readwrite, strong, nonatomic) id <GVCWriter> writer;

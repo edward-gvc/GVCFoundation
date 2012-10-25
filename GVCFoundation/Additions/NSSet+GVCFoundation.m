@@ -8,6 +8,7 @@
 
 #import "NSSet+GVCFoundation.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 @implementation NSSet (GVCFoundation)
 

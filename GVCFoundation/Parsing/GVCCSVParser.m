@@ -9,6 +9,7 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "NSString+GVCFoundation.h"
+#import "GVCLogger.h"
 
 @interface GVCCSVParser ()
 

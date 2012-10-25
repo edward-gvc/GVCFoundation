@@ -9,6 +9,7 @@
 #import "GVCConfigDocument.h"
 #import "GVCFunctions.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 #import "GVCXMLGenerator.h"
 #import "GVCStringWriter.h"
 

@@ -10,6 +10,7 @@
 
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigester.h"
 #import "NSString+GVCFoundation.h"

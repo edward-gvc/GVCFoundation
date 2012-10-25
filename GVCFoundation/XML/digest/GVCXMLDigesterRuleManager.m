@@ -9,6 +9,7 @@
 #import "GVCFunctions.h"
 #import "NSArray+GVCFoundation.h"
 #import "NSDictionary+GVCFoundation.h"
+#import "GVCLogger.h"
 
 #import "GVCXMLDigesterRuleManager.h"
 #import "GVCXMLDigester.h"

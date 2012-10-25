@@ -9,6 +9,7 @@
 #import "NSScanner+GVCFoundation.h"
 #import "GVCFunctions.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 #import "NSString+GVCFoundation.h"
 

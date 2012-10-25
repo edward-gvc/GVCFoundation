@@ -10,6 +10,7 @@
 #import "GVCXMLGenerator.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 
 @interface GVCXMLNode ()
 @property (readwrite, strong, nonatomic) NSMutableArray *childArray;

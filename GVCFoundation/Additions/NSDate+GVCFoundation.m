@@ -8,6 +8,7 @@
 #import "NSDate+GVCFoundation.h"
 #import "GVCMacros.h"
 #import "GVCISO8601DateFormatter.h"
+#import "GVCLogger.h"
 
 @implementation NSDate (GVCFoundation)
 

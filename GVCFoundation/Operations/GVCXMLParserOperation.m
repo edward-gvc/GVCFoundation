@@ -9,6 +9,7 @@
 #import "GVCXMLParserOperation.h"
 
 #import "GVCXMLParserDelegate.h"
+#import "GVCLogger.h"
 
 @implementation GVCXMLParserOperation
 

@@ -9,6 +9,7 @@
 #import "GVCHTTPOperation.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "GVCNetworking.h"
 
 @implementation GVCHTTPOperation

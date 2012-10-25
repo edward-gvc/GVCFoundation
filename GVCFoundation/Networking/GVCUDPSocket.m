@@ -8,6 +8,7 @@
 #import "GVCUDPSocket.h"
 
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 #include <netinet/in.h>
 #include <unistd.h>

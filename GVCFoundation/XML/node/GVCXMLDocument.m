@@ -13,6 +13,7 @@
 #import "GVCXMLNamespace.h"
 #import "GVCFunctions.h"
 #import "GVCXMLGenerator.h"
+#import "GVCLogger.h"
 
 #import "GVCStack.h"
 #import "NSString+GVCFoundation.h"

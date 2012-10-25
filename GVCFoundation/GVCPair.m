@@ -7,6 +7,7 @@
 
 #import "GVCPair.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 @interface GVCPair ()
 @property (readwrite, nonatomic, strong) id left;

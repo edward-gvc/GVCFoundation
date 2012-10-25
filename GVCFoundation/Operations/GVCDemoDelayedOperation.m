@@ -9,6 +9,7 @@
 #import "NSString+GVCFoundation.h"
 #import "NSData+GVCFoundation.h"
 #import "GVCMultipartResponseData.h"
+#import "GVCLogger.h"
 
 @interface GVCMultipartResponseData (demoparts)
 @property (strong, nonatomic) NSMutableArray *multipart_responses;

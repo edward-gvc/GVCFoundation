@@ -11,6 +11,7 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "GVCNetOperation.h"
+#import "GVCLogger.h"
 
 @interface GVCNetResponseData ()
 // inbound data accumulator

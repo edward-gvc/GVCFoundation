@@ -8,6 +8,7 @@
 
 #import "GVCHTTPHeader.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
 @interface GVCHTTPHeader ()

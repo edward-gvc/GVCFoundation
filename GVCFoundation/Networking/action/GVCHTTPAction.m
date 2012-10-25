@@ -9,6 +9,7 @@
 #import "GVCHTTPAction.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "GVCNetworking.h"
 
 #import "NSBundle+GVCFoundation.h"

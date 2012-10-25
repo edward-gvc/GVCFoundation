@@ -6,6 +6,7 @@
 //
 
 #import "GVCRunLoopOperation.h"
+#import "GVCLogger.h"
 
 
 @interface GVCRunLoopOperation()

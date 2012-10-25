@@ -8,6 +8,7 @@
 
 #import "GVCStringWriter.h"
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 
 @interface GVCStringWriter ()
 @property (assign, nonatomic, readwrite) GVCWriterStatus writerStatus;

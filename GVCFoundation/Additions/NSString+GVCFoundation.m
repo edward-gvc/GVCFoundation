@@ -13,6 +13,7 @@
 
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 
 @implementation NSString (GVCFoundation)
 

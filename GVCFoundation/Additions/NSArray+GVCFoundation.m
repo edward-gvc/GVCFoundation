@@ -9,6 +9,7 @@
 #import "NSArray+GVCFoundation.h"
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 
 @implementation NSArray (GVCFoundation)
 

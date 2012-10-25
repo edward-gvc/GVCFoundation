@@ -11,6 +11,7 @@
 #import "GVCFunctions.h"
 #import "GVCNetworking.h"
 #import "GVCHTTPHeader.h"
+#import "GVCLogger.h"
 
 #import "NSString+GVCFoundation.h"
 #import "NSScanner+GVCFoundation.h"

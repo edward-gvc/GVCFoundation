@@ -9,6 +9,7 @@
 #import "GVCXMLDigesterCreateObjectRule.h"
 
 #import "GVCMacros.h"
+#import "GVCLogger.h"
 #import "GVCXMLGenerator.h"
 #import "GVCXMLDigester.h"
 

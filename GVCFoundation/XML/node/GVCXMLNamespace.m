@@ -8,6 +8,7 @@
 #import "GVCXMLNamespace.h"
 #import "GVCXMLGenerator.h"
 #import "GVCFunctions.h"
+#import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
 @implementation GVCXMLNamespace
