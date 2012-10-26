@@ -20,10 +20,22 @@ typedef enum _GVCXMLParserDelegate_Status
 
 @class GVCStack;
 
+
+@protocol GVCXMLParserProtocol <NSObject>
+@property (assign, nonatomic, readonly) GVCXMLParserDelegate_Status status;
+@property (strong, nonatomic) NSError *xmlError;
+@property (strong, nonatomic) NSString *xmlFilename;
+@property (strong, nonatomic) NSURL *xmlSourceURL;
+@property (strong, nonatomic) NSData *xmlData;
+- (GVCXMLParserDelegate_Status)status;
+- (GVCXMLParserDelegate_Status)parse:(NSXMLParser *)parser;
+- (GVCXMLParserDelegate_Status)parse;
+@end
+
 /*
 	Basic XML parser delegate to handle the most common tasks
  */
-@interface GVCXMLParserDelegate : NSObject  <NSXMLParserDelegate>
+@interface GVCXMLParserDelegate : NSObject  <NSXMLParserDelegate, GVCXMLParserProtocol>
 
 - (id)init;
 - (void)resetParser;

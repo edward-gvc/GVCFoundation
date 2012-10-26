@@ -8,15 +8,15 @@
 
 #import "GVCOperation.h"
 
-@class GVCXMLParserDelegate;
+@protocol GVCXMLParserProtocol;
 
 /**
  * XML parsing operation.
  */
 @interface GVCXMLParserOperation : GVCOperation
 
-- initForParser:(GVCXMLParserDelegate *)dgst;
+- initForParser:(id <GVCXMLParserProtocol>)dgst;
 
-@property (strong, nonatomic) GVCXMLParserDelegate *xmlParser;
+@property (strong, nonatomic) id <GVCXMLParserProtocol>xmlParser;
 
 @end

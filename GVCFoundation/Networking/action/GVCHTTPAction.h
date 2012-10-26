@@ -34,6 +34,12 @@
 @property (strong, nonatomic) NSString *alertMessageKey;
 
 /**
+ * Returns the action request HTTP method (GET, POST, OPTION)
+ * @returns HTTP method
+ */
+@property (strong, nonatomic) NSString *requestMethod;
+
+/**
  * teh result of GVCLocalizedString([self alertMessageKey])
  * @returns the localized value
  */
@@ -46,12 +52,6 @@
  * @returns modified URL if necessary
  */
 - (NSURL *)requestURL:(NSURL *)baseURL;
-
-/**
- * Returns the action request HTTP method (GET, POST, OPTION)
- * @returns HTTP method
- */
-- (NSString *)requestMethod;
 
 /**
  * Returns the action request HTTP Headers

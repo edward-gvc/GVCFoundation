@@ -26,6 +26,7 @@
 	{
 		[self setAlerts:YES];
 		[self setAlertMessageKey:GVC_CLASSNAME(self)];
+		[self setRequestMethod:GVC_HTTP_METHOD_KEY_get];
 	}
 	
     return self;
@@ -61,11 +62,6 @@
 				   )
 
 	return localizedValue;
-}
-
-- (NSString *)requestMethod
-{
-	return GVC_HTTP_METHOD_KEY_post;
 }
 
 - (NSDictionary *)requestHeaders

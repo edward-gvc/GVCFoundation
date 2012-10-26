@@ -15,7 +15,7 @@
 
 @synthesize xmlParser;
 
-- (id)initForParser:(GVCXMLParserDelegate *)dgst
+- (id)initForParser:(id <GVCXMLParserProtocol>)dgst
 {
 	self = [super init];
 	if ( self != nil )

@@ -24,6 +24,7 @@
 #import "NSData+GVCFoundation.h"
 #import "NSArray+GVCFoundation.h"
 
+
 @interface GVCXMLParserDelegate ()
 @property (assign, nonatomic, readwrite) GVCXMLParserDelegate_Status status;
 @end
