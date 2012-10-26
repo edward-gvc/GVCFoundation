@@ -344,26 +344,29 @@
 {
 	[self openElement:name inNamespace:nmspValue];
 	
-	va_list argumentList;
-	NSString *attkey = key;
-	NSString *attvalue = nil;
-	
-	va_start(argumentList, key);
-	
-	attvalue = va_arg(argumentList, NSString *);
-	while ((attkey != nil) && (attvalue != nil))
+	if ( gvc_IsEmpty(key) == NO )
 	{
-		[self appendAttribute:attkey forValue:attvalue];
+		va_list argumentList;
+		NSString *attkey = key;
+		NSString *attvalue = nil;
 		
-		// read next key and value
-		attkey = va_arg(argumentList, NSString *);
-		attvalue = nil;
-		if ( attkey != nil )
+		va_start(argumentList, key);
+		
+		attvalue = va_arg(argumentList, NSString *);
+		while ((attkey != nil) && (attvalue != nil))
 		{
-			attvalue = va_arg(argumentList, NSString *);
+			[self appendAttribute:attkey forValue:attvalue];
+			
+			// read next key and value
+			attkey = va_arg(argumentList, NSString *);
+			attvalue = nil;
+			if ( attkey != nil )
+			{
+				attvalue = va_arg(argumentList, NSString *);
+			}
 		}
+		va_end(argumentList);
 	}
-	va_end(argumentList);
 	[self closeElement];
 }
 
@@ -515,6 +518,14 @@
 	GVC_ASSERT_NOT_EMPTY( value );
 	
 	[self writeFormat:@" %@:%@=\"%@\"", prefix, key, [value gvc_XMLAttributeEscapedString]];
+}
+
+- (void)declareNamespaceArray:(NSArray *)namespaceDeclarationArray
+{
+	for (id <GVCXMLNamespaceDeclaration>nmspValue in namespaceDeclarationArray )
+	{
+		[self declareNamespace:nmspValue];
+	}
 }
 
 - (void)declareNamespace:(NSString *)prefix forURI:(NSString *)uri

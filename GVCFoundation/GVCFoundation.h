@@ -104,6 +104,7 @@
 /* 
  * XML 
  */
+#import "GVCBaseParserDelegate.h"
 #import "GVCXMLGenericNode.h"
 #import "GVCXMLParserDelegate.h"
 #import "GVCXMLParsingModel.h"

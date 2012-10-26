@@ -58,7 +58,7 @@
 	GVC_ASSERT(gvc_IsEmpty(localname) == NO, @"No local name provided" );
 	NSMutableString *buffer = [NSMutableString stringWithCapacity:10];
     NSString *prefix = [self prefix];
-    if ((prefix != nil) && ([prefix length] > 0))
+    if ((prefix != nil) && ([prefix length] > 0) && ([localname gvc_beginsWith:prefix] == NO))
     {
         [buffer appendString:prefix];
         [buffer appendString:@":"];

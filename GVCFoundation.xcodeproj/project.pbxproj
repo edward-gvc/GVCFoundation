@@ -151,6 +151,8 @@
 		056F599F147EEDD10076010D /* GVCMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F599C147EEDD10076010D /* GVCMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		056F59A8147EF4630076010D /* GVCFunctionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 056F59A7147EF4630076010D /* GVCFunctionsTest.m */; };
 		056F59E5147EFC540076010D /* GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 056F5938147EE84D0076010D /* GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0570DA1A163AD3E20076C7A6 /* GVCBaseParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0570DA18163AD3E20076C7A6 /* GVCBaseParserDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0570DA1B163AD3E20076C7A6 /* GVCBaseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0570DA19163AD3E20076C7A6 /* GVCBaseParserDelegate.m */; };
 		05749FB316066B35007CF96D /* CodeCoverageSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 05749FB216066B35007CF96D /* CodeCoverageSupport.c */; };
 		057543E71525475A00160469 /* GVCStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 057543E51525475A00160469 /* GVCStopwatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		057543E81525475A00160469 /* GVCStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 057543E61525475A00160469 /* GVCStopwatch.m */; };
@@ -430,6 +432,8 @@
 		056F599B147EEDD10076010D /* GVCFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctions.m; sourceTree = "<group>"; };
 		056F599C147EEDD10076010D /* GVCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCMacros.h; sourceTree = "<group>"; };
 		056F59A7147EF4630076010D /* GVCFunctionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFunctionsTest.m; sourceTree = "<group>"; };
+		0570DA18163AD3E20076C7A6 /* GVCBaseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCBaseParserDelegate.h; sourceTree = "<group>"; };
+		0570DA19163AD3E20076C7A6 /* GVCBaseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCBaseParserDelegate.m; sourceTree = "<group>"; };
 		05749FB216066B35007CF96D /* CodeCoverageSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CodeCoverageSupport.c; sourceTree = "<group>"; };
 		057543E51525475A00160469 /* GVCStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCStopwatch.h; sourceTree = "<group>"; };
 		057543E61525475A00160469 /* GVCStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCStopwatch.m; sourceTree = "<group>"; };
@@ -1106,6 +1110,8 @@
 		05D186C31504167500EDBE80 /* XML */ = {
 			isa = PBXGroup;
 			children = (
+				0570DA18163AD3E20076C7A6 /* GVCBaseParserDelegate.h */,
+				0570DA19163AD3E20076C7A6 /* GVCBaseParserDelegate.m */,
 				05EAE08A15655025004F5126 /* config */,
 				051053B31507AEE5002CDA3C /* digest */,
 				051053CC1507AEE5002CDA3C /* generator */,
@@ -1326,6 +1332,7 @@
 				059D1DA91638774900339074 /* GVCSOAPFault.h in Headers */,
 				059D1DB51638893800339074 /* NSURLRequest+GVCFoundation.h in Headers */,
 				059D1DAD163877D700339074 /* GVCXMLTextNode.h in Headers */,
+				0570DA1A163AD3E20076C7A6 /* GVCBaseParserDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1580,6 +1587,7 @@
 				059D1DB216387C5B00339074 /* GVCSOAPHeader.m in Sources */,
 				059D1DB61638893800339074 /* NSURLRequest+GVCFoundation.m in Sources */,
 				059D1DBD1638D2F400339074 /* GVCSOAPDocument.m in Sources */,
+				0570DA1B163AD3E20076C7A6 /* GVCBaseParserDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

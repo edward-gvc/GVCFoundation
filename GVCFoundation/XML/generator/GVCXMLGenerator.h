@@ -53,6 +53,8 @@ typedef enum
 
 - (void)appendAttribute:(NSString *)key forValue:(NSString *)value;
 - (void)appendAttribute:(NSString *)key inNamespacePrefix:(NSString *)prefix forValue:(NSString *)value;
+
+- (void)declareNamespaceArray:(NSArray *)namespaceDeclarationArray;
 - (void)declareNamespace:(NSString *)prefix forURI:(NSString *)uri;
 - (void)declareNamespace:(id <GVCXMLNamespaceDeclaration>)nmspValue;
 
