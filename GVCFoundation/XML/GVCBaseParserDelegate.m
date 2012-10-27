@@ -143,13 +143,12 @@
 	NSString *qName = nil;
 	GVC_DBC_REQUIRE(
 					GVC_DBC_FACT_NOT_EMPTY([self localname]);
-					GVC_DBC_FACT( (([self namespacePrefix] == nil) || (gvc_IsEmpty([self namespacePrefix]) == NO)) );
 					)
 	
 	// implementation
-	if ( gvc_IsEmpty([self namespacePrefix]) == NO)
+	if ( [self defaultNamespace] != nil)
 	{
-		qName = GVC_SPRINTF(@"%@:%@", [self namespacePrefix], [self localname]);
+		qName = [[self defaultNamespace] qualifiedNameInNamespace:[self localname]];
 	}
 	else
 	{
@@ -162,34 +161,41 @@
 	return qName;
 }
 
-- (id<GVCXMLNamespaceDeclaration>)defaultNamespace
+- (NSString *)defaultNamespacePrefix
 {
-	GVCXMLNamespace *namespace = nil;
-	if ( gvc_IsEmpty([self namespacePrefix]) == NO)
+	id <GVCXMLNamespaceDeclaration>namespace = [self defaultNamespace];
+	return (namespace == nil ? nil : [namespace prefix]);
+}
+
+- (id <GVCXMLNamespaceDeclaration>)namespaceInScope:(NSString *)prefix
+{
+	id <GVCXMLNamespaceDeclaration> inScope = nil;
+	
+	if ( prefix != nil )
 	{
-		namespace = [[self localNamespaces] objectForKey:[self namespacePrefix]];
+		if (([self defaultNamespace] != nil) && ([[[self defaultNamespace] prefix] isEqualToString:prefix] == YES))
+		{
+			inScope = [self defaultNamespace];
+		}
+		else
+		{
+			inScope = [[self localNamespaces] objectForKey:prefix];
+			if ((inScope == nil) && (([self parent] != nil) && [[self parent] isKindOfClass:[GVCParseNode class]] == YES) )
+			{
+				inScope = [(GVCParseNode *)[self parent] namespaceInScope:prefix];
+			}
+		}
 	}
-	return namespace;
+	
+	GVC_DBC_ENSURE(
+	)
+	
+	return inScope;
 }
 
 - (BOOL)isNamespaceInScope:(NSString *)prefix
 {
-	BOOL inScope = NO;
-	GVC_DBC_REQUIRE(
-					GVC_DBC_FACT_NOT_NIL(prefix);
-					)
-	
-	// implementation
-	inScope = ([[self localNamespaces] objectForKey:prefix] != nil);
-	if ((inScope == NO) && (([self parent] != nil) && [[self parent] isKindOfClass:[GVCParseNode class]] == YES) )
-	{
-		inScope = [(GVCParseNode *)[self parent] isNamespaceInScope:prefix];
-	}
-	
-	GVC_DBC_ENSURE(
-				   )
-
-	return inScope;
+	return ([self namespaceInScope:prefix] != nil);
 }
 
 - (NSDictionary *)declaredNamespaces

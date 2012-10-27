@@ -34,16 +34,20 @@
 - (NSString *)currentSetTextSelectorKey;
 - (NSString *)currentGetNodeSelectorKey;
 - (NSString *)currentSetNodeSelectorKey;
+- (NSString *)currentTextContent;
 
 @property (strong, nonatomic) NSString *localname;
-@property (strong, nonatomic) NSString *namespacePrefix;
 @property (strong, nonatomic) NSDictionary *attributes;
-- (id<GVCXMLNamespaceDeclaration>)defaultNamespace;
+@property (readwrite, strong, nonatomic) id <GVCXMLNamespaceDeclaration> defaultNamespace;
+
+- (NSString *)defaultNamespacePrefix;
 - (NSString *)qualifiedName;
-- (BOOL)isNamespaceInScope:(NSString *)prefix;
+
 - (NSDictionary *)declaredNamespaces;
-- (NSString *)currentTextContent;
 - (void)declareNamespace:(NSString *)prefix forURI:(NSString *)uri;
+- (BOOL)isNamespaceInScope:(NSString *)prefix;
+- (id <GVCXMLNamespaceDeclaration>)namespaceInScope:(NSString *)prefix;
+
 - (void)generateOutput:(GVCXMLGenerator *)generator;
 @end
 
