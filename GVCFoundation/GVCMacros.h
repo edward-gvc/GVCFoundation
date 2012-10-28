@@ -122,7 +122,8 @@ do { if ( gvc_IsEmpty((condition)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed
 #define GVC_DBC_FACT_NIL(object) if ((object != nil)) { GVC_ASSERT_LOG(@"DBC failure %@ is not allowed to be allocated", @#object); }
 #define GVC_DBC_FACT_NOT_NIL(object) if ((object == nil)) { GVC_ASSERT_LOG(@"DBC failure %@ is not allowed to be nil", @#object); }
 #define GVC_DBC_FACT_NOT_EMPTY(object) if ( gvc_IsEmpty((object)) == YES )	{ GVC_ASSERT_LOG(@"%@ is not allowed to be empty", @#object); }
-
+#define GVC_DBC_FACT_IS_KIND_OF_CLASS(object, clazz) if ( [object isKindOfClass:clazz] == NO ) { GVC_ASSERT_LOG(@"%@ must be a %@", @#object, NSStringFromClass(clazz)); }
+#define GVC_DBC_FACT_CONFORMS_TO_PROTOCOL(object, proto) if ( [object conformsToProtocol:proto] == NO )	{ GVC_ASSERT_LOG(@"%@ must conform to <%@>", @#object, NSStringFromProtocol(proto)); }
 
 #pragma mark - Singleton Header
 
