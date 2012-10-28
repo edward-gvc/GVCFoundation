@@ -14,7 +14,7 @@
 @interface GVCXMLContainerNode : GVCXMLNode <GVCXMLContainerNode>
 
 	// GVCXMLContainerNode
-- (NSArray *)children;
+- (NSArray *)contentArray;
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child;
 
 - (void)generateOutput:(GVCXMLGenerator *)generator;

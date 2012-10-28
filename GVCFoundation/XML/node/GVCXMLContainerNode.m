@@ -38,7 +38,7 @@
 
 
 	// GVCXMLContainerNode
-- (NSArray *)children
+- (NSArray *)contentArray
 {
 	return [[self childArray] copy];
 }
@@ -63,10 +63,10 @@
 		}
 	}
 
-	if ( gvc_IsEmpty([self children]) == NO )
+	if ( gvc_IsEmpty([self contentArray]) == NO )
 	{
 		id <GVCXMLContent> child = nil;
-		for (child in [self children])
+		for (child in [self contentArray])
 		{
 			GVC_ASSERT([child conformsToProtocol:@protocol(GVCXMLGeneratorProtocol)], @"Does not generate output %@", child);
 			[(id <GVCXMLGeneratorProtocol>)child generateOutput:generator];

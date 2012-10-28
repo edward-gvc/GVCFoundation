@@ -115,7 +115,7 @@ typedef enum {
 @end
 
 @protocol GVCXMLContainerNode <GVCXMLContent, GVCXMLGeneratorProtocol>
-- (NSArray *)children;
+- (NSArray *)contentArray;
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child;
 @end
 

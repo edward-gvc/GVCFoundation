@@ -13,12 +13,6 @@
 @class GVCXMLGenerator;
 
 @interface GVCXMLDocument : NSObject <GVCXMLDocumentNode>
-{
-	id <GVCXMLDocumentTypeDeclaration> documentType;	
-	NSString *baseURL;
-	
-	GVCStack *nodeStack;
-}
 
 - (id)init;
 

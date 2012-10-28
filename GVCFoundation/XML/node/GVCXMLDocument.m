@@ -11,8 +11,9 @@
 #import "GVCXMLDocument.h"
 #import "GVCXMLGenericNode.h"
 #import "GVCXMLNamespace.h"
-#import "GVCFunctions.h"
 #import "GVCXMLGenerator.h"
+
+#import "GVCFunctions.h"
 #import "GVCLogger.h"
 
 #import "GVCStack.h"
@@ -20,16 +21,12 @@
 
 @implementation GVCXMLDocument
 
-@synthesize documentType;
-@synthesize nodeStack;
-@synthesize baseURL;
-
 - (id)init
 {
 	self = [super init];
 	if (self != nil)
 	{
-		nodeStack = [[GVCStack alloc] init];
+		[self setNodeStack:[[GVCStack alloc] init]];
 	}
 	return self;
 }
@@ -41,7 +38,7 @@
 
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child
 {
-	[nodeStack pushObject:child];
+	[[self nodeStack] pushObject:child];
 	return child;
 }
 
@@ -55,9 +52,9 @@
 	return [self addContent:node];
 }
 
-- (NSArray *)children
+- (NSArray *)contentArray
 {
-	return [nodeStack allObjects];
+	return [[self nodeStack] allObjects];
 }
 
 - (NSString *)description
@@ -69,7 +66,7 @@
 		[buffer appendFormat:@"\n%@", [[self documentType] description]];
 	}
 	
-	NSArray *allChildren = [nodeStack allObjects];
+	NSArray *allChildren = [self contentArray];
 	if ( gvc_IsEmpty(allChildren) == NO )
 	{
 		[buffer appendString:@"\n"];
@@ -91,7 +88,7 @@
 		[[self documentType] generateOutput:generator];
 	}
 	
-	NSArray *allChildren = [nodeStack allObjects];
+	NSArray *allChildren = [self contentArray];
 	if ( gvc_IsEmpty(allChildren) == NO )
 	{
 		id <GVCXMLContent> child = nil;

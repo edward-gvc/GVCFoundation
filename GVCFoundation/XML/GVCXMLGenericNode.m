@@ -39,7 +39,7 @@
 	return self;
 }
 
-- (NSArray *)children
+- (NSArray *)contentArray
 {
 	return [nodeArray copy];
 }
