@@ -341,8 +341,17 @@ enum {
     // Swap the data accumulator over to the response data so that we don't trigger a copy.
     
 	NSError *err = nil;
-	if ( [[self responseData] closeData:&err] == NO )
+	if ( [self responseData] == nil )
 	{
+		err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : GVC_LocalizedString(@"HTTPError", @"No response data returned")}];
+		[self operationDidFailWithError:err];
+	}
+	else if ( [[self responseData] closeData:&err] == NO )
+	{
+		if ( err == nil )
+		{
+			err = [NSError errorWithDomain:GVCNetOperationErrorDomain code:-2 userInfo:@{NSLocalizedDescriptionKey : GVC_LocalizedString(@"HTTPError", @"Failed to close response data")}];
+		}
 		[self operationDidFailWithError:err];
 	}
 	else
