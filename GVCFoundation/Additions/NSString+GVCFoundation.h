@@ -51,6 +51,9 @@
 /* beginsWith, contains, endWith substring test */
 - (BOOL)gvc_endsWith:(NSString *)substr;
 
+/** short mime encoding names */
++ (NSString *)gvc_ShortMimeEncodingName:(NSStringEncoding)encode;
+
 /*  XML supporting methods */
 - (NSString *)gvc_XMLAttributeEscapedString;
 - (NSString *)gvc_XMLEntityEscapedString:(BOOL)escapeQuotes;

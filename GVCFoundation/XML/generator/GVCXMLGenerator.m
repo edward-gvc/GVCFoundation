@@ -211,12 +211,12 @@
 	if ( includeDeclaration == YES )
 	{
 		[super writeString:@"<?xml version=\"1.0\""];
-		if (includeEncoding == YES)
+		if ((includeEncoding == YES) && ([NSString gvc_ShortMimeEncodingName:[self xmlEncoding]] != nil))
 		{
-			[super writeFormat:@" encoding=\"%@\"", [NSString localizedNameOfStringEncoding:[self xmlEncoding]]];
+			[super writeFormat:@" encoding=\"%@\"", [NSString gvc_ShortMimeEncodingName:[self xmlEncoding]]];
 		}
 		[super writeString:@"?>"];
-		[self writeNewline];
+//		[self writeNewline];
 	}
 }
 

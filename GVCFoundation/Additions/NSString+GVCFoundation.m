@@ -14,6 +14,7 @@
 #import "GVCMacros.h"
 #import "GVCFunctions.h"
 #import "GVCLogger.h"
+#import "GVCNetworking.h"
 
 @implementation NSString (GVCFoundation)
 
@@ -324,6 +325,38 @@
 	}
 	
 	return self;
+}
+
++ (NSString *)gvc_ShortMimeEncodingName:(NSStringEncoding)encode
+{
+	NSString *shortEnc = nil;
+	if (encode == NSASCIIStringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_ascii;
+	}
+	else if (encode == NSISOLatin1StringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_isolatin1;
+	}
+	else if (encode == NSISOLatin2StringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_isolatin2;
+	}
+	else if(encode == NSISO2022JPStringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_iso2022jp;
+	}
+	else if(encode == NSUTF8StringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_utf8;
+	}
+	else if(encode == NSUTF16StringEncoding)
+	{
+		shortEnc = GVC_ENCODING_TYPE_utf16;
+	}
+
+    return shortEnc;
+
 }
 
 @end
