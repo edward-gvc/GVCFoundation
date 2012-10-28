@@ -30,6 +30,14 @@ GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_soap_action,	SOAPAction)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_user_agent,		User-Agent)
 GVC_DEFINE_STRVALUE(GVC_HTTP_HEADER_KEY_host,			Host)
 
+#pragma mark - encoding Types
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_ascii,		ascii)
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_isolatin1,	isolatin1)
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_isolatin2,	isolatin2)
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_iso2022jp,	iso2022jp)
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_utf8,			utf8)
+GVC_DEFINE_STRVALUE(GVC_ENCODING_TYPE_utf16,		utf16)
+
 #pragma mark - HTTP Headers
 
 static NSCharacterSet *gvc_rfc1521_special_characterset = nil;
