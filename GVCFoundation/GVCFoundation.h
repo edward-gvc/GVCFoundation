@@ -104,7 +104,6 @@
 /* 
  * XML 
  */
-#import "GVCBaseParserDelegate.h"
 #import "GVCXMLGenericNode.h"
 #import "GVCXMLParserDelegate.h"
 #import "GVCXMLParsingModel.h"
@@ -156,6 +155,24 @@
 #import "GVCXMLTextNode.h"
 
 /* 
+ * XML recursive 
+ */
+#import "GVCXMLRecursiveNode.h"
+#import "GVCXMLRecursiveParserBase.h"
+#import "GVCXMLRecursiveParserDelegate.h"
+
+/* 
+ * XML recursive soap 
+ */
+#import "GVCSOAPBody.h"
+#import "GVCSOAPDocument.h"
+#import "GVCSOAPEnvelope.h"
+#import "GVCSOAPFault.h"
+#import "GVCSOAPFaultcode.h"
+#import "GVCSOAPFaultstring.h"
+#import "GVCSOAPHeader.h"
+
+/* 
  * XML rss 
  */
 #import "GVCRSSDigester.h"
@@ -164,15 +181,6 @@
 #import "GVCRSSLink.h"
 #import "GVCRSSNode.h"
 #import "GVCRSSText.h"
-
-/* 
- * XML soap 
- */
-#import "GVCSOAPBody.h"
-#import "GVCSOAPDocument.h"
-#import "GVCSOAPEnvelope.h"
-#import "GVCSOAPFault.h"
-#import "GVCSOAPHeader.h"
 
 /* 
  * formatter 

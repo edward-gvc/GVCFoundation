@@ -7,10 +7,23 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "GVCXMLParsingModel.h"
+#import "GVCXMLRecursiveNode.h"
+#import "GVCMacros.h"
+
+GVC_DEFINE_EXTERN_STR(GVCSOAPFaultstring_elementname);
 
 /**
  * <#description#>
  */
-@interface GVCSOAPFaultstring : GVCXMLRecursiveParserBase
+@interface GVCSOAPFaultstring : GVCXMLRecursiveNode <GVCXMLTextContent>
+
+/** XMLTextContainer */
+@property (strong, nonatomic) NSString *text;
+
+- (void)appendText:(NSString *)value;
+- (void)appendTextWithFormat:(NSString*)fmt, ...;
+
+- (NSString *)normalizedText;
 
 @end

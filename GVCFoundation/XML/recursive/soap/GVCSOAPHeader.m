@@ -8,6 +8,9 @@
 
 #import "GVCSOAPHeader.h"
 #import "GVCXMLNamespace.h"
+#import "GVCXMLGenerator.h"
+
+GVC_DEFINE_STRVALUE(GVCSOAPHeader_elementname, Header);
 
 @interface GVCSOAPHeader ()
 
@@ -20,11 +23,19 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		[self setLocalname:@"Header"];
+		[self setLocalname:GVCSOAPHeader_elementname];
 		[self setDefaultNamespace:[GVCXMLNamespace namespaceForPrefix:@"soapenv" andURI:@"http://schemas.xmlsoap.org/soap/envelope/"]];
 	}
 	
     return self;
+}
+
+- (void)generateOutput:(GVCXMLGenerator *)generator
+{
+	[generator openElement:[self qualifiedName] inNamespace:[self defaultNamespace] withAttributes:nil];
+	[generator declareNamespaceArray:[[self declaredNamespaces] allValues]];
+	
+	[generator closeElement];
 }
 
 @end

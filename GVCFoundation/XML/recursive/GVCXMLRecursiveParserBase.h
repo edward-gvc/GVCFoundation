@@ -8,9 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GVCXMLParserDelegate.h"
+
+@class GVCXMLGenerator;
+@class GVCStack;
+
 /**
  * <#description#>
  */
-@interface GVCXMLRecursiveParserBase : NSObject
+@interface GVCXMLRecursiveParserBase : NSObject <NSXMLParserDelegate>
+
+@property (strong, nonatomic) GVCXMLRecursiveParserBase *parent;
+- (void)reset;
+
+@property (strong, nonatomic) GVCStack *elementStack;
+- (NSString *)peekTopElementName;
+- (NSString *)elementNamePath:(NSString *)separator;
 
 @end
