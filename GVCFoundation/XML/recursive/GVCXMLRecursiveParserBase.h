@@ -24,5 +24,6 @@
 @property (strong, nonatomic) GVCStack *elementStack;
 - (NSString *)peekTopElementName;
 - (NSString *)elementNamePath:(NSString *)separator;
+- (NSString *)fullElementNamePath:(NSString *)separator;
 
 @end

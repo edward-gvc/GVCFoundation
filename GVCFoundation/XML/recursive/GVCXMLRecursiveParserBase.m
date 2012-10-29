@@ -79,26 +79,35 @@
 					GVC_DBC_FACT_NOT_EMPTY(separator);
 					)
 	NSArray *allElements = [[self elementStack] allObjects];
+	NSString *path = nil;
+	if ( gvc_IsEmpty(allElements) == NO )
+	{
+		path = [allElements componentsJoinedByString:separator];
+	}
+	return path;
+}
+
+- (NSString *)fullElementNamePath:(NSString *)separator
+{
+	NSString *current = [self elementNamePath:separator];
+	NSString *parentPath = nil;
+	if ( [self parent] != nil )
+	{
+		parentPath = [[self parent] fullElementNamePath:separator];
+	}
 	
-	return [allElements gvc_componentsJoinedByString:separator after:^(id item) {
-		NSString *elementName = nil;
-		if ( [item isKindOfClass:[NSString class]] == YES )
+	if (gvc_IsEmpty(parentPath) == NO)
+	{
+		if  (gvc_IsEmpty(current) == NO )
 		{
-			elementName = (NSString *)item;
+			current = GVC_SPRINTF(@"%@%@%@", parentPath, separator, current );
 		}
 		else
 		{
-			if ( [item conformsToProtocol:@protocol(GVCXMLNamedContent)] == YES )
-			{
-				elementName = [(id <GVCXMLNamedContent>)item localname];
-			}
-			else
-			{
-				elementName = [item description];
-			}
+			current = parentPath;
 		}
-		return (NSString *)elementName;
-    }];
+	}
+	return current;
 }
 
 #pragma mark - NSXMLParserDelegate
