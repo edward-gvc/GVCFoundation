@@ -233,7 +233,8 @@
 	NSString *currentText = [self currentTextContent];
     if (gvc_IsEmpty(currentText) == NO)
     {
-		NSString *defaultKey = [self peekTopElementName];
+		NSString *defaultKey = (gvc_IsEmpty([self peekTopElementName]) ? @"text" : [self peekTopElementName]);
+
 		NSString *valueSelector = GVC_SPRINTF(@"set%@:", [defaultKey gvc_StringWithCapitalizedFirstCharacter]);
 		SEL aSelector = NSSelectorFromString(valueSelector);
 		if ( [self respondsToSelector:aSelector] == NO )
@@ -319,6 +320,10 @@
 		[node setParent:self];
 		[parser setDelegate:node];
 	}
+	else if ( gvc_IsEmpty(attributeDict) == NO )
+	{
+		GVC_ASSERT(gvc_IsEmpty(attributeDict), @"No Class found for '%@' but it has attributes %@", elementName, attributeDict);
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -341,10 +346,18 @@
 		GVCXMLRecursiveNode *node = (GVCXMLRecursiveNode *)[parser delegate];
 		if ([[node localname] isEqualToString:elementName] == NO)
 		{
-			GVC_ASSERT([[node localname] isEqualToString:elementName], @"element %@ ended path %@", elementName, [self elementNamePath:@"/"]);
+			GVCLogError(@"element '%@' ended path '%@'\n%@", elementName, [self fullElementNamePath:@"/"], self);
+			GVC_ASSERT([[node localname] isEqualToString:elementName], @"element '%@' ended path '%@'", elementName, [self fullElementNamePath:@"/"]);
 		}
 		
 		[node setParent:nil];
+		[parser setDelegate:self];
+	}
+	else if ( [parser delegate] != self )
+	{
+		// one of my content nodes has punted this back to me, time to pop the delegate stack
+		[super parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName];
+		[(GVCXMLRecursiveNode *)[parser delegate] setParent:nil];
 		[parser setDelegate:self];
 	}
 	else
@@ -380,6 +393,14 @@
 	
 	GVC_DBC_ENSURE(
 	)
+}
+
+- (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
+{
+//	if ( [self respondsToSelector:@selector(addComment:)] == YES )
+//	{
+//		[self addComment:comment];
+//	}
 }
 
 #pragma mark - output
