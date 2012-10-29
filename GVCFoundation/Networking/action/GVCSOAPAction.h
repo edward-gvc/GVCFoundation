@@ -10,6 +10,8 @@
 
 #import "GVCHTTPAction.h"
 
+@class GVCSOAPDocument;
+
 /**
  * <#description#>
  */
@@ -18,5 +20,7 @@
 - (id)initWithActionName:(NSString *)aName;
 
 @property (strong, nonatomic) NSString *soapActionName;
+
+@property (strong, nonatomic) GVCSOAPDocument *soapActionResponse;
 
 @end

@@ -199,6 +199,11 @@
 	return msg;
 }
 
+- (NSArray *)envelopeBodyContent
+{
+	return [[[self envelope] body] contentArray];
+}
+
 - (BOOL)isFault
 {
 	return ([self faultNode] == nil);
@@ -206,7 +211,7 @@
 
 - (GVCSOAPFault *)faultNode
 {
-	NSArray *bodyContent = [[[self envelope] body] contentArray];
+	NSArray *bodyContent = [self envelopeBodyContent];
 	
 	NSArray *filtered = [bodyContent gvc_filterForClass:[GVCSOAPFault class]];
 	return (gvc_IsEmpty(filtered) == NO ? [filtered lastObject] : nil);

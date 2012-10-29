@@ -35,6 +35,7 @@
 #pragma mark - SOAP
 - (GVCSOAPEnvelope *)envelope;
 - (GVCSOAPBody *)body;
+- (NSArray *)envelopeBodyContent;
 
 - (BOOL)isFault;
 - (GVCSOAPFault *)faultNode;
