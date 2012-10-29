@@ -95,7 +95,7 @@
 #pragma mark - GVCXMLGenerator protocol
 - (void)generateOutput:(GVCXMLGenerator *)generator
 {
-	[generator openDocumentWithDeclaration:YES andEncoding:YES];
+	[generator openDocumentWithDeclaration:NO andEncoding:NO];
 	if ( [self documentType] != nil )
 	{
 		[[self documentType] generateOutput:generator];

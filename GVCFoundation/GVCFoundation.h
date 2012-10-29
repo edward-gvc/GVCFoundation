@@ -173,6 +173,11 @@
 #import "GVCSOAPHeader.h"
 
 /* 
+ * XML recursive xsd 
+ */
+#import "GVCXSDString.h"
+
+/* 
  * XML rss 
  */
 #import "GVCRSSDigester.h"

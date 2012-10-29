@@ -322,7 +322,7 @@
 	}
 	else if ( gvc_IsEmpty(attributeDict) == NO )
 	{
-		GVC_ASSERT(gvc_IsEmpty(attributeDict), @"No Class found for '%@' but it has attributes %@", elementName, attributeDict);
+//		GVC_ASSERT(gvc_IsEmpty(attributeDict), @"No Class found for '%@' but it has attributes %@", elementName, attributeDict);
 	}
 }
 
