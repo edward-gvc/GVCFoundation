@@ -35,6 +35,12 @@ GVC_DEFINE_STRVALUE(GVCSOAPFault_elementname, Fault);
 {
 	[generator openElement:[self qualifiedName] inNamespace:[self defaultNamespace] withAttributes:nil];
 	[generator declareNamespaceArray:[[self declaredNamespaces] allValues]];
+	for ( NSString *attr in [self attributes])
+	{
+		NSString *value = [[self attributes] valueForKey:attr];
+		[generator appendAttribute:attr forValue:value];
+	}
+
 	if ( [self faultcode] != nil )
 	{
 		[[self faultcode] generateOutput:generator];

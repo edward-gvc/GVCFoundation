@@ -37,7 +37,12 @@ GVC_DEFINE_STRVALUE(GVCSOAPEnvelope_elementname, Envelope);
 {
 	[generator openElement:[self qualifiedName] inNamespace:[self defaultNamespace] withAttributes:nil];
 	[generator declareNamespaceArray:[[self declaredNamespaces] allValues]];
-	
+	for ( NSString *attr in [self attributes])
+	{
+		NSString *value = [[self attributes] valueForKey:attr];
+		[generator appendAttribute:attr forValue:value];
+	}
+
 	if ( [self body] != nil )
 	{
 		[[self body] generateOutput:generator];

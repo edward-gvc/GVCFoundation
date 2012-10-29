@@ -71,6 +71,12 @@ GVC_DEFINE_STRVALUE(GVCSOAPFaultcode_elementname, faultcode);
 {
 	[generator openElement:[self qualifiedName] inNamespace:[self defaultNamespace] withAttributes:nil];
 	[generator declareNamespaceArray:[[self declaredNamespaces] allValues]];
+	for ( NSString *attr in [self attributes])
+	{
+		NSString *value = [[self attributes] valueForKey:attr];
+		[generator appendAttribute:attr forValue:value];
+	}
+
 	[generator writeText:[self text]];
 	[generator closeElement];
 }

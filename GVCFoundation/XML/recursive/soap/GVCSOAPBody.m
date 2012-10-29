@@ -58,7 +58,12 @@ GVC_DEFINE_STRVALUE(GVCSOAPBody_elementname, Body);
 {
 	[generator openElement:[self qualifiedName] inNamespace:[self defaultNamespace] withAttributes:nil];
 	[generator declareNamespaceArray:[[self declaredNamespaces] allValues]];
-	
+	for ( NSString *attr in [self attributes])
+	{
+		NSString *value = [[self attributes] valueForKey:attr];
+		[generator appendAttribute:attr forValue:value];
+	}
+
 	for ( GVCXMLRecursiveNode *node in [self nodeArray])
 	{
 		[node generateOutput:generator];
