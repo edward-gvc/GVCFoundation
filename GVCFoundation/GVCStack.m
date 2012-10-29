@@ -10,19 +10,17 @@
 #import "GVCFunctions.h"
 
 @interface GVCStack ()
-@property (strong, nonatomic) NSMutableArray	*internStore;
+@property (strong, nonatomic) NSMutableArray *internStore;
 @end
 
 @implementation GVCStack
-
-@synthesize internStore;
 
 - (id)init
 {
 	self = [super init];
 	if ( self != nil )
 	{
-		internStore = [[NSMutableArray alloc] init];
+		[self setInternStore:[[NSMutableArray alloc] init]];
 	}
 	
     return self;
@@ -45,7 +43,7 @@
 {
 	if ( anObject != nil )
 	{
-		[internStore addObject:anObject];
+		[[self internStore] addObject:anObject];
 	}
 }
 
@@ -68,10 +66,10 @@
 - (id)popObject
 {
 	id popValue = nil;
-    if ([internStore count] > 0)
+    if ([[self internStore] count] > 0)
 	{
-		popValue = [internStore lastObject];
-		[internStore removeLastObject];
+		popValue = [[self internStore] lastObject];
+		[[self internStore] removeLastObject];
 	}
 	return popValue;
 }
@@ -79,9 +77,9 @@
 - (id)peekObject
 {
 	id peekValue = nil;
-    if ([internStore count] > 0)
+    if ([[self internStore] count] > 0)
 	{
-		peekValue = [internStore lastObject];
+		peekValue = [[self internStore] lastObject];
 	}
 	return peekValue;
 }
@@ -90,12 +88,12 @@
 - (id)peekObjectAtIndex:(NSUInteger)idx
 {
 	id peekValue = nil;
-	NSInteger depth = (NSInteger)[internStore count] - 1;
+	NSInteger depth = (NSInteger)[[self internStore] count] - 1;
 	NSInteger target = (NSInteger)(depth - (NSInteger)idx);
 	
-    if ((target >= 0) && (target < (NSInteger)[internStore count]))
+    if ((target >= 0) && (target < (NSInteger)[[self internStore] count]))
 	{
-		peekValue = [internStore objectAtIndex:(NSUInteger)target];
+		peekValue = [[self internStore] objectAtIndex:(NSUInteger)target];
 	}
 
 	return peekValue;
@@ -104,38 +102,38 @@
 
 - (void)clear
 {
-    [internStore removeAllObjects];
+    [[self internStore] removeAllObjects];
 }
 
 
 - (id)topObject
 {
-    return [internStore lastObject];
+    return [[self internStore] lastObject];
 }
 
 - (NSArray *)topObjects:(NSUInteger)count
 {
-    return [internStore subarrayWithRange:NSMakeRange([internStore count] - count , count)];
+    return [[self internStore] subarrayWithRange:NSMakeRange([[self internStore] count] - count , count)];
 }
 
 - (NSArray *)allObjects
 {
-    return [internStore copy];
+    return [[self internStore] copy];
 }
 
 - (NSUInteger)count
 {
-    return [internStore count];
+    return [[self internStore] count];
 }
 
 - (NSString *)description
 {
-	return [internStore description];
+	return [[self internStore] description];
 }
 
 - (BOOL)isEmpty
 {
-	return gvc_IsEmpty(internStore);
+	return gvc_IsEmpty([self internStore]);
 }
 
 
