@@ -21,10 +21,12 @@
 - (id)initForFileHandle:(NSFileHandle *)file encoding:(NSStringEncoding)encoding;
 - (id)initForFilename:(NSString *)file encoding:(NSStringEncoding)encoding;
 
+- (NSURL *)logPathURL;
+
 @property (strong, nonatomic) NSString *logPath;
 @property (strong, nonatomic) NSFileHandle	*log;
 
-@property (nonatomic, readonly) GVCWriterStatus writerStatus;
-@property (nonatomic, readonly) NSStringEncoding stringEncoding;
+@property (nonatomic, assign, readonly) GVCWriterStatus writerStatus;
+@property (nonatomic, assign, readonly) NSStringEncoding stringEncoding;
 
 @end

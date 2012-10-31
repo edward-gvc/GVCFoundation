@@ -9,6 +9,7 @@
 #import "GVCFileHandleWriter.h"
 
 #import "GVCMacros.h"
+#import "GVCFunctions.h"
 #import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
 
@@ -23,11 +24,6 @@
 @end
 
 @implementation GVCFileHandleWriter
-
-@synthesize log;
-@synthesize logPath;
-@synthesize writerStatus;
-@synthesize stringEncoding;
 
 + (GVCFileHandleWriter *)writerForFileHandle:(NSFileHandle *)file;
 {
@@ -44,8 +40,8 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		writerStatus = GVC_IO_Status_INITIAL;
-		stringEncoding = NSUTF8StringEncoding;
+		[self setWriterStatus:GVC_IO_Status_INITIAL];
+		[self setStringEncoding:NSUTF8StringEncoding];
 		group = dispatch_group_create();
 	}
 	return self;
@@ -80,53 +76,66 @@
 		[self setLogPath:file];
 		[self setStringEncoding:encoding];
 		
-		NSFileHandle *handle = [NSFileHandle fileHandleForUpdatingAtPath:[self logPath]];
-        GVC_ASSERT(handle != nil, @"Unable to allocate file handle for %@", [self logPath]);
+		NSError *err = nil;
+		NSFileHandle *handle = [NSFileHandle fileHandleForWritingToURL:[self logPathURL] error:&err];
+		if ( handle == nil )
+		{
+			[[NSFileManager defaultManager] createFileAtPath:[self logPath] contents:nil attributes:nil];
+			handle = [NSFileHandle fileHandleForWritingToURL:[self logPathURL] error:&err];
+		}
+
+		if ((handle == nil) && (err != nil))
+		{
+			GVCLogNSError(GVCLoggerLevel_ERROR, err);
+		}
+		
+        GVC_ASSERT_NOT_NIL(handle);
 		[self setLog:handle];
 	}
 	return self;
 }
 
-- (NSStringEncoding)stringEncoding
+- (NSURL *)logPathURL
 {
-	return stringEncoding;
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_EMPTY([self logPath]);
+					)
+	
+	// implementation
+	NSURL *url = [NSURL fileURLWithPath:[self logPath]];
+	
+	GVC_DBC_ENSURE(
+				   GVC_DBC_FACT_NOT_NIL(url);
+				   )
+	return url;
 }
 
-- (void)setStringEncoding:(NSStringEncoding)encode
-{
-	GVC_ASSERT( writerStatus == GVC_IO_Status_INITIAL, @"Cannot change encoding once writer is open" );
-	stringEncoding = encode;
-}
 
-- (GVCWriterStatus)status
-{
-	return writerStatus;
-}
 
 - (void)openWriter
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_INITIAL, @"Cannot open writer more than once" );
+	GVC_ASSERT( [self writerStatus] == GVC_IO_Status_INITIAL, @"Cannot open writer more than once" );
 
-	writerStatus = GVC_IO_Status_OPEN;
+	[self setWriterStatus:GVC_IO_Status_OPEN];
 }
 
 - (void)flush
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot flush unless writer is open" );
-	[log synchronizeFile];
+	GVC_ASSERT( [self writerStatus] == GVC_IO_Status_OPEN, @"Cannot flush unless writer is open" );
+	[[self log] synchronizeFile];
 }
 
 - (void)writeString:(NSString *)str
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot write unless writer is open" );
+	GVC_ASSERT( [self writerStatus] == GVC_IO_Status_OPEN, @"Cannot write unless writer is open" );
     GVC_ASSERT( str != nil, @"No message" );
 
 	dispatch_group_async( group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		if ((log != [NSFileHandle fileHandleWithStandardError]) && (log != [NSFileHandle fileHandleWithStandardOutput]))
+		if (([self log] != [NSFileHandle fileHandleWithStandardError]) && ([self log] != [NSFileHandle fileHandleWithStandardOutput]))
         {
-			[log seekToEndOfFile];
+//			[[self log] seekToEndOfFile];
         }
-        [log writeData:[str dataUsingEncoding:[self stringEncoding]]];
+        [[self log] writeData:[str dataUsingEncoding:[self stringEncoding]]];
 	});
 }
 
@@ -144,15 +153,14 @@
 
 - (void)closeWriter
 {
-	GVC_ASSERT( writerStatus == GVC_IO_Status_OPEN, @"Cannot close writer unless writer is open" );
-    if ((log != [NSFileHandle fileHandleWithStandardError]) && (log != [NSFileHandle fileHandleWithStandardOutput]))
+	GVC_ASSERT( [self writerStatus] == GVC_IO_Status_OPEN, @"Cannot close writer unless writer is open" );
+    if (([self log] != [NSFileHandle fileHandleWithStandardError]) && ([self log] != [NSFileHandle fileHandleWithStandardOutput]))
     {
-        [log closeFile];
+        [[self log] closeFile];
     }
 
-    log = nil;
-    
-	writerStatus = GVC_IO_Status_CLOSED;
+	[self setLog:nil];
+    [self setWriterStatus:GVC_IO_Status_CLOSED];
 }
 
 
