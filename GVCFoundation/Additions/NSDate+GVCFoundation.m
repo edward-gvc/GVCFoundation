@@ -21,7 +21,8 @@
 	{
 		iso8601LongDateFormatter = [[NSDateFormatter alloc] init];
         [iso8601LongDateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+//        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 		[iso8601LongDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 	}
 	return iso8601LongDateFormatter;
