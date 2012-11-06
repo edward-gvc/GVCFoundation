@@ -175,14 +175,10 @@
 #pragma mark - NSXMLParserDelegate
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
-	[super parserDidStartDocument:parser];
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
-	[super parserDidEndDocument:parser];
-	
-	// TODO: loop through all rules and send [rule finishDigest];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
