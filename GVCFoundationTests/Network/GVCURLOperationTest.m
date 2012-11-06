@@ -43,14 +43,15 @@
 
 	NSURL *apple = [NSURL URLWithString:@"http://www.apple.com"];
 	GVCNetOperation *apple_Op = [[GVCNetOperation alloc] initForURL:apple];
-	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+	[apple_Op setProgressBlock:^(NSUInteger bytes, NSUInteger totalBytes, NSString *status){
 		GVCLogError(@"%d of %d", bytes, totalBytes);
 	}];
 	[apple_Op setDidFinishBlock:^(GVCOperation *operation) {
         GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
 		NSData *data = [respData responseBody];
 		GVCLogError(@"Operation success with data %@", data);
-		[data writeToFile:@"/tmp/apple.com.html" atomically:YES];
+		GVCDirectory *testRoot = [[GVCDirectory TempDirectory] createSubdirectory:GVC_CLASSNAME(self)];
+		[data writeToFile:[testRoot fullpathForFile:@"apple.com.html"] atomically:YES];
 		hasCalledBack = YES;
 	}];
 	[apple_Op setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
@@ -68,13 +69,15 @@
 
 }
 
-- (void)testFTPURL
+/** media.local is a test that only works in my home.  need to find a public site
+ */
+- (void)xtestFTPURL
 {
 	__block BOOL hasCalledBack = NO;
 	
 	NSURL *ftpurl = [NSURL URLWithString:@"ftp://media.local."];
 	GVCNetOperation *ftp_Op = [[GVCNetOperation alloc] initForURL:ftpurl];
-	[ftp_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+	[ftp_Op setProgressBlock:^(NSUInteger bytes, NSUInteger totalBytes, NSString *status){
 		GVCLogError(@"Received %d of %d", bytes, totalBytes);
 	}];
 	[ftp_Op setDidFinishBlock:^(GVCOperation *operation) {
@@ -99,7 +102,7 @@
 	
 }
 
-- (void)testSelfSignedCertFail
+- (void)xtestSelfSignedCertFail
 {
 	__block BOOL hasCalledBack = NO;
 	
@@ -124,7 +127,7 @@
     }
 }
 
-- (void)testSelfSignedCertSuccess
+- (void)xtestSelfSignedCertSuccess
 {
 	__block BOOL hasCalledBack = NO;
 	
@@ -136,7 +139,8 @@
 		GVCLogError(@"GVCOperation success");
         GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
 		NSData *data = [respData responseBody];
-		[data writeToFile:@"/tmp/media-local.html" atomically:YES];
+		GVCDirectory *testRoot = [[GVCDirectory TempDirectory] createSubdirectory:GVC_CLASSNAME(self)];
+		[data writeToFile:[testRoot fullpathForFile:@"media-local.html"] atomically:YES];
 		STAssertTrue(data != nil, @"Self signed server should have returned a page");
 		STAssertTrue([data length] > 10, @"Self signed server should have content");
 		hasCalledBack = YES;

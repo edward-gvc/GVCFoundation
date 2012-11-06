@@ -37,7 +37,7 @@
 	[[GVCLogger sharedGVCLogger] setLoggerLevel:GVCLoggerLevel_INFO];
 
 	GVCXMLParseNodeDelegate *parser = [[GVCXMLParseNodeDelegate alloc] init];
-	[parser setFilename:[self pathForResource:XML_Agent_OIDs extension:@"xml"]];
+	[parser setXmlFilename:[self pathForResource:XML_Agent_OIDs extension:@"xml"]];
 	GVCXMLParserDelegate_Status stat = [parser parse];
 	STAssertTrue(stat == GVCXMLParserDelegate_Status_SUCCESS, @"Parse status = %d", stat);
 	

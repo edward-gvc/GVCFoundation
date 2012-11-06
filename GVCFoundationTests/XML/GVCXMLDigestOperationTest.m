@@ -40,7 +40,7 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 {
 	__block BOOL hasCalledBack = NO;
 	GVCRSSDigester *parser = [[GVCRSSDigester alloc] init];
-	[parser setFilename:[self pathForResource:@"DaringFireball" extension:@"xml"]];
+	[parser setXmlFilename:[self pathForResource:@"DaringFireball" extension:@"xml"]];
     
     GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:parser];
     
@@ -80,7 +80,7 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 {
 	__block BOOL hasCalledBack = NO;
 
-    GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=300/rss.xml"]];
+    GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=100/rss.xml"]];
     
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
         GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
@@ -88,8 +88,8 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         NSData *data = [respData responseBody];
 		[[xml_op xmlParser] setXmlData:data];
 
-        [xml_op setDidFinishBlock:^(GVCOperation *operation) {
-            GVCXMLParserOperation *xmlParseOp = (GVCXMLParserOperation *)operation;
+        [xml_op setDidFinishBlock:^(GVCOperation *xoperation) {
+            GVCXMLParserOperation *xmlParseOp = (GVCXMLParserOperation *)xoperation;
             GVCRSSDigester *parseDelegate = (GVCRSSDigester *)[xmlParseOp xmlParser];
             
             STAssertNotNil(parseDelegate, @"Operation success with parseDelegate %@", parseDelegate);
@@ -100,11 +100,11 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
             
             GVCRSSFeed *feed = (GVCRSSFeed *)[parseDelegate digestValueForPath:@"rss"];
             STAssertNotNil(feed, @"Parse feed nil %@", digest);
-            STAssertTrue([[feed feedEntries] count] == 300, @"Feed entries count %d", [[feed feedEntries] count]);
+            STAssertTrue([[feed feedEntries] count] == 100, @"Feed entries count %d", [[feed feedEntries] count]);
             
             hasCalledBack = YES;
         }];
-        [xml_op setDidFailWithErrorBlock:^(GVCOperation *operation, NSError *err) {
+        [xml_op setDidFailWithErrorBlock:^(GVCOperation *xoperation, NSError *err) {
             STAssertTrue(NO, @"Operation failed with error %@", err);
             hasCalledBack = YES;
         }];
@@ -146,10 +146,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 	__block BOOL hasCalledBack = NO;
     
     GVCStopwatch *stopwatch = [[GVCStopwatch alloc] init];
-    GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=300/rss.xml"]];
+    GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=100/rss.xml"]];
     GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
 
-    [url_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *msg){
+    [url_Op setProgressBlock:^(NSUInteger bytes, NSUInteger totalBytes, NSString *status){
 		GVCLogError(@"%f: URL Received %d of %d", [stopwatch elapsed], bytes, totalBytes);
 	}];
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
@@ -178,12 +178,13 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
         
         GVCRSSFeed *feed = (GVCRSSFeed *)[parseDelegate digestValueForPath:@"rss"];
         
-        GVCFileWriter *writer = [GVCFileWriter writerForFilename:@"/tmp/apple300.rss"];
+		GVCDirectory *testRoot = [[GVCDirectory TempDirectory] createSubdirectory:GVC_CLASSNAME(self)];
+        GVCFileWriter *writer = [GVCFileWriter writerForFilename:[testRoot fullpathForFile:@"apple300.rss"]];
         GVCXMLGenerator *outgen = [[GVCXMLGenerator alloc] initWithWriter:writer andFormat:GVC_XML_GeneratorFormat_PRETTY];
         [feed writeRss:outgen];
         
         STAssertNotNil(feed, @"Parse feed nil %@", digest);
-        STAssertTrue([[feed feedEntries] count] == 300, @"Feed entries count %d", [[feed feedEntries] count]);
+        STAssertTrue([[feed feedEntries] count] == 100, @"Feed entries count %d", [[feed feedEntries] count]);
         
         hasCalledBack = YES;
     }];
@@ -199,10 +200,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 	[[self queue] addOperation:url_Op];
 	
 	int count = 0;
-    while (hasCalledBack == NO && count < 10)
+    while (hasCalledBack == NO && count < 20)
 	{
         GVCLogError(@"letting runloop %d", count);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:20]];
         count++;
     }
     STAssertTrue(hasCalledBack, @"Operation not finished");

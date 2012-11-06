@@ -41,7 +41,7 @@
 	
 	NSURL *apple = [NSURL URLWithString:@"https://www.apple.ca/store"];
 	GVCNetOperation *apple_Op = [[GVCNetOperation alloc] initForURL:apple];
-	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *status){
+	[apple_Op setProgressBlock:^(NSUInteger bytes, NSUInteger totalBytes, NSString *status){
 		GVCLogError(@"Received %d of %d", bytes, totalBytes);
 	}];
 	[apple_Op setDidFinishBlock:^(GVCOperation *operation) {
@@ -70,8 +70,10 @@
 	
 	NSURL *apple = [NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=300/rss.xml"];
 	GVCNetOperation *apple_Op = [[GVCNetOperation alloc] initForURL:apple];
-    [apple_Op setResponseData:[[GVCStreamResponseData alloc] initForFilename:@"/tmp/itunesTop300.xml"]];
-	[apple_Op setProgressBlock:^(NSInteger bytes, NSInteger totalBytes, NSString *status){
+	
+	GVCDirectory *testRoot = [[GVCDirectory TempDirectory] createSubdirectory:GVC_CLASSNAME(self)];
+    [apple_Op setResponseData:[[GVCStreamResponseData alloc] initForFilename:[testRoot uniqueFilename]]];
+	[apple_Op setProgressBlock:^(NSUInteger bytes, NSUInteger totalBytes, NSString *status){
 		GVCLogError(@"Received %d of %d", bytes, totalBytes);
 	}];
 	[apple_Op setDidFinishBlock:^(GVCOperation *operation) {

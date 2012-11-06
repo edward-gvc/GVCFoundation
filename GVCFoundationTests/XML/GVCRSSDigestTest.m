@@ -35,14 +35,15 @@
 - (GVCRSSFeed *)feedFromFile:(NSString *)file forNode:(NSString *)root
 {
 	//[[GVCLogger sharedGVCLogger] setLoggerLevel:GVCLoggerLevel_INFO];
+	GVCDirectory *testRoot = [[GVCDirectory TempDirectory] createSubdirectory:GVC_CLASSNAME(self)];
 	
 	GVCRSSDigester *parser = [[GVCRSSDigester alloc] init];
-	[parser setFilename:[self pathForResource:file extension:@"xml"]];
+	[parser setXmlFilename:[self pathForResource:file extension:@"xml"]];
 	GVCXMLParserDelegate_Status stat = [parser parse];
 	STAssertTrue(stat == GVCXMLParserDelegate_Status_SUCCESS, @"%@ Parse status = %d", file, stat);
 	
 	GVCRSSFeed *feed = [parser digestValueForPath:root];
-	GVCFileWriter *writer = [GVCFileWriter writerForFilename:GVC_SPRINTF(@"/tmp/%@.rss", file)];
+	GVCFileWriter *writer = [GVCFileWriter writerForFilename:[testRoot fullpathForFile:file]];
 	GVCXMLGenerator *outgen = [[GVCXMLGenerator alloc] initWithWriter:writer andFormat:GVC_XML_GeneratorFormat_PRETTY];
 	[feed writeRss:outgen];
 	
