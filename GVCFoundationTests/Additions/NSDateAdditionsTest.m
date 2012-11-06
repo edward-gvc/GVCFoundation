@@ -57,7 +57,7 @@
 	NSDate *shortFmt = [NSDate gvc_DateFromISO8601ShortValue:@"2009-02-08"];
 	STAssertEqualObjects( shortFmt, testdate, @"Date failed format" );
 	
-	NSDate *longFmt = [NSDate gvc_DateFromISO8601:@"2009-02-08T00:00:00Z"];
+	NSDate *longFmt = [NSDate gvc_DateFromISO8601:@"2009-02-08T00:00:00"];
 	STAssertEqualObjects( longFmt, testdate, @"Date failed format");
 }
 
