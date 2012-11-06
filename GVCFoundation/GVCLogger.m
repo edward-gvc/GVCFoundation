@@ -75,9 +75,6 @@ static dispatch_semaphore_t semaphore;
 	[[GVCLogger sharedGVCLogger] flushQueue];
 }
 
-@synthesize writer;
-@synthesize loggerLevel;
-
 GVC_SINGLETON_CLASS(GVCLogger)
 
 - (id)init
@@ -85,11 +82,16 @@ GVC_SINGLETON_CLASS(GVCLogger)
 	self = [super init];
 	if ( self != nil )
 	{
-        [self setLoggerLevel:GVCLoggerLevel_DEBUG];
         [self setWriter:[[NSLogWriter alloc] init]];
+        [self setLoggerLevel:GVCLoggerLevel_DEBUG];
 	}
 	
     return self;
+}
+
+- (void)setWriter:(NSObject<GVCLogWriter> *)awriter
+{
+	_writer = (awriter == nil ? [[NSLogWriter alloc] init] : awriter);
 }
 
 - (void)gvc_invariants
@@ -135,7 +137,7 @@ GVC_SINGLETON_CLASS(GVCLogger)
 					)
     
     // error level logs ALWAYS are active
-	return (level == GVCLoggerLevel_ERROR) || (loggerLevel >= level );
+	return (level == GVCLoggerLevel_ERROR) || ([self loggerLevel] >= level );
 }
 
 - (void)flushQueue
@@ -153,11 +155,7 @@ GVC_SINGLETON_CLASS(GVCLogger)
 					GVC_DBC_FACT_NOT_NIL(message);
 					)
 
-    if ( writer == nil )
-    {
-        [self setWriter:[[NSLogWriter alloc] init]];
-    }
-    [writer log:message];
+    [[self writer] log:message];
     
     // GCD counting semaphore is incremented each time a message is written
     dispatch_semaphore_signal( semaphore );

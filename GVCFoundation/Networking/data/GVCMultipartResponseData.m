@@ -42,15 +42,6 @@ typedef enum {
 
 @implementation GVCMultipartResponseData
 
-@synthesize multipart_state;
-@synthesize multipart_boundary;
-@synthesize multipart_boundary_end;
-@synthesize CRLFCRLF;
-@synthesize responseFilename;
-@synthesize multipart_responses;
-@synthesize currentResponseData;
-@synthesize buffer;
-
 - (id)init
 {
     return [self initForFilename:nil];
@@ -90,7 +81,7 @@ typedef enum {
 
 - (NSArray *)responseParts
 {
-    return [multipart_responses copy];
+    return [[self multipart_responses] copy];
 }
 
 - (BOOL)createResponsePart:(NSError **)err
@@ -253,7 +244,7 @@ typedef enum {
                         else
                         {
                             // Otherwise look for two CRLFs that delimit the end of the headers:
-                            NSRange headerRange = [[self buffer] gvc_rangeOfData:CRLFCRLF fromStart:0];
+                            NSRange headerRange = [[self buffer] gvc_rangeOfData:[self CRLFCRLF] fromStart:0];
                             if (headerRange.length > 0) 
                             {
                                 // found headers, so start a new responsePart
