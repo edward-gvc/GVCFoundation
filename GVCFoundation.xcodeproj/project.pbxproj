@@ -453,6 +453,7 @@
 		05779429163EFEC60089DBF3 /* GVCXSDString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCXSDString.m; sourceTree = "<group>"; };
 		057AB3651513B49600C8E193 /* NSDictionary+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GVCFoundation.h"; sourceTree = "<group>"; };
 		057AB3661513B49600C8E193 /* NSDictionary+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GVCFoundation.m"; sourceTree = "<group>"; };
+		0587525A1649B69800BE62D7 /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = "<group>"; };
 		05879D0915371084007A35C4 /* NSDate+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+GVCFoundation.h"; sourceTree = "<group>"; };
 		05879D0A15371084007A35C4 /* NSDate+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+GVCFoundation.m"; sourceTree = "<group>"; };
 		058E4F7F1560B0BA00DD2CAF /* NSScanner+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+GVCFoundation.h"; sourceTree = "<group>"; };
@@ -853,6 +854,7 @@
 				05F1A62F15EAA87600568FEE /* doxygen.config */,
 				056F595D147EED900076010D /* GVCDebug.xcconfig */,
 				056F595E147EED900076010D /* GVCRelease.xcconfig */,
+				0587525A1649B69800BE62D7 /* Documentation */,
 				056F595F147EED900076010D /* Licenses */,
 				056F5961147EED900076010D /* Templates */,
 			);
