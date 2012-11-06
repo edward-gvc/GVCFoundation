@@ -145,13 +145,6 @@
 		[self addRule:set_prop_cdata forNodeName:@"link"];
 		[self addRule:set_prop_cdata forNodeName:@"source"];
 
-		// create <link> rule
-
-
-		GVCFileWriter *out = [[GVCFileWriter alloc] initForFilename:@"/tmp/rss.digest" encoding:NSUTF8StringEncoding];
-		GVCXMLGenerator *generator = [[GVCXMLGenerator alloc] initWithWriter:out andFormat:GVC_XML_GeneratorFormat_PRETTY];
-		[self writeConfiguration:generator];
-		[generator closeDocument];
 	}
 	
     return self;
