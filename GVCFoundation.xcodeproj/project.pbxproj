@@ -1500,6 +1500,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
 		};
 		056F59A3147EEE780076010D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1513,6 +1514,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/Resources/BuildKitHeader.sh";
+			showEnvVarsInLog = 0;
 		};
 		059939991605041B0020BDD9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1526,6 +1528,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/Resources/Templates/templateInstall.sh";
+			showEnvVarsInLog = 0;
 		};
 		05CB837815EAAAE30037072E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
