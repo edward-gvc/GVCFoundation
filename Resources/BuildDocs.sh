@@ -13,7 +13,7 @@ fi
 	--docset-feed-url "http://global-village.net/GVCFoundation/%DOCSETATOMFILENAME" \
 	--docset-package-url "http://global-village.net/GVCFoundation/%DOCSETPACKAGEFILENAME" \
 	--docset-fallback-url "http://global-village.net/GVCFoundation/" \
-	--output "~/help" \
+	--output "~/Sites/GVCFoundation" \
 	--publish-docset \
 	--logformat xcode \
 	--keep-undocumented-objects \
