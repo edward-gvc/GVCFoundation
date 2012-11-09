@@ -81,14 +81,16 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 	__block BOOL hasCalledBack = NO;
 
     GVCNetOperation *url_Op = [[GVCNetOperation alloc] initForURL:[NSURL URLWithString:@"http://ax.phobos.apple.com.edgesuite.net/WebObjects/MZStore.woa/wpa/MRSS/newreleases/limit=100/rss.xml"]];
+	GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
     
 	[url_Op setDidFinishBlock:^(GVCOperation *operation) {
-        GVCXMLParserOperation *xml_op = [[GVCXMLParserOperation alloc] initForParser:[[GVCRSSDigester alloc] init]];
+		GVCLogError(@"URL download operation completed %@", operation);
         GVCMemoryResponseData *respData = (GVCMemoryResponseData *)[(GVCNetOperation *)operation responseData];
         NSData *data = [respData responseBody];
 		[[xml_op xmlParser] setXmlData:data];
 
         [xml_op setDidFinishBlock:^(GVCOperation *xoperation) {
+			GVCLogError(@"xml parse operation completed %@", xoperation);
             GVCXMLParserOperation *xmlParseOp = (GVCXMLParserOperation *)xoperation;
             GVCRSSDigester *parseDelegate = (GVCRSSDigester *)[xmlParseOp xmlParser];
             
@@ -119,10 +121,10 @@ const NSString *ITUNES_URL = @"http://ax.phobos.apple.com.edgesuite.net/WebObjec
 	[[self queue] addOperation:url_Op];
 	
 	int count = 0;
-    while (hasCalledBack == NO && count < 10)
+    while (hasCalledBack == NO && count < 20)
 	{
         GVCLogError(@"letting runloop %d", count);
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:20]];
         count++;
     }
     STAssertTrue(hasCalledBack, @"Operation not finished");
