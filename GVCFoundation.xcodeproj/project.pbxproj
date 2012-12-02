@@ -206,6 +206,8 @@
 		05C2C7EB14852992004E04C0 /* GVCLogTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EA14852992004E04C0 /* GVCLogTest.m */; };
 		05C2C7EF14856648004E04C0 /* GVCFileHandleWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05C2C7F014856648004E04C0 /* GVCFileHandleWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */; };
+		05C2E32D1669172A00FDEE0D /* GVCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05C2E32B1669172A00FDEE0D /* GVCInvocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05C2E32E1669172A00FDEE0D /* GVCInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C2E32C1669172A00FDEE0D /* GVCInvocation.m */; };
 		05CD316F15E5B8A100E5780F /* NSObject+GVCFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		05CD317015E5B8A100E5780F /* NSObject+GVCFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */; };
 		05CE0EB7163C26F400DE1118 /* GVCXMLRecursiveParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CE0EB5163C26F400DE1118 /* GVCXMLRecursiveParserDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -500,6 +502,8 @@
 		05C2C7EA14852992004E04C0 /* GVCLogTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCLogTest.m; sourceTree = "<group>"; };
 		05C2C7ED14856648004E04C0 /* GVCFileHandleWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCFileHandleWriter.h; sourceTree = "<group>"; };
 		05C2C7EE14856648004E04C0 /* GVCFileHandleWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCFileHandleWriter.m; sourceTree = "<group>"; };
+		05C2E32B1669172A00FDEE0D /* GVCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCInvocation.h; sourceTree = "<group>"; };
+		05C2E32C1669172A00FDEE0D /* GVCInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVCInvocation.m; sourceTree = "<group>"; };
 		05CD316D15E5B8A100E5780F /* NSObject+GVCFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+GVCFoundation.h"; sourceTree = "<group>"; };
 		05CD316E15E5B8A100E5780F /* NSObject+GVCFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GVCFoundation.m"; sourceTree = "<group>"; };
 		05CE0EB5163C26F400DE1118 /* GVCXMLRecursiveParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCXMLRecursiveParserDelegate.h; sourceTree = "<group>"; };
@@ -772,6 +776,8 @@
 				05D186C31504167500EDBE80 /* XML */,
 				056F599A147EEDD10076010D /* GVCFunctions.h */,
 				056F599B147EEDD10076010D /* GVCFunctions.m */,
+				05C2E32B1669172A00FDEE0D /* GVCInvocation.h */,
+				05C2E32C1669172A00FDEE0D /* GVCInvocation.m */,
 				05E091F01594F01B00C6B1A0 /* GVCKeychain.h */,
 				05E091F11594F01B00C6B1A0 /* GVCKeychain.m */,
 				056F599C147EEDD10076010D /* GVCMacros.h */,
@@ -1386,6 +1392,7 @@
 				05CE0EBB163C7A6600DE1118 /* GVCSOAPFaultcode.h in Headers */,
 				0577942A163EFEC60089DBF3 /* GVCXSDString.h in Headers */,
 				05CE0EBF163C7C7700DE1118 /* GVCSOAPFaultstring.h in Headers */,
+				05C2E32D1669172A00FDEE0D /* GVCInvocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1649,6 +1656,7 @@
 				05CE0EBC163C7A6600DE1118 /* GVCSOAPFaultcode.m in Sources */,
 				05CE0EC0163C7C7700DE1118 /* GVCSOAPFaultstring.m in Sources */,
 				0577942B163EFEC60089DBF3 /* GVCXSDString.m in Sources */,
+				05C2E32E1669172A00FDEE0D /* GVCInvocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
