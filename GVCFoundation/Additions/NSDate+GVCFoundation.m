@@ -14,16 +14,13 @@
 
 
 
-+ (NSDateFormatter *)gvc_ISO8601LongDateFormatter
++ (GVCISO8601DateFormatter *)gvc_ISO8601LongDateFormatter
 {
-	static NSDateFormatter *iso8601LongDateFormatter = nil;
+	static GVCISO8601DateFormatter *iso8601LongDateFormatter = nil;
 	if (iso8601LongDateFormatter == nil)
 	{
-		iso8601LongDateFormatter = [[NSDateFormatter alloc] init];
-        [iso8601LongDateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-//        [iso8601LongDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-		[iso8601LongDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+		iso8601LongDateFormatter = [[GVCISO8601DateFormatter alloc] init];
+		[iso8601LongDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
 	}
 	return iso8601LongDateFormatter;
 }
