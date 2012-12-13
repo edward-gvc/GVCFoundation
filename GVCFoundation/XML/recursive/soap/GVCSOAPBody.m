@@ -10,6 +10,7 @@
 #import "GVCXMLNamespace.h"
 #import "GVCXMLGenerator.h"
 #import "GVCStack.h"
+#import "GVCLogger.h"
 
 GVC_DEFINE_STRVALUE(GVCSOAPBody_elementname, Body);
 
