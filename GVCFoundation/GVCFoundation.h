@@ -38,6 +38,7 @@
 #import "GVCFileHandleWriter.h"
 #import "GVCFileWriter.h"
 #import "GVCFunctions.h"
+#import "GVCInvocation.h"
 #import "GVCKeychain.h"
 #import "GVCLogger.h"
 #import "GVCMacros.h"
