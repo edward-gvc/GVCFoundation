@@ -110,7 +110,9 @@
 {
 	GVC_DBC_REQUIRE(
 					GVC_DBC_FACT_NOT_NIL(target);
+					GVC_DBC_FACT_NOT_NIL(args);
 					GVC_DBC_FACT_NOT_NIL([self methodSignature]);
+					GVC_DBC_FACT([[self methodSignature] numberOfArguments] == ([args count]+2));
 					)
 	
 	// implementation
