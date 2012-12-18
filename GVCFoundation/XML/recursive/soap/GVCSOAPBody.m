@@ -11,6 +11,7 @@
 #import "GVCXMLGenerator.h"
 #import "GVCLogger.h"
 #import "GVCStack.h"
+#import "GVCLogger.h"
 
 GVC_DEFINE_STRVALUE(GVCSOAPBody_elementname, Body);
 
