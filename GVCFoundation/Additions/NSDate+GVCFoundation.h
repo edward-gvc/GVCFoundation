@@ -22,9 +22,37 @@
 - (NSString *)gvc_iso8601ShortStringValue;
 - (NSString *)gvc_iso8601StringValue;
 
-- (BOOL)gvc_isFutureDate;
 
 - (NSString *)gvc_FormattedStyle:(NSDateFormatterStyle)style;
 - (NSString *)gvc_FormattedStringValue:(NSString *)fmt;
+
+#pragma mark - Date comparison 
+
+/**
+ * compare 2 dates to determine which is earlier
+ * @param aDate - the date to compare
+ * @returns YES if the current object is earlier than the parameter
+ */
+- (BOOL)gvc_isEarlierThanDate: (NSDate *)aDate;
+
+/**
+ * compare 2 dates to determine which is later
+ * @param aDate - the date to compare
+ * @returns YES if the current object is later than the parameter
+ */
+- (BOOL)gvc_isLaterThanDate: (NSDate *)aDate;
+
+/**
+ * compare the current object to the current date and time
+ * @returns YES if the current object is later than the current time
+ */
+- (BOOL)gvc_isFutureDate;
+
+/**
+ * compare 2 dates for equality ignoring time
+ * @param aDate - the date to compare
+ * @returns YES if the current object is equal to the parameter
+ */
+- (BOOL)gvc_isEqualToDateIgnoringTime:(NSDate *)aDate;
 
 @end

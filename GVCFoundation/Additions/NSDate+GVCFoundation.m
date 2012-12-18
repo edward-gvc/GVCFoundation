@@ -88,8 +88,37 @@
 	return [formatter stringFromDate:self];
 }
 
+
+
+#pragma mark - Date comparison
+
+- (BOOL)gvc_isEarlierThanDate: (NSDate *) aDate
+{
+	return ([self compare:aDate] == NSOrderedAscending);
+}
+
 - (BOOL)gvc_isFutureDate
 {
-	return [self compare:[NSDate date]] == NSOrderedDescending;
+	return [self gvc_isLaterThanDate:[NSDate date]];
 }
+
+- (BOOL)gvc_isLaterThanDate: (NSDate *) aDate
+{
+	return ([self compare:aDate] == NSOrderedDescending);
+}
+
+- (BOOL)gvc_isEqualToDateIgnoringTime:(NSDate *) aDate
+{
+	BOOL isEqual = NO;
+	if ( aDate != nil )
+	{
+		NSUInteger compUnits = (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit);
+		
+		NSDateComponents *components1 = [[NSCalendar currentCalendar] components:compUnits fromDate:self];
+		NSDateComponents *components2 = [[NSCalendar currentCalendar] components:compUnits fromDate:aDate];
+		isEqual = ((components1.year == components2.year) && (components1.month == components2.month) && (components1.day == components2.day));
+	}
+	return isEqual;
+}
+
 @end
