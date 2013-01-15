@@ -143,7 +143,12 @@
  */
 - (NSString *)currentTrimmedTextString
 {
-    NSString  *trimed = [[self currentTextBuffer] gvc_TrimWhitespaceAndNewline];
+	NSString  *trimed = nil;
+	NSString *current = [self currentTextBuffer];
+	if ( gvc_IsEmpty(current) == NO)
+	{
+		trimed = [current gvc_TrimWhitespaceAndNewline];
+	}
     return (gvc_IsEmpty(trimed) ? nil : trimed);
 }
 
@@ -190,7 +195,14 @@
 {
 	if (gvc_IsEmpty(string) == NO)
 	{
-		[self setCurrentTextBuffer:GVC_SPRINTF(@"%@%@", [self currentTextBuffer], string)];
+		if ( [self currentTextBuffer] == nil )
+		{
+			[self setCurrentTextBuffer:string];
+		}
+		else
+		{
+			[self setCurrentTextBuffer:GVC_SPRINTF(@"%@%@", [self currentTextBuffer], string)];
+		}
 	}
 }
 
