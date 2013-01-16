@@ -8,7 +8,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 #pragma mark - Interface declaration
 

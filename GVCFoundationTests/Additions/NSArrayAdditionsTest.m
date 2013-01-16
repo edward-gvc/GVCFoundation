@@ -7,7 +7,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 #pragma mark - Interface declaration
 @interface NSArrayAdditionsTest : SenTestCase

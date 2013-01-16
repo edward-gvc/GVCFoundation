@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Global Village Consulting Inc. All rights reserved.
 //
 
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 #import <SenTestingKit/SenTestingKit.h>
 

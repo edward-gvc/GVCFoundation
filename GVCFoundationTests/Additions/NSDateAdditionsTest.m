@@ -7,7 +7,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 #pragma mark - Interface declaration
 @interface NSDateAdditionsTest : SenTestCase
@@ -49,9 +49,7 @@
 
 - (void)testISOParser
 {
-	NSTimeInterval time = (NSTimeInterval)255744000;
-	
-	NSDate *testdate = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
+	NSDate *testdate = [NSDate gvc_DateFromYear:2009 month:02 day:8 hour:0 minute:0 second:0];
 	STAssertNotNil( testdate, @"Failed to allocate date" );
 	
 	NSDate *shortFmt = [NSDate gvc_DateFromISO8601ShortValue:@"2009-02-08"];

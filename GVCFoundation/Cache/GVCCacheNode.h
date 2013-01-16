@@ -7,7 +7,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "GVCFoundation.h"
+#import <GVCFoundation/GVCFoundation.h>
 
 @protocol GVCCacheNode <NSObject, NSCoding>
 

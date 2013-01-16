@@ -25,15 +25,13 @@
 	return iso8601LongDateFormatter;
 }
 
-+ (NSDateFormatter *)gvc_ISO8601ShortDateFormatter
++ (GVCISO8601DateFormatter *)gvc_ISO8601ShortDateFormatter
 {
-	static NSDateFormatter *iso8601ShortDateFormatter = nil;
+	static GVCISO8601DateFormatter *iso8601ShortDateFormatter = nil;
 	if (iso8601ShortDateFormatter == nil)
 	{
-		iso8601ShortDateFormatter = [[NSDateFormatter alloc] init];
-        [iso8601ShortDateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [iso8601ShortDateFormatter setDateFormat:@"yyyy-MM-dd"];
-		[iso8601ShortDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+		iso8601ShortDateFormatter = [[GVCISO8601DateFormatter alloc] init];
+		[iso8601ShortDateFormatter setFormat:GVCISO8601DateFormatter_Calendar];
 	}
 	return iso8601ShortDateFormatter;
 }
@@ -56,6 +54,27 @@
 - (NSString *)gvc_iso8601StringValue
 {
 	return [[NSDate gvc_ISO8601LongDateFormatter] stringFromDate:self];
+}
+
++ (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d hour:(NSInteger)h minute:(NSInteger)mn second:(NSInteger)s
+{
+	GVC_DBC_FACT(d >= 1 && d <= 31);
+	GVC_DBC_FACT(m >= 1 && m <= 12);
+	GVC_DBC_FACT(h >= 0 && h <= 23);
+	GVC_DBC_FACT(mn >= 0 && mn <= 59);
+	GVC_DBC_FACT(s >= 0 && s <= 59);
+
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
+	[comps setHour:h];
+	[comps setMinute:mn];
+	[comps setSecond:s];
+	[comps setDay:d];
+	[comps setMonth:m];
+	[comps setYear:y];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSDate *date = [gregorian dateFromComponents:comps];
+	
+	return date;
 }
 
 + (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d

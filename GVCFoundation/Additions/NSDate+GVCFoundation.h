@@ -17,6 +17,7 @@
 + (NSDate *)gvc_DateFromISO8601:(NSString *)value;
 + (NSDate *)gvc_DateFromISO8601ShortValue:(NSString *)value;
 
++ (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d hour:(NSInteger)h minute:(NSInteger)mn second:(NSInteger)s;
 + (NSDate *)gvc_DateFromYear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d;
 
 - (NSString *)gvc_iso8601ShortStringValue;
