@@ -135,6 +135,7 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
         [self setResourceDictionary:[(NSDictionary *)[plist objectForKey:@"resources"] mutableCopy]];
         [self setResourceGroupDictionary:[(NSDictionary *)[plist objectForKey:@"groups"] mutableCopy]];
         [self setMd5Hashes:[(NSDictionary *)[plist objectForKey:@"md5"] mutableCopy]];
+		[self processLocalResources:plist];
     }
     else
     {
@@ -142,43 +143,48 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
         if ( gvc_IsEmpty(localConfigPath) == NO )
         {
             NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:localConfigPath] options:NSPropertyListImmutable format:nil error:&plistError];
-            
-            NSArray *groups = [plist allKeys];
-            for ( NSString *group in groups)
-            {
-                NSArray *templateList = (NSArray *)[plist objectForKey:group];
-                for (NSString *item in templateList )
-                {
-                    NSString *filename = [[item lastPathComponent] stringByDeletingPathExtension];
-                    NSString *ext = [[item lastPathComponent] pathExtension];
-                    NSString *subdir = [item stringByDeletingLastPathComponent];
-                    
-                    // if the resource already exists in the doc directory, then skip it
-                    if ( [docs fileExists:item] == NO )
-                    {
-                        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:filename ofType:ext inDirectory:subdir];
-                        if ( gvc_IsEmpty(bundlePath) == NO )
-                        {
-                            [docs createSubdirectory:subdir];
-                            if ([docs copyFileFrom:bundlePath to:item] == YES)
-                            {
-                                // add it to the indexes
-                                [self updateIndexes:item forGroup:group];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // add it to the indexes
-                        [self updateIndexes:item forGroup:group];
-                    }
-                }
-            }
-        }
-        else 
-        {
-            GVCLogInfo(@"No local configuration file named %@", GVCConfiguration_RESOURCES_FILE );
-        }
+			[self processLocalResources:plist];
+		}
+		else
+		{
+			GVCLogInfo(@"No local configuration file named %@", GVCConfiguration_RESOURCES_FILE );
+		}
+	}
+}
+
+- (void)processLocalResources:(NSDictionary *)plist
+{
+    GVCDirectory *docs = [GVCDirectory DocumentDirectory];
+	NSArray *groups = [plist allKeys];
+	for ( NSString *group in groups)
+	{
+		NSArray *templateList = (NSArray *)[plist objectForKey:group];
+		for (NSString *item in templateList )
+		{
+			NSString *filename = [[item lastPathComponent] stringByDeletingPathExtension];
+			NSString *ext = [[item lastPathComponent] pathExtension];
+			NSString *subdir = [item stringByDeletingLastPathComponent];
+			
+			// if the resource already exists in the doc directory, then skip it
+			if ( [docs fileExists:item] == NO )
+			{
+				NSString *bundlePath = [[NSBundle mainBundle] pathForResource:filename ofType:ext inDirectory:subdir];
+				if ( gvc_IsEmpty(bundlePath) == NO )
+				{
+					[docs createSubdirectory:subdir];
+					if ([docs copyFileFrom:bundlePath to:item] == YES)
+					{
+						// add it to the indexes
+						[self updateIndexes:item forGroup:group];
+					}
+				}
+			}
+			else
+			{
+				// add it to the indexes
+				[self updateIndexes:item forGroup:group];
+			}
+		}
     }
 }
 
@@ -221,7 +227,11 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
 - (void)processRemoteResource:(NSString *)itemKey md5:(NSString *)md5 forGroup:(NSString *)group;
 {
     BOOL needsUpdate = YES;
-    if ( [[self md5Hashes] objectForKey:itemKey] != nil )
+	
+	GVCDirectory *docs = [GVCDirectory DocumentDirectory];
+	NSString *subdir = [itemKey stringByDeletingLastPathComponent];
+
+    if (([docs fileExists:itemKey] == YES) && ([[self md5Hashes] objectForKey:itemKey] != nil ))
     {
         NSString *currentMD5 = [[self md5Hashes] objectForKey:itemKey];
         if ( [currentMD5 isEqualToString:md5] == YES )
@@ -240,8 +250,6 @@ GVC_SINGLETON_CLASS(GVCConfiguration)
         [rscDownload setAllowSelfSignedCerts:YES];
         [rscDownload setResponseData:[[GVCStreamResponseData alloc] initForFilename:temp]];
         [rscDownload setDidFinishBlock:^(GVCOperation *operation) {
-            NSString *subdir = [itemKey stringByDeletingLastPathComponent];
-            GVCDirectory *docs = [GVCDirectory DocumentDirectory];
             NSString *backupName = nil;
             BOOL success = YES;
             
