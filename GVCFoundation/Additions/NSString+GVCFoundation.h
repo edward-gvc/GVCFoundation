@@ -40,6 +40,7 @@
 /* components, optionally filters out blank string results */
 - (NSArray *)gvc_componentsSeparatedByCharactersInSet:(NSCharacterSet *)val includeEmpty:(BOOL)included;
 - (NSArray *)gvc_componentsSeparatedByString:(NSString *)val includeEmpty:(BOOL)included;
+- (NSSet *)gvc_uniqueComponentsSeparatedByString:(NSString *)val includeEmpty:(BOOL)included;
 
 /* files and filenames */
 - (NSString *)gvc_stringByAppendingFilename:(NSString *)fname withExtension:(NSString *)ext;

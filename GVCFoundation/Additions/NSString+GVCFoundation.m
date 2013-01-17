@@ -117,6 +117,12 @@
     return comps;
 }
 
+- (NSSet *)gvc_uniqueComponentsSeparatedByString:(NSString *)val includeEmpty:(BOOL)included
+{
+    NSArray *comps = [self gvc_componentsSeparatedByString:val includeEmpty:included];
+	return [NSSet setWithArray:comps];
+}
+
 #pragma mark - file names
 
 - (NSString *)gvc_stringByAppendingFilename:(NSString *)fname withExtension:(NSString *)ext
