@@ -16,11 +16,37 @@ const NSUInteger kDefaultMaxBytesToHexDump = 1024;
 
 @implementation NSData (GVCFoundation)
 
-static char encodingTable[64] = {
+static char gvc_b64encodingTable[64] = {
 	'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
 	'Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f',
 	'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v',
-	'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/' };
+	'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/'
+};
+
+static char *gvc_b64decodingTable = NULL;
+
+static void gvc_initialize_b64decodingTable()
+{
+    static dispatch_once_t b64decodeMutex; \
+	dispatch_once(&b64decodeMutex, ^{ \
+		gvc_b64decodingTable = malloc(256);
+		if (gvc_b64decodingTable != NULL)
+			return;
+		memset(gvc_b64decodingTable, CHAR_MAX, 256);
+		for (NSUInteger i = 0; i < 64; i++)
+        {
+			gvc_b64decodingTable[(short)gvc_b64encodingTable[i]] = i;
+        }
+	});
+}
+
+static void gvc_b64decodeBlock(unsigned char inbytes[4], unsigned char outbytes[3])
+{
+    outbytes[0] = (unsigned char)((inbytes[0] << 2) | (inbytes[1] >> 4));
+    outbytes[1] = (unsigned char)((inbytes[1] << 4) | (inbytes[2] >> 2));
+    outbytes[2] = (unsigned char)(((inbytes[2] << 6) & 0xc0) | inbytes[3]);
+    return;
+}
 
 - (NSString *)description
 {
@@ -180,7 +206,7 @@ static char encodingTable[64] = {
 		}
 		
 		for( i = 0; i < ctcopy; i++ )
-			[result appendFormat:@"%c", encodingTable[outbuf[i]]];
+			[result appendFormat:@"%c", gvc_b64encodingTable[outbuf[i]]];
 		
 		for( i = ctcopy; i < 4; i++ )
 			[result appendString:@"="];
@@ -200,62 +226,50 @@ static char encodingTable[64] = {
 - (NSData *)gvc_base64Decoded
 {
 	const unsigned char	*bytes = [self bytes];
-	NSMutableData *result = [NSMutableData dataWithCapacity:[self length]];
-	
-	unsigned long ixtext = 0;
-	unsigned long lentext = [self length];
-	unsigned char ch = 0;
-	unsigned char inbuf[4];
-	unsigned char outbuf[3];
-	short i = 0, ixinbuf = 0;
-	BOOL flignore = NO;
-	BOOL flendtext = NO;
-	
-	while( YES )
-	{
-		if( ixtext >= lentext ) break;
-		ch = bytes[ixtext++];
-		flignore = NO;
-		
-		if( ( ch >= 'A' ) && ( ch <= 'Z' ) ) ch = ch - 'A';
-		else if( ( ch >= 'a' ) && ( ch <= 'z' ) ) ch = ch - 'a' + 26;
-		else if( ( ch >= '0' ) && ( ch <= '9' ) ) ch = ch - '0' + 52;
-		else if( ch == '+' ) ch = 62;
-		else if( ch == '=' ) flendtext = YES;
-		else if( ch == '/' ) ch = 63;
-		else flignore = YES;
-		
-		if( ! flignore )
-		{
-			short ctcharsinbuf = 3;
-			BOOL flbreak = NO;
-			
-			if( flendtext )
-			{
-				if( ! ixinbuf ) break;
-				if( ( ixinbuf == 1 ) || ( ixinbuf == 2 ) ) ctcharsinbuf = 1;
-				else ctcharsinbuf = 2;
-				ixinbuf = 3;
-				flbreak = YES;
-			}
-			
-			inbuf [ixinbuf++] = ch;
-			
-			if( ixinbuf == 4 )
-			{
-				ixinbuf = 0;
-				outbuf [0] = ( inbuf[0] << 2 ) | ( ( inbuf[1] & 0x30) >> 4 );
-				outbuf [1] = ( ( inbuf[1] & 0x0F ) << 4 ) | ( ( inbuf[2] & 0x3C ) >> 2 );
-				outbuf [2] = ( ( inbuf[2] & 0x03 ) << 6 ) | ( inbuf[3] & 0x3F );
-				
-				for( i = 0; i < ctcharsinbuf; i++ )
-					[result appendBytes:&outbuf[i] length:1];
-			}
-			
-			if( flbreak )  break;
-		}
-	}
-	
+	NSMutableData *result = [NSMutableData dataWithCapacity:((([self length] + 3) / 4) * 3)];
+
+	gvc_initialize_b64decodingTable();
+    
+    unsigned char inbuf[4];
+    unsigned char outbuf[3];
+    unsigned char ch;
+    int inindex;
+    int len;
+    
+    while (*bytes)
+    {
+        inbuf[0] = 0;
+        inbuf[1] = 0;
+        inbuf[2] = 0;
+        inbuf[3] = 0;
+        outbuf[0] = 0;
+        outbuf[1] = 0;
+        outbuf[2] = 0;
+
+        for (len = 0, inindex = 0; inindex < 4 && *bytes; inindex++)
+        {
+            ch = 0;
+            while (*bytes && ch == 0)
+            {
+                ch = *bytes++;
+                ch = (unsigned char)((ch < 43 || ch > 122) ? 0 : gvc_b64decodingTable[ch - 43]);
+                if (ch)
+                    ch = (unsigned char)((ch == '$') ? 0 : ch - 61);
+            }
+            if (ch)
+            {
+                len++;
+                inbuf[inindex] = (unsigned char)(ch - 1);
+            }
+        }
+        if (len > 0)
+        {
+            gvc_b64decodeBlock(inbuf, outbuf);
+            for (int outindex = 0; outindex < len - 1; outindex++)
+                [result appendBytes:&outbuf[outindex] length:1];
+        }
+    }
+
 	return [NSData dataWithData:result];
 }
 

@@ -34,9 +34,6 @@
  */
 #import "GVCCallbackFilter.h"
 #import "GVCConfiguration.h"
-#import "GVCDirectory.h"
-#import "GVCFileHandleWriter.h"
-#import "GVCFileWriter.h"
 #import "GVCFunctions.h"
 #import "GVCInvocation.h"
 #import "GVCKeychain.h"
@@ -187,6 +184,15 @@
 #import "GVCRSSLink.h"
 #import "GVCRSSNode.h"
 #import "GVCRSSText.h"
+
+/* 
+ * filesystem 
+ */
+#import "GVCDirectory.h"
+#import "GVCFile.h"
+#import "GVCFileHandleWriter.h"
+#import "GVCFileWriter.h"
+#import "GVCFilesystemProtocol.h"
 
 /* 
  * formatter 

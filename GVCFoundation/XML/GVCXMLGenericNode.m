@@ -14,6 +14,7 @@
 #import "GVCFunctions.h"
 #import "GVCLogger.h"
 #import "NSString+GVCFoundation.h"
+#import "NSArray+GVCFoundation.h"
 
 @interface GVCXMLGenericNode ()
 @property (strong, nonatomic) NSMutableDictionary *attributesDict;
@@ -22,13 +23,6 @@
 @end
 
 @implementation GVCXMLGenericNode
-
-@synthesize defaultNamespace;
-@synthesize localname;
-
-@synthesize attributesDict;
-@synthesize nodeArray;
-@synthesize declaredNamespaces;
 
 - (id)init
 {
@@ -41,7 +35,7 @@
 
 - (NSArray *)contentArray
 {
-	return [nodeArray copy];
+	return [[self nodeArray] copy];
 }
 
 -(GVC_XML_ContentType)xmlType
@@ -54,38 +48,38 @@
 {
 	NSMutableString *buffer = [NSMutableString stringWithFormat:@"<%@", [self qualifiedName]];
 	
-	if ( defaultNamespace != nil )
+	if ( [self defaultNamespace] != nil )
 	{
 		[buffer appendString:@" "];
-		[buffer appendString:[defaultNamespace description]];
+		[buffer appendString:[[self defaultNamespace] description]];
 	}
 
-	if ( declaredNamespaces != nil )
+	if ( [self declaredNamespaces] != nil )
 	{
 		id <GVCXMLNamespaceDeclaration> decl = nil;
-		for ( decl in declaredNamespaces)
+		for ( decl in [self declaredNamespaces])
 		{
 			[buffer appendString:@" "];
 			[buffer appendString:[decl description]];
 		}
 	}
 	
-	if ( attributesDict != nil )
+	if ( [self attributesDict] != nil )
 	{
 		NSString *attrKey = nil;
-		for ( attrKey in attributesDict)
+		for ( attrKey in [self attributesDict])
 		{
-			id <GVCXMLAttributeContent>attr = [attributesDict objectForKey:attrKey];
+			id <GVCXMLAttributeContent>attr = [[self attributesDict] objectForKey:attrKey];
 			[buffer appendString:@" "];
 			[buffer appendString:[attr description]];
 		}
 	}
 	
-	if ( nodeArray != nil )
+	if ( [self nodeArray] != nil )
 	{
 		[buffer appendString:@">"];
 		id <GVCXMLContent> node = nil;
-		for ( node in nodeArray)
+		for ( node in [self nodeArray])
 		{
 			if ( [node conformsToProtocol:@protocol(GVCXMLContainerNode)] == YES )
 				[buffer appendString:@"\n"];
@@ -106,19 +100,19 @@
 	// XMLNamedContent
 - (NSArray *)attributes
 {
-	return [attributesDict allValues];
+	return [[self attributesDict] allValues];
 }
 
 - (void)addAttribute:(id <GVCXMLAttributeContent>)attrb
 {
 	if ( attrb != nil )
 	{
-		if ( attributesDict == nil )
+		if ( [self attributesDict] == nil )
 		{
-			attributesDict = [[NSMutableDictionary alloc] init];
+			[self setAttributesDict:[[NSMutableDictionary alloc] init]];
 		}
 		
-		[attributesDict setObject:attrb forKey:[attrb qualifiedName]];
+		[[self attributesDict] setObject:attrb forKey:[attrb qualifiedName]];
 	}
 }
 
@@ -133,7 +127,7 @@
 
 - (id <GVCXMLAttributeContent>)attributeForName:(NSString *)key
 {
-	return [attributesDict objectForKey:key];
+	return [[self attributesDict] objectForKey:key];
 }
 
 - (void)addAttributesFromArray:(NSArray *)attArray
@@ -162,12 +156,12 @@
 
 - (id <GVCXMLContent>)addContent:(id <GVCXMLContent>) child
 {
-	if ( nodeArray == nil )
+	if ( [self nodeArray] == nil )
 	{
-		nodeArray = [[NSMutableArray alloc] init];
+		[self setNodeArray:[[NSMutableArray alloc] init]];
 	}
 	
-	[nodeArray addObject:child];
+	[[self nodeArray] addObject:child];
 	return child;
 }
 
@@ -187,23 +181,32 @@
 
 - (void)addDeclaredNamespace:(id <GVCXMLNamespaceDeclaration>)v
 {
-	if ([defaultNamespace isEqual:v] == NO)
+	if ([[self defaultNamespace] isEqual:v] == NO)
 	{
-		if ( declaredNamespaces == nil )
+		if ( [self declaredNamespaces] == nil )
 		{
-			declaredNamespaces = [[NSMutableArray alloc] init];
+			[self setDeclaredNamespaces:[[NSMutableArray alloc] init]];
 		}
 		
-		if ([declaredNamespaces containsObject:v] == NO)
+		if ([[self declaredNamespaces] containsObject:v] == NO)
 		{
-			[declaredNamespaces addObject:v];	
+			[(NSMutableArray *)[self declaredNamespaces] addObject:v];
 		}
 	}
 }
 
-- (NSArray *)declaredNamespaces
+- (NSArray *)namespaces
 {
-	return declaredNamespaces;
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+	if ( [self defaultNamespace] != nil )
+	{
+		[array addObject:[self defaultNamespace]];
+	}
+	if ( gvc_IsEmpty([self declaredNamespaces]) == NO)
+	{
+		[array addObjectsFromArray:[self declaredNamespaces]];
+	}
+	return array;
 }
 
 @end

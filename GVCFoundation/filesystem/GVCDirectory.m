@@ -9,14 +9,25 @@
 #include <dispatch/dispatch.h>
 
 #import "GVCDirectory.h"
+#import "GVCFile.h"
 #import "NSString+GVCFoundation.h"
 #import "NSBundle+GVCFoundation.h"
 #import "NSFileManager+GVCFoundation.h"
+#import "GVCMacros.h"
+#import "GVCFunctions.h"
+#import "GVCLogger.h"
 
 static GVCDirectory *tempDirectory;
 static GVCDirectory *cacheDirectory;
 static GVCDirectory *docsDirectory;
 static GVCDirectory *downloadsDirectory;
+//static NSMutableDictionary *hashDirectory;
+
+
+@interface GVCDirectory ()
+
+@property (strong, nonatomic) NSArray *cachedContentArray;
+@end
 
 @implementation GVCDirectory
 
@@ -137,6 +148,28 @@ static GVCDirectory *downloadsDirectory;
     return self;
 }
 
+- (NSString *)fullpath
+{
+	return [self rootDirectory];
+}
+
+/**
+ * Name of this directory
+ */
+- (NSString *)name
+{
+	return [[self rootDirectory] lastPathComponent];
+}
+
+/**
+ * Parent Directory
+ */
+- (id <GVCDirectoryProtocol>)directory
+{
+	NSString *rootPath = [[self rootDirectory] stringByDeletingLastPathComponent];
+	return [[GVCDirectory alloc] initWithRootPath:rootPath];
+}
+
 - (NSString *)md5Hash:(NSString *)path
 {
     GVC_ASSERT_NOT_EMPTY(path);
@@ -208,7 +241,7 @@ static GVCDirectory *downloadsDirectory;
             success = [fmgr moveItemAtPath:source toPath:fullPathDest error:&err];
             if ( success == NO )
             {
-                GVCLogError(@"Copyfile error %@", err);
+                GVCLogError(@"Move file error %@", err);
             }
         }
     }
@@ -229,7 +262,7 @@ static GVCDirectory *downloadsDirectory;
     BOOL success = [[NSFileManager defaultManager] copyItemAtPath:source toPath:fullPathDest error:&err];
     if ( success == NO )
     {
-        GVCLogError(@"Copyfile error %@", err);
+        GVCLogError(@"Copy file error %@", err);
     }
     return success;
 }
@@ -275,6 +308,36 @@ static GVCDirectory *downloadsDirectory;
 - (NSString *)description
 {
     return GVC_SPRINTF(@"%@ [%@]", [super description], [self rootDirectory]);
+}
+
+- (NSArray *)contents
+{
+	if ([self cachedContentArray] == nil)
+	{
+		NSArray *content = [[NSFileManager defaultManager] gvc_filePathsWithExtension:nil inDirectory:[self rootDirectory]];
+		NSMutableArray *gvcContent = [NSMutableArray arrayWithCapacity:[content count]];
+		for ( NSString *fullpath in content)
+		{
+			NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullpath error:nil];
+			if ([[attributes fileType] isEqualToString:NSFileTypeDirectory] == YES)
+			{
+				[gvcContent addObject:[[GVCDirectory alloc] initWithRootPath:fullpath]];
+			}
+			else
+			{
+				[gvcContent addObject:[GVCFile file:[fullpath lastPathComponent] inDirectory:self]];
+				// TODO: pass in the file attributes
+			}
+		}
+		[self setCachedContentArray:gvcContent];
+	}
+	
+	return [self cachedContentArray];
+}
+
+- (NSUInteger)contentCount
+{
+	return [[self contents] count];
 }
 
 @end

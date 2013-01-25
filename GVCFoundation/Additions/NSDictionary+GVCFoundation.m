@@ -8,9 +8,38 @@
 
 #import "NSDictionary+GVCFoundation.h"
 #import "NSArray+GVCFoundation.h"
-
+#import "GVCMacros.h"
+#import "GVCFunctions.h"
+#import "GVCLogger.h"
 
 @implementation NSDictionary (GVCFoundation)
+
++ (NSDictionary *)gvc_groupArray:(NSArray *)array block:(GVCGroupResultBlock)evaluator
+{
+	GVC_DBC_REQUIRE(
+					GVC_DBC_FACT_NOT_NIL(evaluator);
+					GVC_DBC_FACT_NOT_NIL(array);
+					)
+	
+	// implementation
+    NSMutableDictionary *results = [[NSMutableDictionary alloc] initWithCapacity:[array count]];
+	for (NSObject *obj in array)
+	{
+		NSString *key = evaluator(obj);
+		NSMutableArray *group = [results objectForKey:key];
+		if ( group == nil )
+		{
+			group = [NSMutableArray array];
+			[results setObject:group forKey:key];
+		}
+		[group addObject:obj];
+	}
+	
+	GVC_DBC_ENSURE(
+				   GVC_DBC_FACT_NOT_EMPTY(results);
+				   )
+	return results;
+}
 
 - (NSArray *)gvc_sortedKeys
 {

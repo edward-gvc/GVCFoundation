@@ -106,30 +106,33 @@
 	
 	// |basenames| will contain only the matching file names, not their full paths.
 	NSArray *basenames = [self contentsOfDirectoryAtPath:directoryPath  error:nil];
+	NSArray *paths = [NSArray array];
 	
 	// Check if dir doesn't exist or couldn't be opened.
-	if (basenames == nil)
-		return nil;
-	
-	// Check if dir is empty.
-	if ([basenames count] == 0)
-		return basenames;
-	
-	NSMutableArray *paths = [NSMutableArray arrayWithCapacity:[basenames count]];
-	NSString *basename;
-    
-	// Convert all the |basenames| to full paths.
-	for (basename in basenames)
+	if (gvc_IsEmpty(basenames) == NO)
 	{
-		NSString *fullPath = [directoryPath stringByAppendingPathComponent:basename];
-		[paths addObject:fullPath];
+		NSString *basename;
+		NSMutableArray *fullpathArray = [NSMutableArray arrayWithCapacity:[basenames count]];
+		
+		// Convert all the |basenames| to full paths.
+		for (basename in basenames)
+		{
+			NSString *fullPath = [directoryPath stringByAppendingPathComponent:basename];
+			[fullpathArray addObject:fullPath];
+		}
+		
+		// Check if caller wants all files, regardless of extension.
+		if (gvc_IsEmpty(extensions) == NO)
+		{
+			paths = [fullpathArray pathsMatchingExtensions:extensions];
+		}
+		else
+		{
+			paths = fullpathArray;
+		}
 	}
 	
-	// Check if caller wants all files, regardless of extension.
-	if ((extensions == nil) || ([extensions count] == 0))
-		return paths;
-	
-	return [paths pathsMatchingExtensions:extensions];
+	return paths;
 }
 
 @end

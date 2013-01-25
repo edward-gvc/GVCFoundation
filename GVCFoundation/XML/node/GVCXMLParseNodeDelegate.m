@@ -302,7 +302,7 @@
 
 	// implementation
 	//	GVCLogInfo( @"foundCharacters:%@", string);
-	string = [string gvc_TrimWhitespace];
+	string = [string gvc_TrimWhitespaceAndNewline];
 	
 	if ( gvc_IsEmpty(string) == NO )
 	{

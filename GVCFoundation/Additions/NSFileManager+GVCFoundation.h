@@ -44,7 +44,7 @@
 
 /**
  * Obtains a list of files in the specified directory with a matching file extension
- * @param extension - the file extension to search
+ * @param extension - the file extension to search, or nil for all contents
  * @param directoryPath - full path to the directory
  * @returns array of matching files
  */
@@ -52,7 +52,7 @@
 
 /**
  * Obtains a list of files in the specified directory with a matching file extension(s)
- * @param extensions - an array of extensions to search
+ * @param extensions - an array of extensions to search or nil for all contents
  * @param directoryPath - full path to the directory
  * @returns array of matching files
  */

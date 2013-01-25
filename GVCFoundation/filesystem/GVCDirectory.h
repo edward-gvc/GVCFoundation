@@ -7,9 +7,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <GVCFoundation/GVCFoundation.h>
+#import "GVCFilesystemProtocol.h"
 
-@interface GVCDirectory : NSObject
+@interface GVCDirectory : NSObject <GVCDirectoryProtocol>
 
 @property (copy, nonatomic) NSString *rootDirectory;
 
@@ -19,6 +19,25 @@
 + (GVCDirectory *)DownloadDirectory;
 
 - (id)initWithRootPath:(NSString *)path;
+
+
+/** GVCDirectoryProtocol
+ */
+
+/** 
+ * Name of this directory
+ */
+- (NSString *)name;
+
+/**
+ * Parent Directory
+ */
+- (id <GVCDirectoryProtocol>)directory;
+
+/**
+ * full path to this directory
+ */
+- (NSString *)fullpath;
 
 - (NSString *)fullpathForFile:(NSString *)filename;
 - (NSURL *)fullURLForFile:(NSString *)filename;
@@ -38,4 +57,6 @@
 - (BOOL)copyFileFrom:(NSString *)source to:(NSString *)dest;
 - (GVCDirectory *)createSubdirectory:(NSString *)name;
 
+- (NSArray *)contents;
+- (NSUInteger)contentCount;
 @end

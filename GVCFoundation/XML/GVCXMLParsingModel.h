@@ -75,6 +75,7 @@ typedef enum {
 @protocol GVCXMLNamespaceContent <GVCXMLContent>
 - (void)addDeclaredNamespace:(id <GVCXMLNamespaceDeclaration>)v;
 - (NSArray *)declaredNamespaces;
+- (NSArray *)namespaces;
 @end
 
 @protocol GVCXMLAttributeContainer <GVCXMLContent>
