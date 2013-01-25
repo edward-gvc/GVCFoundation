@@ -33,7 +33,7 @@
 }
 
 	// All code under test must be linked into the Unit Test bundle
-- (void)xxtestBase64
+- (void)testBase64
 {
 	for (NSUInteger x = 1 ; x < 1024 ; ++x)
 	{
@@ -49,12 +49,12 @@
 			[data appendBytes:&buf length:1];
 		}
 				
-		// w/ *Data apis
 		NSString *encoded = [data gvc_base64Encoded];
+		STAssertNotNil(encoded, @"Failed to encode base 64");
 		STAssertEquals(([encoded length] % 4), (NSUInteger)0, @"encoded size should be a multiple of 4");
-		GVCLogError(@"Base 64 encoding size %d\n%@", x, encoded);
 		
 		NSData *decoded = [NSData gvc_Base64Decoded:encoded];
+		STAssertNotNil(decoded, @"Failed to decode base 64");
 		STAssertEqualObjects(data, decoded, @"Decode failed");
 	}
 }
@@ -81,6 +81,7 @@
 	STAssertEqualObjects(encoded, correctEncoding, @"encoded '%@' should equal '%@'", encoded, correctEncoding);
 
 	decoded = [NSData gvc_Base64Decoded:encoded];
+	STAssertNotNil(decoded, @"Faild to decode");
 	STAssertEqualObjects(oneCharData, decoded, @"Decode failed for '%@'", correctRaw);
 
 	// two input char
@@ -151,8 +152,6 @@
 	STAssertEqualObjects(encoded, correctEncoding, @"encoded should equal correct encoding");
 	
 	decoded = [NSData gvc_Base64Decoded:encoded];
-	GVCLogError(@"Base 64 encoding \n%@", decoded);
-
 	STAssertEqualObjects(rawData, decoded, @"Decode failed all char 256");
 }
 @end
