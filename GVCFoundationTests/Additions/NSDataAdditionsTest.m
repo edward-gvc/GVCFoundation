@@ -8,16 +8,51 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <GVCFoundation/GVCFoundation.h>
+#import "GVCResourceTestCase.h"
 
 #pragma mark - Interface declaration
-@interface NSDataAdditionsTest : SenTestCase
+@interface NSDataAdditionsTest : GVCResourceTestCase
 
 @end
 
+/**
+ Convert NSData bytes into a 'c' structure that can be embedded in code
+ unsigned char test_test_test[266] = {
+     0x59, 0x65, 0x61, 0x72, 0x2C, 0x4D, 0x61, 0x6B, 0x65, 0x2C, 0x4D, 0x6F, 0x64, 0x65, 0x6C, 0x2C,
+     0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6F, 0x6E, 0x2C, 0x50, 0x72, 0x69, 0x63,
+     ...
+ };
+ printfBytes("test test test", [data bytes], [data length]);
+*/
+void printfBytes(const char *name, const unsigned char *bytes, NSUInteger length);
 
 #pragma mark - Test Case implementation
 @implementation NSDataAdditionsTest
 
+void printfBytes(const char *name, const unsigned char *bytes, NSUInteger length)
+{
+    if (bytes && (length > 0))
+    {
+        printf("unsigned char ");
+        for (NSUInteger i = 0; i < strlen(name); i++)
+        {
+            printf("%c", ((isspace(name[i]) == YES) ? '_' : name[i] ));
+        }
+        printf("[%d] = {\n\t", length);
+        for (NSUInteger i = 0; i < length; i++)
+        {
+            printf("0x%02X", (unsigned char)bytes[i]);
+            if (i+1 < length)
+                printf(", ");
+            
+            if ( ((i+1) % 16) == 0 )
+            {
+                printf("\n\t");
+            }
+        }
+        printf("\n};\n");
+    }
+}
 	// setup for all the following tests
 - (void)setUp
 {
@@ -154,4 +189,57 @@
 	decoded = [NSData gvc_Base64Decoded:encoded];
 	STAssertEqualObjects(rawData, decoded, @"Decode failed all char 256");
 }
+
+- (void)testMD5
+{
+    NSData *data = [NSData dataWithContentsOfFile:[self pathForResource:CSV_Cars extension:@"csv"]];
+    STAssertNotNil(data, @"No Data");
+    
+    unsigned char charsmd5_cars[16] = {0x5E,0x06,0x9C,0xD0,0xEA,0x1F,0xBF,0xC2,0xFD,0x71,0x75,0xE4,0xA9,0x5E,0x02,0x0A};
+    NSData *correctMD5_cars = [NSData dataWithBytesNoCopy:charsmd5_cars length:16];
+    NSData *carsMd5 = [data gvc_md5Digest];
+	STAssertNotNil(carsMd5, @"Faild to decode");
+	STAssertEqualObjects(correctMD5_cars, carsMd5, @"MD5 failed");
+	STAssertEqualObjects(@"5e069cd0ea1fbfc2fd7175e4a95e020a", [carsMd5 gvc_hexString], @"MD5 hex string failed");
+
+    data = [NSData dataWithContentsOfFile:[self pathForResource:CSV_VocabularySummary extension:@"csv"]];
+    STAssertNotNil(data, @"No Data");
+    
+    unsigned char charsmd5_vocab[16] = {0xDC,0x5B,0xDE,0xAD,0x69,0xB9,0x30,0x5D,0xAD,0x8A,0x38,0x37,0x8D,0xA3,0x51,0x0F};
+    NSData *correctMD5_vocab = [NSData dataWithBytesNoCopy:charsmd5_vocab length:16];
+    NSData *vocabMd5 = [data gvc_md5Digest];
+	STAssertNotNil(vocabMd5, @"Faild to decode");
+	STAssertEqualObjects(correctMD5_vocab, vocabMd5, @"MD5 failed");
+	STAssertEqualObjects(@"dc5bdead69b9305dad8a38378da3510f", [vocabMd5 gvc_hexString], @"MD5 hex string failed");
+}
+
+- (void)testSHA1
+{
+    NSData *data = [NSData dataWithContentsOfFile:[self pathForResource:CSV_Cars extension:@"csv"]];
+    STAssertNotNil(data, @"No Data");
+    
+    unsigned char charsSHA1_cars[20] = {
+        0xF6, 0x58, 0x8F, 0x84, 0xD9, 0xD1, 0x59, 0x19, 0x29, 0x30, 0x40, 0xCD, 0x2B, 0xFF, 0xA5, 0x34,
+        0x0E, 0x49, 0x93, 0x6B
+    };
+    NSData *correctSHA1_cars = [NSData dataWithBytesNoCopy:charsSHA1_cars length:20];
+    NSData *carsSHA1 = [data gvc_sha1Digest];
+	STAssertNotNil(carsSHA1, @"Faild to decode");
+	STAssertEqualObjects(correctSHA1_cars, carsSHA1, @"SHA1 failed");
+	STAssertEqualObjects(@"f6588f84d9d15919293040cd2bffa5340e49936b", [carsSHA1 gvc_hexString], @"SHA1 hex string failed");
+    
+    data = [NSData dataWithContentsOfFile:[self pathForResource:CSV_VocabularySummary extension:@"csv"]];
+    STAssertNotNil(data, @"No Data");
+    
+    unsigned char charsSHA1_vocab[20] = {
+        0x84, 0x71, 0x54, 0xBD, 0xA5, 0xFD, 0x54, 0x9C, 0xCF, 0xD6, 0x6D, 0xC8, 0xFF, 0x93, 0x70, 0x07,
+        0xDC, 0xC6, 0xE2, 0xC3
+    };
+    NSData *correctSHA1_vocab = [NSData dataWithBytesNoCopy:charsSHA1_vocab length:20];
+    NSData *vocabSHA1 = [data gvc_sha1Digest];
+	STAssertNotNil(vocabSHA1, @"Faild to decode");
+	STAssertEqualObjects(correctSHA1_vocab, vocabSHA1, @"SHA1 failed");
+	STAssertEqualObjects(@"847154bda5fd549ccfd66dc8ff937007dcc6e2c3", [vocabSHA1 gvc_hexString], @"SHA1 hex string failed");
+}
+
 @end
