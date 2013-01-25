@@ -117,12 +117,12 @@ NSString *gvc_LocalizedStringWithDefaultValue(NSString *key, NSString *defValue)
 	return localValue;
 }
 
-NSString *gvc_LocalizedFormat(NSString *fmt, ...)
+NSString *gvc_LocalizedFormat(NSString *key, NSString *fmt, ...)
 {
-	NSString *localFmt = [[NSBundle mainBundle] localizedStringForKey:fmt value:fmt table:nil];
+	NSString *localFmt = [[NSBundle mainBundle] localizedStringForKey:key value:fmt table:nil];
 	if ((localFmt == nil) || ([localFmt isEqualToString:fmt] == YES))
 	{
-		gvc_UpdateMissingLocalizations( fmt, fmt );
+		gvc_UpdateMissingLocalizations( key, fmt );
 		localFmt = fmt;
 	}
     

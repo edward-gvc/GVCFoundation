@@ -47,17 +47,17 @@ GVC_EXTERN NSString *gvc_LocalizedStringWithDefaultValue(NSString *key, NSString
 
 /* this function assumes the fmt is a key that will return a localized format that will then be applied against the VA_ARGS.  This is useful for an english format of "%@ is my name" and a french format of "Nom %@" and passing in an argument of "David" 
  */
-GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *fmt, ...);
+GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *key, NSString *fmt, ...);
 
 
 #if DEBUG == 1
     #define GVC_LocalizedString(K, V)		gvc_LocalizedStringWithDefaultValue(K, V)
     #define GVC_LocalizedClassString(K, V)  gvc_LocalizedStringWithDefaultValue(GVC_CLS_DOMAIN_KEY(K), V)
-    #define GVC_LocalizedFormat(K, ...)     gvc_LocalizedFormat(K, ##__VA_ARGS__)
+    #define GVC_LocalizedFormat(K, V, ...)     gvc_LocalizedFormat(K, V, ##__VA_ARGS__)
 #else
     #define GVC_LocalizedString(K, V)       [[NSBundle mainBundle] localizedStringForKey:(K) value:(V) table:(nil)]
     #define GVC_LocalizedClassString(K, V)  [[NSBundle mainBundle] localizedStringForKey:(GVC_CLS_DOMAIN_KEY(K)) value:(V) table:(nil)]
-    #define GVC_LocalizedFormat(K, ...)     [NSString stringWithFormat:NSLocalizedString(K, K), ##__VA_ARGS__]
+    #define GVC_LocalizedFormat(K, V, ...)     [NSString stringWithFormat:NSLocalizedString(K, V), ##__VA_ARGS__]
 #endif
 
 // Common Button labels
