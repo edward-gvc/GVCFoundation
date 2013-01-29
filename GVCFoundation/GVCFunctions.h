@@ -57,7 +57,7 @@ GVC_EXTERN NSString *gvc_LocalizedFormat(NSString *key, NSString *fmt, ...);
 #else
     #define GVC_LocalizedString(K, V)       [[NSBundle mainBundle] localizedStringForKey:(K) value:(V) table:(nil)]
     #define GVC_LocalizedClassString(K, V)  [[NSBundle mainBundle] localizedStringForKey:(GVC_CLS_DOMAIN_KEY(K)) value:(V) table:(nil)]
-    #define GVC_LocalizedFormat(K, V, ...)     [NSString stringWithFormat:NSLocalizedString(K, V), ##__VA_ARGS__]
+    #define GVC_LocalizedFormat(K, V, ...)     [NSString stringWithFormat:[[NSBundle mainBundle] localizedStringForKey:(K) value:V table:nil], ##__VA_ARGS__]
 #endif
 
 // Common Button labels
