@@ -1774,7 +1774,7 @@
 				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/${TARGET_NAME}";
+				PUBLIC_HEADERS_FOLDER_PATH = "Headers/${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1888,7 +1888,7 @@
 				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/${TARGET_NAME}";
+				PUBLIC_HEADERS_FOLDER_PATH = "Headers/${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1901,7 +1901,7 @@
 				GCC_PREFIX_HEADER = "GVCFoundation/GVCFoundation-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "../../Headers/${TARGET_NAME}";
+				PUBLIC_HEADERS_FOLDER_PATH = "Headers/${TARGET_NAME}";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
