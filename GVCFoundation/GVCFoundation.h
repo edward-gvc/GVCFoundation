@@ -17,6 +17,7 @@
 #import "NSDictionary+GVCFoundation.h"
 #import "NSError+GVCFoundation.h"
 #import "NSFileManager+GVCFoundation.h"
+#import "NSMethodSignature+GVCFoundation.h"
 #import "NSObject+GVCFoundation.h"
 #import "NSScanner+GVCFoundation.h"
 #import "NSSet+GVCFoundation.h"
