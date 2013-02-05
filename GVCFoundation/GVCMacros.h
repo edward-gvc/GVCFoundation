@@ -66,6 +66,18 @@ static inline BOOL gvc_IsEmpty(id thing)
 #define	GVC_FILENAME        [NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding]
 #define GVC_FUNCTIONNAME    [NSString stringWithCString:__PRETTY_FUNCTION__ encoding:NSUTF8StringEncoding]
 
+/**
+ * This allows a simple way to ensure weak variables can be accessed as stong references for messages
+ * example: weak property "nameUILabel", to set the text as [[self nameUILabel] setText:val] generates a warning
+ * using macro: GVC_WEAK_MESSAGE(nameUILabel, setText:val);
+ */
+#define GVC_WEAK_MESSAGE(prop, message) do { \
+	id _xx = [self prop]; \
+	if (_xx != nil) { \
+		[_xx message]; \
+	} \
+} while(0);
+
 	// convenient macro to create a formatted string
 #define GVC_SPRINTF(FORMAT, ... )  [NSString stringWithFormat:(FORMAT), ##__VA_ARGS__]
 
